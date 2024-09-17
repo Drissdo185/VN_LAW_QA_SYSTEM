@@ -1,0 +1,16 @@
+{
+    "category_name": "Tuyển sinh",
+    "questions": [
+      {
+        "id": 1,
+        "question": "Thông tin về trường?",
+        "answer": "Trường Đại học Quốc tế, thành lập tháng 12/2003, là trường đại học công lập đa ngành duy nhất ở Việt Nam giảng dạy và nghiên cứu hoàn toàn bằng tiếng Anh. Trường đào tạo bậc đại học và sau đại học, tập trung vào các ngành kinh tế, quản lý và kỹ thuật công nghệ. Với mô hình theo tiêu chuẩn quốc tế, Trường hợp tác với các trường đại học danh tiếng từ Hoa Kỳ, Châu Âu và Châu Á - Thái Bình Dương. Mục tiêu của Trường là trở thành đại học nghiên cứu hàng đầu tại Việt Nam và khu vực, cung cấp nguồn nhân lực chất lượng cao đáp ứng nhu cầu hội nhập."
+      },
+      {
+        "id": 2,
+        "question": "Điều kiện đầu vào là gì?",
+        "answer": "Bạn cần tốt nghiệp THPT với điểm trung bình ít nhất là 7.0. Ngoài ra, bạn có thể cần phải vượt qua kỳ thi đầu vào."
+      }
+    ]
+  }
+  
