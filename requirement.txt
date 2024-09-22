@@ -1,1 +1,5 @@
 accelerate
+psycopg2
+entence-transformers
+faiss
+chromadb
