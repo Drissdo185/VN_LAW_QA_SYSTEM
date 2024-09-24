@@ -3,3 +3,4 @@ psycopg2
 entence-transformers
 faiss
 chromadb
+steamlit
