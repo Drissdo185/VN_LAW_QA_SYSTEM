@@ -1,24 +1,26 @@
-from fastapi import FastAPI, HTTPException
-from rag.indexing import Indexing
+import streamlit as st
+from indexing import Indexing
 
-app = FastAPI()
-index_manager = Indexing(path="./chroma_db", chunk_size=200, chunk_overlap=10)
+# Initialize the Indexing class
+indexer = Indexing(path="./chroma_db", chunk_size=512, chunk_overlap=40)
 
-@app.post("/index")
-async def create_index():
-    try:
-        index_manager.embed_and_index()
-        return {"message": "Indexing process completed."}
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+def main():
+    st.title("Document Retrieval System")
+    
+    # Display text input for querying
+    query = st.text_input("Enter your query:")
+    
+    if st.button("Search"):
+        # Retrieve the answer based on the query
+        answer = indexer.retrieve(query=query)
+        
+        # Extract the answer text (assuming it's inside an object or response field)
+        if isinstance(answer, str):
+            st.write("Answer:", answer)
+        else:
+            st.write("Answer:", answer.response)  # Adjust this line based on how your response is structured.
 
-@app.get("/query")
-async def query_index(query: str):
-    try:
-        index_manager.load_index()
-        results = index_manager.retrieve(query)
-        if not results:
-            raise HTTPException(status_code=404, detail="No documents found for the query.")
-        return results
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+if __name__ == "__main__":
+    # Embed and index documents when starting the app
+    indexer.embed_and_index()
+    main()
