@@ -1,8 +1,0 @@
-accelerate
-psycopg2
-entence-transformers
-chromadb
-steamlit
-llama-index
-llama-index-embeddings-huggingface
-llama-index-llms-huggingface
