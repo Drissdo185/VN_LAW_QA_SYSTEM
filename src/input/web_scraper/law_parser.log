@@ -1,0 +1,16 @@
+2024-11-06 21:44:48,949 - DEBUG - Starting new HTTPS connection (1): luatvietnam.vn:443
+2024-11-06 21:44:49,671 - DEBUG - https://luatvietnam.vn:443 "GET /tim-van-ban.html?Keywords=&SearchByDate=IssueDate&DateFrom=&DateTo=&DocTypeId=10&OrganId=0&FieldId=24&LanguageId=0&SignerId=0&SignerName=&pSize=30 HTTP/11" 200 None
+2024-11-06 21:44:49,921 - DEBUG - Starting new HTTPS connection (1): luatvietnam.vn:443
+2024-11-06 21:44:50,695 - DEBUG - https://luatvietnam.vn:443 "GET /dau-tu/luat-sua-doi-luat-dau-tu-cong-luat-dau-tu-theo-phuong-thuc-doi-tac-cong-tu-2022-216275-d1.html HTTP/11" 200 None
+2024-11-06 21:44:50,849 - DEBUG - Starting new HTTPS connection (1): luatvietnam.vn:443
+2024-11-06 21:44:51,900 - DEBUG - https://luatvietnam.vn:443 "GET /giao-thong/luat-trat-tu-an-toan-giao-thong-duong-bo-cua-quoc-hoi-so-36-2024-qh15-360844-d1.html HTTP/11" 200 None
+2024-11-06 21:44:52,047 - INFO - Bắt đầu parse với số lượng docitems: 990
+2024-11-06 21:53:17,328 - DEBUG - Starting new HTTPS connection (1): luatvietnam.vn:443
+2024-11-06 21:53:17,546 - DEBUG - https://luatvietnam.vn:443 "GET /giao-thong/luat-duong-bo-cua-quoc-hoi-so-35-2024-qh15-360336-d1.html HTTP/11" 200 None
+2024-11-06 21:53:17,680 - INFO - Bắt đầu parse với số lượng docitems: 881
+2024-11-06 21:57:35,752 - DEBUG - Starting new HTTPS connection (1): luatvietnam.vn:443
+2024-11-06 21:57:35,926 - DEBUG - https://luatvietnam.vn:443 "GET /giao-thong/luat-duong-sat-2017-115515-d1.html HTTP/11" 200 None
+2024-11-06 21:57:36,111 - INFO - Bắt đầu parse với số lượng docitems: 736
+2024-11-06 22:05:20,597 - DEBUG - Starting new HTTPS connection (1): luatvietnam.vn:443
+2024-11-06 22:05:20,760 - DEBUG - https://luatvietnam.vn:443 "GET /giao-thong/luat-sua-dong-hang-khong-91373-d1.html HTTP/11" 200 None
+2024-11-06 22:05:20,841 - INFO - Bắt đầu parse với số lượng docitems: 109
