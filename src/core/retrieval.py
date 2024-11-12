@@ -1,6 +1,7 @@
 from typing import List, Any, Optional
 from llama_index.core.schema import NodeWithScore, QueryBundle
-from llama_index.core import StorageContext
+from llama_index.core import VectorStoreIndex
+from llama_index.vector_stores.weaviate import WeaviateVectorStore
 from pyvi import ViTokenizer
 import logging
 
@@ -10,20 +11,36 @@ logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
 )
 logger = logging.getLogger(__name__)
+
 class RetrievalManager:
     """Handles search and retrieval operations."""
     
     def __init__(
         self,
-        storage,
+        weaviate_client,
+        embed_model,
         post_processing_pipeline,
-        similarity_top_k: int = 100,
-        dense_weight: float = 0.7
+        collection_name: str = "Vn_law",
+        similarity_top_k: int = 5,
+        dense_weight: float = 0.1
     ):
-        self.storage = storage
+        """Initialize the RetrievalManager."""
+        self.weaviate_client = weaviate_client
+        self.embed_model = embed_model
         self.post_processing_pipeline = post_processing_pipeline
+        self.collection_name = collection_name
         self.similarity_top_k = similarity_top_k
         self.dense_weight = dense_weight
+        
+        # Initialize vector store and index
+        self.vector_store = WeaviateVectorStore(
+            weaviate_client=self.weaviate_client,
+            index_name=self.collection_name
+        )
+        self.index = VectorStoreIndex.from_vector_store(
+            self.vector_store,
+            embed_model=self.embed_model
+        )
 
     def perform_hybrid_search(
         self,
@@ -35,29 +52,35 @@ class RetrievalManager:
             if st_container:
                 status = st_container.status("**Retrieving relevant passages...**")
 
+            # Prepare query bundle with Vietnamese tokenization
             query_bundle = QueryBundle(
                 query_str=query,
                 custom_embedding_strs=[ViTokenizer.tokenize(query.lower())]
             )
 
-            retriever = self.storage.get_retriever(
+            # Initialize retriever with hybrid search parameters
+            retriever = self.index.as_retriever(
                 similarity_top_k=self.similarity_top_k,
                 alpha=self.dense_weight
             )
 
+            # Perform retrieval
             results = retriever.retrieve(query_bundle)
+            
+            # Apply post-processing
             processed_results = self.post_processing_pipeline.process(
                 results,
                 query_bundle
             )
 
+            # Update UI if streamlit container is provided
             if st_container and status:
                 self._update_retrieval_status(status, processed_results, results)
 
             return processed_results
 
         except Exception as e:
-            logger.error(f"Error in hybrid search: {e}")
+            logger.error("Error in hybrid search: %s", str(e))
             raise
 
     def _update_retrieval_status(
@@ -90,11 +113,10 @@ class RetrievalManager:
         """Get highlighted content for display."""
         parent_text = node.node.get_content()
         if hasattr(node.node, 'start_char_idx') and hasattr(node.node, 'end_char_idx'):
-            return (
-                f"{parent_text[:node.node.start_char_idx]}"
-                f":green[{parent_text[node.node.start_char_idx:node.node.end_char_idx].replace('\n', ' ')}]"
-                f"{parent_text[node.node.end_char_idx:]}"
-            )
+            start_part = parent_text[:node.node.start_char_idx]
+            highlight_part = parent_text[node.node.start_char_idx:node.node.end_char_idx].replace('\n', ' ')
+            end_part = parent_text[node.node.end_char_idx:]
+            return f"{start_part}:green[{highlight_part}]{end_part}"
         return parent_text
 
     @staticmethod

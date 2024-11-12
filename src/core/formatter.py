@@ -1,6 +1,6 @@
 from typing import Dict, Any, List
 from llama_index.core.schema import NodeRelationship, NodeWithScore
-from src.core.types import SearchResult
+from core.types import SearchResult
 
 class ResultFormatter:
     """Handles formatting of search results."""
