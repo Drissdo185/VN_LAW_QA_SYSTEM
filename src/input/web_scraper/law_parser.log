@@ -14,3 +14,315 @@
 2024-11-06 22:05:20,597 - DEBUG - Starting new HTTPS connection (1): luatvietnam.vn:443
 2024-11-06 22:05:20,760 - DEBUG - https://luatvietnam.vn:443 "GET /giao-thong/luat-sua-dong-hang-khong-91373-d1.html HTTP/11" 200 None
 2024-11-06 22:05:20,841 - INFO - Bắt đầu parse với số lượng docitems: 109
+2024-11-11 19:36:08,845 - DEBUG - Starting new HTTPS connection (1): luatvietnam.vn:443
+2024-11-11 19:36:09,013 - DEBUG - https://luatvietnam.vn:443 "GET /giao-thong/luat-sua-dong-hang-khong-91373-d1.html HTTP/11" 200 None
+2024-11-11 19:36:09,103 - INFO - Bắt đầu parse với số lượng docitems: 109
+2024-11-11 19:37:28,590 - DEBUG - Starting new HTTPS connection (1): luatvietnam.vn:443
+2024-11-11 19:37:29,331 - DEBUG - https://luatvietnam.vn:443 "GET /giao-thong/luat-sua-doi-giao-thong-duong-thuy-87926-d1.html HTTP/11" 200 None
+2024-11-11 19:37:29,443 - INFO - Bắt đầu parse với số lượng docitems: 84
+2024-11-11 19:37:45,044 - DEBUG - Starting new HTTPS connection (1): luatvietnam.vn:443
+2024-11-11 19:37:45,242 - DEBUG - https://luatvietnam.vn:443 "GET /giao-thong/luat-giao-thong-duong-bo-2008-39051-d1.html HTTP/11" 200 None
+2024-11-11 19:37:45,496 - INFO - Bắt đầu parse với số lượng docitems: 812
+2024-11-11 19:38:03,426 - DEBUG - Starting new HTTPS connection (1): luatvietnam.vn:443
+2024-11-11 19:38:04,167 - DEBUG - https://luatvietnam.vn:443 "GET /giao-thong/luat-hang-khong-2006-18867-d1.html HTTP/11" 200 None
+2024-11-11 19:38:04,365 - INFO - Bắt đầu parse với số lượng docitems: 1290
+2024-11-11 21:34:23,485 - DEBUG - Starting new HTTPS connection (1): luatvietnam.vn:443
+2024-11-11 21:34:23,681 - DEBUG - https://luatvietnam.vn:443 "GET /thue/nghi-dinh-130-2024-nd-cp-thu-phi-duong-bo-cao-toc-voi-phuong-tien-luu-thong-tren-tuyen-duong-bo-cao-toc-368350-d1.html HTTP/11" 200 None
+2024-11-11 21:34:23,737 - INFO - Bắt đầu parse với số lượng docitems: 111
+2024-11-11 21:34:23,738 - DEBUG - Starting new HTTPS connection (1): luatvietnam.vn:443
+2024-11-11 21:34:24,588 - DEBUG - https://luatvietnam.vn:443 "GET /doanh-nghiep/nghi-dinh-121-2024-nd-cp-sua-doi-nd-139-2018-nd-cp-quy-dinh-kinh-doanh-dich-vu-kiem-dinh-xe-co-gioi-367481-d1.html HTTP/11" 200 None
+2024-11-11 21:34:24,663 - INFO - Bắt đầu parse với số lượng docitems: 20
+2024-11-11 21:34:24,665 - DEBUG - Starting new HTTPS connection (1): luatvietnam.vn:443
+2024-11-11 21:34:25,616 - DEBUG - https://luatvietnam.vn:443 "GET /tai-chinh/nghi-dinh-119-2024-nd-cp-cua-chinh-phu-quy-dinh-ve-thanh-toan-dien-tu-giao-thong-duong-bo-367223-d1.html HTTP/11" 200 None
+2024-11-11 21:34:25,725 - INFO - Bắt đầu parse với số lượng docitems: 288
+2024-11-11 21:34:25,727 - DEBUG - Starting new HTTPS connection (1): luatvietnam.vn:443
+2024-11-11 21:34:26,618 - DEBUG - https://luatvietnam.vn:443 "GET /giao-thong/nghi-dinh-57-2024-nd-cp-quan-ly-hoat-dong-nao-vet-trong-vung-nuoc-cang-bien-va-vung-nuoc-duong-thuy-noi-dia-337354-d1.html HTTP/11" 200 None
+2024-11-11 21:34:26,739 - INFO - Bắt đầu parse với số lượng docitems: 326
+2024-11-11 21:34:26,741 - DEBUG - Starting new HTTPS connection (1): luatvietnam.vn:443
+2024-11-11 21:34:27,864 - DEBUG - https://luatvietnam.vn:443 "GET /giao-thong/nghi-dinh-44-2024-nd-cp-quy-dinh-quan-ly-va-khai-thac-tai-san-ket-cau-ha-tang-giao-thong-duong-bo-320616-d1.html HTTP/11" 200 None
+2024-11-11 21:34:28,038 - INFO - Bắt đầu parse với số lượng docitems: 661
+2024-11-11 21:34:28,041 - DEBUG - Starting new HTTPS connection (1): luatvietnam.vn:443
+2024-11-11 21:34:29,298 - DEBUG - https://luatvietnam.vn:443 "GET /giao-thong/nghi-dinh-41-2024-nd-cp-sua-doi-cac-nd-ve-quan-ly-hoat-dong-van-tai-bang-xe-o-to-317978-d1.html HTTP/11" 200 None
+2024-11-11 21:34:29,901 - INFO - Bắt đầu parse với số lượng docitems: 177
+2024-11-11 21:34:29,904 - DEBUG - Starting new HTTPS connection (1): luatvietnam.vn:443
+2024-11-11 21:34:34,314 - DEBUG - https://luatvietnam.vn:443 "GET /giao-thong/nghi-dinh-34-2024-nd-cp-danh-muc-van-chuyen-hang-hoa-nguy-hiem-bang-phuong-tien-giao-thong-co-gioi-309573-d1.html HTTP/11" 200 None
+2024-11-11 21:34:36,187 - INFO - Bắt đầu parse với số lượng docitems: 255
+2024-11-11 21:34:36,210 - DEBUG - Starting new HTTPS connection (1): luatvietnam.vn:443
+2024-11-11 21:34:37,182 - DEBUG - https://luatvietnam.vn:443 "GET /giao-thong/nghi-dinh-30-2024-nd-cp-quan-ly-phuong-tien-co-gioi-nguoi-nuoc-ngoai-dua-vao-vn-du-lich-302837-d1.html HTTP/11" 200 None
+2024-11-11 21:34:37,280 - INFO - Bắt đầu parse với số lượng docitems: 93
+2024-11-11 21:34:37,282 - DEBUG - Starting new HTTPS connection (1): luatvietnam.vn:443
+2024-11-11 21:34:38,105 - DEBUG - https://luatvietnam.vn:443 "GET /giao-thong/nghi-dinh-20-2024-nd-cp-sua-doi-nghi-dinh-05-2021-nd-cp-va-nghi-dinh-64-2022-nd-cp-298708-d1.html HTTP/11" 200 None
+2024-11-11 21:34:38,203 - INFO - Bắt đầu parse với số lượng docitems: 40
+2024-11-11 21:34:38,206 - DEBUG - Starting new HTTPS connection (1): luatvietnam.vn:443
+2024-11-11 21:34:39,231 - DEBUG - https://luatvietnam.vn:443 "GET /giao-thong/nghi-dinh-15-2024-nd-cp-sua-doi-nghi-dinh-30-2013-nd-cp-va-nghi-dinh-92-2016-nd-cp-296566-d1.html HTTP/11" 200 None
+2024-11-11 21:34:39,322 - INFO - Bắt đầu parse với số lượng docitems: 24
+2024-11-11 21:34:39,323 - DEBUG - Starting new HTTPS connection (1): luatvietnam.vn:443
+2024-11-11 21:34:40,058 - DEBUG - https://luatvietnam.vn:443 "GET /giao-thong/nghi-dinh-06-2024-nd-cp-sua-nghi-dinh-08-2021-quan-ly-hoat-dong-duong-thuy-noi-dia-293090-d1.html HTTP/11" 200 None
+2024-11-11 21:34:40,116 - INFO - Bắt đầu parse với số lượng docitems: 28
+2024-11-11 21:34:40,118 - DEBUG - Starting new HTTPS connection (1): luatvietnam.vn:443
+2024-11-11 21:34:40,821 - DEBUG - https://luatvietnam.vn:443 "GET /giao-thong/decree-01-2024-nd-cp-amend-11-2010-nd-cp-management-of-road-infrastructure-facilities-287104-d1.html HTTP/11" 200 None
+2024-11-11 21:34:40,926 - INFO - Bắt đầu parse với số lượng docitems: 16
+2024-11-11 21:34:40,927 - DEBUG - Starting new HTTPS connection (1): luatvietnam.vn:443
+2024-11-11 21:34:41,584 - DEBUG - https://luatvietnam.vn:443 "GET /giao-thong/nghi-dinh-91-2023-nd-cp-sua-doi-nghi-dinh-65-2018-nd-cp-va-nghi-dinh-01-2022-nd-cp-282929-d1.html HTTP/11" 200 None
+2024-11-11 21:34:41,630 - INFO - Bắt đầu parse với số lượng docitems: 15
+2024-11-11 21:34:41,631 - DEBUG - Starting new HTTPS connection (1): luatvietnam.vn:443
+2024-11-11 21:34:42,505 - DEBUG - https://luatvietnam.vn:443 "GET /thue/nghi-dinh-90-2023-nd-cp-thu-nop-mien-quan-ly-su-dung-phi-su-dung-duong-bo-284322-d1.html HTTP/11" 200 None
+2024-11-11 21:34:42,691 - INFO - Bắt đầu parse với số lượng docitems: 138
+2024-11-11 21:34:42,693 - DEBUG - Starting new HTTPS connection (1): luatvietnam.vn:443
+2024-11-11 21:34:43,428 - DEBUG - https://luatvietnam.vn:443 "GET /giao-thong/nghi-dinh-39-2023-nd-cp-huong-dan-nghi-quyet-73-2022-dau-gia-bien-so-xe-o-to-257341-d1.html HTTP/11" 200 None
+2024-11-11 21:34:43,492 - INFO - Bắt đầu parse với số lượng docitems: 121
+2024-11-11 21:34:43,493 - DEBUG - Starting new HTTPS connection (1): luatvietnam.vn:443
+2024-11-11 21:34:44,247 - DEBUG - https://luatvietnam.vn:443 "GET /giao-thong/nghi-dinh-25-2023-nd-cp-sua-nghi-dinh-32-bao-tri-cong-trinh-duong-cao-toc-253102-d1.html HTTP/11" 200 None
+2024-11-11 21:34:44,327 - INFO - Bắt đầu parse với số lượng docitems: 57
+2024-11-11 21:34:44,329 - DEBUG - Starting new HTTPS connection (1): luatvietnam.vn:443
+2024-11-11 21:34:45,065 - DEBUG - https://luatvietnam.vn:443 "GET /xay-dung/nghi-dinh-15-2023-nd-cp-thuong-hd-goi-thau-xay-lap-giao-thong-250739-d1.html HTTP/11" 200 None
+2024-11-11 21:34:45,399 - INFO - Bắt đầu parse với số lượng docitems: 0
+2024-11-11 21:34:45,401 - DEBUG - Starting new HTTPS connection (1): luatvietnam.vn:443
+2024-11-11 21:34:46,296 - DEBUG - https://luatvietnam.vn:443 "GET /an-ninh-trat-tu/nghi-dinh-93-2022-nd-cp-234278-d1.html HTTP/11" 200 None
+2024-11-11 21:34:46,546 - INFO - Bắt đầu parse với số lượng docitems: 82
+2024-11-11 21:34:46,548 - DEBUG - Starting new HTTPS connection (1): luatvietnam.vn:443
+2024-11-11 21:34:47,319 - DEBUG - https://luatvietnam.vn:443 "GET /co-cau-to-chuc/nghi-dinh-56-2022-nd-cp-quy-dinh-co-cau-to-chuc-cua-bo-giao-thong-van-tai-228718-d1.html HTTP/11" 200 None
+2024-11-11 21:34:47,414 - INFO - Bắt đầu parse với số lượng docitems: 124
+2024-11-11 21:34:47,416 - DEBUG - Starting new HTTPS connection (1): luatvietnam.vn:443
+2024-11-11 21:34:48,241 - DEBUG - https://luatvietnam.vn:443 "GET /giao-thong/nghi-dinh-54-2022-nd-cp-chinh-phu-228524-d1.html HTTP/11" 200 None
+2024-11-11 21:34:48,316 - INFO - Bắt đầu parse với số lượng docitems: 12
+2024-11-11 21:34:48,317 - DEBUG - Starting new HTTPS connection (1): luatvietnam.vn:443
+2024-11-11 21:34:49,161 - DEBUG - https://luatvietnam.vn:443 "GET /vi-pham-hanh-chinh/nghi-dinh-139-2021-nd-cp-chinh-phu-215245-d1.html HTTP/11" 200 None
+2024-11-11 21:34:49,281 - INFO - Bắt đầu parse với số lượng docitems: 823
+2024-11-11 21:34:49,283 - DEBUG - Starting new HTTPS connection (1): luatvietnam.vn:443
+2024-11-11 21:34:50,120 - DEBUG - https://luatvietnam.vn:443 "GET /vi-pham-hanh-chinh/nghi-dinh-123-2021-nd-cp-sua-nghi-dinh-100-xu-phat-ve-giao-thong-214946-d1.html HTTP/11" 200 None
+2024-11-11 21:34:50,298 - INFO - Bắt đầu parse với số lượng docitems: 353
+2024-11-11 21:34:50,301 - DEBUG - Starting new HTTPS connection (1): luatvietnam.vn:443
+2024-11-11 21:34:51,007 - DEBUG - https://luatvietnam.vn:443 "GET /xay-dung/nghi-dinh-117-2021-nd-cp-chinh-phu-214529-d1.html HTTP/11" 200 None
+2024-11-11 21:34:51,076 - INFO - Bắt đầu parse với số lượng docitems: 15
+2024-11-11 21:34:51,077 - DEBUG - Starting new HTTPS connection (1): luatvietnam.vn:443
+2024-11-11 21:34:52,235 - DEBUG - https://luatvietnam.vn:443 "GET /giao-thong/nghi-dinh-96-2021-nd-cp-211917-d1.html HTTP/11" 200 None
+2024-11-11 21:34:52,288 - INFO - Bắt đầu parse với số lượng docitems: 117
+2024-11-11 21:34:52,290 - DEBUG - Starting new HTTPS connection (1): luatvietnam.vn:443
+2024-11-11 21:34:52,944 - DEBUG - https://luatvietnam.vn:443 "GET /giao-thong/nghi-dinh-76-2021-nd-cp-quy-dinh-tieu-chi-phan-loai-cang-bien-206425-d1.html HTTP/11" 200 None
+2024-11-11 21:34:53,051 - INFO - Bắt đầu parse với số lượng docitems: 44
+2024-11-11 21:34:53,053 - DEBUG - Starting new HTTPS connection (1): luatvietnam.vn:443
+2024-11-11 21:34:53,976 - DEBUG - https://luatvietnam.vn:443 "GET /chinh-sach/nghi-dinh-97-2020-boi-thuong-thiet-hai-cua-nguoi-van-chuyen-hang-khong-189633-d1.html HTTP/11" 200 None
+2024-11-11 21:34:54,039 - INFO - Bắt đầu parse với số lượng docitems: 15
+2024-11-11 21:34:54,040 - DEBUG - Starting new HTTPS connection (1): luatvietnam.vn:443
+2024-11-11 21:34:54,765 - DEBUG - https://luatvietnam.vn:443 "GET /giao-thong/nghi-dinh-86-2020-sua-doi-nghi-dinh-171-2016-nd-cp-dang-ky-tau-bien-187308-d1.html HTTP/11" 200 None
+2024-11-11 21:34:54,898 - INFO - Bắt đầu parse với số lượng docitems: 76
+2024-11-11 21:34:54,899 - DEBUG - Starting new HTTPS connection (1): luatvietnam.vn:443
+2024-11-11 21:34:55,568 - DEBUG - https://luatvietnam.vn:443 "GET /giao-thong/nghi-dinh-56-2019-nd-cp-huong-dan-luat-sua-doi-37-luat-lien-quan-den-quy-hoach-174888-d1.html HTTP/11" 200 None
+2024-11-11 21:34:55,639 - INFO - Bắt đầu parse với số lượng docitems: 199
+2024-11-11 21:34:55,640 - DEBUG - Starting new HTTPS connection (1): luatvietnam.vn:443
+2024-11-11 21:34:56,842 - DEBUG - https://luatvietnam.vn:443 "GET /giao-thong/nghi-dinh-144-2018-nd-cp-sua-doi-bo-sung-cac-nghi-dinh-ve-van-tai-da-phuong-thuc-167942-d1.html HTTP/11" 200 None
+2024-11-11 21:34:56,888 - INFO - Bắt đầu parse với số lượng docitems: 17
+2024-11-11 21:34:56,890 - DEBUG - Starting new HTTPS connection (1): luatvietnam.vn:443
+2024-11-11 21:34:57,558 - DEBUG - https://luatvietnam.vn:443 "GET /giao-thong/nghi-dinh-128-2018-nd-cp-sua-doi-cac-nghi-dinh-ve-kinh-doanh-linh-vuc-duong-thuy-167324-d1.html HTTP/11" 200 None
+2024-11-11 21:34:57,606 - INFO - Bắt đầu parse với số lượng docitems: 23
+2024-11-11 21:34:57,608 - DEBUG - Starting new HTTPS connection (1): luatvietnam.vn:443
+2024-11-11 21:34:58,275 - DEBUG - https://luatvietnam.vn:443 "GET /co-cau-to-chuc/nghi-dinh-75-2018-nd-cp-ve-to-chuc-nhiem-vu-trang-phuc-cua-luc-luong-bao-ve-tren-tau-163151-d1.html HTTP/11" 200 None
+2024-11-11 21:34:58,367 - INFO - Bắt đầu parse với số lượng docitems: 145
+2024-11-11 21:34:58,369 - DEBUG - Starting new HTTPS connection (1): luatvietnam.vn:443
+2024-11-11 21:34:59,198 - DEBUG - https://luatvietnam.vn:443 "GET /giao-thong/nghi-dinh-56-2018-nd-cp-quy-dinh-ve-quan-ly-bao-ve-ket-cau-ha-tang-duong-sat-162059-d1.html HTTP/11" 200 None
+2024-11-11 21:34:59,311 - INFO - Bắt đầu parse với số lượng docitems: 258
+2024-11-11 21:34:59,313 - DEBUG - Starting new HTTPS connection (1): luatvietnam.vn:443
+2024-11-11 21:35:00,085 - DEBUG - https://luatvietnam.vn:443 "GET /giao-thong/nghi-dinh-46-2018-nd-cp-quan-ly-tai-san-ket-cau-ha-tang-duong-sat-quoc-gia-161251-d1.html HTTP/11" 200 None
+2024-11-11 21:35:00,424 - INFO - Bắt đầu parse với số lượng docitems: 428
+2024-11-11 21:35:00,428 - DEBUG - Starting new HTTPS connection (1): luatvietnam.vn:443
+2024-11-11 21:35:01,348 - DEBUG - https://luatvietnam.vn:443 "GET /giao-thong/nghi-dinh-44-2018-nd-cp-quan-ly-tai-san-ket-cau-ha-tang-hang-khong-161249-d1.html HTTP/11" 200 None
+2024-11-11 21:35:01,583 - INFO - Bắt đầu parse với số lượng docitems: 401
+2024-11-11 21:35:01,589 - DEBUG - Starting new HTTPS connection (1): luatvietnam.vn:443
+2024-11-11 21:35:02,433 - DEBUG - https://luatvietnam.vn:443 "GET /hang-hai/nghi-dinh-16-2018-nd-cp-chinh-phu-159256-d1.html HTTP/11" 200 None
+2024-11-11 21:35:02,526 - INFO - Bắt đầu parse với số lượng docitems: 103
+2024-11-11 21:35:02,527 - DEBUG - Starting new HTTPS connection (1): luatvietnam.vn:443
+2024-11-11 21:35:03,294 - DEBUG - https://luatvietnam.vn:443 "GET /co-cau-to-chuc/nghi-dinh-11-2018-nd-cp-cua-chinh-phu-ve-viec-ban-hanh-dieu-le-to-chuc-va-hoat-dong-cua-tong-cong-ty-duong-sat-viet-nam-158568-d1.html HTTP/11" 200 None
+2024-11-11 21:35:03,401 - INFO - Bắt đầu parse với số lượng docitems: 691
+2024-11-11 21:35:03,404 - DEBUG - Starting new HTTPS connection (1): luatvietnam.vn:443
+2024-11-11 21:35:04,121 - DEBUG - https://luatvietnam.vn:443 "GET /giao-thong/nghi-dinh-143-2017-nd-cp-chinh-phu-119072-d1.html HTTP/11" 200 None
+2024-11-11 21:35:04,193 - INFO - Bắt đầu parse với số lượng docitems: 114
+2024-11-11 21:35:04,195 - DEBUG - Starting new HTTPS connection (1): luatvietnam.vn:443
+2024-11-11 21:35:04,771 - DEBUG - https://luatvietnam.vn:443 "GET /xuat-nhap-khau/nghi-dinh-169-2016-nd-cp-chinh-phu-111529-d1.html HTTP/11" 200 None
+2024-11-11 21:35:04,876 - INFO - Bắt đầu parse với số lượng docitems: 79
+2024-11-11 21:35:04,877 - DEBUG - Starting new HTTPS connection (1): luatvietnam.vn:443
+2024-11-11 21:35:05,546 - DEBUG - https://luatvietnam.vn:443 "GET /giao-thong/nghi-dinh-170-2016-nd-cp-chinh-phu-111472-d1.html HTTP/11" 200 None
+2024-11-11 21:35:05,607 - INFO - Bắt đầu parse với số lượng docitems: 87
+2024-11-11 21:35:05,608 - DEBUG - Starting new HTTPS connection (1): luatvietnam.vn:443
+2024-11-11 21:35:06,365 - DEBUG - https://luatvietnam.vn:443 "GET /tai-chinh/nghi-dinh-146-2016-nd-cp-chinh-phu-110190-d1.html HTTP/11" 200 None
+2024-11-11 21:35:06,569 - INFO - Bắt đầu parse với số lượng docitems: 59
+2024-11-11 21:35:06,570 - DEBUG - Starting new HTTPS connection (1): luatvietnam.vn:443
+2024-11-11 21:35:07,391 - DEBUG - https://luatvietnam.vn:443 "GET /giao-thong/nghi-dinh-42-2016-nd-cp-chinh-phu-106569-d1.html HTTP/11" 200 None
+2024-11-11 21:35:07,509 - INFO - Bắt đầu parse với số lượng docitems: 192
+2024-11-11 21:35:07,511 - DEBUG - Starting new HTTPS connection (1): luatvietnam.vn:443
+2024-11-11 21:35:08,139 - DEBUG - https://luatvietnam.vn:443 "GET /giao-thong/nghi-dinh-32-2016-nd-cp-chinh-phu-105138-d1.html HTTP/11" 200 None
+2024-11-11 21:35:08,331 - INFO - Bắt đầu parse với số lượng docitems: 139
+2024-11-11 21:35:08,334 - DEBUG - Starting new HTTPS connection (1): luatvietnam.vn:443
+2024-11-11 21:35:09,022 - DEBUG - https://luatvietnam.vn:443 "GET /giao-thong/nghi-dinh-125-2015-nd-cp-chinh-phu-100984-d1.html HTTP/11" 200 None
+2024-11-11 21:35:09,179 - INFO - Bắt đầu parse với số lượng docitems: 350
+2024-11-11 21:35:09,181 - DEBUG - Starting new HTTPS connection (1): luatvietnam.vn:443
+2024-11-11 21:35:09,857 - DEBUG - https://luatvietnam.vn:443 "GET /giao-thong/nghi-dinh-92-2015-nd-cp-chinh-phu-99181-d1.html HTTP/11" 200 None
+2024-11-11 21:35:09,952 - INFO - Bắt đầu parse với số lượng docitems: 282
+2024-11-11 21:35:09,954 - DEBUG - Starting new HTTPS connection (1): luatvietnam.vn:443
+2024-11-11 21:35:10,796 - DEBUG - https://luatvietnam.vn:443 "GET /doanh-nghiep/nghi-dinh-69-2015-nd-cp-chinh-phu-97670-d1.html HTTP/11" 200 None
+2024-11-11 21:35:10,912 - INFO - Bắt đầu parse với số lượng docitems: 38
+2024-11-11 21:35:10,914 - DEBUG - Starting new HTTPS connection (1): luatvietnam.vn:443
+2024-11-11 21:35:11,673 - DEBUG - https://luatvietnam.vn:443 "GET /giao-thong/nghi-dinh-66-2015-nd-cp-chinh-phu-97284-d1.html HTTP/11" 200 None
+2024-11-11 21:35:11,734 - INFO - Bắt đầu parse với số lượng docitems: 104
+2024-11-11 21:35:11,736 - DEBUG - Starting new HTTPS connection (1): luatvietnam.vn:443
+2024-11-11 21:35:12,409 - DEBUG - https://luatvietnam.vn:443 "GET /xuat-nhap-khau/nghi-dinh-111-2014-nd-cp-chinh-phu-90943-d1.html HTTP/11" 200 None
+2024-11-11 21:35:12,502 - INFO - Bắt đầu parse với số lượng docitems: 0
+2024-11-11 21:35:12,503 - DEBUG - Starting new HTTPS connection (1): luatvietnam.vn:443
+2024-11-11 21:35:13,328 - DEBUG - https://luatvietnam.vn:443 "GET /giao-thong/nghi-dinh-100-2013-nd-cp-sua-quy-dinh-bao-ve-ket-cau-ha-tang-giao-thong-duong-bo-81014-d1.html HTTP/11" 200 None
+2024-11-11 21:35:13,400 - INFO - Bắt đầu parse với số lượng docitems: 25
+2024-11-11 21:35:13,401 - DEBUG - Starting new HTTPS connection (1): luatvietnam.vn:443
+2024-11-11 21:35:14,252 - DEBUG - https://luatvietnam.vn:443 "GET /an-ninh-trat-tu/nghi-dinh-27-2010-nd-cp-chinh-phu-50883-d1.html HTTP/11" 200 None
+2024-11-11 21:35:14,379 - INFO - Bắt đầu parse với số lượng docitems: 49
+2024-11-11 21:35:14,380 - DEBUG - Starting new HTTPS connection (1): luatvietnam.vn:443
+2024-11-11 21:35:15,086 - DEBUG - https://luatvietnam.vn:443 "GET /giao-thong/nghi-dinh-109-2009-nd-cp-chinh-phu-48156-d1.html HTTP/11" 200 None
+2024-11-11 21:35:15,168 - INFO - Bắt đầu parse với số lượng docitems: 71
+2024-11-11 21:39:06,228 - DEBUG - Starting new HTTPS connection (1): luatvietnam.vn:443
+2024-11-11 21:39:06,446 - DEBUG - https://luatvietnam.vn:443 "GET /thue/nghi-dinh-130-2024-nd-cp-thu-phi-duong-bo-cao-toc-voi-phuong-tien-luu-thong-tren-tuyen-duong-bo-cao-toc-368350-d1.html HTTP/11" 200 None
+2024-11-11 21:39:06,541 - INFO - Bắt đầu parse với số lượng docitems: 111
+2024-11-11 21:39:06,543 - DEBUG - Starting new HTTPS connection (1): luatvietnam.vn:443
+2024-11-11 21:39:06,720 - DEBUG - https://luatvietnam.vn:443 "GET /doanh-nghiep/nghi-dinh-121-2024-nd-cp-sua-doi-nd-139-2018-nd-cp-quy-dinh-kinh-doanh-dich-vu-kiem-dinh-xe-co-gioi-367481-d1.html HTTP/11" 200 None
+2024-11-11 21:39:06,770 - INFO - Bắt đầu parse với số lượng docitems: 20
+2024-11-11 21:39:06,772 - DEBUG - Starting new HTTPS connection (1): luatvietnam.vn:443
+2024-11-11 21:39:06,935 - DEBUG - https://luatvietnam.vn:443 "GET /tai-chinh/nghi-dinh-119-2024-nd-cp-cua-chinh-phu-quy-dinh-ve-thanh-toan-dien-tu-giao-thong-duong-bo-367223-d1.html HTTP/11" 200 None
+2024-11-11 21:39:07,019 - INFO - Bắt đầu parse với số lượng docitems: 288
+2024-11-11 21:39:07,021 - DEBUG - Starting new HTTPS connection (1): luatvietnam.vn:443
+2024-11-11 21:39:07,263 - DEBUG - https://luatvietnam.vn:443 "GET /giao-thong/nghi-dinh-57-2024-nd-cp-quan-ly-hoat-dong-nao-vet-trong-vung-nuoc-cang-bien-va-vung-nuoc-duong-thuy-noi-dia-337354-d1.html HTTP/11" 200 None
+2024-11-11 21:39:07,466 - INFO - Bắt đầu parse với số lượng docitems: 326
+2024-11-11 21:39:07,469 - DEBUG - Starting new HTTPS connection (1): luatvietnam.vn:443
+2024-11-11 21:39:07,633 - DEBUG - https://luatvietnam.vn:443 "GET /giao-thong/nghi-dinh-44-2024-nd-cp-quy-dinh-quan-ly-va-khai-thac-tai-san-ket-cau-ha-tang-giao-thong-duong-bo-320616-d1.html HTTP/11" 200 None
+2024-11-11 21:39:07,821 - INFO - Bắt đầu parse với số lượng docitems: 661
+2024-11-11 21:39:07,828 - DEBUG - Starting new HTTPS connection (1): luatvietnam.vn:443
+2024-11-11 21:39:08,030 - DEBUG - https://luatvietnam.vn:443 "GET /giao-thong/nghi-dinh-41-2024-nd-cp-sua-doi-cac-nd-ve-quan-ly-hoat-dong-van-tai-bang-xe-o-to-317978-d1.html HTTP/11" 200 None
+2024-11-11 21:39:08,745 - INFO - Bắt đầu parse với số lượng docitems: 177
+2024-11-11 21:39:08,751 - DEBUG - Starting new HTTPS connection (1): luatvietnam.vn:443
+2024-11-11 21:39:08,909 - DEBUG - https://luatvietnam.vn:443 "GET /giao-thong/nghi-dinh-34-2024-nd-cp-danh-muc-van-chuyen-hang-hoa-nguy-hiem-bang-phuong-tien-giao-thong-co-gioi-309573-d1.html HTTP/11" 200 None
+2024-11-11 21:39:10,713 - INFO - Bắt đầu parse với số lượng docitems: 255
+2024-11-11 21:39:10,738 - DEBUG - Starting new HTTPS connection (1): luatvietnam.vn:443
+2024-11-11 21:39:10,928 - DEBUG - https://luatvietnam.vn:443 "GET /giao-thong/nghi-dinh-30-2024-nd-cp-quan-ly-phuong-tien-co-gioi-nguoi-nuoc-ngoai-dua-vao-vn-du-lich-302837-d1.html HTTP/11" 200 None
+2024-11-11 21:39:11,039 - INFO - Bắt đầu parse với số lượng docitems: 93
+2024-11-11 21:39:11,045 - DEBUG - Starting new HTTPS connection (1): luatvietnam.vn:443
+2024-11-11 21:39:11,259 - DEBUG - https://luatvietnam.vn:443 "GET /giao-thong/nghi-dinh-20-2024-nd-cp-sua-doi-nghi-dinh-05-2021-nd-cp-va-nghi-dinh-64-2022-nd-cp-298708-d1.html HTTP/11" 200 None
+2024-11-11 21:39:11,349 - INFO - Bắt đầu parse với số lượng docitems: 40
+2024-11-11 21:39:11,351 - DEBUG - Starting new HTTPS connection (1): luatvietnam.vn:443
+2024-11-11 21:39:11,514 - DEBUG - https://luatvietnam.vn:443 "GET /giao-thong/nghi-dinh-15-2024-nd-cp-sua-doi-nghi-dinh-30-2013-nd-cp-va-nghi-dinh-92-2016-nd-cp-296566-d1.html HTTP/11" 200 None
+2024-11-11 21:39:11,764 - INFO - Bắt đầu parse với số lượng docitems: 24
+2024-11-11 21:39:11,765 - DEBUG - Starting new HTTPS connection (1): luatvietnam.vn:443
+2024-11-11 21:39:11,936 - DEBUG - https://luatvietnam.vn:443 "GET /giao-thong/nghi-dinh-06-2024-nd-cp-sua-nghi-dinh-08-2021-quan-ly-hoat-dong-duong-thuy-noi-dia-293090-d1.html HTTP/11" 200 None
+2024-11-11 21:39:11,987 - INFO - Bắt đầu parse với số lượng docitems: 28
+2024-11-11 21:39:11,988 - DEBUG - Starting new HTTPS connection (1): luatvietnam.vn:443
+2024-11-11 21:39:12,146 - DEBUG - https://luatvietnam.vn:443 "GET /giao-thong/decree-01-2024-nd-cp-amend-11-2010-nd-cp-management-of-road-infrastructure-facilities-287104-d1.html HTTP/11" 200 None
+2024-11-11 21:39:12,203 - INFO - Bắt đầu parse với số lượng docitems: 16
+2024-11-11 21:39:12,205 - DEBUG - Starting new HTTPS connection (1): luatvietnam.vn:443
+2024-11-11 21:39:12,390 - DEBUG - https://luatvietnam.vn:443 "GET /giao-thong/nghi-dinh-91-2023-nd-cp-sua-doi-nghi-dinh-65-2018-nd-cp-va-nghi-dinh-01-2022-nd-cp-282929-d1.html HTTP/11" 200 None
+2024-11-11 21:39:12,477 - INFO - Bắt đầu parse với số lượng docitems: 15
+2024-11-11 21:39:12,479 - DEBUG - Starting new HTTPS connection (1): luatvietnam.vn:443
+2024-11-11 21:39:12,659 - DEBUG - https://luatvietnam.vn:443 "GET /thue/nghi-dinh-90-2023-nd-cp-thu-nop-mien-quan-ly-su-dung-phi-su-dung-duong-bo-284322-d1.html HTTP/11" 200 None
+2024-11-11 21:39:12,819 - INFO - Bắt đầu parse với số lượng docitems: 138
+2024-11-11 21:39:12,822 - DEBUG - Starting new HTTPS connection (1): luatvietnam.vn:443
+2024-11-11 21:39:13,473 - DEBUG - https://luatvietnam.vn:443 "GET /giao-thong/nghi-dinh-39-2023-nd-cp-huong-dan-nghi-quyet-73-2022-dau-gia-bien-so-xe-o-to-257341-d1.html HTTP/11" 200 None
+2024-11-11 21:39:13,620 - INFO - Bắt đầu parse với số lượng docitems: 121
+2024-11-11 21:39:13,622 - DEBUG - Starting new HTTPS connection (1): luatvietnam.vn:443
+2024-11-11 21:39:13,816 - DEBUG - https://luatvietnam.vn:443 "GET /giao-thong/nghi-dinh-25-2023-nd-cp-sua-nghi-dinh-32-bao-tri-cong-trinh-duong-cao-toc-253102-d1.html HTTP/11" 200 None
+2024-11-11 21:39:13,887 - INFO - Bắt đầu parse với số lượng docitems: 57
+2024-11-11 21:39:13,888 - DEBUG - Starting new HTTPS connection (1): luatvietnam.vn:443
+2024-11-11 21:39:14,084 - DEBUG - https://luatvietnam.vn:443 "GET /xay-dung/nghi-dinh-15-2023-nd-cp-thuong-hd-goi-thau-xay-lap-giao-thong-250739-d1.html HTTP/11" 200 None
+2024-11-11 21:39:14,188 - INFO - Bắt đầu parse với số lượng docitems: 0
+2024-11-11 21:39:14,190 - DEBUG - Starting new HTTPS connection (1): luatvietnam.vn:443
+2024-11-11 21:39:14,375 - DEBUG - https://luatvietnam.vn:443 "GET /an-ninh-trat-tu/nghi-dinh-93-2022-nd-cp-234278-d1.html HTTP/11" 200 None
+2024-11-11 21:39:14,581 - INFO - Bắt đầu parse với số lượng docitems: 82
+2024-11-11 21:39:14,583 - DEBUG - Starting new HTTPS connection (1): luatvietnam.vn:443
+2024-11-11 21:39:14,737 - DEBUG - https://luatvietnam.vn:443 "GET /co-cau-to-chuc/nghi-dinh-56-2022-nd-cp-quy-dinh-co-cau-to-chuc-cua-bo-giao-thong-van-tai-228718-d1.html HTTP/11" 200 None
+2024-11-11 21:39:14,799 - INFO - Bắt đầu parse với số lượng docitems: 124
+2024-11-11 21:39:14,801 - DEBUG - Starting new HTTPS connection (1): luatvietnam.vn:443
+2024-11-11 21:39:15,025 - DEBUG - https://luatvietnam.vn:443 "GET /giao-thong/nghi-dinh-54-2022-nd-cp-chinh-phu-228524-d1.html HTTP/11" 200 None
+2024-11-11 21:39:15,187 - INFO - Bắt đầu parse với số lượng docitems: 12
+2024-11-11 21:39:15,189 - DEBUG - Starting new HTTPS connection (1): luatvietnam.vn:443
+2024-11-11 21:39:15,363 - DEBUG - https://luatvietnam.vn:443 "GET /vi-pham-hanh-chinh/nghi-dinh-139-2021-nd-cp-chinh-phu-215245-d1.html HTTP/11" 200 None
+2024-11-11 21:39:15,465 - INFO - Bắt đầu parse với số lượng docitems: 823
+2024-11-11 21:39:15,468 - DEBUG - Starting new HTTPS connection (1): luatvietnam.vn:443
+2024-11-11 21:39:15,652 - DEBUG - https://luatvietnam.vn:443 "GET /vi-pham-hanh-chinh/nghi-dinh-123-2021-nd-cp-sua-nghi-dinh-100-xu-phat-ve-giao-thong-214946-d1.html HTTP/11" 200 None
+2024-11-11 21:39:15,789 - INFO - Bắt đầu parse với số lượng docitems: 353
+2024-11-11 21:39:15,792 - DEBUG - Starting new HTTPS connection (1): luatvietnam.vn:443
+2024-11-11 21:39:15,964 - DEBUG - https://luatvietnam.vn:443 "GET /xay-dung/nghi-dinh-117-2021-nd-cp-chinh-phu-214529-d1.html HTTP/11" 200 None
+2024-11-11 21:39:16,014 - INFO - Bắt đầu parse với số lượng docitems: 15
+2024-11-11 21:39:16,016 - DEBUG - Starting new HTTPS connection (1): luatvietnam.vn:443
+2024-11-11 21:39:16,180 - DEBUG - https://luatvietnam.vn:443 "GET /giao-thong/nghi-dinh-96-2021-nd-cp-211917-d1.html HTTP/11" 200 None
+2024-11-11 21:39:16,232 - INFO - Bắt đầu parse với số lượng docitems: 117
+2024-11-11 21:39:16,234 - DEBUG - Starting new HTTPS connection (1): luatvietnam.vn:443
+2024-11-11 21:39:16,420 - DEBUG - https://luatvietnam.vn:443 "GET /giao-thong/nghi-dinh-76-2021-nd-cp-quy-dinh-tieu-chi-phan-loai-cang-bien-206425-d1.html HTTP/11" 200 None
+2024-11-11 21:39:16,562 - INFO - Bắt đầu parse với số lượng docitems: 44
+2024-11-11 21:39:16,564 - DEBUG - Starting new HTTPS connection (1): luatvietnam.vn:443
+2024-11-11 21:39:16,775 - DEBUG - https://luatvietnam.vn:443 "GET /chinh-sach/nghi-dinh-97-2020-boi-thuong-thiet-hai-cua-nguoi-van-chuyen-hang-khong-189633-d1.html HTTP/11" 200 None
+2024-11-11 21:39:16,843 - INFO - Bắt đầu parse với số lượng docitems: 15
+2024-11-11 21:39:16,845 - DEBUG - Starting new HTTPS connection (1): luatvietnam.vn:443
+2024-11-11 21:39:17,036 - DEBUG - https://luatvietnam.vn:443 "GET /giao-thong/nghi-dinh-86-2020-sua-doi-nghi-dinh-171-2016-nd-cp-dang-ky-tau-bien-187308-d1.html HTTP/11" 200 None
+2024-11-11 21:39:17,128 - INFO - Bắt đầu parse với số lượng docitems: 76
+2024-11-11 21:39:17,130 - DEBUG - Starting new HTTPS connection (1): luatvietnam.vn:443
+2024-11-11 21:39:17,341 - DEBUG - https://luatvietnam.vn:443 "GET /giao-thong/nghi-dinh-56-2019-nd-cp-huong-dan-luat-sua-doi-37-luat-lien-quan-den-quy-hoach-174888-d1.html HTTP/11" 200 None
+2024-11-11 21:39:17,414 - INFO - Bắt đầu parse với số lượng docitems: 199
+2024-11-11 21:39:17,415 - DEBUG - Starting new HTTPS connection (1): luatvietnam.vn:443
+2024-11-11 21:39:17,580 - DEBUG - https://luatvietnam.vn:443 "GET /giao-thong/nghi-dinh-144-2018-nd-cp-sua-doi-bo-sung-cac-nghi-dinh-ve-van-tai-da-phuong-thuc-167942-d1.html HTTP/11" 200 None
+2024-11-11 21:39:17,626 - INFO - Bắt đầu parse với số lượng docitems: 17
+2024-11-11 21:39:17,627 - DEBUG - Starting new HTTPS connection (1): luatvietnam.vn:443
+2024-11-11 21:39:17,819 - DEBUG - https://luatvietnam.vn:443 "GET /giao-thong/nghi-dinh-128-2018-nd-cp-sua-doi-cac-nghi-dinh-ve-kinh-doanh-linh-vuc-duong-thuy-167324-d1.html HTTP/11" 200 None
+2024-11-11 21:39:17,868 - INFO - Bắt đầu parse với số lượng docitems: 23
+2024-11-11 21:39:17,870 - DEBUG - Starting new HTTPS connection (1): luatvietnam.vn:443
+2024-11-11 21:39:18,053 - DEBUG - https://luatvietnam.vn:443 "GET /co-cau-to-chuc/nghi-dinh-75-2018-nd-cp-ve-to-chuc-nhiem-vu-trang-phuc-cua-luc-luong-bao-ve-tren-tau-163151-d1.html HTTP/11" 200 None
+2024-11-11 21:39:18,166 - INFO - Bắt đầu parse với số lượng docitems: 145
+2024-11-11 21:39:18,167 - DEBUG - Starting new HTTPS connection (1): luatvietnam.vn:443
+2024-11-11 21:39:18,407 - DEBUG - https://luatvietnam.vn:443 "GET /giao-thong/nghi-dinh-56-2018-nd-cp-quy-dinh-ve-quan-ly-bao-ve-ket-cau-ha-tang-duong-sat-162059-d1.html HTTP/11" 200 None
+2024-11-11 21:39:18,558 - INFO - Bắt đầu parse với số lượng docitems: 258
+2024-11-11 21:39:18,560 - DEBUG - Starting new HTTPS connection (1): luatvietnam.vn:443
+2024-11-11 21:39:18,725 - DEBUG - https://luatvietnam.vn:443 "GET /giao-thong/nghi-dinh-46-2018-nd-cp-quan-ly-tai-san-ket-cau-ha-tang-duong-sat-quoc-gia-161251-d1.html HTTP/11" 200 None
+2024-11-11 21:39:18,998 - INFO - Bắt đầu parse với số lượng docitems: 428
+2024-11-11 21:39:19,003 - DEBUG - Starting new HTTPS connection (1): luatvietnam.vn:443
+2024-11-11 21:39:19,181 - DEBUG - https://luatvietnam.vn:443 "GET /giao-thong/nghi-dinh-44-2018-nd-cp-quan-ly-tai-san-ket-cau-ha-tang-hang-khong-161249-d1.html HTTP/11" 200 None
+2024-11-11 21:39:19,417 - INFO - Bắt đầu parse với số lượng docitems: 401
+2024-11-11 21:39:19,421 - DEBUG - Starting new HTTPS connection (1): luatvietnam.vn:443
+2024-11-11 21:39:19,606 - DEBUG - https://luatvietnam.vn:443 "GET /hang-hai/nghi-dinh-16-2018-nd-cp-chinh-phu-159256-d1.html HTTP/11" 200 None
+2024-11-11 21:39:19,673 - INFO - Bắt đầu parse với số lượng docitems: 103
+2024-11-11 21:39:19,675 - DEBUG - Starting new HTTPS connection (1): luatvietnam.vn:443
+2024-11-11 21:39:19,857 - DEBUG - https://luatvietnam.vn:443 "GET /co-cau-to-chuc/nghi-dinh-11-2018-nd-cp-cua-chinh-phu-ve-viec-ban-hanh-dieu-le-to-chuc-va-hoat-dong-cua-tong-cong-ty-duong-sat-viet-nam-158568-d1.html HTTP/11" 200 None
+2024-11-11 21:39:19,972 - INFO - Bắt đầu parse với số lượng docitems: 691
+2024-11-11 21:39:19,976 - DEBUG - Starting new HTTPS connection (1): luatvietnam.vn:443
+2024-11-11 21:39:20,172 - DEBUG - https://luatvietnam.vn:443 "GET /giao-thong/nghi-dinh-143-2017-nd-cp-chinh-phu-119072-d1.html HTTP/11" 200 None
+2024-11-11 21:39:20,244 - INFO - Bắt đầu parse với số lượng docitems: 114
+2024-11-11 21:39:20,247 - DEBUG - Starting new HTTPS connection (1): luatvietnam.vn:443
+2024-11-11 21:39:20,483 - DEBUG - https://luatvietnam.vn:443 "GET /xuat-nhap-khau/nghi-dinh-169-2016-nd-cp-chinh-phu-111529-d1.html HTTP/11" 200 None
+2024-11-11 21:39:20,638 - INFO - Bắt đầu parse với số lượng docitems: 79
+2024-11-11 21:39:20,639 - DEBUG - Starting new HTTPS connection (1): luatvietnam.vn:443
+2024-11-11 21:39:20,828 - DEBUG - https://luatvietnam.vn:443 "GET /giao-thong/nghi-dinh-170-2016-nd-cp-chinh-phu-111472-d1.html HTTP/11" 200 None
+2024-11-11 21:39:20,889 - INFO - Bắt đầu parse với số lượng docitems: 87
+2024-11-11 21:39:20,891 - DEBUG - Starting new HTTPS connection (1): luatvietnam.vn:443
+2024-11-11 21:39:21,075 - DEBUG - https://luatvietnam.vn:443 "GET /tai-chinh/nghi-dinh-146-2016-nd-cp-chinh-phu-110190-d1.html HTTP/11" 200 None
+2024-11-11 21:39:21,135 - INFO - Bắt đầu parse với số lượng docitems: 59
+2024-11-11 21:39:21,136 - DEBUG - Starting new HTTPS connection (1): luatvietnam.vn:443
+2024-11-11 21:39:21,328 - DEBUG - https://luatvietnam.vn:443 "GET /giao-thong/nghi-dinh-42-2016-nd-cp-chinh-phu-106569-d1.html HTTP/11" 200 None
+2024-11-11 21:39:21,422 - INFO - Bắt đầu parse với số lượng docitems: 192
+2024-11-11 21:39:21,424 - DEBUG - Starting new HTTPS connection (1): luatvietnam.vn:443
+2024-11-11 21:39:21,603 - DEBUG - https://luatvietnam.vn:443 "GET /giao-thong/nghi-dinh-32-2016-nd-cp-chinh-phu-105138-d1.html HTTP/11" 200 None
+2024-11-11 21:39:21,865 - INFO - Bắt đầu parse với số lượng docitems: 139
+2024-11-11 21:39:21,869 - DEBUG - Starting new HTTPS connection (1): luatvietnam.vn:443
+2024-11-11 21:39:22,054 - DEBUG - https://luatvietnam.vn:443 "GET /giao-thong/nghi-dinh-125-2015-nd-cp-chinh-phu-100984-d1.html HTTP/11" 200 None
+2024-11-11 21:39:22,111 - INFO - Bắt đầu parse với số lượng docitems: 350
+2024-11-11 21:39:22,113 - DEBUG - Starting new HTTPS connection (1): luatvietnam.vn:443
+2024-11-11 21:39:22,305 - DEBUG - https://luatvietnam.vn:443 "GET /giao-thong/nghi-dinh-92-2015-nd-cp-chinh-phu-99181-d1.html HTTP/11" 200 None
+2024-11-11 21:39:22,364 - INFO - Bắt đầu parse với số lượng docitems: 282
+2024-11-11 21:39:22,367 - DEBUG - Starting new HTTPS connection (1): luatvietnam.vn:443
+2024-11-11 21:39:22,524 - DEBUG - https://luatvietnam.vn:443 "GET /doanh-nghiep/nghi-dinh-69-2015-nd-cp-chinh-phu-97670-d1.html HTTP/11" 200 None
+2024-11-11 21:39:22,574 - INFO - Bắt đầu parse với số lượng docitems: 38
+2024-11-11 21:39:22,575 - DEBUG - Starting new HTTPS connection (1): luatvietnam.vn:443
+2024-11-11 21:39:22,740 - DEBUG - https://luatvietnam.vn:443 "GET /giao-thong/nghi-dinh-66-2015-nd-cp-chinh-phu-97284-d1.html HTTP/11" 200 None
+2024-11-11 21:39:22,788 - INFO - Bắt đầu parse với số lượng docitems: 104
+2024-11-11 21:39:22,789 - DEBUG - Starting new HTTPS connection (1): luatvietnam.vn:443
+2024-11-11 21:39:22,981 - DEBUG - https://luatvietnam.vn:443 "GET /xuat-nhap-khau/nghi-dinh-111-2014-nd-cp-chinh-phu-90943-d1.html HTTP/11" 200 None
+2024-11-11 21:39:23,100 - INFO - Bắt đầu parse với số lượng docitems: 0
+2024-11-11 21:39:23,102 - DEBUG - Starting new HTTPS connection (1): luatvietnam.vn:443
+2024-11-11 21:39:23,282 - DEBUG - https://luatvietnam.vn:443 "GET /giao-thong/nghi-dinh-100-2013-nd-cp-sua-quy-dinh-bao-ve-ket-cau-ha-tang-giao-thong-duong-bo-81014-d1.html HTTP/11" 200 None
+2024-11-11 21:39:23,335 - INFO - Bắt đầu parse với số lượng docitems: 25
+2024-11-11 21:39:23,338 - DEBUG - Starting new HTTPS connection (1): luatvietnam.vn:443
+2024-11-11 21:39:23,539 - DEBUG - https://luatvietnam.vn:443 "GET /an-ninh-trat-tu/nghi-dinh-27-2010-nd-cp-chinh-phu-50883-d1.html HTTP/11" 200 None
+2024-11-11 21:39:23,598 - INFO - Bắt đầu parse với số lượng docitems: 49
+2024-11-11 21:39:23,601 - DEBUG - Starting new HTTPS connection (1): luatvietnam.vn:443
+2024-11-11 21:39:23,852 - DEBUG - https://luatvietnam.vn:443 "GET /giao-thong/nghi-dinh-109-2009-nd-cp-chinh-phu-48156-d1.html HTTP/11" 200 None
+2024-11-11 21:39:24,004 - INFO - Bắt đầu parse với số lượng docitems: 71
