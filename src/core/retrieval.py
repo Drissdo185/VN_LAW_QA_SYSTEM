@@ -20,9 +20,10 @@ class RetrievalManager:
         weaviate_client,
         embed_model,
         post_processing_pipeline,
-        collection_name: str = "Vn_law",
-        similarity_top_k: int = 5,
-        dense_weight: float = 0.1
+        collection_name,
+        similarity_top_k,
+        dense_weight,
+        query_mode
     ):
         """Initialize the RetrievalManager."""
         self.weaviate_client = weaviate_client
@@ -31,6 +32,7 @@ class RetrievalManager:
         self.collection_name = collection_name
         self.similarity_top_k = similarity_top_k
         self.dense_weight = dense_weight
+        self.query_mode = query_mode
         
         # Initialize vector store and index
         self.vector_store = WeaviateVectorStore(
@@ -53,24 +55,25 @@ class RetrievalManager:
                 status = st_container.status("**Retrieving relevant passages...**")
 
             # Prepare query bundle with Vietnamese tokenization
-            query_bundle = QueryBundle(
-                query_str=query,
-                custom_embedding_strs=[ViTokenizer.tokenize(query.lower())]
-            )
+            # query_bundle = QueryBundle(
+            #     query_str=query,
+            #     custom_embedding_strs=[ViTokenizer.tokenize(query.lower())]
+            # )
 
             # Initialize retriever with hybrid search parameters
             retriever = self.index.as_retriever(
+                vector_store_query_mode = self.query_mode,
                 similarity_top_k=self.similarity_top_k,
                 alpha=self.dense_weight
             )
 
             # Perform retrieval
-            results = retriever.retrieve(query_bundle)
+            results = retriever.retrieve(ViTokenizer.tokenize(query.lower()))
             
             # Apply post-processing
             processed_results = self.post_processing_pipeline.process(
                 results,
-                query_bundle
+                ViTokenizer.tokenize(query.lower())
             )
 
             # Update UI if streamlit container is provided
@@ -136,6 +139,3 @@ class RetrievalManager:
         if scores:
             status.markdown("**Scores**: " + ". ".join(scores))
             
-        # Display metadata
-        status.markdown(f"**Source**: *{node.node.metadata.get('source', 'N/A')}*")
-        status.markdown(f"**Document**: *{node.node.metadata.get('filename', 'N/A')}*")
