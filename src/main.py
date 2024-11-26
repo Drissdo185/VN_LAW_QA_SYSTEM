@@ -15,11 +15,13 @@ from weaviate.classes.init import Auth
 from config.domain_config import DOMAIN_CONFIGS
 import os
 import logging
+from dotenv import load_dotenv
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 AVAILABLE_DOMAINS = {"Giao thông"}
 
+load_dotenv()
 class DomainManager:
     def __init__(self):
         self.domain_clients: Dict[str, RetrievalManager] = {}
@@ -28,16 +30,19 @@ class DomainManager:
         self.initialize_common_components()
         
     def initialize_common_components(self):
-        """Khởi tạo các thành phần dùng chung."""
         MODEL_NAME = "dangvantuan/vietnamese-embedding"
         self.embed_model = HuggingFaceEmbedding(model_name=MODEL_NAME, max_length=256)
         
-        os.environ["OPENAI_API_KEY"] = os.getenv("OPENAI_API_KEY")
-        self.llm = OpenAI(model="gpt-4-mini", temperature=0.1)
+        # Add error handling for API key
+        api_key = os.getenv("OPENAI_API_KEY")
+        if not api_key:
+            raise ValueError("OPENAI_API_KEY environment variable is not set. Please set it in your .env file.")
+        
+        os.environ["OPENAI_API_KEY"] = api_key
+        self.llm = OpenAI(model="gpt-4o-mini", temperature=0.1)
         Settings.llm = self.llm
         
     def get_retrieval_manager(self, domain: str) -> RetrievalManager:
-        """Lấy hoặc tạo retrieval manager cho lĩnh vực được chỉ định."""
         if domain not in AVAILABLE_DOMAINS:
             raise ValueError(f"Lĩnh vực {domain} hiện chưa được hỗ trợ")
             
