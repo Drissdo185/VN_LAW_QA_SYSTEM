@@ -14,7 +14,7 @@ class DomainConfig:
 
 DOMAIN_CONFIGS: Dict[str, DomainConfig] = {
     "Giao thông": DomainConfig(
-        collection_name="Vn_law",
+        collection_name="ND168",
         cluster_url="WEAVIATE_TRAFFIC_URL",  
         api_key="WEAVIATE_TRAFFIC_KEY",      
         description="Văn bản pháp luật về giao thông",

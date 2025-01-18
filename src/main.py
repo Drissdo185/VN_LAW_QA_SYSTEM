@@ -33,7 +33,7 @@ class DomainManager:
         self.embed_model = HuggingFaceEmbedding(model_name=MODEL_NAME, max_length=256)
         
         os.environ["OPENAI_API_KEY"] = os.getenv("OPENAI_API_KEY")
-        self.llm = OpenAI(model="gpt-4-mini", temperature=0.1)
+        self.llm = OpenAI(model="gpt-4o-mini", temperature=0.1)
         Settings.llm = self.llm
         
     def get_retrieval_manager(self, domain: str) -> RetrievalManager:
@@ -52,7 +52,7 @@ class DomainManager:
             
             
             processors: List[BaseNodePostprocessor] = [
-                SimilarityPostprocessor(similarity_cutoff=0.7)
+                SimilarityPostprocessor(similarity_cutoff=0.2)
             ]
             post_processing_pipeline = PostProcessingPipeline(processors=processors)
             
@@ -62,8 +62,8 @@ class DomainManager:
                 embed_model=self.embed_model,
                 post_processing_pipeline=post_processing_pipeline,
                 collection_name=config.collection_name,
-                similarity_top_k=100,
-                dense_weight=0.2,
+                similarity_top_k=10,
+                dense_weight=0.7,
                 query_mode="hybrid"
             )
             
