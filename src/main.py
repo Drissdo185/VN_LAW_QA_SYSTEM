@@ -52,7 +52,7 @@ class DomainManager:
             
             
             processors: List[BaseNodePostprocessor] = [
-                SimilarityPostprocessor(similarity_cutoff=0.2)
+                SimilarityPostprocessor(similarity_cutoff=0.5)
             ]
             post_processing_pipeline = PostProcessingPipeline(processors=processors)
             
@@ -63,7 +63,7 @@ class DomainManager:
                 post_processing_pipeline=post_processing_pipeline,
                 collection_name=config.collection_name,
                 similarity_top_k=10,
-                dense_weight=0.7,
+                dense_weight=0.3,
                 query_mode="hybrid"
             )
             
