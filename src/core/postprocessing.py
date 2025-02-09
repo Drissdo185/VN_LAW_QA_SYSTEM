@@ -1,37 +1,33 @@
 from typing import List
-from llama_index.core.schema import NodeWithScore, QueryBundle
+from llama_index.core.schema import NodeWithScore
 from llama_index.core.postprocessor.types import BaseNodePostprocessor
-import logging
+from logging import getLogger
 
-# Configure logging
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-)
-logger = logging.getLogger(__name__)
+logger = getLogger(__name__)
+
 class PostProcessingPipeline:
     """Handles sequential post-processing of search results."""
     
-    def __init__(
-        self,
-        processors: List[BaseNodePostprocessor]
-    ):
+    def __init__(self, processors: List[BaseNodePostprocessor]):
+        """Initialize with a list of processors."""
         self.processors = processors
         
-    def process(
-        self,
-        nodes: List[NodeWithScore],
-        query_bundle: QueryBundle
-    ) -> List[NodeWithScore]:
+    def process(self, nodes: List[NodeWithScore], query: str) -> List[NodeWithScore]:
         """Apply all post-processors in sequence."""
-        current_nodes = nodes
-        for processor in self.processors:
-            try:
-                current_nodes = processor.postprocess_nodes(
-                    current_nodes,
-                    query_bundle
-                )
-            except Exception as e:
-                logger.error(f"Error in post-processor {processor.class_name()}: {e}")
-                continue
-        return current_nodes
+        try:
+            current_nodes = nodes
+            for processor in self.processors:
+                try:
+                    current_nodes = processor.postprocess_nodes(
+                        current_nodes,
+                        query
+                    )
+                except Exception as e:
+                    logger.error(
+                        f"Error in post-processor {processor.__class__.__name__}: {e}"
+                    )
+                    continue
+            return current_nodes
+        except Exception as e:
+            logger.error(f"Error in post-processing pipeline: {e}")
+            return nodes

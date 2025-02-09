@@ -1,29 +1,34 @@
 from typing import List, Optional
 from llama_index.core.base.llms.types import ChatMessage, MessageRole
 from pyvi import ViTokenizer
+from logging import getLogger
+
+logger = getLogger(__name__)
 
 class QuestionHandler:
     """Handles question preprocessing and context management."""
     
     @staticmethod
-    def process_standalone_question(
+    def process_question(
         question: str,
         chat_history: Optional[List[ChatMessage]] = None
     ) -> str:
-        """Process question to generate standalone version."""
-        processed_question = ViTokenizer.tokenize(question.lower())
-        
-        if not chat_history:
-            return processed_question
+        """Process question with chat history context."""
+        try:
+            processed_question = ViTokenizer.tokenize(question.lower())
             
-        context = ""
-        for msg in chat_history:
-            if msg.role == MessageRole.USER:
-                context += f"User: {msg.content}\n"
-            else:
-                context += f"Assistant: {msg.content}\n"
+            if not chat_history:
+                return processed_question
                 
-        return f"{context}\nCurrent question: {processed_question}"
+            context = "\n".join(
+                f"{'User' if msg.role == MessageRole.USER else 'Assistant'}: {msg.content}"
+                for msg in chat_history
+            )
+            
+            return f"{context}\nCurrent question: {processed_question}"
+        except Exception as e:
+            logger.error(f"Error processing question: {e}")
+            raise
 
     @staticmethod
     def get_legal_message() -> str:
