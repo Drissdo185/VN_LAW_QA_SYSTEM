@@ -1,7 +1,8 @@
 import json
 import logging
-from typing import List, Dict, Optional
+from typing import List, Dict, Optional, Any
 from dataclasses import dataclass
+from pathlib import Path
 
 import torch
 from llama_index.core import Document
@@ -13,33 +14,50 @@ from tqdm import tqdm
 from transformers import AutoTokenizer
 
 # Configure logging
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-)
+logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
+@dataclass
+class DocumentMetadata:
+    """Metadata for a legal document."""
+    filename: str
+    source: str
+    len_tokenizer: int
+    
+    @classmethod
+    def from_dict(cls, data: Dict[str, Any]) -> 'DocumentMetadata':
+        return cls(
+            filename=data.get('filename', ''),
+            source=data.get('source', ''),
+            len_tokenizer=data.get('len_tokenizer', 0)
+        )
+
 class VietnameseLegalEmbeddings:
+    """Handler for Vietnamese legal document embeddings."""
+    
     def __init__(
         self,
-        embedding_model: str = "qducnguyen/vietnamese-bi-encoder",
-        device: str = "cuda" if torch.cuda.is_available() else "cpu",
+        embedding_model: str = "dangvantuan/vietnamese-document-embedding",
+        device: Optional[str] = None,
         parent_chunk_size: int = 900,
         parent_chunk_overlap: int = 0,
         child_chunk_size: int = 600,
         child_chunk_overlap: int = 90
     ):
-        """
-        Initialize the Vietnamese Legal Document Embedding System.
-        """
+        """Initialize the embedding system."""
+        self.device = device or ("cuda" if torch.cuda.is_available() else "cpu")
+        
+        # Initialize embedding model
         self.embed_model = HuggingFaceEmbedding(
             model_name=embedding_model,
             max_length=256,
-            device=device
+            device=self.device
         )
         
+        # Initialize tokenizer
         self.tokenizer = AutoTokenizer.from_pretrained(embedding_model)
         
+        # Initialize chunkers
         self.parent_chunker = TokenTextSplitter(
             chunk_size=parent_chunk_size,
             chunk_overlap=parent_chunk_overlap,
@@ -54,129 +72,121 @@ class VietnameseLegalEmbeddings:
             separator=" ",
             include_prev_next_rel=False
         )
-
-    def clean_relationships(self, node: TextNode) -> TextNode:
-        """
-        Clean and fix node relationships to match expected schema.
         
-        Args:
-            node: TextNode to clean
-            
-        Returns:
-            TextNode with fixed relationships
-        """
-        if NodeRelationship.SOURCE in node.relationships:
-            related_info = node.relationships[NodeRelationship.SOURCE]
-            
-            # Create a new RelatedNodeInfo with all required fields
-            fixed_info = RelatedNodeInfo(
-                node_id=related_info.node_id,
-                node_type=ObjectType.TEXT,  # Set appropriate type
-                hash=related_info.hash,
-                metadata={},  # Empty metadata to avoid serialization issues
-            )
-            
-            # Update the node's relationships
-            node.relationships[NodeRelationship.SOURCE] = fixed_info
-            
-        return node
+        logger.info(f"Initialized embedding system with device: {self.device}")
 
-    def load_documents(self, json_path: str) -> List[Document]:
-        """
-        Load documents from a JSON file.
-        """
+    def load_documents(self, json_path: str | Path) -> List[Document]:
+        """Load and preprocess documents from JSON."""
         try:
-            with open(json_path) as f:
-                all_data = json.load(f)
-            
+            json_path = Path(json_path)
+            if not json_path.exists():
+                raise FileNotFoundError(f"JSON file not found: {json_path}")
+                
+            with json_path.open('r', encoding='utf-8') as f:
+                data = json.load(f)
+                
             documents = []
             empty_count = 0
             
-            for doc_data in all_data:
-                for child_data in doc_data["child_data"]:
-                    if len(child_data["lower_segmented_text"].strip()):
-                        documents.append(Document(
-                            text=child_data["full_text"],
-                            metadata={
-                                "filename": doc_data["meta_data"]["file_name"],
-                                "source": doc_data["meta_data"]["id_doc"] + ", " + ", ".join(child for child in child_data['pointer_link']),
-                                "len_tokenizer": child_data["len_tokenizer"]
-                            },
+            for doc_data in data:
+                for child in doc_data.get("child_data", []):
+                    if text := child.get("lower_segmented_text", "").strip():
+                        doc = Document(
+                            text=child["full_text"],
+                            metadata=DocumentMetadata(
+                                filename=doc_data["meta_data"]["file_name"],
+                                source=f"{doc_data['meta_data']['id_doc']}, {', '.join(child['pointer_link'])}",
+                                len_tokenizer=child["len_tokenizer"]
+                            ).__dict__,
                             text_template="{content}",
                             excluded_embed_metadata_keys=["filename", "source", "len_tokenizer"],
                             excluded_llm_metadata_keys=["filename", "source", "len_tokenizer"]
-                        ))
+                        )
+                        documents.append(doc)
                     else:
                         empty_count += 1
             
-            logger.info(f"Loaded {len(documents)} documents. Found {empty_count} empty documents.")
+            logger.info(f"Loaded {len(documents)} documents. Skipped {empty_count} empty documents.")
             return documents
             
         except Exception as e:
-            logger.error(f"Error loading documents: {e}")
+            logger.error(f"Error loading documents: {str(e)}")
             raise
 
-    def process_documents(self, documents: List[Document]) -> List[Document]:
-        """
-        Process documents through parent and child chunking.
-        """
+    def process_documents(self, documents: List[Document]) -> List[TextNode]:
+        """Process documents through chunking pipeline."""
         try:
-            # Create parent nodes
-            logger.info("Creating parent nodes...")
+            # Create and process parent nodes
             parent_nodes = self.parent_chunker.get_nodes_from_documents(
                 documents,
                 show_progress=True
             )
             
-            # Add parent text to metadata
-            logger.info("Processing parent nodes...")
-            for parent_node in tqdm(parent_nodes):
-                parent_node.metadata["parent_text"] = parent_node.text
-                parent_node.excluded_embed_metadata_keys.append("parent_text")
-                parent_node.excluded_llm_metadata_keys.append("parent_text")
+            for node in tqdm(parent_nodes, desc="Processing parent nodes"):
+                node.metadata["parent_text"] = node.text
+                node.excluded_embed_metadata_keys.append("parent_text")
+                node.excluded_llm_metadata_keys.append("parent_text")
             
-            # Create child nodes
-            logger.info("Creating child nodes...")
+            # Create and process child nodes
             child_nodes = self.child_chunker.get_nodes_from_documents(
                 parent_nodes,
                 show_progress=True
             )
             
             # Process child nodes
-            logger.info("Processing child nodes...")
             processed_nodes = []
-            for child_node in tqdm(child_nodes):
-                # Apply Vietnamese tokenization
-                child_node.text = ViTokenizer.tokenize(child_node.text.lower())
-                
-                # Clean relationships to fix schema issues
-                cleaned_node = self.clean_relationships(child_node)
-                processed_nodes.append(cleaned_node)
+            for node in tqdm(child_nodes, desc="Processing child nodes"):
+                node.text = ViTokenizer.tokenize(node.text.lower())
+                processed_nodes.append(self._clean_node_relationships(node))
             
+            logger.info(f"Processed {len(processed_nodes)} nodes")
             return processed_nodes
             
         except Exception as e:
-            logger.error(f"Error processing documents: {e}")
+            logger.error(f"Error processing documents: {str(e)}")
+            raise
+
+    def _clean_node_relationships(self, node: TextNode) -> TextNode:
+        """Clean and standardize node relationships."""
+        if NodeRelationship.SOURCE in node.relationships:
+            source = node.relationships[NodeRelationship.SOURCE]
+            node.relationships[NodeRelationship.SOURCE] = RelatedNodeInfo(
+                node_id=source.node_id,
+                node_type=ObjectType.TEXT,
+                hash=source.hash,
+                metadata={}
+            )
+        return node
+
+    async def get_embeddings_async(self, texts: List[str]) -> List[List[float]]:
+        """Get embeddings for multiple texts asynchronously."""
+        try:
+            processed_texts = [
+                ViTokenizer.tokenize(text.lower())
+                for text in texts
+            ]
+            return await self.embed_model.aget_text_embedding_batch(processed_texts)
+        except Exception as e:
+            logger.error(f"Error in batch embedding: {str(e)}")
             raise
 
     def get_embeddings(self, text: str) -> List[float]:
-        """
-        Get embeddings for a single text.
-        """
+        """Get embeddings for a single text."""
         try:
             processed_text = ViTokenizer.tokenize(text.lower())
             return self.embed_model.get_text_embedding(processed_text)
         except Exception as e:
-            logger.error(f"Error getting embeddings: {e}")
+            logger.error(f"Error getting embeddings: {str(e)}")
             raise
 
     def batch_embed(self, texts: List[str]) -> List[List[float]]:
-        """
-        Get embeddings for a batch of texts.
-        """
+        """Get embeddings for a batch of texts."""
         try:
-            processed_texts = [ViTokenizer.tokenize(text.lower()) for text in texts]
+            processed_texts = [
+                ViTokenizer.tokenize(text.lower())
+                for text in texts
+            ]
             return self.embed_model.get_text_embedding_batch(processed_texts)
         except Exception as e:
-            logger.error(f"Error batch embedding texts: {e}")
+            logger.error(f"Error in batch embedding: {str(e)}")
             raise

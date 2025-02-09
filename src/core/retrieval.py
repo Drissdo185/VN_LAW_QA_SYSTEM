@@ -34,19 +34,16 @@ class RetrievalManager:
         weaviate_client,
         embed_model,
         post_processing_pipeline,
-        collection_name: str,
+        collection_name: "ND168",
         similarity_top_k: int = 5,
         dense_weight: float = 0.5,
         query_mode: str = "hybrid",
-        llm_model: str = "gpt-4",
-        llm_api_key: str = "",
         max_reasoning_steps: int = 3,
         system_prompt: Optional[PromptTemplate] = None
     ):
         """Initialize the RetrievalManager."""
         try:
-            # Initialize LLM components
-            self.llm = OpenAI(model=llm_model, api_key=llm_api_key)
+            
             self.max_reasoning_steps = max_reasoning_steps
             self.system_prompt = system_prompt or self.DEFAULT_SYSTEM_PROMPT
             self.post_processing_pipeline = post_processing_pipeline
@@ -164,22 +161,20 @@ class RetrievalManager:
             raise
 
     def perform_hybrid_search(
-        self,
-        query: str,
-        st_container: Optional[Any] = None
+    self,
+    query: str,
+    st_container: Optional[Any] = None
     ) -> List[NodeWithScore]:
         """Perform hybrid search combining dense and sparse retrieval."""
         try:
-            processed_query = ViTokenizer.tokenize(query.lower())
-            
-            # Retrieve results
-            results = self.retriever.retrieve(processed_query)
+            # Query is already processed at this point
+            results = self.retriever.retrieve(query)
             
             # Apply post-processing if available
             if self.post_processing_pipeline:
                 results = self.post_processing_pipeline.process(
                     results,
-                    processed_query
+                    query
                 )
             
             # Update UI if container provided
