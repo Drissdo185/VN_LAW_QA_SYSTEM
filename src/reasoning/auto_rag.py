@@ -1,6 +1,7 @@
 from typing import Optional, Dict, Any
 from llama_index.llms.openai import OpenAI
 from llama_index.core import PromptTemplate
+import tiktoken
 
 from config.config import ModelConfig
 from retrieval.retriever import DocumentRetriever
@@ -15,18 +16,22 @@ class AutoRAG:
     ):
         self.model_config = model_config
         self.retriever = retriever
-        self.llm = self._self_llm()
+        self.llm = self._setup_llm()
         self.prompt_template = PromptTemplate(
             template=SYSTEM_PROMPT
         )
-    
-    
-    def _self_llm(self) -> OpenAI:
+        self.tokenizer = tiktoken.encoding_for_model(model_config.llm_model)
+        
+    def _setup_llm(self) -> OpenAI:
         """Setup LLM with configured parameters"""
         return OpenAI(
             model=self.model_config.llm_model,
             api_key=self.model_config.llm_api_key
         )
+    
+    def _count_tokens(self, text: str) -> int:
+        """Count number of tokens in text"""
+        return len(self.tokenizer.encode(text))
     
     async def get_answer(self, question: str) -> Dict[str, Any]:
         """
@@ -41,20 +46,36 @@ class AutoRAG:
                 - decision: Whether more information is needed
                 - next_query: Follow-up query if needed
                 - final_answer: Final answer if sufficient information
+                - token_usage: Dictionary with input and output token counts
         """
         # Initial retrieval
         retrieved_docs = self.retriever.retrieve(question)
         context = self.retriever.get_formatted_context(retrieved_docs)
         
         # Generate prompt
-        prompt = self.system_prompt.format(
+        prompt = self.prompt_template.format(
             question=question,
             context=context
         )
         
+        # Count input tokens
+        input_tokens = self._count_tokens(prompt)
+        
         # Get LLM response
         response = await self.llm.acomplete(prompt)
+        
+        # Count output tokens
+        output_tokens = self._count_tokens(response.text)
+        
+        # Parse response
         parsed_response = self._parse_response(response.text)
+        
+        # Add token usage information
+        parsed_response["token_usage"] = {
+            "input_tokens": input_tokens,
+            "output_tokens": output_tokens,
+            "total_tokens": input_tokens + output_tokens
+        }
         
         return parsed_response
     
@@ -86,4 +107,3 @@ class AutoRAG:
                 parsed[current_section] += " " + line.strip()
                 
         return parsed
-        

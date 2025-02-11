@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 import os
+import torch
 from typing import Optional
 
 
@@ -13,6 +14,7 @@ class WeaviateConfig:
 class ModelConfig:
     device: str = "cuda:0" if torch.cuda.is_available() else "cpu"
     embedding_model: str = "dangvantuan/vietnamese-document-embedding"
+    cross_encoder_model: str = "dangvantuan/vietnamese-document-embedding"
     chunk_size: int = 512
     chunk_overlap: int = 50
     llm_model: str = "gpt-4o-mini"
