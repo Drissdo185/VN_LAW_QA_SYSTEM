@@ -1,143 +1,162 @@
 import streamlit as st
-import asyncio
+import logging
 from typing import List
-import os
-from dataclasses import dataclass
+import asyncio
+from llama_index.core.base.llms.types import ChatMessage, MessageRole
+from llama_index.llms.openai import OpenAI
+from llama_index.core import Settings
+from llama_index.embeddings.huggingface import HuggingFaceEmbedding
 
-# Import your existing classes
-from retrieval.search_pipline import SearchPipeline
-from retrieval.retriever import DocumentRetriever
-from retrieval.vector_store import VectorStoreManager
-from reasoning.auto_rag import AutoRAG
-from config.config import ModelConfig, RetrievalConfig, WeaviateConfig
+from config.config import ModelConfig, RetrievalConfig, load_and_validate_configs
+from config.domain_router import DomainRouter
 
-# Initialize configurations
-@st.cache_resource
-def init_configs():
-    weaviate_config = WeaviateConfig(
-        url=os.getenv("WEAVIATE_TRAFFIC_URL"),
-        api_key=os.getenv("WEAVIATE_TRAFFIC_KEY"),
-        collection="ND168"
-    )
-    
-    model_config = ModelConfig()
-    retrieval_config = RetrievalConfig()
-    
-    return weaviate_config, model_config, retrieval_config
+# Configure logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
-# Initialize components
-@st.cache_resource
-def init_components(weaviate_config, model_config, retrieval_config):
-    # Initialize vector store
-    vector_store_manager = VectorStoreManager(
-        weaviate_config=weaviate_config,
-        model_config=model_config
-    )
-    vector_store_manager.initialize()
-    
-    # Initialize retriever
-    retriever = DocumentRetriever(
-        index=vector_store_manager.get_index(),
-        config=retrieval_config
-    )
-    
-    # Initialize search pipeline
-    search_pipeline = SearchPipeline(
-        retriever=retriever,
-        model_config=model_config,
-        retrieval_config=retrieval_config
-    )
-    
-    # Initialize AutoRAG
-    auto_rag = AutoRAG(
-        model_config=model_config,
-        retriever=retriever
-    )
-    
-    return search_pipeline, auto_rag
-
-async def process_question(auto_rag, question):
-    """Async function to process the question using AutoRAG"""
-    return await auto_rag.get_answer(question)
-
-def display_token_usage(token_usage):
-    """Display token usage information in a formatted way"""
-    col1, col2, col3 = st.columns(3)
-    
-    with col1:
-        st.metric("Input Tokens", token_usage["input_tokens"])
-    with col2:
-        st.metric("Output Tokens", token_usage["output_tokens"])
-    with col3:
-        st.metric("Total Tokens", token_usage["total_tokens"])
-
-def main():
-    st.title("RAG System Demo")
-    
-    # Initialize configurations and components
-    try:
-        weaviate_config, model_config, retrieval_config = init_configs()
-        search_pipeline, auto_rag = init_components(
-            weaviate_config, 
-            model_config, 
-            retrieval_config
-        )
-    except Exception as e:
-        st.error(f"Error initializing components: {str(e)}")
-        return
-    
-    # Input section
-    st.header("Ask a Question")
-    question = st.text_input("Enter your question:")
-    
-    if st.button("Get Answer"):
-        if not question:
-            st.warning("Please enter a question")
-            return
-            
+class DomainManager:
+    def __init__(self):
+        self.llm = None
+        self.embed_model = None
+        self.domain_router = None
+        self.initialize_components()
+        
+    def initialize_components(self):
+        """Initialize common components and domain router"""
         try:
-            # Show search results
-            st.subheader("Search Results")
-            with st.spinner("Searching..."):
-                search_results = search_pipeline.search(question)
-                
-                for i, result in enumerate(search_results, 1):
-                    with st.expander(f"Result {i} (Score: {result.score:.3f})"):
-                        st.write(result.text)
+            # Initialize embedding model
+            self.embed_model = HuggingFaceEmbedding(
+                model_name="dangvantuan/vietnamese-document-embedding",
+                max_length=256,
+                trust_remote_code=True
+            )
             
-            # Get and show RAG response
-            st.subheader("RAG Response")
-            with st.spinner("Generating response..."):
-                # Create event loop and run async function
-                loop = asyncio.new_event_loop()
-                asyncio.set_event_loop(loop)
-                response = loop.run_until_complete(process_question(auto_rag, question))
-                loop.close()
-                
-                # Display token usage
-                st.subheader("Token Usage")
-                display_token_usage(response["token_usage"])
-                
-                # Display analysis
-                st.markdown("**Analysis:**")
-                st.write(response["analysis"])
-                
-                # Display decision
-                st.markdown("**Decision:**")
-                st.write(response["decision"])
-                
-                # Display next query if exists
-                if response["next_query"]:
-                    st.markdown("**Next Query:**")
-                    st.write(response["next_query"])
-                
-                # Display final answer if exists
-                if response["final_answer"]:
-                    st.markdown("**Final Answer:**")
-                    st.write(response["final_answer"])
-                    
+            # Load and validate configs
+            model_config, retrieval_config = load_and_validate_configs()
+            
+            # Initialize LLM
+            self.llm = OpenAI(model=model_config.llm_model, temperature=0.1)
+            Settings.llm = self.llm
+            
+            # Initialize domain router
+            self.domain_router = DomainRouter(
+                llm=self.llm,
+                model_config=model_config,
+                retrieval_config=retrieval_config
+            )
+            
+            logger.info("Successfully initialized all components")
+            
         except Exception as e:
-            st.error(f"Error processing question: {str(e)}")
+            logger.error(f"Error initializing components: {e}", exc_info=True)
+            raise
+    
+    async def process_question(self, question: str) -> str:
+        """Process user question through domain routing and search pipeline"""
+        try:
+            if not self.domain_router:
+                raise ValueError("Domain router not initialized")
+                
+            # Get results and domain classification
+            results, domain = await self.domain_router.route_and_search(question)
+            
+            if not results or not domain:
+                return (
+                    "Xin lỗi, tôi không thể tìm thấy thông tin phù hợp để trả lời câu hỏi của bạn. "
+                    "Vui lòng thử diễn đạt lại câu hỏi hoặc cung cấp thêm chi tiết."
+                )
+            
+            # Generate response from results
+            response = await self.generate_response(question, results, domain)
+            return response
+            
+        except Exception as e:
+            logger.error(f"Error processing question: {e}", exc_info=True)
+            return "Đã xảy ra lỗi khi xử lý câu hỏi. Vui lòng thử lại sau."
+
+    async def generate_response(self, question: str, results: List, domain: str) -> str:
+        """Generate response based on retrieved documents"""
+        context = "\n\n".join([doc.text for doc in results if doc.text])
+        
+        prompt = f"""Dựa trên các tài liệu pháp lý về {domain} sau đây, vui lòng trả lời câu hỏi.
+Cung cấp câu trả lời rõ ràng, súc tích và trích dẫn các điều khoản cụ thể khi có liên quan.
+
+Câu hỏi: {question}
+
+Tài liệu pháp lý:
+{context}
+
+Trả lời:"""
+        
+        try:
+            response = await self.llm.acomplete(prompt)
+            return response.text
+        except Exception as e:
+            logger.error(f"Error generating response: {e}")
+            return "Xin lỗi, đã có lỗi xảy ra khi tạo câu trả lời. Vui lòng thử lại."
+
+def initialize_session_state():
+    """Initialize Streamlit session state variables"""
+    if "chat_history" not in st.session_state:
+        st.session_state.chat_history: List[ChatMessage] = []
+    
+    if "domain_manager" not in st.session_state:
+        st.session_state.domain_manager = DomainManager()
+
+def display_chat_history():
+    """Display chat history"""
+    for message in st.session_state.chat_history:
+        with st.chat_message(message.role.value):
+            st.write(message.content)
+
+async def main():
+    # Configure Streamlit page
+    st.set_page_config(
+        page_title="Hệ thống Tra cứu Pháp lý",
+        page_icon="⚖️",
+        layout="wide"
+    )
+    
+    # Page header
+    st.title("⚖️ Hệ thống Tra cứu Văn bản Pháp lý")
+    st.write("Hỗ trợ tra cứu về: Giao thông 🚗 | Chứng khoán 📈 | Lao động 👷")
+    
+    # Initialize session state
+    initialize_session_state()
+    
+    # Display chat history
+    display_chat_history()
+    
+    # Chat input
+    user_input = st.chat_input("Nhập câu hỏi của bạn...")
+    
+    if user_input:
+        # Display user message
+        with st.chat_message("user"):
+            st.write(user_input)
+        
+        # Add user message to chat history
+        st.session_state.chat_history.append(
+            ChatMessage(role=MessageRole.USER, content=user_input)
+        )
+        
+        try:
+            # Process question
+            with st.spinner("Đang xử lý câu hỏi..."):
+                response = await st.session_state.domain_manager.process_question(user_input)
+            
+            # Display assistant response
+            with st.chat_message("assistant"):
+                st.write(response)
+            
+            # Add assistant response to chat history
+            st.session_state.chat_history.append(
+                ChatMessage(role=MessageRole.ASSISTANT, content=response)
+            )
+            
+        except Exception as e:
+            st.error("❌ Đã xảy ra lỗi khi xử lý câu hỏi của bạn. Vui lòng thử lại.")
+            logger.error(f"Error in main loop: {e}", exc_info=True)
 
 if __name__ == "__main__":
-    main()
+    asyncio.run(main())
