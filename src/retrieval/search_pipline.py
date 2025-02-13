@@ -35,19 +35,10 @@ class SearchPipeline:
         """
         # Step 1: Initial retrieval
         initial_results = self.retriever.retrieve(query)
-        print("\n=== Initial Retrieval Scores ===")
-        for i, result in enumerate(initial_results, 1):
-            print(f"Result {i}:")
-            print(f"Score: {result.score:.4f}")
-            print(f"Text snippet: {result.text[:100]}...")  # Show first 100 chars
-            print("-" * 50)
+    
         # Step 2: Cross-encoder reranking
         reranked_results = self._rerank_results(query, initial_results)
-        for i, result in enumerate(reranked_results, 1):
-            print(f"Result {i}:")
-            print(f"Score: {result.score:.4f}")
-            print(f"Text snippet: {result.text[:100]}...")  # Show first 100 chars
-            print("-" * 50)
+        
         # Step 3: Remove duplicates
         deduplicated_results = self._remove_duplicates(reranked_results)
         
