@@ -43,9 +43,9 @@ class SearchPipeline:
         deduplicated_results = self._remove_duplicates(reranked_results)
         
         # Step 4: Filter by score
-        filtered_results = self._filter_by_score(deduplicated_results)
+        filtered_results = self._filter_by_score(reranked_results)
         
-        return filtered_results[:5]
+        return reranked_results[:10]
     
     def _rerank_results(
         self, 
@@ -91,7 +91,7 @@ class SearchPipeline:
             # Check similarity with previously seen texts
             for seen_text in seen_texts:
                 similarity = SequenceMatcher(None, current_text, seen_text).ratio()
-                if similarity > 0.7:
+                if similarity > 0.5:
                     is_duplicate = True
                     break
             
@@ -105,5 +105,5 @@ class SearchPipeline:
         """Filter results by minimum similarity score"""
         return [
             result for result in results 
-            if result.score >= 0.3
+            if result.score >= 0.5
         ]

@@ -69,8 +69,8 @@ class ModelConfig:
 class RetrievalConfig:
     """Configuration for document retrieval"""
     vector_store_query_mode: str = "hybrid"
-    similarity_top_k: int = 7
-    alpha: float = 0.7
+    similarity_top_k: int = 20
+    alpha: float = 0.5
 
     def validate(self) -> bool:
         """Validate configuration values"""

@@ -1,162 +1,126 @@
 import streamlit as st
-import logging
-from typing import List
 import asyncio
-from llama_index.core.base.llms.types import ChatMessage, MessageRole
 from llama_index.llms.openai import OpenAI
-from llama_index.core import Settings
-from llama_index.embeddings.huggingface import HuggingFaceEmbedding
+import logging
 
-from config.config import ModelConfig, RetrievalConfig, load_and_validate_configs
+from config.config import load_and_validate_configs, get_domain_descriptions
 from config.domain_router import DomainRouter
+from reasoning.auto_rag import AutoRAG
 
-# Configure logging
+# Setup logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-class DomainManager:
-    def __init__(self):
-        self.llm = None
-        self.embed_model = None
-        self.domain_router = None
-        self.initialize_components()
+# Page config
+st.set_page_config(
+    page_title="Legal Document Search",
+    page_icon="⚖️",
+    layout="wide"
+)
+
+def initialize_system():
+    """Initialize the RAG system components"""
+    try:
+        # Load configurations
+        model_config, retrieval_config = load_and_validate_configs()
         
-    def initialize_components(self):
-        """Initialize common components and domain router"""
-        try:
-            # Initialize embedding model
-            self.embed_model = HuggingFaceEmbedding(
-                model_name="dangvantuan/vietnamese-document-embedding",
-                max_length=256,
-                trust_remote_code=True
-            )
-            
-            # Load and validate configs
-            model_config, retrieval_config = load_and_validate_configs()
-            
-            # Initialize LLM
-            self.llm = OpenAI(model=model_config.llm_model, temperature=0.1)
-            Settings.llm = self.llm
-            
-            # Initialize domain router
-            self.domain_router = DomainRouter(
-                llm=self.llm,
-                model_config=model_config,
-                retrieval_config=retrieval_config
-            )
-            
-            logger.info("Successfully initialized all components")
-            
-        except Exception as e:
-            logger.error(f"Error initializing components: {e}", exc_info=True)
-            raise
-    
-    async def process_question(self, question: str) -> str:
-        """Process user question through domain routing and search pipeline"""
-        try:
-            if not self.domain_router:
-                raise ValueError("Domain router not initialized")
-                
-            # Get results and domain classification
-            results, domain = await self.domain_router.route_and_search(question)
-            
-            if not results or not domain:
-                return (
-                    "Xin lỗi, tôi không thể tìm thấy thông tin phù hợp để trả lời câu hỏi của bạn. "
-                    "Vui lòng thử diễn đạt lại câu hỏi hoặc cung cấp thêm chi tiết."
-                )
-            
-            # Generate response from results
-            response = await self.generate_response(question, results, domain)
-            return response
-            
-        except Exception as e:
-            logger.error(f"Error processing question: {e}", exc_info=True)
-            return "Đã xảy ra lỗi khi xử lý câu hỏi. Vui lòng thử lại sau."
-
-    async def generate_response(self, question: str, results: List, domain: str) -> str:
-        """Generate response based on retrieved documents"""
-        context = "\n\n".join([doc.text for doc in results if doc.text])
-        
-        prompt = f"""Dựa trên các tài liệu pháp lý về {domain} sau đây, vui lòng trả lời câu hỏi.
-Cung cấp câu trả lời rõ ràng, súc tích và trích dẫn các điều khoản cụ thể khi có liên quan.
-
-Câu hỏi: {question}
-
-Tài liệu pháp lý:
-{context}
-
-Trả lời:"""
-        
-        try:
-            response = await self.llm.acomplete(prompt)
-            return response.text
-        except Exception as e:
-            logger.error(f"Error generating response: {e}")
-            return "Xin lỗi, đã có lỗi xảy ra khi tạo câu trả lời. Vui lòng thử lại."
-
-def initialize_session_state():
-    """Initialize Streamlit session state variables"""
-    if "chat_history" not in st.session_state:
-        st.session_state.chat_history: List[ChatMessage] = []
-    
-    if "domain_manager" not in st.session_state:
-        st.session_state.domain_manager = DomainManager()
-
-def display_chat_history():
-    """Display chat history"""
-    for message in st.session_state.chat_history:
-        with st.chat_message(message.role.value):
-            st.write(message.content)
-
-async def main():
-    # Configure Streamlit page
-    st.set_page_config(
-        page_title="Hệ thống Tra cứu Pháp lý",
-        page_icon="⚖️",
-        layout="wide"
-    )
-    
-    # Page header
-    st.title("⚖️ Hệ thống Tra cứu Văn bản Pháp lý")
-    st.write("Hỗ trợ tra cứu về: Giao thông 🚗 | Chứng khoán 📈 | Lao động 👷")
-    
-    # Initialize session state
-    initialize_session_state()
-    
-    # Display chat history
-    display_chat_history()
-    
-    # Chat input
-    user_input = st.chat_input("Nhập câu hỏi của bạn...")
-    
-    if user_input:
-        # Display user message
-        with st.chat_message("user"):
-            st.write(user_input)
-        
-        # Add user message to chat history
-        st.session_state.chat_history.append(
-            ChatMessage(role=MessageRole.USER, content=user_input)
+        # Initialize LLM
+        llm = OpenAI(
+            model=model_config.llm_model,
+            api_key=model_config.llm_api_key
         )
         
-        try:
-            # Process question
-            with st.spinner("Đang xử lý câu hỏi..."):
-                response = await st.session_state.domain_manager.process_question(user_input)
+        # Initialize domain router
+        router = DomainRouter(
+            llm=llm,
+            model_config=model_config,
+            retrieval_config=retrieval_config
+        )
+        
+        return router, model_config
+        
+    except Exception as e:
+        st.error(f"Error initializing system: {e}")
+        return None, None
+
+def display_system_info():
+    """Display available domains and their descriptions"""
+    st.sidebar.header("Available Domains")
+    
+    domains = get_domain_descriptions()
+    for domain, description in domains.items():
+        st.sidebar.markdown(f"**{domain}**: {description}")
+
+def main():
+    st.title("Legal Document Search System")
+    
+    # Initialize session state
+    if 'router' not in st.session_state:
+        st.session_state.router, st.session_state.model_config = initialize_system()
+    
+    # Display system information
+    display_system_info()
+    
+    # Main input area
+    st.write("Enter your legal question below:")
+    question = st.text_area("Question", height=100)
+    
+    if st.button("Search"):
+        if not question:
+            st.warning("Please enter a question.")
+            return
             
-            # Display assistant response
-            with st.chat_message("assistant"):
-                st.write(response)
+        if not st.session_state.router:
+            st.error("System not properly initialized.")
+            return
             
-            # Add assistant response to chat history
-            st.session_state.chat_history.append(
-                ChatMessage(role=MessageRole.ASSISTANT, content=response)
-            )
-            
-        except Exception as e:
-            st.error("❌ Đã xảy ra lỗi khi xử lý câu hỏi của bạn. Vui lòng thử lại.")
-            logger.error(f"Error in main loop: {e}", exc_info=True)
+        # Show spinner during processing
+        with st.spinner("Processing your question..."):
+            try:
+                # Get search results
+                results, domain = asyncio.run(st.session_state.router.route_and_search(question))
+                
+                if not results or not domain:
+                    st.error("Could not process the question. Please try again.")
+                    return
+                
+                # Display domain and search results
+                st.subheader("Search Results")
+                st.write(f"Domain: {domain}")
+                
+                # Get retriever from the router for the specific domain
+                retriever = st.session_state.router.domain_pipelines[domain].retriever
+                
+                # Initialize AutoRAG with the domain-specific retriever
+                auto_rag = AutoRAG(
+                    model_config=st.session_state.model_config,
+                    retriever=retriever
+                )
+                
+                # Get detailed answer using AutoRAG
+                rag_response = asyncio.run(auto_rag.get_answer(question))
+                
+                # Display RAG analysis
+                with st.expander("Analysis", expanded=True):
+                    st.write("**Analysis:**", rag_response["analysis"])
+                    st.write("**Decision:**", rag_response["decision"])
+                    if rag_response["next_query"]:
+                        st.write("**Suggested follow-up query:**", rag_response["next_query"])
+                    if rag_response["final_answer"]:
+                        st.write("**Final Answer:**", rag_response["final_answer"])
+                    st.write("**Token Usage:**", rag_response["token_usage"])
+                
+                # Display retrieved documents
+                st.subheader("Retrieved Documents")
+                for i, result in enumerate(results, 1):
+                    with st.expander(f"Document {i} (Score: {result.score:.3f})"):
+                        st.write(result.text)
+                        if hasattr(result.node, 'metadata'):
+                            st.write("Metadata:", result.node.metadata)
+                
+            except Exception as e:
+                st.error(f"An error occurred: {e}")
+                logger.error(f"Error processing question: {e}", exc_info=True)
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    main()
