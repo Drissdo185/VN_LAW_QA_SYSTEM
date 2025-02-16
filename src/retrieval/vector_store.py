@@ -36,7 +36,8 @@ class VectorStoreManager:
             
             self.vector_store = WeaviateVectorStore(
                 weaviate_client=self.client,
-                index_name=self.weaviate_config.collection
+                index_name=self.weaviate_config.collection,
+                batch_size=32
             )
             logger.info(f"Vector store initialized with collection: {self.weaviate_config.collection}")
             

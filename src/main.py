@@ -49,7 +49,7 @@ def display_system_info():
     
     domains = get_domain_descriptions()
     for domain, description in domains.items():
-        st.sidebar.markdown(f"**{domain}**: {description}")
+        st.sidebar.markdown("**Giao thông**: Tra cứu về nghị định 168")
 
 def main():
     st.title("Legal Document Search System")
@@ -110,13 +110,13 @@ def main():
                         st.write("**Final Answer:**", rag_response["final_answer"])
                     st.write("**Token Usage:**", rag_response["token_usage"])
                 
-                # Display retrieved documents
-                st.subheader("Retrieved Documents")
-                for i, result in enumerate(results, 1):
-                    with st.expander(f"Document {i} (Score: {result.score:.3f})"):
-                        st.write(result.text)
-                        if hasattr(result.node, 'metadata'):
-                            st.write("Metadata:", result.node.metadata)
+                # # Display retrieved documents
+                # st.subheader("Retrieved Documents")
+                # for i, result in enumerate(results, 1):
+                #     with st.expander(f"Document {i} (Score: {result.score:.3f})"):
+                #         st.write(result.text)
+                #         if hasattr(result.node, 'metadata'):
+                #             st.write("Metadata:", result.node.metadata)
                 
             except Exception as e:
                 st.error(f"An error occurred: {e}")
