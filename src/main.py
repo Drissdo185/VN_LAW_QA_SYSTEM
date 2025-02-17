@@ -1,143 +1,148 @@
 import streamlit as st
 import asyncio
-from typing import List
+import time
+from typing import Dict
 import os
-from dataclasses import dataclass
+from contextlib import contextmanager
 
-# Import your existing classes
 from retrieval.search_pipline import SearchPipeline
 from retrieval.retriever import DocumentRetriever
 from retrieval.vector_store import VectorStoreManager
 from reasoning.auto_rag import AutoRAG
-from config.config import ModelConfig, RetrievalConfig, WeaviateConfig
+from config.config import ModelConfig, RetrievalConfig, WeaviateConfig, Domain
+from utils import measure_performance, RAGException
 
-# Initialize configurations
+if 'processing_time' not in st.session_state:
+    st.session_state.processing_time = None
+
 @st.cache_resource
 def init_configs():
     weaviate_config = WeaviateConfig(
         url=os.getenv("WEAVIATE_TRAFFIC_URL"),
-        api_key=os.getenv("WEAVIATE_TRAFFIC_KEY"),
-        collection="ND168"
+        api_key=os.getenv("WEAVIATE_TRAFFIC_KEY")
     )
-    
     model_config = ModelConfig()
     retrieval_config = RetrievalConfig()
-    
     return weaviate_config, model_config, retrieval_config
 
-# Initialize components
-@st.cache_resource
-def init_components(weaviate_config, model_config, retrieval_config):
-    # Initialize vector store
-    vector_store_manager = VectorStoreManager(
-        weaviate_config=weaviate_config,
-        model_config=model_config
-    )
-    vector_store_manager.initialize()
+class DomainComponents:
+    def __init__(self, domain: Domain, configs: tuple):
+        self.domain = domain
+        weaviate_config, model_config, retrieval_config = configs
+        self.vector_store_manager = VectorStoreManager(
+            weaviate_config=weaviate_config,
+            model_config=model_config,
+            domain=domain
+        )
+        self.vector_store_manager.initialize()
+        self.retriever = DocumentRetriever(
+            index=self.vector_store_manager.get_index(),
+            config=retrieval_config
+        )
+        self.search_pipeline = SearchPipeline(
+            retriever=self.retriever,
+            model_config=model_config,
+            retrieval_config=retrieval_config,
+            domain=self.domain
+        )
+        self.auto_rag = AutoRAG(
+            model_config=model_config,
+            retriever=self.retriever,
+            current_domain=domain
+        )
     
-    # Initialize retriever
-    retriever = DocumentRetriever(
-        index=vector_store_manager.get_index(),
-        config=retrieval_config
-    )
-    
-    # Initialize search pipeline
-    search_pipeline = SearchPipeline(
-        retriever=retriever,
-        model_config=model_config,
-        retrieval_config=retrieval_config
-    )
-    
-    # Initialize AutoRAG
-    auto_rag = AutoRAG(
-        model_config=model_config,
-        retriever=retriever
-    )
-    
-    return search_pipeline, auto_rag
+    def cleanup(self):
+        if hasattr(self, 'vector_store_manager'):
+            self.vector_store_manager.cleanup()
 
-async def process_question(auto_rag, question):
-    """Async function to process the question using AutoRAG"""
+@st.cache_resource
+def init_domain_components(configs: tuple) -> Dict[Domain, DomainComponents]:
+    return {
+        domain: DomainComponents(domain, configs)
+        for domain in Domain
+    }
+
+@contextmanager
+def get_event_loop():
+    loop = asyncio.new_event_loop()
+    asyncio.set_event_loop(loop)
+    try:
+        yield loop
+    finally:
+        loop.close()
+
+@measure_performance
+async def process_question(auto_rag: AutoRAG, question: str):
     return await auto_rag.get_answer(question)
 
-def display_token_usage(token_usage):
-    """Display token usage information in a formatted way"""
-    col1, col2, col3 = st.columns(3)
-    
-    with col1:
-        st.metric("Input Tokens", token_usage["input_tokens"])
-    with col2:
-        st.metric("Output Tokens", token_usage["output_tokens"])
-    with col3:
-        st.metric("Total Tokens", token_usage["total_tokens"])
+def display_token_usage(token_usage: Dict[str, int]):
+    st.markdown("**Token Usage**")
+    st.write(f"Input Tokens\n{token_usage['input_tokens']}")
+    st.write(f"Output Tokens\n{token_usage['output_tokens']}")
+    st.write(f"Total Tokens\n{token_usage['total_tokens']}")
+
+def display_performance_metrics():
+    if st.session_state.processing_time:
+        st.markdown("**Performance Metrics**")
+        st.write(f"Processing Time: {st.session_state.processing_time:.2f} seconds")
 
 def main():
-    st.title("RAG System Demo")
+    st.title("Multi-Domain RAG System Demo")
     
-    # Initialize configurations and components
     try:
-        weaviate_config, model_config, retrieval_config = init_configs()
-        search_pipeline, auto_rag = init_components(
-            weaviate_config, 
-            model_config, 
-            retrieval_config
+        configs = init_configs()
+        domain_components = init_domain_components(configs)
+        selected_domain = st.selectbox(
+            "Select Domain",
+            options=[domain.value for domain in Domain],
+            format_func=lambda x: x.title()
         )
+        current_domain = Domain(selected_domain)
+        components = domain_components[current_domain]
+        
     except Exception as e:
         st.error(f"Error initializing components: {str(e)}")
         return
     
-    # Input section
-    st.header("Ask a Question")
     question = st.text_input("Enter your question:")
     
-    if st.button("Get Answer"):
-        if not question:
-            st.warning("Please enter a question")
-            return
-            
+    if st.button("Get Answer") and question:
         try:
-            # Show search results
-            st.subheader("Search Results")
-            with st.spinner("Searching..."):
-                search_results = search_pipeline.search(question)
-                
-                for i, result in enumerate(search_results, 1):
-                    with st.expander(f"Result {i} (Score: {result.score:.3f})"):
-                        st.write(result.text)
+            start_time = time.time()
             
-            # Get and show RAG response
-            st.subheader("RAG Response")
-            with st.spinner("Generating response..."):
-                # Create event loop and run async function
-                loop = asyncio.new_event_loop()
-                asyncio.set_event_loop(loop)
-                response = loop.run_until_complete(process_question(auto_rag, question))
-                loop.close()
+            with st.spinner("Processing..."):
+                with get_event_loop() as loop:
+                    response = loop.run_until_complete(
+                        process_question(components.auto_rag, question)
+                    )
                 
-                # Display token usage
-                st.subheader("Token Usage")
+                st.session_state.processing_time = time.time() - start_time
+                
+                if "error" in response:
+                    st.error(response["error"])
+                    return
+                
                 display_token_usage(response["token_usage"])
+                display_performance_metrics()
                 
-                # Display analysis
-                st.markdown("**Analysis:**")
-                st.write(response["analysis"])
+                st.markdown("**Analysis Results**")
                 
-                # Display decision
-                st.markdown("**Decision:**")
-                st.write(response["decision"])
+                if response.get("analysis"):
+                    st.markdown("**Analysis:**")
+                    st.write(response["analysis"])
                 
-                # Display next query if exists
-                if response["next_query"]:
-                    st.markdown("**Next Query:**")
-                    st.write(response["next_query"])
+                if response.get("decision"):
+                    st.markdown("**Decision:**")
+                    st.write(response["decision"])
                 
-                # Display final answer if exists
-                if response["final_answer"]:
+                if response.get("final_answer"):
                     st.markdown("**Final Answer:**")
                     st.write(response["final_answer"])
-                    
+                
         except Exception as e:
-            st.error(f"Error processing question: {str(e)}")
+            st.error(f"Error: {str(e)}")
+        finally:
+            components.cleanup()
 
 if __name__ == "__main__":
     main()

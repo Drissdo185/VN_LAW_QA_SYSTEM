@@ -1,14 +1,22 @@
 from dataclasses import dataclass
 import os
 import torch
-from typing import Optional
+from typing import Optional, Literal
+from enum import Enum
 
+class Domain(str, Enum):
+    TRAFFIC = "traffic"
+    STOCK = "stock"
 
 @dataclass
 class WeaviateConfig:
-    url: os.getenv("WEAVIATE_TRAFFIC_URL")
-    api_key: os.getenv("WEAVIATE_TRAFFIC_KEY")
-    collection: "ND168"
+    url: str
+    api_key: str
+    traffic_collection: str = "ND168"
+    stock_collection: str = "STOCK"
+    
+    def get_collection(self, domain: Domain) -> str:
+        return self.traffic_collection if domain == Domain.TRAFFIC else self.stock_collection
 
 @dataclass
 class ModelConfig:
@@ -23,5 +31,5 @@ class ModelConfig:
 @dataclass
 class RetrievalConfig:
     vector_store_query_mode: str = "hybrid"
-    similarity_top_k: int = 5
+    similarity_top_k: int = 10
     alpha: float = 0.5

@@ -4,7 +4,7 @@ from sentence_transformers import CrossEncoder
 from llama_index.core.schema import NodeWithScore
 from difflib import SequenceMatcher
 
-from config.config import ModelConfig, RetrievalConfig
+from config.config import ModelConfig, RetrievalConfig, Domain
 from retrieval.retriever import DocumentRetriever
 
 class SearchPipeline:
@@ -12,11 +12,13 @@ class SearchPipeline:
         self,
         retriever: DocumentRetriever,
         model_config: ModelConfig,
-        retrieval_config: RetrievalConfig
+        retrieval_config: RetrievalConfig,
+        domain: Domain
     ):
         self.retriever = retriever
         self.model_config = model_config
         self.retrieval_config = retrieval_config
+        self.domain = domain
         self.cross_encoder = CrossEncoder(
             model_config.cross_encoder_model,
             device=model_config.device,
@@ -39,13 +41,13 @@ class SearchPipeline:
         # Step 2: Cross-encoder reranking
         reranked_results = self._rerank_results(query, initial_results)
         
-        # Step 3: Remove duplicates
-        deduplicated_results = self._remove_duplicates(reranked_results)
+        # # Step 3: Remove duplicates
+        # deduplicated_results = self._remove_duplicates(reranked_results)
         
-        # Step 4: Filter by score
-        filtered_results = self._filter_by_score(deduplicated_results)
+        # # Step 4: Filter by score
+        # filtered_results = self._filter_by_score(deduplicated_results)
         
-        return filtered_results[:5]
+        return reranked_results[:10]
     
     def _rerank_results(
         self, 
