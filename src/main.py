@@ -1,85 +1,148 @@
-from typing import Optional, Dict
-import weaviate
-from weaviate.classes.init import Auth
-from llama_index.vector_stores.weaviate import WeaviateVectorStore
-from llama_index.core import VectorStoreIndex
-from llama_index.embeddings.huggingface import HuggingFaceEmbedding
-from functools import lru_cache
+import streamlit as st
+import asyncio
+import time
+from typing import Dict
+import os
+from contextlib import contextmanager
 
-from config.config import WeaviateConfig, ModelConfig, Domain
+from retrieval.search_pipline import SearchPipeline
+from retrieval.retriever import DocumentRetriever
+from retrieval.vector_store import VectorStoreManager
+from reasoning.auto_rag import AutoRAG
+from config.config import ModelConfig, RetrievalConfig, WeaviateConfig, Domain
+from utils import measure_performance, RAGException
 
-class VectorStoreManager:
-    def __init__(
-        self,
-        weaviate_config: WeaviateConfig,
-        model_config: ModelConfig,
-        domain: Domain
-    ):
-        self.weaviate_config = weaviate_config
-        self.model_config = model_config
+if 'processing_time' not in st.session_state:
+    st.session_state.processing_time = None
+
+@st.cache_resource
+def init_configs():
+    weaviate_config = WeaviateConfig(
+        url=os.getenv("WEAVIATE_TRAFFIC_URL"),
+        api_key=os.getenv("WEAVIATE_TRAFFIC_KEY")
+    )
+    model_config = ModelConfig()
+    retrieval_config = RetrievalConfig()
+    return weaviate_config, model_config, retrieval_config
+
+class DomainComponents:
+    def __init__(self, domain: Domain, configs: tuple):
         self.domain = domain
-        self.client = None
-        self.vector_stores: Dict[Domain, WeaviateVectorStore] = {}
-        self.indices: Dict[Domain, VectorStoreIndex] = {}
-        
-    def initialize(self):
-        """Initialize Weaviate client and vector store for the specified domain"""
-        self._ensure_client_connected()
-        
-        collection = self.weaviate_config.get_collection(self.domain)
-        embed_model = self._get_cached_embedding_model()
-        
-        vector_store = WeaviateVectorStore(
-            weaviate_client=self.client,
-            index_name=collection
+        weaviate_config, model_config, retrieval_config = configs
+        self.vector_store_manager = VectorStoreManager(
+            weaviate_config=weaviate_config,
+            model_config=model_config,
+            domain=domain
         )
-        
-        index = VectorStoreIndex.from_vector_store(
-            vector_store=vector_store,
-            embed_model=embed_model
+        self.vector_store_manager.initialize()
+        self.retriever = DocumentRetriever(
+            index=self.vector_store_manager.get_index(),
+            config=retrieval_config
         )
-        
-        self.vector_stores[self.domain] = vector_store
-        self.indices[self.domain] = index
-    
-    def _ensure_client_connected(self):
-        """Ensure Weaviate client is connected, reconnect if needed"""
-        if not self.client:
-            self.client = weaviate.connect_to_weaviate_cloud(
-                cluster_url=self.weaviate_config.url,
-                auth_credentials=Auth.api_key(self.weaviate_config.api_key)
-            )
-        else:
-            try:
-                # Test if client is still connected
-                self.client.schema.get()
-            except Exception:
-                # Reconnect if client is closed
-                self.client = weaviate.connect_to_weaviate_cloud(
-                    cluster_url=self.weaviate_config.url,
-                    auth_credentials=Auth.api_key(self.weaviate_config.api_key)
-                )
-    
-    @lru_cache(maxsize=1)
-    def _get_cached_embedding_model(self):
-        """Get cached embedding model to avoid reloading"""
-        return HuggingFaceEmbedding(
-            model_name=self.model_config.embedding_model,
-            max_length=256,
-            trust_remote_code=True
+        self.search_pipeline = SearchPipeline(
+            retriever=self.retriever,
+            model_config=model_config,
+            retrieval_config=retrieval_config,
+            domain=self.domain
         )
-    
-    def get_index(self) -> Optional[VectorStoreIndex]:
-        """Get the vector store index for the current domain"""
-        self._ensure_client_connected()  # Ensure client is connected before returning index
-        return self.indices.get(self.domain)
+        self.auto_rag = AutoRAG(
+            model_config=model_config,
+            retriever=self.retriever,
+            current_domain=domain
+        )
     
     def cleanup(self):
-        """Clean up resources"""
-        if self.client:
-            try:
-                self.client.close()
-            except Exception:
-                pass
-            finally:
-                self.client = None
+        if hasattr(self, 'vector_store_manager'):
+            self.vector_store_manager.cleanup()
+
+@st.cache_resource
+def init_domain_components(configs: tuple) -> Dict[Domain, DomainComponents]:
+    return {
+        domain: DomainComponents(domain, configs)
+        for domain in Domain
+    }
+
+@contextmanager
+def get_event_loop():
+    loop = asyncio.new_event_loop()
+    asyncio.set_event_loop(loop)
+    try:
+        yield loop
+    finally:
+        loop.close()
+
+@measure_performance
+async def process_question(auto_rag: AutoRAG, question: str):
+    return await auto_rag.get_answer(question)
+
+def display_token_usage(token_usage: Dict[str, int]):
+    st.markdown("**Token Usage**")
+    st.write(f"Input Tokens\n{token_usage['input_tokens']}")
+    st.write(f"Output Tokens\n{token_usage['output_tokens']}")
+    st.write(f"Total Tokens\n{token_usage['total_tokens']}")
+
+def display_performance_metrics():
+    if st.session_state.processing_time:
+        st.markdown("**Performance Metrics**")
+        st.write(f"Processing Time: {st.session_state.processing_time:.2f} seconds")
+
+def main():
+    st.title("Multi-Domain RAG System Demo")
+    
+    try:
+        configs = init_configs()
+        domain_components = init_domain_components(configs)
+        selected_domain = st.selectbox(
+            "Select Domain",
+            options=[domain.value for domain in Domain],
+            format_func=lambda x: x.title()
+        )
+        current_domain = Domain(selected_domain)
+        components = domain_components[current_domain]
+        
+    except Exception as e:
+        st.error(f"Error initializing components: {str(e)}")
+        return
+    
+    question = st.text_input("Enter your question:")
+    
+    if st.button("Get Answer") and question:
+        try:
+            start_time = time.time()
+            
+            with st.spinner("Processing..."):
+                with get_event_loop() as loop:
+                    response = loop.run_until_complete(
+                        process_question(components.auto_rag, question)
+                    )
+                
+                st.session_state.processing_time = time.time() - start_time
+                
+                if "error" in response:
+                    st.error(response["error"])
+                    return
+                
+                display_token_usage(response["token_usage"])
+                display_performance_metrics()
+                
+                st.markdown("**Analysis Results**")
+                
+                if response.get("analysis"):
+                    st.markdown("**Analysis:**")
+                    st.write(response["analysis"])
+                
+                if response.get("decision"):
+                    st.markdown("**Decision:**")
+                    st.write(response["decision"])
+                
+                if response.get("final_answer"):
+                    st.markdown("**Final Answer:**")
+                    st.write(response["final_answer"])
+                
+        except Exception as e:
+            st.error(f"Error: {str(e)}")
+        finally:
+            components.cleanup()
+
+if __name__ == "__main__":
+    main()
