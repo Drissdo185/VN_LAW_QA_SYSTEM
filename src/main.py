@@ -1,126 +1,85 @@
-import streamlit as st
-import asyncio
-from llama_index.llms.openai import OpenAI
-import logging
+from typing import Optional, Dict
+import weaviate
+from weaviate.classes.init import Auth
+from llama_index.vector_stores.weaviate import WeaviateVectorStore
+from llama_index.core import VectorStoreIndex
+from llama_index.embeddings.huggingface import HuggingFaceEmbedding
+from functools import lru_cache
 
-from config.config import load_and_validate_configs, get_domain_descriptions
-from config.domain_router import DomainRouter
-from reasoning.auto_rag import AutoRAG
+from config.config import WeaviateConfig, ModelConfig, Domain
 
-# Setup logging
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
-
-# Page config
-st.set_page_config(
-    page_title="Legal Document Search",
-    page_icon="⚖️",
-    layout="wide"
-)
-
-def initialize_system():
-    """Initialize the RAG system components"""
-    try:
-        # Load configurations
-        model_config, retrieval_config = load_and_validate_configs()
+class VectorStoreManager:
+    def __init__(
+        self,
+        weaviate_config: WeaviateConfig,
+        model_config: ModelConfig,
+        domain: Domain
+    ):
+        self.weaviate_config = weaviate_config
+        self.model_config = model_config
+        self.domain = domain
+        self.client = None
+        self.vector_stores: Dict[Domain, WeaviateVectorStore] = {}
+        self.indices: Dict[Domain, VectorStoreIndex] = {}
         
-        # Initialize LLM
-        llm = OpenAI(
-            model=model_config.llm_model,
-            api_key=model_config.llm_api_key
+    def initialize(self):
+        """Initialize Weaviate client and vector store for the specified domain"""
+        self._ensure_client_connected()
+        
+        collection = self.weaviate_config.get_collection(self.domain)
+        embed_model = self._get_cached_embedding_model()
+        
+        vector_store = WeaviateVectorStore(
+            weaviate_client=self.client,
+            index_name=collection
         )
         
-        # Initialize domain router
-        router = DomainRouter(
-            llm=llm,
-            model_config=model_config,
-            retrieval_config=retrieval_config
+        index = VectorStoreIndex.from_vector_store(
+            vector_store=vector_store,
+            embed_model=embed_model
         )
         
-        return router, model_config
-        
-    except Exception as e:
-        st.error(f"Error initializing system: {e}")
-        return None, None
-
-def display_system_info():
-    """Display available domains and their descriptions"""
-    st.sidebar.header("Available Domains")
+        self.vector_stores[self.domain] = vector_store
+        self.indices[self.domain] = index
     
-    domains = get_domain_descriptions()
-    for domain, description in domains.items():
-        st.sidebar.markdown("**Giao thông**: Tra cứu về nghị định 168")
-
-def main():
-    st.title("Legal Document Search System")
-    
-    # Initialize session state
-    if 'router' not in st.session_state:
-        st.session_state.router, st.session_state.model_config = initialize_system()
-    
-    # Display system information
-    display_system_info()
-    
-    # Main input area
-    st.write("Enter your legal question below:")
-    question = st.text_area("Question", height=100)
-    
-    if st.button("Search"):
-        if not question:
-            st.warning("Please enter a question.")
-            return
-            
-        if not st.session_state.router:
-            st.error("System not properly initialized.")
-            return
-            
-        # Show spinner during processing
-        with st.spinner("Processing your question..."):
+    def _ensure_client_connected(self):
+        """Ensure Weaviate client is connected, reconnect if needed"""
+        if not self.client:
+            self.client = weaviate.connect_to_weaviate_cloud(
+                cluster_url=self.weaviate_config.url,
+                auth_credentials=Auth.api_key(self.weaviate_config.api_key)
+            )
+        else:
             try:
-                # Get search results
-                results, domain = asyncio.run(st.session_state.router.route_and_search(question))
-                
-                if not results or not domain:
-                    st.error("Could not process the question. Please try again.")
-                    return
-                
-                # Display domain and search results
-                st.subheader("Search Results")
-                st.write(f"Domain: {domain}")
-                
-                # Get retriever from the router for the specific domain
-                retriever = st.session_state.router.domain_pipelines[domain].retriever
-                
-                # Initialize AutoRAG with the domain-specific retriever
-                auto_rag = AutoRAG(
-                    model_config=st.session_state.model_config,
-                    retriever=retriever
+                # Test if client is still connected
+                self.client.schema.get()
+            except Exception:
+                # Reconnect if client is closed
+                self.client = weaviate.connect_to_weaviate_cloud(
+                    cluster_url=self.weaviate_config.url,
+                    auth_credentials=Auth.api_key(self.weaviate_config.api_key)
                 )
-                
-                # Get detailed answer using AutoRAG
-                rag_response = asyncio.run(auto_rag.get_answer(question))
-                
-                # Display RAG analysis
-                with st.expander("Analysis", expanded=True):
-                    st.write("**Analysis:**", rag_response["analysis"])
-                    st.write("**Decision:**", rag_response["decision"])
-                    if rag_response["next_query"]:
-                        st.write("**Suggested follow-up query:**", rag_response["next_query"])
-                    if rag_response["final_answer"]:
-                        st.write("**Final Answer:**", rag_response["final_answer"])
-                    st.write("**Token Usage:**", rag_response["token_usage"])
-                
-                # # Display retrieved documents
-                # st.subheader("Retrieved Documents")
-                # for i, result in enumerate(results, 1):
-                #     with st.expander(f"Document {i} (Score: {result.score:.3f})"):
-                #         st.write(result.text)
-                #         if hasattr(result.node, 'metadata'):
-                #             st.write("Metadata:", result.node.metadata)
-                
-            except Exception as e:
-                st.error(f"An error occurred: {e}")
-                logger.error(f"Error processing question: {e}", exc_info=True)
-
-if __name__ == "__main__":
-    main()
+    
+    @lru_cache(maxsize=1)
+    def _get_cached_embedding_model(self):
+        """Get cached embedding model to avoid reloading"""
+        return HuggingFaceEmbedding(
+            model_name=self.model_config.embedding_model,
+            max_length=256,
+            trust_remote_code=True
+        )
+    
+    def get_index(self) -> Optional[VectorStoreIndex]:
+        """Get the vector store index for the current domain"""
+        self._ensure_client_connected()  # Ensure client is connected before returning index
+        return self.indices.get(self.domain)
+    
+    def cleanup(self):
+        """Clean up resources"""
+        if self.client:
+            try:
+                self.client.close()
+            except Exception:
+                pass
+            finally:
+                self.client = None

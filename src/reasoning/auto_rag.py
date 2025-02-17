@@ -4,178 +4,156 @@ from llama_index.core import PromptTemplate
 from llama_index.core.schema import NodeWithScore
 import tiktoken
 
-from config.config import ModelConfig
+from config.config import ModelConfig, Domain
 from retrieval.retriever import DocumentRetriever
-from reasoning.prompts import SYSTEM_PROMPT
+from reasoning.prompts import SYSTEM_PROMPT, DOMAIN_VALIDATION_PROMPT
 
 class AutoRAG:
-    
     def __init__(
         self,
         model_config: ModelConfig,
         retriever: DocumentRetriever,
-        max_iterations: int = 3  # Maximum number of search iterations
+        current_domain: Domain,
+        max_iterations: int = 2
     ):
         self.model_config = model_config
         self.retriever = retriever
-        self.llm = self._setup_llm()
-        self.prompt_template = PromptTemplate(
-            template=SYSTEM_PROMPT
-        )
-        self.tokenizer = tiktoken.encoding_for_model(model_config.llm_model)
+        self.current_domain = current_domain
         self.max_iterations = max_iterations
+        self.llm = self._setup_llm()
+        self.prompt_template = PromptTemplate(template=SYSTEM_PROMPT)
+        self.domain_prompt = PromptTemplate(template=DOMAIN_VALIDATION_PROMPT)
+        self.tokenizer = tiktoken.encoding_for_model(model_config.llm_model)
         
+    async def validate_domain(self, question: str) -> bool:
+        """Validate if question matches current domain"""
+        prompt = self.domain_prompt.format(question=question)
+        response = await self.llm.acomplete(prompt)
+        detected_domain = response.text.strip().lower()
+        return detected_domain == self.current_domain.value
+    
+    async def get_answer(self, question: str) -> Dict[str, Any]:
+        """Get answer for a question using Auto RAG with domain validation and iterations"""
+        # Validate domain
+        is_valid_domain = await self.validate_domain(question)
+        if not is_valid_domain:
+            return {
+                "error": f"Question appears to be about {self.current_domain.value} domain. "
+                        f"Please switch to the appropriate domain or rephrase your question.",
+                "token_usage": {
+                    "input_tokens": self._count_tokens(question),
+                    "output_tokens": 0,
+                    "total_tokens": self._count_tokens(question)
+                }
+            }
+        
+        # Initialize tracking variables
+        iteration = 0
+        accumulated_context = []
+        total_input_tokens = 0
+        total_output_tokens = 0
+        search_history = []
+        
+        current_query = question
+        while iteration < self.max_iterations:
+            try:
+                # Get documents for current query
+                retrieved_docs = self.retriever.retrieve(current_query)
+                
+                # Skip iteration if no documents found
+                if not retrieved_docs:
+                    search_history.append({
+                        "iteration": iteration + 1,
+                        "query": current_query,
+                        "num_docs": 0,
+                        "error": "No documents found"
+                    })
+                    break
+                
+                accumulated_context.extend(retrieved_docs)
+                
+                # Format context from all retrieved documents
+                context = self.retriever.get_formatted_context(accumulated_context)
+                
+                # Generate prompt and get response
+                prompt = self.prompt_template.format(
+                    question=question,  # Always use original question
+                    context=context
+                )
+                
+                input_tokens = self._count_tokens(prompt)
+                response = await self.llm.acomplete(prompt)
+                output_tokens = self._count_tokens(response.text)
+                
+                # Update token counts
+                total_input_tokens += input_tokens
+                total_output_tokens += output_tokens
+                
+                # Parse response
+                parsed_response = self._parse_response(response.text)
+                
+                # Track search iteration
+                search_history.append({
+                    "iteration": iteration + 1,
+                    "query": current_query,
+                    "num_docs": len(retrieved_docs),
+                    "response": parsed_response
+                })
+                
+                # Check if we have enough information
+                if parsed_response["decision"].strip().lower() == "đã đủ thông tin":
+                    # We have enough information, return final response
+                    parsed_response["search_history"] = search_history
+                    parsed_response["token_usage"] = {
+                        "input_tokens": total_input_tokens,
+                        "output_tokens": total_output_tokens,
+                        "total_tokens": total_input_tokens + total_output_tokens
+                    }
+                    return parsed_response
+                
+                # If we need more information and have a next query
+                if parsed_response["next_query"]:
+                    current_query = parsed_response["next_query"]
+                    iteration += 1
+                else:
+                    # No next query provided but needs more info - break loop
+                    break
+                    
+            except Exception as e:
+                search_history.append({
+                    "iteration": iteration + 1,
+                    "query": current_query,
+                    "error": str(e)
+                })
+                # Continue to next iteration if possible
+                iteration += 1
+                continue
+        
+        # If we exit the loop without finding enough information
+        final_response = {
+            "analysis": "Sau nhiều lần tìm kiếm, hệ thống vẫn chưa tìm thấy đủ thông tin.",
+            "decision": "Không tìm thấy đủ thông tin",
+            "final_answer": "Xin lỗi, tôi không tìm thấy đủ thông tin để trả lời câu hỏi của bạn.",
+            "search_history": search_history,
+            "token_usage": {
+                "input_tokens": total_input_tokens,
+                "output_tokens": total_output_tokens,
+                "total_tokens": total_input_tokens + total_output_tokens
+            }
+        }
+        
+        return final_response
+    
     def _setup_llm(self) -> OpenAI:
-        """Setup LLM with configured parameters"""
         return OpenAI(
             model=self.model_config.llm_model,
             api_key=self.model_config.llm_api_key
         )
     
     def _count_tokens(self, text: str) -> int:
-        """Count number of tokens in text"""
         return len(self.tokenizer.encode(text))
     
-    async def get_answer(self, question: str) -> Dict[str, Any]:
-        """
-        Get answer for a question using Auto RAG (single iteration)
-        
-        Args:
-            question: User question
-            
-        Returns:
-            Dictionary containing:
-                - analysis: Analysis of available information
-                - decision: Whether more information is needed
-                - next_query: Follow-up query if needed
-                - final_answer: Final answer if sufficient information
-                - token_usage: Dictionary with input and output token counts
-        """
-        # Initial retrieval
-        retrieved_docs = self.retriever.retrieve(question)
-        context = self.retriever.get_formatted_context(retrieved_docs)
-        
-        # Generate prompt
-        prompt = self.prompt_template.format(
-            question=question,
-            context=context
-        )
-        
-        # Count input tokens
-        input_tokens = self._count_tokens(prompt)
-        
-        # Get LLM response
-        response = await self.llm.acomplete(prompt)
-        
-        # Count output tokens
-        output_tokens = self._count_tokens(response.text)
-        
-        # Parse response
-        parsed_response = self._parse_response(response.text)
-        
-        # Add token usage information
-        parsed_response["token_usage"] = {
-            "input_tokens": input_tokens,
-            "output_tokens": output_tokens,
-            "total_tokens": input_tokens + output_tokens
-        }
-        
-        return parsed_response
-    
-    async def get_answer_iterative(self, question: str) -> Dict[str, Any]:
-        """
-        Get answer using iterative search process when more information is needed
-        
-        Args:
-            question: Initial user question
-            
-        Returns:
-            Dictionary containing:
-                - all_analyses: List of all analyses performed
-                - all_contexts: List of all contexts used
-                - iterations: Number of iterations performed
-                - final_answer: Final answer found
-                - token_usage: Cumulative token usage across all iterations
-        """
-        iteration = 0
-        current_query = question
-        all_analyses = []
-        all_contexts = []
-        cumulative_tokens = {"input_tokens": 0, "output_tokens": 0}
-        
-        while iteration < self.max_iterations:
-            # Get results for current query
-            retrieved_docs = self.retriever.retrieve(current_query)
-            current_context = self.retriever.get_formatted_context(retrieved_docs)
-            all_contexts.append(current_context)
-            
-            # Generate prompt with all accumulated context
-            combined_context = "\n\n---\n\n".join(all_contexts)
-            prompt = self.prompt_template.format(
-                question=question,  # Always use original question
-                context=combined_context
-            )
-            
-            # Get and parse LLM response
-            input_tokens = self._count_tokens(prompt)
-            response = await self.llm.acomplete(prompt)
-            output_tokens = self._count_tokens(response.text)
-            
-            # Update token counts
-            cumulative_tokens["input_tokens"] += input_tokens
-            cumulative_tokens["output_tokens"] += output_tokens
-            
-            # Parse response
-            parsed_response = self._parse_response(response.text)
-            all_analyses.append(parsed_response["analysis"])
-            
-            # Check if we need more information
-            if "Cần thêm thông tin" not in parsed_response["decision"]:
-                return {
-                    "all_analyses": all_analyses,
-                    "all_contexts": all_contexts,
-                    "iterations": iteration + 1,
-                    "final_answer": parsed_response["final_answer"],
-                    "token_usage": {
-                        "input_tokens": cumulative_tokens["input_tokens"],
-                        "output_tokens": cumulative_tokens["output_tokens"],
-                        "total_tokens": sum(cumulative_tokens.values())
-                    }
-                }
-            
-            # If we need more info but have no next query, stop
-            if not parsed_response["next_query"]:
-                return {
-                    "all_analyses": all_analyses,
-                    "all_contexts": all_contexts,
-                    "iterations": iteration + 1,
-                    "final_answer": "Không tìm thấy đủ thông tin để trả lời câu hỏi.",
-                    "token_usage": {
-                        "input_tokens": cumulative_tokens["input_tokens"],
-                        "output_tokens": cumulative_tokens["output_tokens"],
-                        "total_tokens": sum(cumulative_tokens.values())
-                    }
-                }
-            
-            # Update for next iteration
-            current_query = parsed_response["next_query"]
-            iteration += 1
-        
-        # If we hit max iterations
-        return {
-            "all_analyses": all_analyses,
-            "all_contexts": all_contexts,
-            "iterations": self.max_iterations,
-            "final_answer": "Đã đạt giới hạn số lần tìm kiếm. Không tìm được câu trả lời đầy đủ.",
-            "token_usage": {
-                "input_tokens": cumulative_tokens["input_tokens"],
-                "output_tokens": cumulative_tokens["output_tokens"],
-                "total_tokens": sum(cumulative_tokens.values())
-            }
-        }
-    
     def _parse_response(self, response: str) -> Dict[str, Any]:
-        """Parse structured response from LLM"""
         lines = response.strip().split("\n")
         parsed = {
             "analysis": "",
