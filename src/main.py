@@ -57,10 +57,7 @@ class DomainComponents:
 
 @st.cache_resource
 def init_domain_components(configs: tuple) -> Dict[Domain, DomainComponents]:
-    return {
-        domain: DomainComponents(domain, configs)
-        for domain in Domain
-    }
+    return {domain: DomainComponents(domain, configs) for domain in Domain}
 
 @contextmanager
 def get_event_loop():
@@ -76,41 +73,47 @@ async def process_question(auto_rag: AutoRAG, question: str):
     return await auto_rag.get_answer(question)
 
 def display_token_usage(token_usage: Dict[str, int]):
-    st.markdown("**Token Usage**")
-    st.write(f"Input Tokens\n{token_usage['input_tokens']}")
-    st.write(f"Output Tokens\n{token_usage['output_tokens']}")
-    st.write(f"Total Tokens\n{token_usage['total_tokens']}")
+    with st.expander("Token Usage", expanded=False):
+        st.write(f"**Input Tokens:** {token_usage['input_tokens']}")
+        st.write(f"**Output Tokens:** {token_usage['output_tokens']}")
+        st.write(f"**Total Tokens:** {token_usage['total_tokens']}")
 
 def display_performance_metrics():
     if st.session_state.processing_time:
-        st.markdown("**Performance Metrics**")
-        st.write(f"Processing Time: {st.session_state.processing_time:.2f} seconds")
+        with st.expander("Performance Metrics", expanded=False):
+            st.write(f"**Processing Time:** {st.session_state.processing_time:.2f} seconds")
 
 def main():
-    st.title("Multi-Domain RAG System Demo")
-    
-    try:
-        configs = init_configs()
-        domain_components = init_domain_components(configs)
-        selected_domain = st.selectbox(
-            "Select Domain",
-            options=[domain.value for domain in Domain],
-            format_func=lambda x: x.title()
-        )
-        current_domain = Domain(selected_domain)
-        components = domain_components[current_domain]
-        
-    except Exception as e:
-        st.error(f"Error initializing components: {str(e)}")
-        return
-    
+    st.set_page_config(page_title="QA System for Vietnamese Law", layout="wide")
+    st.title("📖 Question and Answering System for Vietnamese Law")
+
+    # Sidebar for domain selection
+    with st.sidebar:
+        st.header("⚙️ Configuration")
+        try:
+            configs = init_configs()
+            domain_components = init_domain_components(configs)
+            selected_domain = st.selectbox(
+                "Select Domain",
+                options=[domain.value for domain in Domain],
+                format_func=lambda x: x.title()
+            )
+            current_domain = Domain(selected_domain)
+            components = domain_components[current_domain]
+        except Exception as e:
+            st.error(f"Error initializing components: {str(e)}")
+            return
+
+    # Main Input Section
+    st.subheader("Ask a Question")
     question = st.text_input("Enter your question:")
     
-    if st.button("Get Answer") and question:
+    if st.button("💡 Get Answer", use_container_width=True) and question:
         try:
             start_time = time.time()
+            progress_bar = st.progress(0)
             
-            with st.spinner("Processing..."):
+            with st.spinner("🔍 Processing..."):
                 with get_event_loop() as loop:
                     response = loop.run_until_complete(
                         process_question(components.auto_rag, question)
@@ -122,27 +125,28 @@ def main():
                     st.error(response["error"])
                     return
                 
+                progress_bar.progress(100)
                 display_token_usage(response["token_usage"])
                 display_performance_metrics()
                 
-                st.markdown("**Analysis Results**")
+                st.subheader("📊 Analysis Results")
                 
                 if response.get("analysis"):
                     st.markdown("**Analysis:**")
-                    st.write(response["analysis"])
+                    st.info(response["analysis"])
                 
                 if response.get("decision"):
                     st.markdown("**Decision:**")
-                    st.write(response["decision"])
+                    st.success(response["decision"])
                 
                 if response.get("final_answer"):
                     st.markdown("**Final Answer:**")
                     st.write(response["final_answer"])
-                
+            
         except Exception as e:
             st.error(f"Error: {str(e)}")
         finally:
             components.cleanup()
-
+    
 if __name__ == "__main__":
     main()
