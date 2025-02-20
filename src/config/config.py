@@ -33,3 +33,11 @@ class RetrievalConfig:
     vector_store_query_mode: str = "hybrid"
     similarity_top_k: int = 10
     alpha: float = 0.5
+    
+
+@dataclass
+class WebSearchConfig:
+    google_api_key: str = os.getenv("GOOGLE_API_KEY")
+    google_cse_id: str = os.getenv("GOOGLE_CSE_ID")
+    fallback_threshold: float = 0.5
+    web_search_enabled: bool = True
