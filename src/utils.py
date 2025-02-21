@@ -4,9 +4,16 @@ from functools import wraps
 import time
 import asyncio
 from dataclasses import dataclass
+from log.logging_config import setup_logging
 
-# Setup logging
-logging.basicConfig(level=logging.INFO)
+# Setup logging with both console and file output
+setup_logging(
+    level=logging.INFO,
+    log_format='[%(asctime)s] %(levelname)s [%(name)s] %(message)s',
+    log_file='app.log'
+)
+
+# Rest of utils.py remains the same
 logger = logging.getLogger(__name__)
 
 @dataclass

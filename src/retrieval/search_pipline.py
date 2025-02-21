@@ -47,7 +47,7 @@ class SearchPipeline:
         # # Step 4: Filter by score
         # filtered_results = self._filter_by_score(deduplicated_results)
         
-        return reranked_results[:10]
+        return reranked_results[:5]
     
     def _rerank_results(
         self, 

@@ -31,7 +31,7 @@ class ModelConfig:
 @dataclass
 class RetrievalConfig:
     vector_store_query_mode: str = "hybrid"
-    similarity_top_k: int = 10
+    similarity_top_k: int = 8
     alpha: float = 0.5
     
 
