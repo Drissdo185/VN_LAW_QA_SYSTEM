@@ -1,0 +1,8 @@
+[2025-03-01 10:39:19,519] INFO [__main__] Starting application
+[2025-03-01 10:39:19,521] INFO [__main__] Initializing configurations
+[2025-03-01 10:39:19,521] INFO [__main__] Configurations initialized successfully
+[2025-03-01 10:39:19,522] INFO [__main__] Initializing components for all domains
+[2025-03-01 10:39:19,522] INFO [__main__] Initializing components for domain: traffic
+[2025-03-01 10:39:20,012] INFO [httpx] HTTP Request: GET https://aqydeoeqm9bcdz2akyug.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-01 10:39:20,896] INFO [httpx] HTTP Request: GET https://pypi.org/pypi/weaviate-client/json "HTTP/1.1 200 OK"
+[2025-03-01 10:39:21,137] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
