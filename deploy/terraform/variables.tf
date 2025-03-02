@@ -1,22 +1,16 @@
+// Variables to use accross the project
+// which can be accessed by var.project_id
 variable "project_id" {
-  description = "Google Cloud project ID"
-  type        = string
+  description = "The project ID to host the cluster in"
+  default     = "mlops-414313"
 }
 
 variable "region" {
-  description = "Google Cloud region"
-  type        = string
+  description = "The region the cluster in"
   default     = "us-central1"
 }
 
-variable "zone" {
-  description = "Google Cloud zone"
-  type        = string
-  default     = "us-central1-a"
-}
-
-variable "gke_num_nodes" {
-  description = "Number of nodes in the GKE cluster"
-  type        = number
-  default     = 3
+variable "bucket" {
+  description = "GCS bucket for MLE project"
+  default     = "mlops-414313"
 }

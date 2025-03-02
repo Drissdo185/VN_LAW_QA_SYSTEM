@@ -61,3 +61,7 @@ This project is licensed under the MIT License. See the LICENSE file for details
 The Chatbot is designed to assist users in retrieving legal documents and providing answers based on those documents. It leverages advanced language models and embeddings to understand and process user queries.
 
 ## Project Structure
+
+
+## Cloud Deployment
+![Cloud](assets/image.png)
