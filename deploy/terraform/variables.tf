@@ -1,16 +1,14 @@
-// Variables to use accross the project
-// which can be accessed by var.project_id
 variable "project_id" {
   description = "The project ID to host the cluster in"
-  default     = "mlops-414313"
+  default     = "traffic-law-thesis"
 }
 
 variable "region" {
   description = "The region the cluster in"
-  default     = "us-central1"
+  default     = "asia-east1-a"
 }
 
-variable "bucket" {
-  description = "GCS bucket for MLE project"
-  default     = "mlops-414313"
-}
+# variable "bucket" {
+#   description = "GCS bucket for MLE project"
+#   default     = "mlops-414313"
+# }

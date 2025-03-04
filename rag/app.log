@@ -6,3 +6,214 @@
 [2025-03-01 10:39:20,012] INFO [httpx] HTTP Request: GET https://aqydeoeqm9bcdz2akyug.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
 [2025-03-01 10:39:20,896] INFO [httpx] HTTP Request: GET https://pypi.org/pypi/weaviate-client/json "HTTP/1.1 200 OK"
 [2025-03-01 10:39:21,137] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-04 10:28:01,881] INFO [__main__] Starting application
+[2025-03-04 10:28:01,883] INFO [__main__] Initializing configurations
+[2025-03-04 10:28:01,883] INFO [__main__] Configurations initialized successfully
+[2025-03-04 10:28:01,885] INFO [__main__] Initializing components for all domains with LLM provider: openai
+[2025-03-04 10:28:01,885] INFO [__main__] Initializing components for domain: traffic with LLM provider: openai
+[2025-03-04 10:28:02,337] INFO [httpx] HTTP Request: GET https://aqydeoeqm9bcdz2akyug.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-04 10:28:02,603] INFO [httpx] HTTP Request: GET https://pypi.org/pypi/weaviate-client/json "HTTP/1.1 200 OK"
+[2025-03-04 10:28:02,885] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-04 10:28:24,401] INFO [__main__] Starting application
+[2025-03-04 10:28:24,403] INFO [__main__] Initializing components for all domains with LLM provider: vllm
+[2025-03-04 10:28:24,403] INFO [__main__] Initializing components for domain: traffic with LLM provider: vllm
+[2025-03-04 10:28:24,665] INFO [httpx] HTTP Request: GET https://aqydeoeqm9bcdz2akyug.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-04 10:28:25,381] INFO [httpx] HTTP Request: GET https://pypi.org/pypi/weaviate-client/json "HTTP/1.1 200 OK"
+[2025-03-04 10:28:26,174] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-04 10:30:35,130] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-04 10:30:35,131] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-04 10:30:35,544] INFO [httpx] HTTP Request: GET https://aqydeoeqm9bcdz2akyug.c0.asia-southeast1.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-04 10:30:35,614] INFO [httpx] HTTP Request: GET https://aqydeoeqm9bcdz2akyug.c0.asia-southeast1.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-04 10:30:35,919] INFO [httpx] HTTP Request: GET https://aqydeoeqm9bcdz2akyug.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-04 10:30:35,973] INFO [httpx] HTTP Request: GET https://aqydeoeqm9bcdz2akyug.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-04 10:30:36,123] INFO [httpx] HTTP Request: GET https://pypi.org/pypi/weaviate-client/json "HTTP/1.1 200 OK"
+[2025-03-04 10:30:36,160] INFO [httpx] HTTP Request: GET https://pypi.org/pypi/weaviate-client/json "HTTP/1.1 200 OK"
+[2025-03-04 10:30:38,949] INFO [reasoning.auto_rag] Setting up vLLM client with model: Qwen/Qwen2.5-14B-Instruct-GPTQ-Int8
+[2025-03-04 10:30:38,949] ERROR [__main__] Error initializing domain components: "VLLMClient" object has no field "api_url"
+[2025-03-04 10:30:38,950] ERROR [__main__] Error initializing components: "VLLMClient" object has no field "api_url"
+[2025-03-04 10:30:38,951] INFO [reasoning.auto_rag] Setting up OpenAI LLM with model: gpt-4o-mini
+[2025-03-04 10:31:18,903] INFO [reasoning.auto_rag] Initialized AutoRAG with LLM provider: LLMProvider.OPENAI
+[2025-03-04 10:31:18,903] INFO [__main__] Initializing web search integration
+[2025-03-04 10:31:18,903] INFO [web_handle.web_search] Initialized WebSearchIntegrator for domain: traffic
+[2025-03-04 10:31:18,903] INFO [__main__] Components initialized successfully for domain: traffic
+[2025-03-04 10:31:18,904] INFO [__main__] Initializing components for domain: stock with LLM provider: openai
+[2025-03-04 10:31:19,095] INFO [httpx] HTTP Request: GET https://aqydeoeqm9bcdz2akyug.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-04 10:31:19,317] INFO [httpx] HTTP Request: GET https://pypi.org/pypi/weaviate-client/json "HTTP/1.1 200 OK"
+[2025-03-04 10:31:19,383] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-04 10:31:23,835] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-04 10:31:23,894] INFO [httpx] HTTP Request: GET https://aqydeoeqm9bcdz2akyug.c0.asia-southeast1.gcp.weaviate.cloud/v1/schema/STOCK "HTTP/1.1 200 OK"
+[2025-03-04 10:31:24,085] INFO [httpx] HTTP Request: GET https://aqydeoeqm9bcdz2akyug.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-04 10:31:24,298] INFO [httpx] HTTP Request: GET https://pypi.org/pypi/weaviate-client/json "HTTP/1.1 200 OK"
+[2025-03-04 10:31:26,372] INFO [reasoning.auto_rag] Setting up OpenAI LLM with model: gpt-4o-mini
+[2025-03-04 10:31:26,372] INFO [reasoning.auto_rag] Initialized AutoRAG with LLM provider: LLMProvider.OPENAI
+[2025-03-04 10:31:26,372] INFO [__main__] Initializing web search integration
+[2025-03-04 10:31:26,372] INFO [web_handle.web_search] Initialized WebSearchIntegrator for domain: stock
+[2025-03-04 10:31:26,373] INFO [__main__] Components initialized successfully for domain: stock
+[2025-03-04 10:31:44,373] INFO [__main__] Starting application
+[2025-03-04 10:31:44,378] INFO [__main__] Selected domain: traffic, LLM provider: openai
+[2025-03-04 10:31:46,571] INFO [__main__] Starting application
+[2025-03-04 10:31:46,576] INFO [__main__] Initializing components for all domains with LLM provider: vllm
+[2025-03-04 10:31:46,577] INFO [__main__] Initializing components for domain: traffic with LLM provider: vllm
+[2025-03-04 10:31:46,825] INFO [httpx] HTTP Request: GET https://aqydeoeqm9bcdz2akyug.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-04 10:31:47,072] INFO [httpx] HTTP Request: GET https://pypi.org/pypi/weaviate-client/json "HTTP/1.1 200 OK"
+[2025-03-04 10:31:47,140] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-04 10:31:51,718] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-04 10:31:51,785] INFO [httpx] HTTP Request: GET https://aqydeoeqm9bcdz2akyug.c0.asia-southeast1.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-04 10:31:52,002] INFO [httpx] HTTP Request: GET https://aqydeoeqm9bcdz2akyug.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-04 10:31:52,193] INFO [httpx] HTTP Request: GET https://pypi.org/pypi/weaviate-client/json "HTTP/1.1 200 OK"
+[2025-03-04 10:31:54,320] INFO [reasoning.auto_rag] Setting up vLLM client with model: Qwen/Qwen2.5-14B-Instruct-GPTQ-Int8
+[2025-03-04 10:31:54,320] ERROR [__main__] Error initializing domain components: "VLLMClient" object has no field "api_url"
+[2025-03-04 10:31:54,320] ERROR [__main__] Error initializing components: "VLLMClient" object has no field "api_url"
+[2025-03-04 10:32:31,863] INFO [__main__] Starting application
+[2025-03-04 10:32:31,865] INFO [__main__] Initializing configurations
+[2025-03-04 10:32:31,865] INFO [__main__] Configurations initialized successfully
+[2025-03-04 10:32:31,866] INFO [__main__] Initializing components for all domains with LLM provider: openai
+[2025-03-04 10:32:31,866] INFO [__main__] Initializing components for domain: traffic with LLM provider: openai
+[2025-03-04 10:32:32,091] INFO [httpx] HTTP Request: GET https://aqydeoeqm9bcdz2akyug.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-04 10:32:32,300] INFO [httpx] HTTP Request: GET https://pypi.org/pypi/weaviate-client/json "HTTP/1.1 200 OK"
+[2025-03-04 10:32:32,372] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-04 10:32:37,286] INFO [__main__] Starting application
+[2025-03-04 10:32:37,301] INFO [__main__] Initializing components for all domains with LLM provider: vllm
+[2025-03-04 10:32:37,302] INFO [__main__] Initializing components for domain: traffic with LLM provider: vllm
+[2025-03-04 10:32:37,317] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-04 10:32:37,554] INFO [httpx] HTTP Request: GET https://aqydeoeqm9bcdz2akyug.c0.asia-southeast1.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-04 10:32:37,561] INFO [httpx] HTTP Request: GET https://aqydeoeqm9bcdz2akyug.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-04 10:32:37,885] INFO [httpx] HTTP Request: GET https://pypi.org/pypi/weaviate-client/json "HTTP/1.1 200 OK"
+[2025-03-04 10:32:37,920] INFO [httpx] HTTP Request: GET https://aqydeoeqm9bcdz2akyug.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-04 10:32:38,005] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-04 10:32:38,135] INFO [httpx] HTTP Request: GET https://pypi.org/pypi/weaviate-client/json "HTTP/1.1 200 OK"
+[2025-03-04 10:32:40,127] INFO [reasoning.auto_rag] Setting up OpenAI LLM with model: gpt-4o-mini
+[2025-03-04 10:32:40,293] INFO [reasoning.auto_rag] Initialized AutoRAG with LLM provider: LLMProvider.OPENAI
+[2025-03-04 10:32:40,294] INFO [__main__] Initializing web search integration
+[2025-03-04 10:32:40,294] INFO [web_handle.web_search] Initialized WebSearchIntegrator for domain: traffic
+[2025-03-04 10:32:40,294] INFO [__main__] Components initialized successfully for domain: traffic
+[2025-03-04 10:32:40,294] INFO [__main__] Initializing components for domain: stock with LLM provider: openai
+[2025-03-04 10:32:40,487] INFO [httpx] HTTP Request: GET https://aqydeoeqm9bcdz2akyug.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-04 10:32:40,679] INFO [httpx] HTTP Request: GET https://pypi.org/pypi/weaviate-client/json "HTTP/1.1 200 OK"
+[2025-03-04 10:32:40,751] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-04 10:32:42,700] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-04 10:32:42,827] INFO [httpx] HTTP Request: GET https://aqydeoeqm9bcdz2akyug.c0.asia-southeast1.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-04 10:32:43,049] INFO [httpx] HTTP Request: GET https://aqydeoeqm9bcdz2akyug.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-04 10:32:43,287] INFO [httpx] HTTP Request: GET https://pypi.org/pypi/weaviate-client/json "HTTP/1.1 200 OK"
+[2025-03-04 10:32:45,372] INFO [reasoning.auto_rag] Setting up vLLM client with model: Qwen/Qwen2.5-14B-Instruct-GPTQ-Int8
+[2025-03-04 10:32:45,372] ERROR [__main__] Error initializing domain components: "VLLMClient" object has no field "api_url"
+[2025-03-04 10:32:45,372] ERROR [__main__] Error initializing components: "VLLMClient" object has no field "api_url"
+[2025-03-04 10:32:45,372] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-04 10:32:45,690] INFO [httpx] HTTP Request: GET https://aqydeoeqm9bcdz2akyug.c0.asia-southeast1.gcp.weaviate.cloud/v1/schema/STOCK "HTTP/1.1 200 OK"
+[2025-03-04 10:32:46,016] INFO [httpx] HTTP Request: GET https://aqydeoeqm9bcdz2akyug.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-04 10:32:46,196] INFO [httpx] HTTP Request: GET https://pypi.org/pypi/weaviate-client/json "HTTP/1.1 200 OK"
+[2025-03-04 10:32:48,274] INFO [reasoning.auto_rag] Setting up OpenAI LLM with model: gpt-4o-mini
+[2025-03-04 10:32:48,274] INFO [reasoning.auto_rag] Initialized AutoRAG with LLM provider: LLMProvider.OPENAI
+[2025-03-04 10:32:48,274] INFO [__main__] Initializing web search integration
+[2025-03-04 10:32:48,274] INFO [web_handle.web_search] Initialized WebSearchIntegrator for domain: stock
+[2025-03-04 10:32:48,274] INFO [__main__] Components initialized successfully for domain: stock
+[2025-03-04 10:36:29,143] INFO [__main__] Starting application
+[2025-03-04 10:36:29,146] INFO [__main__] Selected domain: traffic, LLM provider: openai
+[2025-03-04 10:36:31,457] INFO [__main__] Starting application
+[2025-03-04 10:36:31,467] INFO [__main__] Initializing components for all domains with LLM provider: vllm
+[2025-03-04 10:36:31,469] INFO [__main__] Initializing components for domain: traffic with LLM provider: vllm
+[2025-03-04 10:36:31,921] INFO [httpx] HTTP Request: GET https://aqydeoeqm9bcdz2akyug.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-04 10:36:32,138] INFO [httpx] HTTP Request: GET https://pypi.org/pypi/weaviate-client/json "HTTP/1.1 200 OK"
+[2025-03-04 10:36:32,415] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-04 10:36:37,114] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-04 10:36:37,582] INFO [httpx] HTTP Request: GET https://aqydeoeqm9bcdz2akyug.c0.asia-southeast1.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-04 10:36:37,974] INFO [httpx] HTTP Request: GET https://aqydeoeqm9bcdz2akyug.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-04 10:36:38,186] INFO [httpx] HTTP Request: GET https://pypi.org/pypi/weaviate-client/json "HTTP/1.1 200 OK"
+[2025-03-04 10:36:40,483] INFO [reasoning.auto_rag] Setting up vLLM client with model: Qwen/Qwen2.5-14B-Instruct-GPTQ-Int8
+[2025-03-04 10:36:40,483] ERROR [__main__] Error initializing domain components: "VLLMClient" object has no field "api_url"
+[2025-03-04 10:36:40,484] ERROR [__main__] Error initializing components: "VLLMClient" object has no field "api_url"
+[2025-03-04 10:36:57,227] INFO [__main__] Starting application
+[2025-03-04 10:36:57,229] INFO [__main__] Initializing configurations
+[2025-03-04 10:36:57,229] INFO [__main__] Configurations initialized successfully
+[2025-03-04 10:36:57,231] INFO [__main__] Initializing components for all domains with LLM provider: openai
+[2025-03-04 10:36:57,231] INFO [__main__] Initializing components for domain: traffic with LLM provider: openai
+[2025-03-04 10:36:57,647] INFO [httpx] HTTP Request: GET https://aqydeoeqm9bcdz2akyug.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-04 10:36:57,841] INFO [httpx] HTTP Request: GET https://pypi.org/pypi/weaviate-client/json "HTTP/1.1 200 OK"
+[2025-03-04 10:36:57,904] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-04 10:36:59,806] INFO [__main__] Starting application
+[2025-03-04 10:36:59,809] INFO [__main__] Initializing components for all domains with LLM provider: vllm
+[2025-03-04 10:36:59,809] INFO [__main__] Initializing components for domain: traffic with LLM provider: vllm
+[2025-03-04 10:37:00,018] INFO [httpx] HTTP Request: GET https://aqydeoeqm9bcdz2akyug.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-04 10:37:00,237] INFO [httpx] HTTP Request: GET https://pypi.org/pypi/weaviate-client/json "HTTP/1.1 200 OK"
+[2025-03-04 10:37:00,302] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-04 10:37:02,502] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-04 10:37:02,567] INFO [httpx] HTTP Request: GET https://aqydeoeqm9bcdz2akyug.c0.asia-southeast1.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-04 10:37:02,881] INFO [httpx] HTTP Request: GET https://aqydeoeqm9bcdz2akyug.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-04 10:37:03,100] INFO [httpx] HTTP Request: GET https://pypi.org/pypi/weaviate-client/json "HTTP/1.1 200 OK"
+[2025-03-04 10:37:05,278] INFO [reasoning.auto_rag] Setting up OpenAI LLM with model: gpt-4o-mini
+[2025-03-04 10:37:05,279] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-04 10:37:05,459] INFO [reasoning.auto_rag] Initialized AutoRAG with LLM provider: LLMProvider.OPENAI
+[2025-03-04 10:37:05,459] INFO [__main__] Initializing web search integration
+[2025-03-04 10:37:05,459] INFO [web_handle.web_search] Initialized WebSearchIntegrator for domain: traffic
+[2025-03-04 10:37:05,459] INFO [__main__] Components initialized successfully for domain: traffic
+[2025-03-04 10:37:05,459] INFO [__main__] Initializing components for domain: stock with LLM provider: openai
+[2025-03-04 10:37:05,606] INFO [httpx] HTTP Request: GET https://aqydeoeqm9bcdz2akyug.c0.asia-southeast1.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-04 10:37:05,669] INFO [httpx] HTTP Request: GET https://aqydeoeqm9bcdz2akyug.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-04 10:37:05,832] INFO [httpx] HTTP Request: GET https://pypi.org/pypi/weaviate-client/json "HTTP/1.1 200 OK"
+[2025-03-04 10:37:05,855] INFO [httpx] HTTP Request: GET https://aqydeoeqm9bcdz2akyug.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-04 10:37:05,937] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-04 10:37:06,064] INFO [httpx] HTTP Request: GET https://pypi.org/pypi/weaviate-client/json "HTTP/1.1 200 OK"
+[2025-03-04 10:37:08,170] INFO [reasoning.auto_rag] Setting up vLLM client with model: Qwen/Qwen2.5-14B-Instruct-GPTQ-Int8
+[2025-03-04 10:37:08,171] ERROR [__main__] Error initializing domain components: "VLLMClient" object has no field "api_url"
+[2025-03-04 10:37:08,171] ERROR [__main__] Error initializing components: "VLLMClient" object has no field "api_url"
+[2025-03-04 10:37:10,801] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-04 10:37:10,966] INFO [httpx] HTTP Request: GET https://aqydeoeqm9bcdz2akyug.c0.asia-southeast1.gcp.weaviate.cloud/v1/schema/STOCK "HTTP/1.1 200 OK"
+[2025-03-04 10:37:11,217] INFO [httpx] HTTP Request: GET https://aqydeoeqm9bcdz2akyug.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-04 10:37:11,426] INFO [httpx] HTTP Request: GET https://pypi.org/pypi/weaviate-client/json "HTTP/1.1 200 OK"
+[2025-03-04 10:37:13,552] INFO [reasoning.auto_rag] Setting up OpenAI LLM with model: gpt-4o-mini
+[2025-03-04 10:37:13,552] INFO [reasoning.auto_rag] Initialized AutoRAG with LLM provider: LLMProvider.OPENAI
+[2025-03-04 10:37:13,553] INFO [__main__] Initializing web search integration
+[2025-03-04 10:37:13,553] INFO [web_handle.web_search] Initialized WebSearchIntegrator for domain: stock
+[2025-03-04 10:37:13,553] INFO [__main__] Components initialized successfully for domain: stock
+[2025-03-04 10:37:57,548] INFO [__main__] Starting application
+[2025-03-04 10:37:57,550] INFO [__main__] Selected domain: traffic, LLM provider: openai
+[2025-03-04 10:37:59,754] INFO [__main__] Starting application
+[2025-03-04 10:37:59,758] INFO [__main__] Initializing components for all domains with LLM provider: vllm
+[2025-03-04 10:37:59,759] INFO [__main__] Initializing components for domain: traffic with LLM provider: vllm
+[2025-03-04 10:38:00,027] INFO [httpx] HTTP Request: GET https://aqydeoeqm9bcdz2akyug.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-04 10:38:00,252] INFO [httpx] HTTP Request: GET https://pypi.org/pypi/weaviate-client/json "HTTP/1.1 200 OK"
+[2025-03-04 10:38:00,331] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-04 10:38:05,176] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-04 10:38:05,362] INFO [httpx] HTTP Request: GET https://aqydeoeqm9bcdz2akyug.c0.asia-southeast1.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-04 10:38:05,589] INFO [httpx] HTTP Request: GET https://aqydeoeqm9bcdz2akyug.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-04 10:38:05,798] INFO [httpx] HTTP Request: GET https://pypi.org/pypi/weaviate-client/json "HTTP/1.1 200 OK"
+[2025-03-04 10:38:07,923] INFO [reasoning.auto_rag] Setting up vLLM client with model: Qwen/Qwen2.5-14B-Instruct-GPTQ-Int8
+[2025-03-04 10:38:07,923] ERROR [__main__] Error initializing domain components: "VLLMClient" object has no field "api_url"
+[2025-03-04 10:38:07,923] ERROR [__main__] Error initializing components: "VLLMClient" object has no field "api_url"
+[2025-03-04 13:30:04,913] INFO [__main__] Starting application
+[2025-03-04 13:30:04,916] INFO [__main__] Initializing configurations
+[2025-03-04 13:30:04,916] INFO [__main__] Configurations initialized successfully
+[2025-03-04 13:30:04,918] INFO [__main__] Initializing components for all domains with LLM provider: openai
+[2025-03-04 13:30:04,918] INFO [__main__] Initializing components for domain: traffic with LLM provider: openai
+[2025-03-04 13:30:05,249] INFO [httpx] HTTP Request: GET https://aqydeoeqm9bcdz2akyug.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-04 13:30:05,530] INFO [httpx] HTTP Request: GET https://pypi.org/pypi/weaviate-client/json "HTTP/1.1 200 OK"
+[2025-03-04 13:30:07,284] ERROR [__main__] Error initializing domain components: 
+Weaviate v1.29.0 makes use of a high-speed gRPC API as well as a REST API.
+Unfortunately, the gRPC health check against Weaviate could not be completed.
+
+This error could be due to one of several reasons:
+- The gRPC traffic at the specified port is blocked by a firewall.
+- gRPC is not enabled or incorrectly configured on the server or the client.
+    - Please check that the server address and port (grpc-aqydeoeqm9bcdz2akyug.c0.asia-southeast1.gcp.weaviate.cloud:443) are correct.
+- your connection is unstable or has a high latency. In this case you can:
+    - increase init-timeout in `weaviate.connect_to_local(additional_config=wvc.init.AdditionalConfig(timeout=wvc.init.Timeout(init=X)))`
+    - disable startup checks by connecting using `skip_init_checks=True`
+
+[2025-03-04 13:30:07,285] ERROR [__main__] Error initializing components: 
+Weaviate v1.29.0 makes use of a high-speed gRPC API as well as a REST API.
+Unfortunately, the gRPC health check against Weaviate could not be completed.
+
+This error could be due to one of several reasons:
+- The gRPC traffic at the specified port is blocked by a firewall.
+- gRPC is not enabled or incorrectly configured on the server or the client.
+    - Please check that the server address and port (grpc-aqydeoeqm9bcdz2akyug.c0.asia-southeast1.gcp.weaviate.cloud:443) are correct.
+- your connection is unstable or has a high latency. In this case you can:
+    - increase init-timeout in `weaviate.connect_to_local(additional_config=wvc.init.AdditionalConfig(timeout=wvc.init.Timeout(init=X)))`
+    - disable startup checks by connecting using `skip_init_checks=True`
+
+[2025-03-04 13:30:26,433] INFO [__main__] Starting application
+[2025-03-04 13:30:26,436] INFO [__main__] Initializing components for all domains with LLM provider: openai
+[2025-03-04 13:30:26,436] INFO [__main__] Initializing components for domain: traffic with LLM provider: openai
+[2025-03-04 13:30:26,760] INFO [httpx] HTTP Request: GET https://aqydeoeqm9bcdz2akyug.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-04 13:30:27,069] INFO [httpx] HTTP Request: GET https://pypi.org/pypi/weaviate-client/json "HTTP/1.1 200 OK"
+[2025-03-04 13:30:27,187] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding

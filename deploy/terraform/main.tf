@@ -1,4 +1,3 @@
-
 terraform {
   required_providers {
     google = {
@@ -6,7 +5,7 @@ terraform {
       version = "4.80.0"
     }
   }
-  required_version = "1.7.3"
+  required_version = "1.11.0"
 }
 
 provider "google" {
@@ -32,6 +31,6 @@ resource "google_container_node_pool" "primary_preemptible_nodes" {
 
   node_config {
     preemptible  = true
-    machine_type = "e2-standard-8" # 8 CPU and 32 GB Memory
+    machine_type = "e2-standard-4" # 8 CPU and 32 GB Memory
   }
 }

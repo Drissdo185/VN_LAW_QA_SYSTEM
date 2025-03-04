@@ -25,7 +25,9 @@ from config.config import (
     RetrievalConfig, 
     WeaviateConfig, 
     WebSearchConfig,
-    Domain
+    Domain,
+    LLMProvider,
+    VLLMConfig
 )
 from utils import measure_performance, RAGException
 
@@ -57,10 +59,23 @@ def init_configs():
         raise
 
 class DomainComponents:
-    def __init__(self, domain: Domain, configs: tuple):
-        logger.info(f"Initializing components for domain: {domain.value}")
+    def __init__(self, domain: Domain, configs: tuple, llm_provider: LLMProvider = LLMProvider.OPENAI):
+        logger.info(f"Initializing components for domain: {domain.value} with LLM provider: {llm_provider.value}")
         self.domain = domain
-        weaviate_config, model_config, retrieval_config, web_search_config = configs
+        weaviate_config, base_model_config, retrieval_config, web_search_config = configs
+        
+        # Create a copy of model_config with the selected LLM provider
+        model_config = ModelConfig(
+            device=base_model_config.device,
+            embedding_model=base_model_config.embedding_model,
+            cross_encoder_model=base_model_config.cross_encoder_model,
+            chunk_size=base_model_config.chunk_size,
+            chunk_overlap=base_model_config.chunk_overlap,
+            llm_provider=llm_provider,
+            openai_model=base_model_config.openai_model,
+            openai_api_key=base_model_config.openai_api_key,
+            vllm_config=base_model_config.vllm_config
+        )
         
         try:
             self.vector_store_manager = VectorStoreManager(
@@ -127,10 +142,10 @@ class DomainComponents:
             self.vector_store_manager.cleanup()
 
 @st.cache_resource
-def init_domain_components(configs: tuple) -> Dict[Domain, DomainComponents]:
-    """Initialize components for all domains"""
-    logger.info("Initializing components for all domains")
-    return {domain: DomainComponents(domain, configs) for domain in Domain}
+def init_domain_components(configs: tuple, llm_provider: LLMProvider) -> Dict[Domain, DomainComponents]:
+    """Initialize components for all domains with specified LLM provider"""
+    logger.info(f"Initializing components for all domains with LLM provider: {llm_provider.value}")
+    return {domain: DomainComponents(domain, configs, llm_provider) for domain in Domain}
 
 @contextmanager
 def get_event_loop():
@@ -163,6 +178,14 @@ def display_performance_metrics():
             st.write(f"**Processing Time:** {st.session_state.processing_time:.2f} seconds")
             logger.debug(f"Processing time: {st.session_state.processing_time:.2f} seconds")
 
+def display_llm_info(response: Dict):
+    """Display information about which LLM was used"""
+    if 'llm_provider' in response:
+        provider = response['llm_provider']
+        provider_name = "OpenAI GPT-4o mini" if provider == LLMProvider.OPENAI else "Qwen2.5-14B (vLLM)"
+        st.info(f"LLM Provider: {provider_name}")
+        logger.info(f"Response generated using: {provider_name}")
+
 def display_source_info(response: Dict):
     """Display information about the response source"""
     if 'source' in response:
@@ -173,6 +196,7 @@ def display_source_info(response: Dict):
 def display_results(response: Dict):
     """Display the analysis results"""
     logger.info("Displaying results")
+    display_llm_info(response)
     display_source_info(response)
     display_token_usage(response["token_usage"])
     display_performance_metrics()
@@ -206,12 +230,28 @@ def main():
     st.set_page_config(page_title="QA System for Vietnamese Law", layout="wide")
     st.title("📖 Question and Answering System for Vietnamese Law")
 
-    # Sidebar for domain selection
+    # Sidebar for domain selection and LLM provider
     with st.sidebar:
         st.header("⚙️ Configuration")
         try:
             configs = init_configs()
-            domain_components = init_domain_components(configs)
+            
+            # LLM provider selection
+            llm_provider_options = {
+                "OpenAI GPT-4o mini": LLMProvider.OPENAI,
+                "Qwen2.5-14B (vLLM)": LLMProvider.VLLM
+            }
+            selected_provider_name = st.selectbox(
+                "Select LLM Provider",
+                options=list(llm_provider_options.keys()),
+                index=0
+            )
+            selected_provider = llm_provider_options[selected_provider_name]
+            
+            # Initialize components with selected provider
+            domain_components = init_domain_components(configs, selected_provider)
+            
+            # Domain selection
             selected_domain = st.selectbox(
                 "Select Domain",
                 options=[domain.value for domain in Domain],
@@ -219,7 +259,17 @@ def main():
             )
             current_domain = Domain(selected_domain)
             components = domain_components[current_domain]
-            logger.info(f"Selected domain: {current_domain.value}")
+            
+            logger.info(f"Selected domain: {current_domain.value}, LLM provider: {selected_provider.value}")
+            
+            # Display vLLM configuration if selected
+            if selected_provider == LLMProvider.VLLM:
+                with st.expander("vLLM Configuration"):
+                    st.text_input("API URL", configs[1].vllm_config.api_url, key="vllm_url")
+                    st.text_input("Model Name", configs[1].vllm_config.model_name, key="vllm_model")
+                    st.slider("Temperature", 0.0, 1.0, configs[1].vllm_config.temperature, key="vllm_temp")
+                    st.slider("Top P", 0.0, 1.0, configs[1].vllm_config.top_p, key="vllm_top_p")
+            
         except Exception as e:
             error_msg = f"Error initializing components: {str(e)}"
             logger.error(error_msg)

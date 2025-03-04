@@ -3,10 +3,14 @@ from llama_index.llms.openai import OpenAI
 from llama_index.core import PromptTemplate
 from llama_index.core.schema import NodeWithScore
 import tiktoken
+import logging
 
-from config.config import ModelConfig, Domain
+from config.config import ModelConfig, Domain, LLMProvider
 from retrieval.retriever import DocumentRetriever
 from reasoning.prompts import SYSTEM_PROMPT, DOMAIN_VALIDATION_PROMPT
+from llm.vllm_client import VLLMClient
+
+logger = logging.getLogger(__name__)
 
 class AutoRAG:
     def __init__(
@@ -23,8 +27,34 @@ class AutoRAG:
         self.llm = self._setup_llm()
         self.prompt_template = PromptTemplate(template=SYSTEM_PROMPT)
         self.domain_prompt = PromptTemplate(template=DOMAIN_VALIDATION_PROMPT)
-        self.tokenizer = tiktoken.encoding_for_model(model_config.llm_model)
+        self.tokenizer = self._setup_tokenizer()
+        logger.info(f"Initialized AutoRAG with LLM provider: {model_config.llm_provider}")
         
+    def _setup_llm(self):
+        """Set up the LLM based on the provider configuration"""
+        if self.model_config.llm_provider == LLMProvider.OPENAI:
+            logger.info(f"Setting up OpenAI LLM with model: {self.model_config.openai_model}")
+            return OpenAI(
+                model=self.model_config.openai_model,
+                api_key=self.model_config.openai_api_key
+            )
+        elif self.model_config.llm_provider == LLMProvider.VLLM:
+            logger.info(f"Setting up vLLM client with model: {self.model_config.vllm_config.model_name}")
+            return VLLMClient.from_config(self.model_config.vllm_config)
+        else:
+            raise ValueError(f"Unsupported LLM provider: {self.model_config.llm_provider}")
+    
+    def _setup_tokenizer(self):
+        """Set up the tokenizer based on the LLM provider"""
+        if self.model_config.llm_provider == LLMProvider.OPENAI:
+            return tiktoken.encoding_for_model(self.model_config.openai_model)
+        elif self.model_config.llm_provider == LLMProvider.VLLM:
+            # For Qwen models, we'll use the tiktoken cl100k_base encoder as an approximation
+            # This won't be perfectly accurate but should be close enough for token counting
+            return tiktoken.get_encoding("cl100k_base")
+        else:
+            raise ValueError(f"Unsupported LLM provider: {self.model_config.llm_provider}")
+    
     async def validate_domain(self, question: str) -> bool:
         """Validate if question matches current domain"""
         prompt = self.domain_prompt.format(question=question)
@@ -38,7 +68,7 @@ class AutoRAG:
         is_valid_domain = await self.validate_domain(question)
         if not is_valid_domain:
             return {
-                "error": f"Question appears to be about {self.current_domain.value} domain. "
+                "error": f"Question appears to be about a different domain than {self.current_domain.value}. "
                         f"Please switch to the appropriate domain or rephrase your question.",
                 "token_usage": {
                     "input_tokens": self._count_tokens(question),
@@ -109,6 +139,7 @@ class AutoRAG:
                         "output_tokens": total_output_tokens,
                         "total_tokens": total_input_tokens + total_output_tokens
                     }
+                    parsed_response["llm_provider"] = self.model_config.llm_provider
                     return parsed_response
                 
                 # If we need more information and have a next query
@@ -120,6 +151,7 @@ class AutoRAG:
                     break
                     
             except Exception as e:
+                logger.error(f"Error in iteration {iteration}: {str(e)}")
                 search_history.append({
                     "iteration": iteration + 1,
                     "query": current_query,
@@ -139,16 +171,11 @@ class AutoRAG:
                 "input_tokens": total_input_tokens,
                 "output_tokens": total_output_tokens,
                 "total_tokens": total_input_tokens + total_output_tokens
-            }
+            },
+            "llm_provider": self.model_config.llm_provider
         }
         
         return final_response
-    
-    def _setup_llm(self) -> OpenAI:
-        return OpenAI(
-            model=self.model_config.llm_model,
-            api_key=self.model_config.llm_api_key
-        )
     
     def _count_tokens(self, text: str) -> int:
         return len(self.tokenizer.encode(text))
