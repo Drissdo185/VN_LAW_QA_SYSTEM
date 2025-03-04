@@ -49,8 +49,8 @@ class VLLMClient(CustomLLM):
             request_timeout: Timeout for the request in seconds.
         """
         super().__init__()
-        self.api_url = "http://192.168.100.125:8000"
-        self.model_name = "Qwen/Qwen2.5-14B-Instruct-GPTQ-Int8"
+        self.api_url = api_url
+        self.model_name = model_name
         self.temperature = temperature
         self.max_tokens = max_tokens
         self.top_p = top_p

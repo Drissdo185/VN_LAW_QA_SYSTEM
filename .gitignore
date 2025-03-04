@@ -16,3 +16,5 @@ deploy/terraform/main.tf
 deploy/terraform/output.tf 
 
 deploy/terraform/variables.tf
+
+deploy/terraform/.terraform
