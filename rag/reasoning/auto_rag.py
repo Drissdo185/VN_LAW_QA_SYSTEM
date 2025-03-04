@@ -1,15 +1,15 @@
-from typing import Optional, Dict, Any, List
+from typing import Dict, Any
 from llama_index.llms.openai import OpenAI
 from llama_index.core import PromptTemplate
 from llama_index.core.schema import NodeWithScore
 import tiktoken
 import logging
+import re
 
-from config.config import ModelConfig, Domain, LLMProvider
+from config.config import ModelConfig, LLMProvider
 from retrieval.retriever import DocumentRetriever
 from reasoning.prompts import SYSTEM_PROMPT, DOMAIN_VALIDATION_PROMPT
 from llm.vllm_client import VLLMClient
-import re
 
 logger = logging.getLogger(__name__)
 
@@ -18,12 +18,10 @@ class AutoRAG:
         self,
         model_config: ModelConfig,
         retriever: DocumentRetriever,
-        current_domain: Domain,
         max_iterations: int = 2
     ):
         self.model_config = model_config
         self.retriever = retriever
-        self.current_domain = current_domain
         self.max_iterations = max_iterations
         self.llm = self._setup_llm()
         self.prompt_template = PromptTemplate(template=SYSTEM_PROMPT)
@@ -58,53 +56,37 @@ class AutoRAG:
             return tiktoken.encoding_for_model(self.model_config.openai_model)
         elif self.model_config.llm_provider == LLMProvider.VLLM:
             # For Qwen models, we'll use the tiktoken cl100k_base encoder as an approximation
-            # This won't be perfectly accurate but should be close enough for token counting
             return tiktoken.get_encoding("cl100k_base")
         else:
             raise ValueError(f"Unsupported LLM provider: {self.model_config.llm_provider}")
     
     async def validate_domain(self, question: str) -> bool:
-        """Validate if question matches current domain"""
+        """Validate if question is related to traffic domain"""
         prompt = self.domain_prompt.format(question=question)
         response = await self.llm.acomplete(prompt)
         detected_domain = response.text.strip().lower()
         
-        # Improved parsing of response from different LLM providers
         logger.info(f"Domain detection response: '{detected_domain}'")
         
         # Extract domain keyword using regex pattern matching
         traffic_pattern = r'traffic|giao\s*thông|đường\s*bộ|đi\s*đường'
-        stock_pattern = r'stock|chứng\s*khoán|cổ\s*phiếu|thị\s*trường'
         
-        if self.current_domain == Domain.TRAFFIC:
-            # For traffic domain
-            if re.search(traffic_pattern, detected_domain, re.IGNORECASE):
-                logger.info("Domain validated as traffic")
-                return True
-            elif "traffic" in detected_domain:
-                logger.info("Domain validated as traffic (exact match)")
-                return True
-        elif self.current_domain == Domain.STOCK:
-            # For stock domain
-            if re.search(stock_pattern, detected_domain, re.IGNORECASE):
-                logger.info("Domain validated as stock")
-                return True
-            elif "stock" in detected_domain:
-                logger.info("Domain validated as stock (exact match)")
+        # Check if response indicates traffic domain
+        if re.search(traffic_pattern, detected_domain, re.IGNORECASE) or "traffic" in detected_domain:
+            logger.info("Domain validated as traffic")
+            return True
+                
+        # Check for common traffic-related terms in Vietnamese
+        traffic_keywords = ['mũ bảo hiểm', 'giao thông', 'đường bộ', 'biển báo', 
+                           'luật giao thông', 'phạt', 'xe máy', 'ô tô', 'bằng lái',
+                           'giấy phép', 'nd168', 'nghị định']
+        
+        for keyword in traffic_keywords:
+            if keyword in question.lower():
+                logger.info(f"Domain validated as traffic via keyword: {keyword}")
                 return True
                 
-        # Special case for traffic domain - common traffic-related terms in Vietnamese
-        if self.current_domain == Domain.TRAFFIC:
-            traffic_keywords = ['mũ bảo hiểm', 'giao thông', 'đường bộ', 'biển báo', 
-                               'luật giao thông', 'phạt', 'xe máy', 'ô tô', 'bằng lái',
-                               'giấy phép', 'nd168', 'nghị định']
-            
-            for keyword in traffic_keywords:
-                if keyword in question.lower():
-                    logger.info(f"Domain validated as traffic via keyword: {keyword}")
-                    return True
-                    
-        logger.warning(f"Domain validation failed. Expected: {self.current_domain.value}, Detected: {detected_domain}")
+        logger.warning(f"Domain validation failed. Detected: {detected_domain}")
         return False
     
     async def get_answer(self, question: str) -> Dict[str, Any]:
@@ -113,8 +95,8 @@ class AutoRAG:
         is_valid_domain = await self.validate_domain(question)
         if not is_valid_domain:
             return {
-                "error": f"Question appears to be about a different domain than {self.current_domain.value}. "
-                        f"Please switch to the appropriate domain or rephrase your question.",
+                "error": "Question appears to be about a different domain than traffic. "
+                        "Please switch to the appropriate domain or rephrase your question.",
                 "token_usage": {
                     "input_tokens": self._count_tokens(question),
                     "output_tokens": 0,

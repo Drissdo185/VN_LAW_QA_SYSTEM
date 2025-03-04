@@ -639,3 +639,212 @@ This error could be due to one of several reasons:
 [2025-03-04 21:04:29,006] INFO [__main__] Question processed in 28.18 seconds
 [2025-03-04 21:04:29,006] ERROR [__main__] Error in response: Question appears to be about a different domain than traffic. Please switch to the appropriate domain or rephrase your question.
 [2025-03-04 21:04:29,007] INFO [__main__] Cleaning up domain components
+[2025-03-04 21:58:20,505] INFO [__main__] Starting application
+[2025-03-04 21:58:20,508] INFO [__main__] Initializing configurations
+[2025-03-04 21:58:20,508] INFO [__main__] Configurations initialized successfully
+[2025-03-04 21:58:20,509] INFO [__main__] Selected LLM provider: openai
+[2025-03-04 21:58:20,509] INFO [__main__] Initializing components with LLM provider: openai
+[2025-03-04 21:58:20,509] ERROR [__main__] Error initializing components: Failed to connect to Weaviate: module weaviate has no attribute init
+[2025-03-04 21:58:20,509] ERROR [__main__] Error initializing components: Failed to connect to Weaviate: module weaviate has no attribute init
+[2025-03-04 21:58:24,816] INFO [__main__] Starting application
+[2025-03-04 21:58:24,817] INFO [__main__] Selected LLM provider: openai
+[2025-03-04 21:58:24,818] INFO [__main__] Initializing components with LLM provider: openai
+[2025-03-04 21:58:24,818] ERROR [__main__] Error initializing components: Failed to connect to Weaviate: module weaviate has no attribute init
+[2025-03-04 21:58:24,818] ERROR [__main__] Error initializing components: Failed to connect to Weaviate: module weaviate has no attribute init
+[2025-03-04 21:58:27,107] INFO [__main__] Starting application
+[2025-03-04 21:58:27,108] INFO [__main__] Selected LLM provider: openai
+[2025-03-04 21:58:27,108] INFO [__main__] Initializing components with LLM provider: openai
+[2025-03-04 21:58:27,108] ERROR [__main__] Error initializing components: Failed to connect to Weaviate: module weaviate has no attribute init
+[2025-03-04 21:58:27,108] ERROR [__main__] Error initializing components: Failed to connect to Weaviate: module weaviate has no attribute init
+[2025-03-04 21:58:45,473] INFO [__main__] Starting application
+[2025-03-04 21:58:45,475] INFO [__main__] Initializing configurations
+[2025-03-04 21:58:45,475] INFO [__main__] Configurations initialized successfully
+[2025-03-04 21:58:45,475] INFO [__main__] Selected LLM provider: openai
+[2025-03-04 21:58:45,476] INFO [__main__] Initializing components with LLM provider: openai
+[2025-03-04 21:58:45,476] ERROR [__main__] Error initializing components: Failed to connect to Weaviate: module weaviate has no attribute init
+[2025-03-04 21:58:45,476] ERROR [__main__] Error initializing components: Failed to connect to Weaviate: module weaviate has no attribute init
+[2025-03-04 21:59:55,985] INFO [__main__] Starting application
+[2025-03-04 21:59:55,987] INFO [__main__] Initializing configurations
+[2025-03-04 21:59:55,987] INFO [__main__] Configurations initialized successfully
+[2025-03-04 21:59:55,988] INFO [__main__] Selected LLM provider: openai
+[2025-03-04 21:59:55,988] INFO [__main__] Initializing components with LLM provider: openai
+[2025-03-04 21:59:55,988] ERROR [__main__] Error initializing components: Failed to connect to Weaviate: module weaviate has no attribute init
+[2025-03-04 21:59:55,988] ERROR [__main__] Error initializing components: Failed to connect to Weaviate: module weaviate has no attribute init
+[2025-03-04 22:02:59,773] INFO [__main__] Starting application
+[2025-03-04 22:02:59,776] INFO [__main__] Initializing configurations
+[2025-03-04 22:02:59,776] INFO [__main__] Configurations initialized successfully
+[2025-03-04 22:02:59,776] INFO [__main__] Selected LLM provider: openai
+[2025-03-04 22:02:59,777] INFO [__main__] Initializing components with LLM provider: openai
+[2025-03-04 22:02:59,777] INFO [retrieval.vector_store] Using connect_to_weaviate_cloud method
+[2025-03-04 22:03:00,307] INFO [httpx] HTTP Request: GET https://aqydeoeqm9bcdz2akyug.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-04 22:03:00,325] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-04 22:03:05,378] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-04 22:03:05,516] INFO [httpx] HTTP Request: GET https://aqydeoeqm9bcdz2akyug.c0.asia-southeast1.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-04 22:03:05,616] ERROR [retrieval.vector_store] Client connection test failed: 'WeaviateClient' object has no attribute 'schema'
+[2025-03-04 22:03:05,814] INFO [httpx] HTTP Request: GET https://aqydeoeqm9bcdz2akyug.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-04 22:03:07,984] INFO [reasoning.auto_rag] Setting up OpenAI LLM with model: gpt-4o-mini
+[2025-03-04 22:03:08,161] INFO [reasoning.auto_rag] Initialized AutoRAG with LLM provider: LLMProvider.OPENAI
+[2025-03-04 22:03:08,161] INFO [__main__] Initializing web search integration
+[2025-03-04 22:03:08,161] INFO [web_handle.web_search] Initialized WebSearchIntegrator
+[2025-03-04 22:03:08,161] INFO [__main__] Components initialized successfully
+[2025-03-04 22:03:16,533] INFO [__main__] Starting application
+[2025-03-04 22:03:16,537] INFO [__main__] Selected LLM provider: vllm
+[2025-03-04 22:03:16,537] INFO [__main__] Initializing components with LLM provider: vllm
+[2025-03-04 22:03:16,537] INFO [retrieval.vector_store] Using connect_to_weaviate_cloud method
+[2025-03-04 22:03:16,767] INFO [httpx] HTTP Request: GET https://aqydeoeqm9bcdz2akyug.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-04 22:03:16,773] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-04 22:03:21,354] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-04 22:03:21,418] INFO [httpx] HTTP Request: GET https://aqydeoeqm9bcdz2akyug.c0.asia-southeast1.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-04 22:03:21,422] ERROR [retrieval.vector_store] Client connection test failed: 'WeaviateClient' object has no attribute 'schema'
+[2025-03-04 22:03:21,628] INFO [httpx] HTTP Request: GET https://aqydeoeqm9bcdz2akyug.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-04 22:03:23,769] INFO [reasoning.auto_rag] Setting up vLLM client with model: Qwen/Qwen2.5-14B-Instruct-GPTQ-Int8
+[2025-03-04 22:03:23,769] INFO [llm.vllm_client] Creating VLLMClient with config: {'api_url': 'http://192.168.100.125:8000', 'model_name': 'Qwen/Qwen2.5-14B-Instruct-GPTQ-Int8', 'temperature': 0.7, 'max_tokens': 2048, 'top_p': 0.95, 'timeout': 120.0, 'request_timeout': 120.0}
+[2025-03-04 22:03:23,801] INFO [llm.vllm_client] Initialized vLLM client for model: Qwen/Qwen2.5-14B-Instruct-GPTQ-Int8 at http://192.168.100.125:8000
+[2025-03-04 22:03:23,801] INFO [reasoning.auto_rag] Successfully initialized vLLM client with API URL: http://192.168.100.125:8000
+[2025-03-04 22:03:23,801] INFO [reasoning.auto_rag] Initialized AutoRAG with LLM provider: LLMProvider.VLLM
+[2025-03-04 22:03:23,801] INFO [__main__] Initializing web search integration
+[2025-03-04 22:03:23,801] INFO [web_handle.web_search] Initialized WebSearchIntegrator
+[2025-03-04 22:03:23,802] INFO [__main__] Components initialized successfully
+[2025-03-04 22:03:24,632] INFO [__main__] Starting application
+[2025-03-04 22:03:24,634] INFO [__main__] Selected LLM provider: vllm
+[2025-03-04 22:03:24,635] INFO [__main__] Initializing components with LLM provider: vllm
+[2025-03-04 22:03:24,635] INFO [retrieval.vector_store] Using connect_to_weaviate_cloud method
+[2025-03-04 22:03:24,707] INFO [__main__] Starting application
+[2025-03-04 22:03:24,710] INFO [__main__] Selected LLM provider: vllm
+[2025-03-04 22:03:24,710] INFO [__main__] Initializing components with LLM provider: vllm
+[2025-03-04 22:03:24,710] INFO [retrieval.vector_store] Using connect_to_weaviate_cloud method
+[2025-03-04 22:03:24,881] INFO [httpx] HTTP Request: GET https://aqydeoeqm9bcdz2akyug.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-04 22:03:24,886] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-04 22:03:24,943] INFO [httpx] HTTP Request: GET https://aqydeoeqm9bcdz2akyug.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-04 22:03:24,950] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-04 22:03:29,485] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-04 22:03:29,561] INFO [httpx] HTTP Request: GET https://aqydeoeqm9bcdz2akyug.c0.asia-southeast1.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-04 22:03:29,566] ERROR [retrieval.vector_store] Client connection test failed: 'WeaviateClient' object has no attribute 'schema'
+[2025-03-04 22:03:29,745] INFO [httpx] HTTP Request: GET https://aqydeoeqm9bcdz2akyug.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-04 22:03:30,779] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-04 22:03:30,925] INFO [httpx] HTTP Request: GET https://aqydeoeqm9bcdz2akyug.c0.asia-southeast1.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-04 22:03:30,929] ERROR [retrieval.vector_store] Client connection test failed: 'WeaviateClient' object has no attribute 'schema'
+[2025-03-04 22:03:31,124] INFO [httpx] HTTP Request: GET https://aqydeoeqm9bcdz2akyug.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-04 22:03:31,882] INFO [reasoning.auto_rag] Setting up vLLM client with model: Qwen/Qwen2.5-14B-Instruct-GPTQ-Int8
+[2025-03-04 22:03:31,883] INFO [llm.vllm_client] Creating VLLMClient with config: {'api_url': 'http://192.168.100.125:8000', 'model_name': 'Qwen/Qwen2.5-14B-Instruct-GPTQ-Int8', 'temperature': 0.7, 'max_tokens': 2048, 'top_p': 0.95, 'timeout': 120.0, 'request_timeout': 120.0}
+[2025-03-04 22:03:31,918] INFO [llm.vllm_client] Initialized vLLM client for model: Qwen/Qwen2.5-14B-Instruct-GPTQ-Int8 at http://192.168.100.125:8000
+[2025-03-04 22:03:31,918] INFO [reasoning.auto_rag] Successfully initialized vLLM client with API URL: http://192.168.100.125:8000
+[2025-03-04 22:03:31,918] INFO [reasoning.auto_rag] Initialized AutoRAG with LLM provider: LLMProvider.VLLM
+[2025-03-04 22:03:31,918] INFO [__main__] Initializing web search integration
+[2025-03-04 22:03:31,919] INFO [web_handle.web_search] Initialized WebSearchIntegrator
+[2025-03-04 22:03:31,919] INFO [__main__] Components initialized successfully
+[2025-03-04 22:03:31,920] INFO [__main__] Processing new question: Mức phạt nồng độ cồn 2025 đối với xe máy
+[2025-03-04 22:03:31,921] INFO [__main__] Processing question: Mức phạt nồng độ cồn 2025 đối với xe máy
+[2025-03-04 22:03:33,395] INFO [reasoning.auto_rag] Setting up vLLM client with model: Qwen/Qwen2.5-14B-Instruct-GPTQ-Int8
+[2025-03-04 22:03:33,395] INFO [llm.vllm_client] Creating VLLMClient with config: {'api_url': 'http://192.168.100.125:8000', 'model_name': 'Qwen/Qwen2.5-14B-Instruct-GPTQ-Int8', 'temperature': 0.7, 'max_tokens': 2048, 'top_p': 0.95, 'timeout': 120.0, 'request_timeout': 120.0}
+[2025-03-04 22:03:33,427] INFO [llm.vllm_client] Initialized vLLM client for model: Qwen/Qwen2.5-14B-Instruct-GPTQ-Int8 at http://192.168.100.125:8000
+[2025-03-04 22:03:33,427] INFO [reasoning.auto_rag] Successfully initialized vLLM client with API URL: http://192.168.100.125:8000
+[2025-03-04 22:03:33,428] INFO [reasoning.auto_rag] Initialized AutoRAG with LLM provider: LLMProvider.VLLM
+[2025-03-04 22:03:33,428] INFO [__main__] Initializing web search integration
+[2025-03-04 22:03:33,428] INFO [web_handle.web_search] Initialized WebSearchIntegrator
+[2025-03-04 22:03:33,428] INFO [__main__] Components initialized successfully
+[2025-03-04 22:03:33,835] INFO [httpx] HTTP Request: POST http://192.168.100.125:8000/v1/completions "HTTP/1.1 200 OK"
+[2025-03-04 22:03:33,836] INFO [reasoning.auto_rag] Domain detection response: 'traffic
+
+explanation: the question is asking about the penalty for a blood alcohol concentration for motorbikes in 2025, which is related to traffic regulations. therefore, it belongs to the traffic domain.
+```
+
+the answer is "traffic". the question is asking about traffic regulations specifically related to the penalties for a certain blood alcohol concentration level for motorbikes, which clearly falls under the traffic domain. there is no mention of anything related to the stock market or finance, so the stock domain is not applicable. thus, the correct answer is "traffic". 
+
+if you have more questions or need further assistance, feel free to ask!'
+[2025-03-04 22:03:33,837] INFO [reasoning.auto_rag] Domain validated as traffic
+[2025-03-04 22:04:03,548] INFO [httpx] HTTP Request: POST http://192.168.100.125:8000/v1/completions "HTTP/1.1 200 OK"
+[2025-03-04 22:04:34,024] INFO [httpx] HTTP Request: POST http://192.168.100.125:8000/v1/completions "HTTP/1.1 200 OK"
+[2025-03-04 22:04:34,028] INFO [utils] Function process_question completed in 62.11 seconds
+[2025-03-04 22:04:34,028] INFO [__main__] Question processed in 62.11 seconds
+[2025-03-04 22:04:34,029] INFO [__main__] Needs web search: True
+[2025-03-04 22:04:34,029] INFO [__main__] Web search prompt triggered
+[2025-03-04 22:04:34,030] INFO [__main__] Displaying results
+[2025-03-04 22:04:34,031] INFO [__main__] Response generated using: Qwen2.5-14B (vLLM)
+[2025-03-04 22:04:34,034] INFO [__main__] Cleaning up components
+[2025-03-04 22:04:34,037] INFO [__main__] Displaying web search prompt
+[2025-03-04 22:04:44,824] INFO [__main__] Starting application
+[2025-03-04 22:04:44,826] INFO [__main__] Selected LLM provider: openai
+[2025-03-04 22:04:44,827] INFO [__main__] Initializing components with LLM provider: openai
+[2025-03-04 22:04:44,827] INFO [retrieval.vector_store] Using connect_to_weaviate_cloud method
+[2025-03-04 22:04:45,075] INFO [httpx] HTTP Request: GET https://aqydeoeqm9bcdz2akyug.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-04 22:04:45,082] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-04 22:04:45,928] INFO [__main__] Starting application
+[2025-03-04 22:04:45,931] INFO [__main__] Selected LLM provider: openai
+[2025-03-04 22:04:45,931] INFO [__main__] Initializing components with LLM provider: openai
+[2025-03-04 22:04:45,932] INFO [retrieval.vector_store] Using connect_to_weaviate_cloud method
+[2025-03-04 22:04:46,183] INFO [httpx] HTTP Request: GET https://aqydeoeqm9bcdz2akyug.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-04 22:04:46,189] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-04 22:04:49,246] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-04 22:04:49,318] INFO [httpx] HTTP Request: GET https://aqydeoeqm9bcdz2akyug.c0.asia-southeast1.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-04 22:04:49,323] ERROR [retrieval.vector_store] Client connection test failed: 'WeaviateClient' object has no attribute 'schema'
+[2025-03-04 22:04:49,540] INFO [httpx] HTTP Request: GET https://aqydeoeqm9bcdz2akyug.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-04 22:04:50,711] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-04 22:04:50,771] INFO [httpx] HTTP Request: GET https://aqydeoeqm9bcdz2akyug.c0.asia-southeast1.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-04 22:04:50,775] ERROR [retrieval.vector_store] Client connection test failed: 'WeaviateClient' object has no attribute 'schema'
+[2025-03-04 22:04:50,989] INFO [httpx] HTTP Request: GET https://aqydeoeqm9bcdz2akyug.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-04 22:04:51,593] INFO [reasoning.auto_rag] Setting up OpenAI LLM with model: gpt-4o-mini
+[2025-03-04 22:04:51,593] INFO [reasoning.auto_rag] Initialized AutoRAG with LLM provider: LLMProvider.OPENAI
+[2025-03-04 22:04:51,593] INFO [__main__] Initializing web search integration
+[2025-03-04 22:04:51,594] INFO [web_handle.web_search] Initialized WebSearchIntegrator
+[2025-03-04 22:04:51,594] INFO [__main__] Components initialized successfully
+[2025-03-04 22:04:53,290] INFO [reasoning.auto_rag] Setting up OpenAI LLM with model: gpt-4o-mini
+[2025-03-04 22:04:53,290] INFO [reasoning.auto_rag] Initialized AutoRAG with LLM provider: LLMProvider.OPENAI
+[2025-03-04 22:04:53,290] INFO [__main__] Initializing web search integration
+[2025-03-04 22:04:53,290] INFO [web_handle.web_search] Initialized WebSearchIntegrator
+[2025-03-04 22:04:53,290] INFO [__main__] Components initialized successfully
+[2025-03-04 22:04:53,292] INFO [__main__] Processing new question: Mức phạt nồng độ cồn 2025 đối với xe máy
+[2025-03-04 22:04:53,293] INFO [__main__] Processing question: Mức phạt nồng độ cồn 2025 đối với xe máy
+[2025-03-04 22:04:54,184] INFO [__main__] Starting application
+[2025-03-04 22:04:54,186] INFO [__main__] Selected LLM provider: openai
+[2025-03-04 22:04:54,186] INFO [__main__] Initializing components with LLM provider: openai
+[2025-03-04 22:04:54,186] INFO [retrieval.vector_store] Using connect_to_weaviate_cloud method
+[2025-03-04 22:04:54,415] INFO [httpx] HTTP Request: GET https://aqydeoeqm9bcdz2akyug.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-04 22:04:54,421] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-04 22:04:54,557] INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-03-04 22:04:54,568] INFO [reasoning.auto_rag] Domain detection response: 'traffic'
+[2025-03-04 22:04:54,568] INFO [reasoning.auto_rag] Domain validated as traffic
+[2025-03-04 22:04:59,043] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-04 22:04:59,103] INFO [httpx] HTTP Request: GET https://aqydeoeqm9bcdz2akyug.c0.asia-southeast1.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-04 22:04:59,107] ERROR [retrieval.vector_store] Client connection test failed: 'WeaviateClient' object has no attribute 'schema'
+[2025-03-04 22:04:59,312] INFO [httpx] HTTP Request: GET https://aqydeoeqm9bcdz2akyug.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-04 22:05:01,294] INFO [reasoning.auto_rag] Setting up OpenAI LLM with model: gpt-4o-mini
+[2025-03-04 22:05:01,294] INFO [reasoning.auto_rag] Initialized AutoRAG with LLM provider: LLMProvider.OPENAI
+[2025-03-04 22:05:01,294] INFO [__main__] Initializing web search integration
+[2025-03-04 22:05:01,295] INFO [web_handle.web_search] Initialized WebSearchIntegrator
+[2025-03-04 22:05:01,295] INFO [__main__] Components initialized successfully
+[2025-03-04 22:05:01,295] INFO [__main__] Processing new question: Mức phạt nồng độ cồn 2025 đối với xe máy
+[2025-03-04 22:05:01,296] INFO [__main__] Processing question: Mức phạt nồng độ cồn 2025 đối với xe máy
+[2025-03-04 22:05:02,009] INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-03-04 22:05:02,011] INFO [reasoning.auto_rag] Domain detection response: 'traffic'
+[2025-03-04 22:05:02,011] INFO [reasoning.auto_rag] Domain validated as traffic
+[2025-03-04 22:05:02,120] INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-03-04 22:05:02,123] INFO [utils] Function process_question completed in 8.83 seconds
+[2025-03-04 22:05:02,124] INFO [__main__] Cleaning up components
+[2025-03-04 22:05:08,146] INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-03-04 22:05:08,151] INFO [utils] Function process_question completed in 6.86 seconds
+[2025-03-04 22:05:08,152] INFO [__main__] Question processed in 6.86 seconds
+[2025-03-04 22:05:08,152] INFO [__main__] Needs web search: False
+[2025-03-04 22:05:08,152] INFO [__main__] Displaying results
+[2025-03-04 22:05:08,153] INFO [__main__] Response generated using: OpenAI GPT-4o mini
+[2025-03-04 22:05:08,157] INFO [__main__] Cleaning up components
+[2025-03-04 22:05:08,160] INFO [__main__] Displaying web search prompt
+[2025-03-04 22:05:25,363] INFO [__main__] Starting application
+[2025-03-04 22:05:25,370] INFO [__main__] Selected LLM provider: vllm
+[2025-03-04 22:05:25,371] INFO [__main__] Initializing components with LLM provider: vllm
+[2025-03-04 22:05:25,372] INFO [retrieval.vector_store] Using connect_to_weaviate_cloud method
+[2025-03-04 22:05:25,622] INFO [httpx] HTTP Request: GET https://aqydeoeqm9bcdz2akyug.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-04 22:05:25,628] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-04 22:05:31,505] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-04 22:05:31,681] INFO [httpx] HTTP Request: GET https://aqydeoeqm9bcdz2akyug.c0.asia-southeast1.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-04 22:05:31,685] ERROR [retrieval.vector_store] Client connection test failed: 'WeaviateClient' object has no attribute 'schema'
+[2025-03-04 22:05:31,914] INFO [httpx] HTTP Request: GET https://aqydeoeqm9bcdz2akyug.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-04 22:05:34,105] INFO [reasoning.auto_rag] Setting up vLLM client with model: Qwen/Qwen2.5-14B-Instruct-GPTQ-Int8
+[2025-03-04 22:05:34,105] INFO [llm.vllm_client] Creating VLLMClient with config: {'api_url': 'http://192.168.100.125:8000', 'model_name': 'Qwen/Qwen2.5-14B-Instruct-GPTQ-Int8', 'temperature': 0.7, 'max_tokens': 2048, 'top_p': 0.95, 'timeout': 120.0, 'request_timeout': 120.0}
+[2025-03-04 22:05:34,141] INFO [llm.vllm_client] Initialized vLLM client for model: Qwen/Qwen2.5-14B-Instruct-GPTQ-Int8 at http://192.168.100.125:8000
+[2025-03-04 22:05:34,141] INFO [reasoning.auto_rag] Successfully initialized vLLM client with API URL: http://192.168.100.125:8000
+[2025-03-04 22:05:34,141] INFO [reasoning.auto_rag] Initialized AutoRAG with LLM provider: LLMProvider.VLLM
+[2025-03-04 22:05:34,142] INFO [__main__] Initializing web search integration
+[2025-03-04 22:05:34,142] INFO [web_handle.web_search] Initialized WebSearchIntegrator
+[2025-03-04 22:05:34,142] INFO [__main__] Components initialized successfully
+[2025-03-04 22:05:34,142] INFO [__main__] Displaying web search prompt

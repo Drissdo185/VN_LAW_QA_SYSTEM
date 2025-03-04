@@ -1,5 +1,4 @@
 from typing import List, Dict, Any, Optional
-import os
 import requests
 import logging
 from bs4 import BeautifulSoup
@@ -9,7 +8,7 @@ from llama_index.core.schema import NodeWithScore
 
 from web_handle.web_data import WebToMarkdown
 from retrieval.search_pipline import SearchPipeline
-from config.config import ModelConfig, RetrievalConfig, Domain
+from config.config import ModelConfig, RetrievalConfig
 
 # Setup logger
 logger = logging.getLogger(__name__)
@@ -20,20 +19,18 @@ class WebSearchIntegrator:
         google_api_key: str,
         google_cse_id: str,
         model_config: ModelConfig,
-        retrieval_config: RetrievalConfig,
-        domain: Domain
+        retrieval_config: RetrievalConfig
     ):
         self.google_api_key = google_api_key
         self.google_cse_id = google_cse_id
         self.model_config = model_config
         self.retrieval_config = retrieval_config
-        self.domain = domain
         self.web_crawler = WebToMarkdown()
         self.node_parser = SimpleNodeParser.from_defaults(
             chunk_size=215,
             chunk_overlap=0
         )
-        logger.info(f"Initialized WebSearchIntegrator for domain: {domain.value}")
+        logger.info("Initialized WebSearchIntegrator")
 
     async def search_and_retrieve(self, query: str, num_results: int = 3) -> Dict[str, Any]:
         """
@@ -71,8 +68,7 @@ class WebSearchIntegrator:
         temp_pipeline = SearchPipeline(
             retriever=None,
             model_config=self.model_config,
-            retrieval_config=self.retrieval_config,
-            domain=self.domain
+            retrieval_config=self.retrieval_config
         )
 
         # Rerank nodes using cross-encoder
@@ -202,6 +198,7 @@ class WebEnabledAutoRAG:
                 
                 parsed_response["token_usage"] = token_usage
                 parsed_response["source"] = "web_search"
+                parsed_response["llm_provider"] = self.auto_rag.model_config.llm_provider
                 parsed_response["web_source"] = {
                     "url": web_search_results["url"],
                     "nodes": [

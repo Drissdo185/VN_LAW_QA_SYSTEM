@@ -1,12 +1,8 @@
 from dataclasses import dataclass, field
 import os
 import torch
-from typing import Optional, Literal
+from typing import Optional
 from enum import Enum
-
-class Domain(str, Enum):
-    TRAFFIC = "traffic"
-    STOCK = "stock"
 
 class LLMProvider(str, Enum):
     OPENAI = "openai"
@@ -16,11 +12,7 @@ class LLMProvider(str, Enum):
 class WeaviateConfig:
     url: str
     api_key: str
-    traffic_collection: str = "ND168"
-    stock_collection: str = "STOCK"
-    
-    def get_collection(self, domain: Domain) -> str:
-        return self.traffic_collection if domain == Domain.TRAFFIC else self.stock_collection
+    collection: str = "ND168"
 
 @dataclass
 class VLLMConfig:
@@ -53,7 +45,6 @@ class RetrievalConfig:
     vector_store_query_mode: str = "hybrid"
     similarity_top_k: int = 8
     alpha: float = 0.5
-    
 
 @dataclass
 class WebSearchConfig:

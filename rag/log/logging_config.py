@@ -26,7 +26,7 @@ def setup_logging(
     
     # File handler (if log_file is specified)
     if log_file:
-        file_handler = logging.FileHandler(log_file)
+        file_handler = logging.FileHandler(log_file, mode='a')
         file_handler.setFormatter(formatter)
         handlers.append(file_handler)
     
@@ -34,8 +34,13 @@ def setup_logging(
     root_logger = logging.getLogger()
     root_logger.setLevel(level)
     
-    # Remove existing handlers to avoid duplicates
+    # Remove existing handlers to avoid duplicates and properly close them
     for handler in root_logger.handlers[:]:
+        # Close the handler if possible
+        try:
+            handler.close()
+        except:
+            pass
         root_logger.removeHandler(handler)
     
     # Add new handlers

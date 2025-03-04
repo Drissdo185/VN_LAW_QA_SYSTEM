@@ -1,32 +1,32 @@
-from typing import Optional, Dict
+from typing import Optional
 import weaviate
-from weaviate.classes.init import Auth
 from llama_index.vector_stores.weaviate import WeaviateVectorStore
 from llama_index.core import VectorStoreIndex
 from llama_index.embeddings.huggingface import HuggingFaceEmbedding
 from functools import lru_cache
+import logging
 
-from config.config import WeaviateConfig, ModelConfig, Domain
+from config.config import WeaviateConfig, ModelConfig
+
+logger = logging.getLogger(__name__)
 
 class VectorStoreManager:
     def __init__(
         self,
         weaviate_config: WeaviateConfig,
-        model_config: ModelConfig,
-        domain: Domain
+        model_config: ModelConfig
     ):
         self.weaviate_config = weaviate_config
         self.model_config = model_config
-        self.domain = domain
         self.client = None
-        self.vector_stores: Dict[Domain, WeaviateVectorStore] = {}
-        self.indices: Dict[Domain, VectorStoreIndex] = {}
+        self.vector_store = None
+        self.index = None
         
     def initialize(self):
-        """Initialize Weaviate client and vector store for the specified domain"""
+        """Initialize Weaviate client and vector store"""
         self._ensure_client_connected()
         
-        collection = self.weaviate_config.get_collection(self.domain)
+        collection = self.weaviate_config.collection
         embed_model = self._get_cached_embedding_model()
         
         vector_store = WeaviateVectorStore(
@@ -39,26 +39,56 @@ class VectorStoreManager:
             embed_model=embed_model
         )
         
-        self.vector_stores[self.domain] = vector_store
-        self.indices[self.domain] = index
+        self.vector_store = vector_store
+        self.index = index
     
     def _ensure_client_connected(self):
         """Ensure Weaviate client is connected, reconnect if needed"""
         if not self.client:
-            self.client = weaviate.connect_to_weaviate_cloud(
-                cluster_url=self.weaviate_config.url,
-                auth_credentials=Auth.api_key(self.weaviate_config.api_key)
-            )
+            try:
+                # Check which method is available in the installed weaviate version
+                if hasattr(weaviate, 'connect_to_weaviate_cloud'):
+                    logger.info("Using connect_to_weaviate_cloud method")
+                    # Newer weaviate client version
+                    self.client = weaviate.connect_to_weaviate_cloud(
+                        cluster_url=self.weaviate_config.url,
+                        auth_credentials=weaviate.classes.init.Auth.api_key(self.weaviate_config.api_key),
+                        skip_init_checks=True
+                    )
+                else:
+                    logger.info("Using Client constructor method")
+                    # Older weaviate client version
+                    auth_config = weaviate.auth.AuthApiKey(self.weaviate_config.api_key)
+                    self.client = weaviate.Client(
+                        url=self.weaviate_config.url,
+                        auth_client_secret=auth_config
+                    )
+            except Exception as e:
+                logger.error(f"Failed to connect to Weaviate: {str(e)}")
+                raise RuntimeError(f"Failed to connect to Weaviate: {str(e)}")
         else:
             try:
                 # Test if client is still connected
                 self.client.schema.get()
-            except Exception:
-                # Reconnect if client is closed
-                self.client = weaviate.connect_to_weaviate_cloud(
-                    cluster_url=self.weaviate_config.url,
-                    auth_credentials=Auth.api_key(self.weaviate_config.api_key)
-                )
+            except Exception as e:
+                logger.error(f"Client connection test failed: {str(e)}")
+                # Reconnect with appropriate method
+                try:
+                    if hasattr(weaviate, 'connect_to_weaviate_cloud'):
+                        self.client = weaviate.connect_to_weaviate_cloud(
+                            cluster_url=self.weaviate_config.url,
+                            auth_credentials=weaviate.classes.init.Auth.api_key(self.weaviate_config.api_key),
+                            skip_init_checks=True
+                        )
+                    else:
+                        auth_config = weaviate.auth.AuthApiKey(self.weaviate_config.api_key)
+                        self.client = weaviate.Client(
+                            url=self.weaviate_config.url,
+                            auth_client_secret=auth_config
+                        )
+                except Exception as e:
+                    logger.error(f"Failed to reconnect to Weaviate: {str(e)}")
+                    raise RuntimeError(f"Failed to reconnect to Weaviate: {str(e)}")
     
     @lru_cache(maxsize=1)
     def _get_cached_embedding_model(self):
@@ -70,16 +100,16 @@ class VectorStoreManager:
         )
     
     def get_index(self) -> Optional[VectorStoreIndex]:
-        """Get the vector store index for the current domain"""
+        """Get the vector store index"""
         self._ensure_client_connected()  # Ensure client is connected before returning index
-        return self.indices.get(self.domain)
+        return self.index
     
     def cleanup(self):
         """Clean up resources"""
         if self.client:
             try:
                 self.client.close()
-            except Exception:
-                pass
+            except Exception as e:
+                logger.warning(f"Error closing Weaviate client: {str(e)}")
             finally:
                 self.client = None

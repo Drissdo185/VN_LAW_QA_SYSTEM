@@ -1,3 +1,4 @@
+# Add this at the top of main.py
 import streamlit as st
 import asyncio
 import time
@@ -5,13 +6,15 @@ from typing import Dict
 import os
 from contextlib import contextmanager
 import logging
-from log.logging_config import setup_logging
+import sys
 import nest_asyncio
 
-
+# Apply nest_asyncio before any other asyncio operations
 nest_asyncio.apply()
 
-# Initialize logging first, before any other operations
+# Initialize logging
+from log.logging_config import setup_logging
+
 setup_logging(
     level=logging.INFO,
     log_format='[%(asctime)s] %(levelname)s [%(name)s] %(message)s',
@@ -19,22 +22,28 @@ setup_logging(
 )
 logger = logging.getLogger(__name__)
 
-from retrieval.search_pipline import SearchPipeline
-from retrieval.retriever import DocumentRetriever
-from retrieval.vector_store import VectorStoreManager
-from reasoning.auto_rag import AutoRAG
-from web_handle.web_search import WebSearchIntegrator, WebEnabledAutoRAG
-from config.config import (
-    ModelConfig, 
-    RetrievalConfig, 
-    WeaviateConfig, 
-    WebSearchConfig,
-    Domain,
-    LLMProvider,
-    VLLMConfig
-)
-from utils import measure_performance, RAGException
+# Import the rest of the dependencies
+try:
+    from retrieval.search_pipline import SearchPipeline
+    from retrieval.retriever import DocumentRetriever
+    from retrieval.vector_store import VectorStoreManager
+    from reasoning.auto_rag import AutoRAG
+    from web_handle.web_search import WebSearchIntegrator, WebEnabledAutoRAG
+    from config.config import (
+        ModelConfig, 
+        RetrievalConfig, 
+        WeaviateConfig, 
+        WebSearchConfig,
+        LLMProvider,
+        VLLMConfig
+    )
+    from utils import measure_performance
+except Exception as e:
+    logger.error(f"Error importing modules: {str(e)}")
+    st.error(f"Error importing modules: {str(e)}")
+    sys.exit(1)
 
+# Initialize session state
 if 'processing_time' not in st.session_state:
     st.session_state.processing_time = None
 if 'show_web_search_prompt' not in st.session_state:
@@ -51,7 +60,8 @@ def init_configs():
     try:
         weaviate_config = WeaviateConfig(
             url=os.getenv("WEAVIATE_TRAFFIC_URL"),
-            api_key=os.getenv("WEAVIATE_TRAFFIC_KEY")
+            api_key=os.getenv("WEAVIATE_TRAFFIC_KEY"),
+            collection="ND168"  # Explicitly set the collection
         )
         model_config = ModelConfig()
         retrieval_config = RetrievalConfig()
@@ -62,10 +72,10 @@ def init_configs():
         logger.error(f"Error initializing configurations: {str(e)}")
         raise
 
-class DomainComponents:
-    def __init__(self, domain: Domain, configs: tuple, llm_provider: LLMProvider = LLMProvider.OPENAI):
-        logger.info(f"Initializing components for domain: {domain.value} with LLM provider: {llm_provider.value}")
-        self.domain = domain
+class AppComponents:
+    def __init__(self, configs: tuple, llm_provider: LLMProvider = LLMProvider.OPENAI):
+        logger.info(f"Initializing components with LLM provider: {llm_provider.value}")
+        self.configs = configs
         weaviate_config, base_model_config, retrieval_config, web_search_config = configs
         
         # Create a copy of model_config with the selected LLM provider
@@ -84,8 +94,7 @@ class DomainComponents:
         try:
             self.vector_store_manager = VectorStoreManager(
                 weaviate_config=weaviate_config,
-                model_config=model_config,
-                domain=domain
+                model_config=model_config
             )
             self.vector_store_manager.initialize()
             
@@ -97,14 +106,12 @@ class DomainComponents:
             self.search_pipeline = SearchPipeline(
                 retriever=self.retriever,
                 model_config=model_config,
-                retrieval_config=retrieval_config,
-                domain=self.domain
+                retrieval_config=retrieval_config
             )
             
             self.auto_rag = AutoRAG(
                 model_config=model_config,
-                retriever=self.retriever,
-                current_domain=domain
+                retriever=self.retriever
             )
             
             # Initialize web search if enabled
@@ -114,17 +121,16 @@ class DomainComponents:
                     google_api_key=web_search_config.google_api_key,
                     google_cse_id=web_search_config.google_cse_id,
                     model_config=model_config,
-                    retrieval_config=retrieval_config,
-                    domain=domain
+                    retrieval_config=retrieval_config
                 )
             else:
                 logger.info("Web search is disabled")
                 self.web_search = None
                 
-            logger.info(f"Components initialized successfully for domain: {domain.value}")
+            logger.info("Components initialized successfully")
             
         except Exception as e:
-            logger.error(f"Error initializing domain components: {str(e)}")
+            logger.error(f"Error initializing components: {str(e)}")
             raise
     
     def get_web_enabled_rag(self, fallback_threshold: float = 0.5):
@@ -141,40 +147,23 @@ class DomainComponents:
 
     def cleanup(self):
         """Clean up resources"""
-        logger.info("Cleaning up domain components")
+        logger.info("Cleaning up components")
         if hasattr(self, 'vector_store_manager'):
             self.vector_store_manager.cleanup()
 
-@st.cache_resource
-def init_domain_components(configs: tuple, llm_provider: LLMProvider) -> Dict[Domain, DomainComponents]:
-    """Initialize components for all domains with specified LLM provider"""
-    logger.info(f"Initializing components for all domains with LLM provider: {llm_provider.value}")
+# Fixed event loop handler
+def run_async(coroutine):
+    """Run an async function safely in Streamlit"""
     try:
-        return {domain: DomainComponents(domain, configs, llm_provider) for domain in Domain}
-    except Exception as e:
-        logger.error(f"Error initializing components: {str(e)}")
-        raise
-
-@contextmanager
-def get_event_loop():
-    """Context manager for event loop handling that works with Streamlit"""
-    try:
-        # Try to get the current event loop
+        # First try getting the current event loop
         loop = asyncio.get_event_loop()
-        if loop.is_closed():
-            # If it's closed, create a new one
-            loop = asyncio.new_event_loop()
-            asyncio.set_event_loop(loop)
     except RuntimeError:
-        # If there is no current event loop, create a new one
+        # If there is no event loop, create a new one
         loop = asyncio.new_event_loop()
         asyncio.set_event_loop(loop)
     
-    try:
-        yield loop
-    finally:
-        # Don't close the loop, just return it
-        pass
+    # Run the coroutine in the event loop
+    return loop.run_until_complete(coroutine)
 
 @measure_performance
 async def process_question(auto_rag: AutoRAG, question: str):
@@ -245,162 +234,153 @@ def needs_web_search(response: Dict) -> bool:
 
 def main():
     """Main application function"""
-    logger.info("Starting application")
-    st.set_page_config(page_title="QA System for Vietnamese Law", layout="wide")
-    st.title("📖 Question and Answering System for Vietnamese Law")
+    try:
+        logger.info("Starting application")
+        st.set_page_config(page_title="QA System for Vietnamese Traffic Law", layout="wide")
+        st.title("📖 Question and Answering System for Vietnamese Traffic Law")
 
-    # Sidebar for domain selection and LLM provider
-    with st.sidebar:
-        st.header("⚙️ Configuration")
-        try:
-            configs = init_configs()
-            
-            # LLM provider selection
-            llm_provider_options = {
-                "OpenAI GPT-4o mini": LLMProvider.OPENAI,
-                "Qwen2.5-14B (vLLM)": LLMProvider.VLLM
-            }
-            selected_provider_name = st.selectbox(
-                "Select LLM Provider",
-                options=list(llm_provider_options.keys()),
-                index=0
-            )
-            selected_provider = llm_provider_options[selected_provider_name]
-            
-            # Domain selection
-            selected_domain = st.selectbox(
-                "Select Domain",
-                options=[domain.value for domain in Domain],
-                format_func=lambda x: x.title()
-            )
-            current_domain = Domain(selected_domain)
-            
-            # Display vLLM configuration if selected
-            vllm_config = configs[1].vllm_config
-            if selected_provider == LLMProvider.VLLM:
-                with st.expander("vLLM Configuration"):
-                    vllm_api_url = st.text_input("API URL", vllm_config.api_url, key="vllm_url")
-                    vllm_model = st.text_input("Model Name", vllm_config.model_name, key="vllm_model")
-                    vllm_temp = st.slider("Temperature", 0.0, 1.0, vllm_config.temperature, key="vllm_temp")
-                    vllm_top_p = st.slider("Top P", 0.0, 1.0, vllm_config.top_p, key="vllm_top_p")
-                    
-                    # Update the vllm_config with UI values
-                    vllm_config.api_url = vllm_api_url
-                    vllm_config.model_name = vllm_model
-                    vllm_config.temperature = vllm_temp
-                    vllm_config.top_p = vllm_top_p
-            
-            logger.info(f"Selected domain: {current_domain.value}, LLM provider: {selected_provider.value}")
-            
-            # Initialize components with selected provider and updated config
-            domain_components = init_domain_components(configs, selected_provider)
-            components = domain_components[current_domain]
-            
-        except Exception as e:
-            error_msg = f"Error initializing components: {str(e)}"
-            logger.error(error_msg)
-            st.error(error_msg)
-            return
+        # Sidebar for LLM provider selection
+        with st.sidebar:
+            st.header("⚙️ Configuration")
+            try:
+                configs = init_configs()
+                
+                # LLM provider selection
+                llm_provider_options = {
+                    "OpenAI GPT-4o mini": LLMProvider.OPENAI,
+                    "Qwen2.5-14B (vLLM)": LLMProvider.VLLM
+                }
+                selected_provider_name = st.selectbox(
+                    "Select LLM Provider",
+                    options=list(llm_provider_options.keys()),
+                    index=0
+                )
+                selected_provider = llm_provider_options[selected_provider_name]
+                
+                # Display vLLM configuration if selected
+                vllm_config = configs[1].vllm_config
+                if selected_provider == LLMProvider.VLLM:
+                    with st.expander("vLLM Configuration"):
+                        vllm_api_url = st.text_input("API URL", vllm_config.api_url, key="vllm_url")
+                        vllm_model = st.text_input("Model Name", vllm_config.model_name, key="vllm_model")
+                        vllm_temp = st.slider("Temperature", 0.0, 1.0, vllm_config.temperature, key="vllm_temp")
+                        vllm_top_p = st.slider("Top P", 0.0, 1.0, vllm_config.top_p, key="vllm_top_p")
+                        
+                        # Update the vllm_config with UI values
+                        vllm_config.api_url = vllm_api_url
+                        vllm_config.model_name = vllm_model
+                        vllm_config.temperature = vllm_temp
+                        vllm_config.top_p = vllm_top_p
+                
+                logger.info(f"Selected LLM provider: {selected_provider.value}")
+                
+                # Initialize components with selected provider and updated config
+                components = AppComponents(configs, selected_provider)
+                
+            except Exception as e:
+                error_msg = f"Error initializing components: {str(e)}"
+                logger.error(error_msg)
+                st.error(error_msg)
+                return
 
-    # Main Input Section
-    st.subheader("Ask a Question")
-    question = st.text_input("Enter your question:")
-    search_button = st.button("💡 Get Answer", use_container_width=True)
-    
-    # Process initial search
-    if search_button and question:
-        logger.info(f"Processing new question: {question}")
-        # Reset states for new question
-        if question != st.session_state.current_question:
-            st.session_state.show_web_search_prompt = False
-            st.session_state.initial_response = None
+        # Main Input Section
+        st.subheader("Ask a Question")
+        question = st.text_input("Enter your question:")
+        search_button = st.button("💡 Get Answer", use_container_width=True)
         
-        st.session_state.current_question = question
-        
-        try:
-            start_time = time.time()
-            progress_bar = st.progress(0)
+        # Process initial search
+        if search_button and question:
+            logger.info(f"Processing new question: {question}")
+            # Reset states for new question
+            if question != st.session_state.current_question:
+                st.session_state.show_web_search_prompt = False
+                st.session_state.initial_response = None
             
-            with st.spinner("🔍 Searching knowledge base..."):
-                with get_event_loop() as loop:
-                    response = loop.run_until_complete(
-                        process_question(components.auto_rag, question)
-                    )
+            st.session_state.current_question = question
+            
+            try:
+                start_time = time.time()
+                progress_bar = st.progress(0)
                 
-                st.session_state.processing_time = time.time() - start_time
-                logger.info(f"Question processed in {st.session_state.processing_time:.2f} seconds")
-                
-                if "error" in response:
-                    logger.error(f"Error in response: {response['error']}")
-                    st.error(response["error"])
-                    return
-                
-                progress_bar.progress(100)
-                
-                # Store initial response
-                st.session_state.initial_response = response
-                
-                # Check if web search might help
-                if needs_web_search(response):
-                    st.session_state.show_web_search_prompt = True
-                    logger.info("Web search prompt triggered")
-                
-                # Display initial results
-                display_results(response)
-                
-        except Exception as e:
-            error_msg = f"Error: {str(e)}"
-            logger.error(error_msg)
-            st.error(error_msg)
-            return
-        finally:
-            components.cleanup()
-    
-    # Show web search prompt if needed
-    if st.session_state.show_web_search_prompt:
-        logger.info("Displaying web search prompt")
-        st.warning("No satisfactory answer found in the knowledge base.")
-        web_search_cols = st.columns([2, 1])
-        with web_search_cols[0]:
-            st.info("Would you like to search the web for more information?")
-        with web_search_cols[1]:
-            if st.button("🔍 Search Web", use_container_width=True):
-                logger.info("Web search initiated")
-                try:
-                    start_time = time.time()
-                    progress_bar = st.progress(0)
+                with st.spinner("🔍 Searching knowledge base..."):
+                    # Run async function safely
+                    response = run_async(process_question(components.auto_rag, question))
                     
-                    with st.spinner("🌐 Searching web..."):
-                        # Get web-enabled RAG instance
-                        web_rag = components.get_web_enabled_rag()
+                    st.session_state.processing_time = time.time() - start_time
+                    logger.info(f"Question processed in {st.session_state.processing_time:.2f} seconds")
+                    
+                    if "error" in response:
+                        logger.error(f"Error in response: {response['error']}")
+                        st.error(response["error"])
+                        return
+                    
+                    progress_bar.progress(100)
+                    
+                    # Store initial response
+                    st.session_state.initial_response = response
+                    
+                    # Check if web search might help
+                    if needs_web_search(response):
+                        st.session_state.show_web_search_prompt = True
+                        logger.info("Web search prompt triggered")
+                    
+                    # Display initial results
+                    display_results(response)
+                    
+            except Exception as e:
+                error_msg = f"Error: {str(e)}"
+                logger.error(error_msg)
+                st.error(error_msg)
+                return
+            finally:
+                components.cleanup()
+        
+        # Show web search prompt if needed
+        if st.session_state.show_web_search_prompt:
+            logger.info("Displaying web search prompt")
+            st.warning("No satisfactory answer found in the knowledge base.")
+            web_search_cols = st.columns([2, 1])
+            with web_search_cols[0]:
+                st.info("Would you like to search the web for more information?")
+            with web_search_cols[1]:
+                if st.button("🔍 Search Web", use_container_width=True):
+                    logger.info("Web search initiated")
+                    try:
+                        start_time = time.time()
+                        progress_bar = st.progress(0)
                         
-                        with get_event_loop() as loop:
-                            response = loop.run_until_complete(
-                                process_question(web_rag, st.session_state.current_question)
-                            )
-                        
-                        st.session_state.processing_time = time.time() - start_time
-                        logger.info(f"Web search completed in {st.session_state.processing_time:.2f} seconds")
-                        
-                        if "error" in response:
-                            logger.error(f"Error in web search response: {response['error']}")
-                            st.error(response["error"])
-                            return
-                        
-                        progress_bar.progress(100)
-                        
-                        # Clear web search prompt
-                        st.session_state.show_web_search_prompt = False
-                        
-                        # Display web search results
-                        display_results(response)
-                        
-                except Exception as e:
-                    error_msg = f"Error during web search: {str(e)}"
-                    logger.error(error_msg)
-                    st.error(error_msg)
-                finally:
-                    components.cleanup()
-    
+                        with st.spinner("🌐 Searching web..."):
+                            # Get web-enabled RAG instance
+                            web_rag = components.get_web_enabled_rag()
+                            
+                            # Run async function safely
+                            response = run_async(process_question(web_rag, st.session_state.current_question))
+                            
+                            st.session_state.processing_time = time.time() - start_time
+                            logger.info(f"Web search completed in {st.session_state.processing_time:.2f} seconds")
+                            
+                            if "error" in response:
+                                logger.error(f"Error in web search response: {response['error']}")
+                                st.error(response["error"])
+                                return
+                            
+                            progress_bar.progress(100)
+                            
+                            # Clear web search prompt
+                            st.session_state.show_web_search_prompt = False
+                            
+                            # Display web search results
+                            display_results(response)
+                            
+                    except Exception as e:
+                        error_msg = f"Error during web search: {str(e)}"
+                        logger.error(error_msg)
+                        st.error(error_msg)
+                    finally:
+                        components.cleanup()
+    except Exception as e:
+        logger.error(f"Unhandled exception in main: {str(e)}")
+        st.error(f"An unexpected error occurred: {str(e)}")
+
 if __name__ == "__main__":
     main()

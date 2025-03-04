@@ -37,19 +37,8 @@ class VLLMClient(CustomLLM):
         timeout: float = 120.0,
         request_timeout: float = 120.0,
     ) -> None:
-        """Initialize the vLLM client.
-        
-        Args:
-            api_url: The URL of the vLLM server.
-            model_name: Name of the model.
-            temperature: Sampling temperature.
-            max_tokens: Maximum number of tokens to generate.
-            top_p: Top-p sampling parameter.
-            timeout: Timeout for the request in seconds.
-            request_timeout: Timeout for the request in seconds.
-        """
+        """Initialize the vLLM client."""
         super().__init__()
-        # Use underscore prefix for all attributes to avoid conflicts
         self._api_url = api_url
         self._model_name = model_name
         self._temperature = temperature
@@ -61,7 +50,6 @@ class VLLMClient(CustomLLM):
         
         logger.info(f"Initialized vLLM client for model: {model_name} at {api_url}")
     
-    # Properties to access private attributes
     @property
     def api_url(self) -> str:
         return self._api_url
@@ -93,15 +81,21 @@ class VLLMClient(CustomLLM):
     @classmethod
     def from_config(cls, config: VLLMConfig) -> "VLLMClient":
         """Create a VLLMClient from a configuration object."""
-        return cls(
-            api_url=config.api_url,
-            model_name=config.model_name,
-            temperature=config.temperature,
-            max_tokens=config.max_tokens,
-            top_p=config.top_p,
-            timeout=config.timeout,
-            request_timeout=config.request_timeout,
-        )
+        try:
+            logger.info(f"Creating VLLMClient with config: {config.__dict__}")
+            return cls(
+                api_url=config.api_url,
+                model_name=config.model_name,
+                temperature=config.temperature,
+                max_tokens=config.max_tokens,
+                top_p=config.top_p,
+                timeout=config.timeout,
+                request_timeout=config.request_timeout,
+            )
+        except Exception as e:
+            logger.error(f"Error creating VLLMClient from config: {str(e)}")
+            logger.info("Falling back to default VLLMClient initialization")
+            return cls()
         
     @property
     def metadata(self) -> LLMMetadata:
