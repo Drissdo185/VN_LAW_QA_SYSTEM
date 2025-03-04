@@ -9,6 +9,7 @@ from config.config import ModelConfig, Domain, LLMProvider
 from retrieval.retriever import DocumentRetriever
 from reasoning.prompts import SYSTEM_PROMPT, DOMAIN_VALIDATION_PROMPT
 from llm.vllm_client import VLLMClient
+import re
 
 logger = logging.getLogger(__name__)
 
@@ -40,7 +41,14 @@ class AutoRAG:
             )
         elif self.model_config.llm_provider == LLMProvider.VLLM:
             logger.info(f"Setting up vLLM client with model: {self.model_config.vllm_config.model_name}")
-            return VLLMClient.from_config(self.model_config.vllm_config)
+            try:
+                client = VLLMClient.from_config(self.model_config.vllm_config)
+                # Verify the client was initialized properly
+                logger.info(f"Successfully initialized vLLM client with API URL: {client.api_url}")
+                return client
+            except Exception as e:
+                logger.error(f"Error initializing vLLM client: {str(e)}")
+                raise
         else:
             raise ValueError(f"Unsupported LLM provider: {self.model_config.llm_provider}")
     
@@ -60,7 +68,44 @@ class AutoRAG:
         prompt = self.domain_prompt.format(question=question)
         response = await self.llm.acomplete(prompt)
         detected_domain = response.text.strip().lower()
-        return detected_domain == self.current_domain.value
+        
+        # Improved parsing of response from different LLM providers
+        logger.info(f"Domain detection response: '{detected_domain}'")
+        
+        # Extract domain keyword using regex pattern matching
+        traffic_pattern = r'traffic|giao\s*thông|đường\s*bộ|đi\s*đường'
+        stock_pattern = r'stock|chứng\s*khoán|cổ\s*phiếu|thị\s*trường'
+        
+        if self.current_domain == Domain.TRAFFIC:
+            # For traffic domain
+            if re.search(traffic_pattern, detected_domain, re.IGNORECASE):
+                logger.info("Domain validated as traffic")
+                return True
+            elif "traffic" in detected_domain:
+                logger.info("Domain validated as traffic (exact match)")
+                return True
+        elif self.current_domain == Domain.STOCK:
+            # For stock domain
+            if re.search(stock_pattern, detected_domain, re.IGNORECASE):
+                logger.info("Domain validated as stock")
+                return True
+            elif "stock" in detected_domain:
+                logger.info("Domain validated as stock (exact match)")
+                return True
+                
+        # Special case for traffic domain - common traffic-related terms in Vietnamese
+        if self.current_domain == Domain.TRAFFIC:
+            traffic_keywords = ['mũ bảo hiểm', 'giao thông', 'đường bộ', 'biển báo', 
+                               'luật giao thông', 'phạt', 'xe máy', 'ô tô', 'bằng lái',
+                               'giấy phép', 'nd168', 'nghị định']
+            
+            for keyword in traffic_keywords:
+                if keyword in question.lower():
+                    logger.info(f"Domain validated as traffic via keyword: {keyword}")
+                    return True
+                    
+        logger.warning(f"Domain validation failed. Expected: {self.current_domain.value}, Detected: {detected_domain}")
+        return False
     
     async def get_answer(self, question: str) -> Dict[str, Any]:
         """Get answer for a question using Auto RAG with domain validation and iterations"""

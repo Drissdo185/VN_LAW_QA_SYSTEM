@@ -49,16 +49,46 @@ class VLLMClient(CustomLLM):
             request_timeout: Timeout for the request in seconds.
         """
         super().__init__()
-        self.api_url = api_url
-        self.model_name = model_name
-        self.temperature = temperature
-        self.max_tokens = max_tokens
-        self.top_p = top_p
-        self.timeout = timeout
-        self.request_timeout = request_timeout
+        # Use underscore prefix for all attributes to avoid conflicts
+        self._api_url = api_url
+        self._model_name = model_name
+        self._temperature = temperature
+        self._max_tokens = max_tokens
+        self._top_p = top_p
+        self._timeout = timeout
+        self._request_timeout = request_timeout
         self._client = httpx.AsyncClient(timeout=request_timeout)
         
-        logger.info(f"Initialized vLLM client for model: {model_name}")
+        logger.info(f"Initialized vLLM client for model: {model_name} at {api_url}")
+    
+    # Properties to access private attributes
+    @property
+    def api_url(self) -> str:
+        return self._api_url
+        
+    @property
+    def model_name(self) -> str:
+        return self._model_name
+        
+    @property
+    def temperature(self) -> float:
+        return self._temperature
+        
+    @property
+    def max_tokens(self) -> int:
+        return self._max_tokens
+        
+    @property
+    def top_p(self) -> float:
+        return self._top_p
+        
+    @property
+    def timeout(self) -> float:
+        return self._timeout
+        
+    @property
+    def request_timeout(self) -> float:
+        return self._request_timeout
         
     @classmethod
     def from_config(cls, config: VLLMConfig) -> "VLLMClient":
@@ -77,9 +107,9 @@ class VLLMClient(CustomLLM):
     def metadata(self) -> LLMMetadata:
         """Return metadata about the LLM."""
         return LLMMetadata(
-            model_name=self.model_name,
+            model_name=self._model_name,
             max_input_tokens=4096,  # Qwen2.5-14B context window size
-            max_output_tokens=self.max_tokens,
+            max_output_tokens=self._max_tokens,
             is_chat_model=True,
             is_function_calling_model=False,
         )
@@ -88,15 +118,15 @@ class VLLMClient(CustomLLM):
         self, prompt: str, **kwargs: Any
     ) -> CompletionResponse:
         """Complete the prompt using vLLM API."""
-        completion_url = f"{self.api_url}/v1/completions"
+        completion_url = f"{self._api_url}/v1/completions"
         
         # Prepare payload
         payload = {
-            "model": self.model_name,
+            "model": self._model_name,
             "prompt": prompt,
-            "max_tokens": kwargs.get("max_tokens", self.max_tokens),
-            "temperature": kwargs.get("temperature", self.temperature),
-            "top_p": kwargs.get("top_p", self.top_p),
+            "max_tokens": kwargs.get("max_tokens", self._max_tokens),
+            "temperature": kwargs.get("temperature", self._temperature),
+            "top_p": kwargs.get("top_p", self._top_p),
             "stream": False,
         }
         
@@ -105,7 +135,7 @@ class VLLMClient(CustomLLM):
             response = await self._client.post(
                 completion_url,
                 json=payload,
-                timeout=self.timeout
+                timeout=self._timeout
             )
             response.raise_for_status()
             response_data = response.json()

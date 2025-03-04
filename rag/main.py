@@ -6,6 +6,10 @@ import os
 from contextlib import contextmanager
 import logging
 from log.logging_config import setup_logging
+import nest_asyncio
+
+
+nest_asyncio.apply()
 
 # Initialize logging first, before any other operations
 setup_logging(
@@ -145,17 +149,32 @@ class DomainComponents:
 def init_domain_components(configs: tuple, llm_provider: LLMProvider) -> Dict[Domain, DomainComponents]:
     """Initialize components for all domains with specified LLM provider"""
     logger.info(f"Initializing components for all domains with LLM provider: {llm_provider.value}")
-    return {domain: DomainComponents(domain, configs, llm_provider) for domain in Domain}
+    try:
+        return {domain: DomainComponents(domain, configs, llm_provider) for domain in Domain}
+    except Exception as e:
+        logger.error(f"Error initializing components: {str(e)}")
+        raise
 
 @contextmanager
 def get_event_loop():
-    """Context manager for event loop handling"""
-    loop = asyncio.new_event_loop()
-    asyncio.set_event_loop(loop)
+    """Context manager for event loop handling that works with Streamlit"""
+    try:
+        # Try to get the current event loop
+        loop = asyncio.get_event_loop()
+        if loop.is_closed():
+            # If it's closed, create a new one
+            loop = asyncio.new_event_loop()
+            asyncio.set_event_loop(loop)
+    except RuntimeError:
+        # If there is no current event loop, create a new one
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+    
     try:
         yield loop
     finally:
-        loop.close()
+        # Don't close the loop, just return it
+        pass
 
 @measure_performance
 async def process_question(auto_rag: AutoRAG, question: str):
@@ -248,9 +267,6 @@ def main():
             )
             selected_provider = llm_provider_options[selected_provider_name]
             
-            # Initialize components with selected provider
-            domain_components = init_domain_components(configs, selected_provider)
-            
             # Domain selection
             selected_domain = st.selectbox(
                 "Select Domain",
@@ -258,17 +274,27 @@ def main():
                 format_func=lambda x: x.title()
             )
             current_domain = Domain(selected_domain)
-            components = domain_components[current_domain]
+            
+            # Display vLLM configuration if selected
+            vllm_config = configs[1].vllm_config
+            if selected_provider == LLMProvider.VLLM:
+                with st.expander("vLLM Configuration"):
+                    vllm_api_url = st.text_input("API URL", vllm_config.api_url, key="vllm_url")
+                    vllm_model = st.text_input("Model Name", vllm_config.model_name, key="vllm_model")
+                    vllm_temp = st.slider("Temperature", 0.0, 1.0, vllm_config.temperature, key="vllm_temp")
+                    vllm_top_p = st.slider("Top P", 0.0, 1.0, vllm_config.top_p, key="vllm_top_p")
+                    
+                    # Update the vllm_config with UI values
+                    vllm_config.api_url = vllm_api_url
+                    vllm_config.model_name = vllm_model
+                    vllm_config.temperature = vllm_temp
+                    vllm_config.top_p = vllm_top_p
             
             logger.info(f"Selected domain: {current_domain.value}, LLM provider: {selected_provider.value}")
             
-            # Display vLLM configuration if selected
-            if selected_provider == LLMProvider.VLLM:
-                with st.expander("vLLM Configuration"):
-                    st.text_input("API URL", configs[1].vllm_config.api_url, key="vllm_url")
-                    st.text_input("Model Name", configs[1].vllm_config.model_name, key="vllm_model")
-                    st.slider("Temperature", 0.0, 1.0, configs[1].vllm_config.temperature, key="vllm_temp")
-                    st.slider("Top P", 0.0, 1.0, configs[1].vllm_config.top_p, key="vllm_top_p")
+            # Initialize components with selected provider and updated config
+            domain_components = init_domain_components(configs, selected_provider)
+            components = domain_components[current_domain]
             
         except Exception as e:
             error_msg = f"Error initializing components: {str(e)}"
