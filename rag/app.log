@@ -2813,3 +2813,1224 @@ explaining the answer: the question is clearly about traffic volume on a highway
 [2025-03-05 15:31:14,647] INFO [__main__] Displaying results
 [2025-03-05 15:31:14,648] INFO [__main__] Response generated using: OpenAI GPT-4o mini
 [2025-03-05 15:31:14,654] INFO [__main__] Cleaning up components
+[2025-03-06 14:44:02,467] INFO [__main__] Starting application
+[2025-03-06 14:44:02,469] INFO [__main__] Initializing configurations
+[2025-03-06 14:44:02,469] INFO [__main__] Configurations initialized successfully
+[2025-03-06 14:44:02,470] INFO [__main__] Selected LLM provider: openai
+[2025-03-06 14:44:02,470] INFO [__main__] Initializing components with LLM provider: openai
+[2025-03-06 14:44:02,470] INFO [retrieval.vector_store] Using connect_to_weaviate_cloud method
+[2025-03-06 14:44:03,346] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-06 14:44:03,378] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-06 14:46:56,773] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-06 14:46:57,230] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-06 14:46:57,318] ERROR [retrieval.vector_store] Client connection test failed: 'WeaviateClient' object has no attribute 'schema'
+[2025-03-06 14:46:57,548] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-06 14:46:59,641] INFO [reasoning.auto_rag] Setting up OpenAI LLM with model: gpt-4o-mini
+[2025-03-06 14:47:10,910] INFO [__main__] Starting application
+[2025-03-06 14:47:10,912] INFO [__main__] Selected LLM provider: openai
+[2025-03-06 14:47:10,912] INFO [__main__] Initializing components with LLM provider: openai
+[2025-03-06 14:47:10,912] INFO [retrieval.vector_store] Using connect_to_weaviate_cloud method
+[2025-03-06 14:47:11,178] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-06 14:47:11,185] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-06 14:47:13,349] INFO [__main__] Starting application
+[2025-03-06 14:47:13,354] INFO [__main__] Selected LLM provider: ollama
+[2025-03-06 14:47:13,354] INFO [__main__] Initializing components with LLM provider: ollama
+[2025-03-06 14:47:13,355] INFO [retrieval.vector_store] Using connect_to_weaviate_cloud method
+[2025-03-06 14:47:13,561] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-06 14:47:13,847] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-06 14:47:16,822] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-06 14:47:16,970] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-06 14:47:16,973] ERROR [retrieval.vector_store] Client connection test failed: 'WeaviateClient' object has no attribute 'schema'
+[2025-03-06 14:47:17,200] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-06 14:47:18,548] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-06 14:47:18,602] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-06 14:47:18,607] ERROR [retrieval.vector_store] Client connection test failed: 'WeaviateClient' object has no attribute 'schema'
+[2025-03-06 14:47:18,858] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-06 14:47:19,380] INFO [reasoning.auto_rag] Setting up OpenAI LLM with model: gpt-4o-mini
+[2025-03-06 14:47:20,948] INFO [reasoning.auto_rag] Setting up Ollama client with model: qwq:32b
+[2025-03-06 14:47:20,948] INFO [llm.ollama_client] Creating OllamaClient with config: {'api_url': 'http://192.168.100.125:11434', 'model_name': 'qwq:32b', 'temperature': 0.2, 'max_tokens': 32768, 'top_p': 0.95, 'timeout': 120.0, 'request_timeout': 120.0}
+[2025-03-06 14:47:20,983] INFO [llm.ollama_client] Initialized Ollama client for model: qwq:32b at http://192.168.100.125:11434
+[2025-03-06 14:47:20,983] INFO [reasoning.auto_rag] Successfully initialized Ollama client with API URL: http://192.168.100.125:11434
+[2025-03-06 14:47:20,983] INFO [reasoning.auto_rag] Initialized Traffic AutoRAG with LLM provider: LLMProvider.OLLAMA
+[2025-03-06 14:47:20,983] INFO [__main__] Initializing web search integration
+[2025-03-06 14:47:20,983] INFO [web_handle.web_search] Initialized WebSearchIntegrator
+[2025-03-06 14:47:20,983] INFO [__main__] Components initialized successfully
+[2025-03-06 14:47:24,348] INFO [reasoning.auto_rag] Initialized Traffic AutoRAG with LLM provider: LLMProvider.OPENAI
+[2025-03-06 14:47:24,348] INFO [reasoning.auto_rag] Initialized Traffic AutoRAG with LLM provider: LLMProvider.OPENAI
+[2025-03-06 14:47:24,349] INFO [__main__] Initializing web search integration
+[2025-03-06 14:47:24,349] INFO [__main__] Initializing web search integration
+[2025-03-06 14:47:24,349] INFO [web_handle.web_search] Initialized WebSearchIntegrator
+[2025-03-06 14:47:24,349] INFO [web_handle.web_search] Initialized WebSearchIntegrator
+[2025-03-06 14:47:24,349] INFO [__main__] Components initialized successfully
+[2025-03-06 14:47:24,349] INFO [__main__] Components initialized successfully
+[2025-03-06 14:48:59,721] INFO [__main__] Starting application
+[2025-03-06 14:48:59,733] INFO [__main__] Selected LLM provider: ollama
+[2025-03-06 14:48:59,734] INFO [__main__] Initializing components with LLM provider: ollama
+[2025-03-06 14:48:59,734] INFO [retrieval.vector_store] Using connect_to_weaviate_cloud method
+[2025-03-06 14:48:59,853] INFO [__main__] Starting application
+[2025-03-06 14:48:59,856] INFO [__main__] Selected LLM provider: ollama
+[2025-03-06 14:48:59,856] INFO [__main__] Initializing components with LLM provider: ollama
+[2025-03-06 14:48:59,856] INFO [retrieval.vector_store] Using connect_to_weaviate_cloud method
+[2025-03-06 14:49:00,002] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-06 14:49:00,005] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-06 14:49:00,052] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-06 14:49:00,057] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-06 14:49:04,610] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-06 14:49:04,663] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-06 14:49:04,667] ERROR [retrieval.vector_store] Client connection test failed: 'WeaviateClient' object has no attribute 'schema'
+[2025-03-06 14:49:05,414] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-06 14:49:05,692] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-06 14:49:05,856] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-06 14:49:05,860] ERROR [retrieval.vector_store] Client connection test failed: 'WeaviateClient' object has no attribute 'schema'
+[2025-03-06 14:49:06,100] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-06 14:49:07,346] INFO [reasoning.auto_rag] Setting up Ollama client with model: qwq:32b
+[2025-03-06 14:49:07,346] INFO [llm.ollama_client] Creating OllamaClient with config: {'api_url': 'http://192.168.100.125:11434', 'model_name': 'qwq:32b', 'temperature': 0.2, 'max_tokens': 32768, 'top_p': 0.95, 'timeout': 120.0, 'request_timeout': 120.0}
+[2025-03-06 14:49:07,394] INFO [llm.ollama_client] Initialized Ollama client for model: qwq:32b at http://192.168.100.125:11434
+[2025-03-06 14:49:07,395] INFO [reasoning.auto_rag] Successfully initialized Ollama client with API URL: http://192.168.100.125:11434
+[2025-03-06 14:49:07,395] INFO [reasoning.auto_rag] Initialized Traffic AutoRAG with LLM provider: LLMProvider.OLLAMA
+[2025-03-06 14:49:07,395] INFO [__main__] Initializing web search integration
+[2025-03-06 14:49:07,395] INFO [web_handle.web_search] Initialized WebSearchIntegrator
+[2025-03-06 14:49:07,395] INFO [__main__] Components initialized successfully
+[2025-03-06 14:49:08,072] INFO [reasoning.auto_rag] Setting up Ollama client with model: qwq:32b
+[2025-03-06 14:49:08,072] INFO [llm.ollama_client] Creating OllamaClient with config: {'api_url': 'http://192.168.100.125:11434', 'model_name': 'qwq:32b', 'temperature': 0.2, 'max_tokens': 32768, 'top_p': 0.95, 'timeout': 120.0, 'request_timeout': 120.0}
+[2025-03-06 14:49:08,223] INFO [llm.ollama_client] Initialized Ollama client for model: qwq:32b at http://192.168.100.125:11434
+[2025-03-06 14:49:08,223] INFO [reasoning.auto_rag] Successfully initialized Ollama client with API URL: http://192.168.100.125:11434
+[2025-03-06 14:49:08,223] INFO [reasoning.auto_rag] Initialized Traffic AutoRAG with LLM provider: LLMProvider.OLLAMA
+[2025-03-06 14:49:08,223] INFO [__main__] Initializing web search integration
+[2025-03-06 14:49:08,223] INFO [web_handle.web_search] Initialized WebSearchIntegrator
+[2025-03-06 14:49:08,224] INFO [__main__] Components initialized successfully
+[2025-03-06 14:49:08,224] INFO [__main__] Processing new question:  Sử dụng còi trong thời gian từ 22 giờ ngày hôm trước đến 05 giờ ngày hôm sau trong khu đông dân cư, khu vực cơ sở khám bệnh, chữa bệnh bị phạt bao nhiêu tiền 
+[2025-03-06 14:49:08,225] INFO [__main__] Processing question:  Sử dụng còi trong thời gian từ 22 giờ ngày hôm trước đến 05 giờ ngày hôm sau trong khu đông dân cư, khu vực cơ sở khám bệnh, chữa bệnh bị phạt bao nhiêu tiền 
+[2025-03-06 14:49:08,225] INFO [reasoning.auto_rag] Question validated as traffic-related via keyword: phạt
+[2025-03-06 14:49:44,703] INFO [httpx] HTTP Request: POST http://192.168.100.125:11434/api/generate "HTTP/1.1 200 OK"
+[2025-03-06 14:49:44,736] INFO [utils] Function process_question completed in 36.51 seconds
+[2025-03-06 14:49:44,737] INFO [__main__] Question processed in 36.51 seconds
+[2025-03-06 14:49:44,738] INFO [__main__] Needs web search: False
+[2025-03-06 14:49:44,739] INFO [__main__] Displaying results
+[2025-03-06 14:49:44,740] INFO [__main__] Response generated using: QWQ:32B (Ollama)
+[2025-03-06 14:49:44,752] INFO [__main__] Cleaning up components
+[2025-03-06 14:52:02,902] INFO [__main__] Starting application
+[2025-03-06 14:52:02,903] INFO [__main__] Selected LLM provider: openai
+[2025-03-06 14:52:02,903] INFO [__main__] Initializing components with LLM provider: openai
+[2025-03-06 14:52:02,903] INFO [retrieval.vector_store] Using connect_to_weaviate_cloud method
+[2025-03-06 14:52:03,295] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-06 14:52:03,302] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-06 14:52:05,848] INFO [__main__] Starting application
+[2025-03-06 14:52:05,853] INFO [__main__] Selected LLM provider: ollama
+[2025-03-06 14:52:05,853] INFO [__main__] Initializing components with LLM provider: ollama
+[2025-03-06 14:52:05,853] INFO [retrieval.vector_store] Using connect_to_weaviate_cloud method
+[2025-03-06 14:52:06,073] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-06 14:52:06,077] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-06 14:52:08,219] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-06 14:52:08,278] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-06 14:52:08,284] ERROR [retrieval.vector_store] Client connection test failed: 'WeaviateClient' object has no attribute 'schema'
+[2025-03-06 14:52:08,498] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-06 14:52:10,792] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-06 14:52:10,794] INFO [reasoning.auto_rag] Setting up OpenAI LLM with model: gpt-4o-mini
+[2025-03-06 14:52:10,794] INFO [reasoning.auto_rag] Initialized Traffic AutoRAG with LLM provider: LLMProvider.OPENAI
+[2025-03-06 14:52:10,794] INFO [__main__] Initializing web search integration
+[2025-03-06 14:52:10,794] INFO [web_handle.web_search] Initialized WebSearchIntegrator
+[2025-03-06 14:52:10,794] INFO [__main__] Components initialized successfully
+[2025-03-06 14:52:11,076] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-06 14:52:11,079] ERROR [retrieval.vector_store] Client connection test failed: 'WeaviateClient' object has no attribute 'schema'
+[2025-03-06 14:52:11,405] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-06 14:52:13,507] INFO [reasoning.auto_rag] Setting up Ollama client with model: qwq:32b
+[2025-03-06 14:52:13,507] INFO [llm.ollama_client] Creating OllamaClient with config: {'api_url': 'http://192.168.100.125:11434', 'model_name': 'qwq:32b', 'temperature': 0.2, 'max_tokens': 32768, 'top_p': 0.95, 'timeout': 120.0, 'request_timeout': 120.0}
+[2025-03-06 14:52:13,546] INFO [llm.ollama_client] Initialized Ollama client for model: qwq:32b at http://192.168.100.125:11434
+[2025-03-06 14:52:13,547] INFO [reasoning.auto_rag] Successfully initialized Ollama client with API URL: http://192.168.100.125:11434
+[2025-03-06 14:52:13,547] INFO [reasoning.auto_rag] Initialized Traffic AutoRAG with LLM provider: LLMProvider.OLLAMA
+[2025-03-06 14:52:13,547] INFO [__main__] Initializing web search integration
+[2025-03-06 14:52:13,547] INFO [web_handle.web_search] Initialized WebSearchIntegrator
+[2025-03-06 14:52:13,547] INFO [__main__] Components initialized successfully
+[2025-03-06 14:52:15,027] INFO [__main__] Starting application
+[2025-03-06 14:52:15,037] INFO [__main__] Selected LLM provider: ollama
+[2025-03-06 14:52:15,038] INFO [__main__] Initializing components with LLM provider: ollama
+[2025-03-06 14:52:15,039] INFO [retrieval.vector_store] Using connect_to_weaviate_cloud method
+[2025-03-06 14:52:15,158] INFO [__main__] Starting application
+[2025-03-06 14:52:15,161] INFO [__main__] Selected LLM provider: ollama
+[2025-03-06 14:52:15,161] INFO [__main__] Initializing components with LLM provider: ollama
+[2025-03-06 14:52:15,161] INFO [retrieval.vector_store] Using connect_to_weaviate_cloud method
+[2025-03-06 14:52:15,299] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-06 14:52:15,304] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-06 14:52:15,376] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-06 14:52:15,381] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-06 14:52:19,852] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-06 14:52:19,921] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-06 14:52:19,927] ERROR [retrieval.vector_store] Client connection test failed: 'WeaviateClient' object has no attribute 'schema'
+[2025-03-06 14:52:20,095] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-06 14:52:20,169] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-06 14:52:20,220] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-06 14:52:20,224] ERROR [retrieval.vector_store] Client connection test failed: 'WeaviateClient' object has no attribute 'schema'
+[2025-03-06 14:52:20,402] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-06 14:52:22,077] INFO [reasoning.auto_rag] Setting up Ollama client with model: qwq:32b
+[2025-03-06 14:52:22,078] INFO [llm.ollama_client] Creating OllamaClient with config: {'api_url': 'http://192.168.100.125:11434', 'model_name': 'qwq:32b', 'temperature': 0.2, 'max_tokens': 32768, 'top_p': 0.95, 'timeout': 120.0, 'request_timeout': 120.0}
+[2025-03-06 14:52:22,161] INFO [llm.ollama_client] Initialized Ollama client for model: qwq:32b at http://192.168.100.125:11434
+[2025-03-06 14:52:22,161] INFO [reasoning.auto_rag] Successfully initialized Ollama client with API URL: http://192.168.100.125:11434
+[2025-03-06 14:52:22,161] INFO [reasoning.auto_rag] Initialized Traffic AutoRAG with LLM provider: LLMProvider.OLLAMA
+[2025-03-06 14:52:22,162] INFO [__main__] Initializing web search integration
+[2025-03-06 14:52:22,162] INFO [web_handle.web_search] Initialized WebSearchIntegrator
+[2025-03-06 14:52:22,162] INFO [__main__] Components initialized successfully
+[2025-03-06 14:52:22,163] INFO [__main__] Processing new question: Sử dụng còi trong thời gian từ 22 giờ ngày hôm trước đến 05 giờ ngày hôm sau trong khu đông dân cư, khu vực cơ sở khám bệnh, chữa bệnh bị phạt bao nhiêu tiền
+[2025-03-06 14:52:22,164] INFO [__main__] Processing question: Sử dụng còi trong thời gian từ 22 giờ ngày hôm trước đến 05 giờ ngày hôm sau trong khu đông dân cư, khu vực cơ sở khám bệnh, chữa bệnh bị phạt bao nhiêu tiền
+[2025-03-06 14:52:22,164] INFO [reasoning.auto_rag] Question validated as traffic-related via keyword: phạt
+[2025-03-06 14:52:22,786] INFO [reasoning.auto_rag] Setting up Ollama client with model: qwq:32b
+[2025-03-06 14:52:22,786] INFO [llm.ollama_client] Creating OllamaClient with config: {'api_url': 'http://192.168.100.125:11434', 'model_name': 'qwq:32b', 'temperature': 0.2, 'max_tokens': 32768, 'top_p': 0.95, 'timeout': 120.0, 'request_timeout': 120.0}
+[2025-03-06 14:52:22,833] INFO [llm.ollama_client] Initialized Ollama client for model: qwq:32b at http://192.168.100.125:11434
+[2025-03-06 14:52:22,833] INFO [reasoning.auto_rag] Successfully initialized Ollama client with API URL: http://192.168.100.125:11434
+[2025-03-06 14:52:22,833] INFO [reasoning.auto_rag] Initialized Traffic AutoRAG with LLM provider: LLMProvider.OLLAMA
+[2025-03-06 14:52:22,834] INFO [__main__] Initializing web search integration
+[2025-03-06 14:52:22,834] INFO [web_handle.web_search] Initialized WebSearchIntegrator
+[2025-03-06 14:52:22,834] INFO [__main__] Components initialized successfully
+[2025-03-06 14:52:48,821] INFO [httpx] HTTP Request: POST http://192.168.100.125:11434/api/generate "HTTP/1.1 200 OK"
+[2025-03-06 14:52:48,851] INFO [utils] Function process_question completed in 26.69 seconds
+[2025-03-06 14:52:48,852] INFO [__main__] Question processed in 26.69 seconds
+[2025-03-06 14:52:48,856] INFO [__main__] Needs web search: False
+[2025-03-06 14:52:48,857] INFO [__main__] Displaying results
+[2025-03-06 14:52:48,859] INFO [__main__] Response generated using: QWQ:32B (Ollama)
+[2025-03-06 14:52:48,868] INFO [__main__] Cleaning up components
+[2025-03-06 14:53:32,123] INFO [__main__] Starting application
+[2025-03-06 14:53:32,124] INFO [__main__] Selected LLM provider: openai
+[2025-03-06 14:53:32,124] INFO [__main__] Initializing components with LLM provider: openai
+[2025-03-06 14:53:32,124] INFO [retrieval.vector_store] Using connect_to_weaviate_cloud method
+[2025-03-06 14:53:32,391] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-06 14:53:32,397] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-06 14:53:37,590] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-06 14:53:37,721] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-06 14:53:37,725] ERROR [retrieval.vector_store] Client connection test failed: 'WeaviateClient' object has no attribute 'schema'
+[2025-03-06 14:53:37,978] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-06 14:53:40,158] INFO [reasoning.auto_rag] Setting up OpenAI LLM with model: gpt-4o-mini
+[2025-03-06 14:53:40,158] INFO [reasoning.auto_rag] Initialized Traffic AutoRAG with LLM provider: LLMProvider.OPENAI
+[2025-03-06 14:53:40,158] INFO [__main__] Initializing web search integration
+[2025-03-06 14:53:40,159] INFO [web_handle.web_search] Initialized WebSearchIntegrator
+[2025-03-06 14:53:40,159] INFO [__main__] Components initialized successfully
+[2025-03-06 14:53:49,663] INFO [__main__] Starting application
+[2025-03-06 14:53:49,665] INFO [__main__] Selected LLM provider: openai
+[2025-03-06 14:53:49,666] INFO [__main__] Initializing components with LLM provider: openai
+[2025-03-06 14:53:49,667] INFO [retrieval.vector_store] Using connect_to_weaviate_cloud method
+[2025-03-06 14:53:49,931] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-06 14:53:49,941] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-06 14:53:50,718] INFO [__main__] Starting application
+[2025-03-06 14:53:50,723] INFO [__main__] Selected LLM provider: ollama
+[2025-03-06 14:53:50,723] INFO [__main__] Initializing components with LLM provider: ollama
+[2025-03-06 14:53:50,723] INFO [retrieval.vector_store] Using connect_to_weaviate_cloud method
+[2025-03-06 14:53:50,932] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-06 14:53:50,938] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-06 14:53:54,955] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-06 14:53:55,104] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-06 14:53:55,106] ERROR [retrieval.vector_store] Client connection test failed: 'WeaviateClient' object has no attribute 'schema'
+[2025-03-06 14:53:55,329] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-06 14:53:56,417] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-06 14:53:56,584] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-06 14:53:56,588] ERROR [retrieval.vector_store] Client connection test failed: 'WeaviateClient' object has no attribute 'schema'
+[2025-03-06 14:53:56,809] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-06 14:53:57,422] INFO [reasoning.auto_rag] Setting up OpenAI LLM with model: gpt-4o-mini
+[2025-03-06 14:53:57,423] INFO [reasoning.auto_rag] Initialized Traffic AutoRAG with LLM provider: LLMProvider.OPENAI
+[2025-03-06 14:53:57,423] INFO [__main__] Initializing web search integration
+[2025-03-06 14:53:57,423] INFO [web_handle.web_search] Initialized WebSearchIntegrator
+[2025-03-06 14:53:57,423] INFO [__main__] Components initialized successfully
+[2025-03-06 14:53:59,261] INFO [reasoning.auto_rag] Setting up Ollama client with model: qwq:32b
+[2025-03-06 14:53:59,261] INFO [llm.ollama_client] Creating OllamaClient with config: {'api_url': 'http://192.168.100.125:11434', 'model_name': 'qwq:32b', 'temperature': 0.2, 'max_tokens': 32768, 'top_p': 0.95, 'timeout': 120.0, 'request_timeout': 120.0}
+[2025-03-06 14:53:59,298] INFO [llm.ollama_client] Initialized Ollama client for model: qwq:32b at http://192.168.100.125:11434
+[2025-03-06 14:53:59,299] INFO [reasoning.auto_rag] Successfully initialized Ollama client with API URL: http://192.168.100.125:11434
+[2025-03-06 14:53:59,299] INFO [reasoning.auto_rag] Initialized Traffic AutoRAG with LLM provider: LLMProvider.OLLAMA
+[2025-03-06 14:53:59,299] INFO [__main__] Initializing web search integration
+[2025-03-06 14:53:59,299] INFO [web_handle.web_search] Initialized WebSearchIntegrator
+[2025-03-06 14:53:59,299] INFO [__main__] Components initialized successfully
+[2025-03-06 14:54:01,266] INFO [__main__] Starting application
+[2025-03-06 14:54:01,270] INFO [__main__] Selected LLM provider: ollama
+[2025-03-06 14:54:01,271] INFO [__main__] Initializing components with LLM provider: ollama
+[2025-03-06 14:54:01,271] INFO [retrieval.vector_store] Using connect_to_weaviate_cloud method
+[2025-03-06 14:54:01,523] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-06 14:54:01,531] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-06 14:54:07,368] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-06 14:54:07,614] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-06 14:54:07,618] ERROR [retrieval.vector_store] Client connection test failed: 'WeaviateClient' object has no attribute 'schema'
+[2025-03-06 14:54:07,850] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-06 14:54:09,944] INFO [reasoning.auto_rag] Setting up Ollama client with model: qwq:32b
+[2025-03-06 14:54:09,945] INFO [llm.ollama_client] Creating OllamaClient with config: {'api_url': 'http://192.168.100.125:11434', 'model_name': 'qwq:32b', 'temperature': 0.2, 'max_tokens': 32768, 'top_p': 0.95, 'timeout': 120.0, 'request_timeout': 120.0}
+[2025-03-06 14:54:09,979] INFO [llm.ollama_client] Initialized Ollama client for model: qwq:32b at http://192.168.100.125:11434
+[2025-03-06 14:54:09,979] INFO [reasoning.auto_rag] Successfully initialized Ollama client with API URL: http://192.168.100.125:11434
+[2025-03-06 14:54:09,980] INFO [reasoning.auto_rag] Initialized Traffic AutoRAG with LLM provider: LLMProvider.OLLAMA
+[2025-03-06 14:54:09,980] INFO [__main__] Initializing web search integration
+[2025-03-06 14:54:09,980] INFO [web_handle.web_search] Initialized WebSearchIntegrator
+[2025-03-06 14:54:09,980] INFO [__main__] Components initialized successfully
+[2025-03-06 14:54:09,981] INFO [__main__] Processing new question: Sử dụng còi trong thời gian từ 22 giờ ngày hôm trước đến 05 giờ ngày hôm sau trong khu đông dân cư, khu vực cơ sở khám bệnh, chữa bệnh bị phạt bao nhiêu tiền
+[2025-03-06 14:54:09,982] INFO [__main__] Processing question: Sử dụng còi trong thời gian từ 22 giờ ngày hôm trước đến 05 giờ ngày hôm sau trong khu đông dân cư, khu vực cơ sở khám bệnh, chữa bệnh bị phạt bao nhiêu tiền
+[2025-03-06 14:54:09,982] INFO [reasoning.auto_rag] Question validated as traffic-related via keyword: phạt
+[2025-03-06 14:54:52,605] INFO [httpx] HTTP Request: POST http://192.168.100.125:11434/api/generate "HTTP/1.1 200 OK"
+[2025-03-06 14:54:52,632] INFO [utils] Function process_question completed in 42.65 seconds
+[2025-03-06 14:54:52,633] INFO [__main__] Question processed in 42.65 seconds
+[2025-03-06 14:54:52,633] INFO [__main__] Needs web search: True
+[2025-03-06 14:54:52,633] INFO [__main__] Web search prompt triggered
+[2025-03-06 14:54:52,634] INFO [__main__] Displaying results
+[2025-03-06 14:54:52,634] INFO [__main__] Response generated using: QWQ:32B (Ollama)
+[2025-03-06 14:54:52,642] INFO [__main__] Cleaning up components
+[2025-03-06 14:54:52,646] INFO [__main__] Displaying web search prompt
+[2025-03-06 14:55:05,690] INFO [__main__] Starting application
+[2025-03-06 14:55:05,701] INFO [__main__] Selected LLM provider: ollama
+[2025-03-06 14:55:05,702] INFO [__main__] Initializing components with LLM provider: ollama
+[2025-03-06 14:55:05,703] INFO [retrieval.vector_store] Using connect_to_weaviate_cloud method
+[2025-03-06 14:55:05,962] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-06 14:55:05,972] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-06 14:55:10,755] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-06 14:55:10,822] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-06 14:55:10,829] ERROR [retrieval.vector_store] Client connection test failed: 'WeaviateClient' object has no attribute 'schema'
+[2025-03-06 14:55:10,999] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-06 14:55:13,049] INFO [reasoning.auto_rag] Setting up Ollama client with model: qwq:32b
+[2025-03-06 14:55:13,049] INFO [llm.ollama_client] Creating OllamaClient with config: {'api_url': 'http://192.168.100.125:11434', 'model_name': 'qwq:32b', 'temperature': 0.2, 'max_tokens': 32768, 'top_p': 0.95, 'timeout': 120.0, 'request_timeout': 120.0}
+[2025-03-06 14:55:13,085] INFO [llm.ollama_client] Initialized Ollama client for model: qwq:32b at http://192.168.100.125:11434
+[2025-03-06 14:55:13,085] INFO [reasoning.auto_rag] Successfully initialized Ollama client with API URL: http://192.168.100.125:11434
+[2025-03-06 14:55:13,085] INFO [reasoning.auto_rag] Initialized Traffic AutoRAG with LLM provider: LLMProvider.OLLAMA
+[2025-03-06 14:55:13,086] INFO [__main__] Initializing web search integration
+[2025-03-06 14:55:13,086] INFO [web_handle.web_search] Initialized WebSearchIntegrator
+[2025-03-06 14:55:13,086] INFO [__main__] Components initialized successfully
+[2025-03-06 14:55:13,087] INFO [__main__] Displaying web search prompt
+[2025-03-06 14:55:15,823] INFO [__main__] Starting application
+[2025-03-06 14:55:15,833] INFO [__main__] Selected LLM provider: ollama
+[2025-03-06 14:55:15,833] INFO [__main__] Initializing components with LLM provider: ollama
+[2025-03-06 14:55:15,833] INFO [retrieval.vector_store] Using connect_to_weaviate_cloud method
+[2025-03-06 14:55:15,926] INFO [__main__] Starting application
+[2025-03-06 14:55:15,929] INFO [__main__] Selected LLM provider: ollama
+[2025-03-06 14:55:15,929] INFO [__main__] Initializing components with LLM provider: ollama
+[2025-03-06 14:55:15,929] INFO [retrieval.vector_store] Using connect_to_weaviate_cloud method
+[2025-03-06 14:55:16,082] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-06 14:55:16,089] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-06 14:55:16,119] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-06 14:55:16,131] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-06 14:55:20,777] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-06 14:55:20,830] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-06 14:55:20,833] ERROR [retrieval.vector_store] Client connection test failed: 'WeaviateClient' object has no attribute 'schema'
+[2025-03-06 14:55:21,045] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-06 14:55:22,236] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-06 14:55:22,381] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-06 14:55:22,383] ERROR [retrieval.vector_store] Client connection test failed: 'WeaviateClient' object has no attribute 'schema'
+[2025-03-06 14:55:22,641] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-06 14:55:23,433] INFO [reasoning.auto_rag] Setting up Ollama client with model: qwq:32b
+[2025-03-06 14:55:23,433] INFO [llm.ollama_client] Creating OllamaClient with config: {'api_url': 'http://192.168.100.125:11434', 'model_name': 'qwq:32b', 'temperature': 0.2, 'max_tokens': 32768, 'top_p': 0.95, 'timeout': 120.0, 'request_timeout': 120.0}
+[2025-03-06 14:55:23,466] INFO [llm.ollama_client] Initialized Ollama client for model: qwq:32b at http://192.168.100.125:11434
+[2025-03-06 14:55:23,466] INFO [reasoning.auto_rag] Successfully initialized Ollama client with API URL: http://192.168.100.125:11434
+[2025-03-06 14:55:23,466] INFO [reasoning.auto_rag] Initialized Traffic AutoRAG with LLM provider: LLMProvider.OLLAMA
+[2025-03-06 14:55:23,467] INFO [__main__] Initializing web search integration
+[2025-03-06 14:55:23,467] INFO [web_handle.web_search] Initialized WebSearchIntegrator
+[2025-03-06 14:55:23,467] INFO [__main__] Components initialized successfully
+[2025-03-06 14:55:23,468] INFO [__main__] Processing new question: Sử dụng còi xe trong khung giờ từ 22h đến 5h trong khu đông dân cư, khu vực cơ sở khám bệnh, chữa bệnh có thể bị phạt từ 400.000 đồng đến 600.000 đồng. 
+[2025-03-06 14:55:23,469] INFO [__main__] Processing question: Sử dụng còi xe trong khung giờ từ 22h đến 5h trong khu đông dân cư, khu vực cơ sở khám bệnh, chữa bệnh có thể bị phạt từ 400.000 đồng đến 600.000 đồng. 
+[2025-03-06 14:55:23,469] INFO [reasoning.auto_rag] Question validated as traffic-related via keyword: phạt
+[2025-03-06 14:55:24,751] INFO [reasoning.auto_rag] Setting up Ollama client with model: qwq:32b
+[2025-03-06 14:55:24,751] INFO [llm.ollama_client] Creating OllamaClient with config: {'api_url': 'http://192.168.100.125:11434', 'model_name': 'qwq:32b', 'temperature': 0.2, 'max_tokens': 32768, 'top_p': 0.95, 'timeout': 120.0, 'request_timeout': 120.0}
+[2025-03-06 14:55:24,785] INFO [llm.ollama_client] Initialized Ollama client for model: qwq:32b at http://192.168.100.125:11434
+[2025-03-06 14:55:24,785] INFO [reasoning.auto_rag] Successfully initialized Ollama client with API URL: http://192.168.100.125:11434
+[2025-03-06 14:55:24,785] INFO [reasoning.auto_rag] Initialized Traffic AutoRAG with LLM provider: LLMProvider.OLLAMA
+[2025-03-06 14:55:24,785] INFO [__main__] Initializing web search integration
+[2025-03-06 14:55:24,786] INFO [web_handle.web_search] Initialized WebSearchIntegrator
+[2025-03-06 14:55:24,786] INFO [__main__] Components initialized successfully
+[2025-03-06 14:55:57,766] INFO [httpx] HTTP Request: POST http://192.168.100.125:11434/api/generate "HTTP/1.1 200 OK"
+[2025-03-06 14:55:57,793] INFO [utils] Function process_question completed in 34.32 seconds
+[2025-03-06 14:55:57,793] INFO [__main__] Question processed in 34.33 seconds
+[2025-03-06 14:55:57,794] INFO [__main__] Needs web search: True
+[2025-03-06 14:55:57,794] INFO [__main__] Web search prompt triggered
+[2025-03-06 14:55:57,795] INFO [__main__] Displaying results
+[2025-03-06 14:55:57,795] INFO [__main__] Response generated using: QWQ:32B (Ollama)
+[2025-03-06 14:55:57,797] INFO [__main__] Cleaning up components
+[2025-03-06 14:55:57,799] INFO [__main__] Displaying web search prompt
+[2025-03-06 14:56:38,615] INFO [__main__] Starting application
+[2025-03-06 14:56:38,617] INFO [__main__] Initializing configurations
+[2025-03-06 14:56:38,617] INFO [__main__] Configurations initialized successfully
+[2025-03-06 14:56:38,618] INFO [__main__] Selected LLM provider: openai
+[2025-03-06 14:56:38,618] INFO [__main__] Initializing components with LLM provider: openai
+[2025-03-06 14:56:38,618] INFO [retrieval.vector_store] Using connect_to_weaviate_cloud method
+[2025-03-06 14:56:39,068] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-06 14:56:39,091] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-06 14:56:43,765] INFO [__main__] Starting application
+[2025-03-06 14:56:43,766] INFO [__main__] Selected LLM provider: openai
+[2025-03-06 14:56:43,766] INFO [__main__] Initializing components with LLM provider: openai
+[2025-03-06 14:56:43,767] INFO [retrieval.vector_store] Using connect_to_weaviate_cloud method
+[2025-03-06 14:56:43,819] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-06 14:56:43,895] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-06 14:56:44,001] ERROR [retrieval.vector_store] Client connection test failed: 'WeaviateClient' object has no attribute 'schema'
+[2025-03-06 14:56:44,002] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-06 14:56:44,079] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-06 14:56:44,199] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-06 14:56:46,148] INFO [reasoning.auto_rag] Setting up OpenAI LLM with model: gpt-4o-mini
+[2025-03-06 14:56:46,321] INFO [reasoning.auto_rag] Initialized Traffic AutoRAG with LLM provider: LLMProvider.OPENAI
+[2025-03-06 14:56:46,321] INFO [__main__] Initializing web search integration
+[2025-03-06 14:56:46,321] INFO [web_handle.web_search] Initialized WebSearchIntegrator
+[2025-03-06 14:56:46,321] INFO [__main__] Components initialized successfully
+[2025-03-06 14:56:47,108] INFO [__main__] Starting application
+[2025-03-06 14:56:47,112] INFO [__main__] Selected LLM provider: ollama
+[2025-03-06 14:56:47,114] INFO [__main__] Initializing components with LLM provider: ollama
+[2025-03-06 14:56:47,114] INFO [retrieval.vector_store] Using connect_to_weaviate_cloud method
+[2025-03-06 14:56:47,335] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-06 14:56:47,340] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-06 14:56:48,958] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-06 14:56:49,015] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-06 14:56:49,021] ERROR [retrieval.vector_store] Client connection test failed: 'WeaviateClient' object has no attribute 'schema'
+[2025-03-06 14:56:49,224] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-06 14:56:51,354] INFO [reasoning.auto_rag] Setting up OpenAI LLM with model: gpt-4o-mini
+[2025-03-06 14:56:51,355] INFO [reasoning.auto_rag] Initialized Traffic AutoRAG with LLM provider: LLMProvider.OPENAI
+[2025-03-06 14:56:51,355] INFO [__main__] Initializing web search integration
+[2025-03-06 14:56:51,355] INFO [web_handle.web_search] Initialized WebSearchIntegrator
+[2025-03-06 14:56:51,355] INFO [__main__] Components initialized successfully
+[2025-03-06 14:56:53,459] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-06 14:56:53,592] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-06 14:56:53,595] ERROR [retrieval.vector_store] Client connection test failed: 'WeaviateClient' object has no attribute 'schema'
+[2025-03-06 14:56:53,815] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-06 14:56:55,754] INFO [reasoning.auto_rag] Setting up Ollama client with model: qwq:32b
+[2025-03-06 14:56:55,754] INFO [llm.ollama_client] Creating OllamaClient with config: {'api_url': 'http://192.168.100.125:11434', 'model_name': 'qwq:32b', 'temperature': 0.2, 'max_tokens': 32768, 'top_p': 0.95, 'timeout': 120.0, 'request_timeout': 120.0}
+[2025-03-06 14:56:55,801] INFO [llm.ollama_client] Initialized Ollama client for model: qwq:32b at http://192.168.100.125:11434
+[2025-03-06 14:56:55,802] INFO [reasoning.auto_rag] Successfully initialized Ollama client with API URL: http://192.168.100.125:11434
+[2025-03-06 14:56:55,802] INFO [reasoning.auto_rag] Initialized Traffic AutoRAG with LLM provider: LLMProvider.OLLAMA
+[2025-03-06 14:56:55,802] INFO [__main__] Initializing web search integration
+[2025-03-06 14:56:55,802] INFO [web_handle.web_search] Initialized WebSearchIntegrator
+[2025-03-06 14:56:55,802] INFO [__main__] Components initialized successfully
+[2025-03-06 14:57:50,862] INFO [__main__] Starting application
+[2025-03-06 14:57:50,870] INFO [__main__] Selected LLM provider: ollama
+[2025-03-06 14:57:50,871] INFO [__main__] Initializing components with LLM provider: ollama
+[2025-03-06 14:57:50,872] INFO [retrieval.vector_store] Using connect_to_weaviate_cloud method
+[2025-03-06 14:57:51,104] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-06 14:57:51,112] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-06 14:57:56,624] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-06 14:57:57,024] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-06 14:57:57,026] ERROR [retrieval.vector_store] Client connection test failed: 'WeaviateClient' object has no attribute 'schema'
+[2025-03-06 14:57:57,236] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-06 14:57:59,352] INFO [reasoning.auto_rag] Setting up Ollama client with model: qwq:32b
+[2025-03-06 14:57:59,352] INFO [llm.ollama_client] Creating OllamaClient with config: {'api_url': 'http://192.168.100.125:11434', 'model_name': 'qwq:32b', 'temperature': 0.2, 'max_tokens': 32768, 'top_p': 0.95, 'timeout': 120.0, 'request_timeout': 120.0}
+[2025-03-06 14:57:59,388] INFO [llm.ollama_client] Initialized Ollama client for model: qwq:32b at http://192.168.100.125:11434
+[2025-03-06 14:57:59,388] INFO [reasoning.auto_rag] Successfully initialized Ollama client with API URL: http://192.168.100.125:11434
+[2025-03-06 14:57:59,388] INFO [reasoning.auto_rag] Initialized Traffic AutoRAG with LLM provider: LLMProvider.OLLAMA
+[2025-03-06 14:57:59,388] INFO [__main__] Initializing web search integration
+[2025-03-06 14:57:59,389] INFO [web_handle.web_search] Initialized WebSearchIntegrator
+[2025-03-06 14:57:59,389] INFO [__main__] Components initialized successfully
+[2025-03-06 14:58:16,692] INFO [__main__] Starting application
+[2025-03-06 14:58:16,699] INFO [__main__] Selected LLM provider: ollama
+[2025-03-06 14:58:16,700] INFO [__main__] Initializing components with LLM provider: ollama
+[2025-03-06 14:58:16,701] INFO [retrieval.vector_store] Using connect_to_weaviate_cloud method
+[2025-03-06 14:58:16,937] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-06 14:58:16,943] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-06 14:58:21,516] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-06 14:58:21,582] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-06 14:58:21,586] ERROR [retrieval.vector_store] Client connection test failed: 'WeaviateClient' object has no attribute 'schema'
+[2025-03-06 14:58:21,814] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-06 14:58:23,771] INFO [reasoning.auto_rag] Setting up Ollama client with model: qwq:32b
+[2025-03-06 14:58:23,771] INFO [llm.ollama_client] Creating OllamaClient with config: {'api_url': 'http://192.168.100.125:11434', 'model_name': 'qwq:32b', 'temperature': 0.2, 'max_tokens': 32768, 'top_p': 0.95, 'timeout': 120.0, 'request_timeout': 120.0}
+[2025-03-06 14:58:23,807] INFO [llm.ollama_client] Initialized Ollama client for model: qwq:32b at http://192.168.100.125:11434
+[2025-03-06 14:58:23,807] INFO [reasoning.auto_rag] Successfully initialized Ollama client with API URL: http://192.168.100.125:11434
+[2025-03-06 14:58:23,807] INFO [reasoning.auto_rag] Initialized Traffic AutoRAG with LLM provider: LLMProvider.OLLAMA
+[2025-03-06 14:58:23,807] INFO [__main__] Initializing web search integration
+[2025-03-06 14:58:23,808] INFO [web_handle.web_search] Initialized WebSearchIntegrator
+[2025-03-06 14:58:23,808] INFO [__main__] Components initialized successfully
+[2025-03-06 14:58:42,848] INFO [__main__] Starting application
+[2025-03-06 14:58:42,852] INFO [__main__] Selected LLM provider: ollama
+[2025-03-06 14:58:42,852] INFO [__main__] Initializing components with LLM provider: ollama
+[2025-03-06 14:58:42,852] INFO [retrieval.vector_store] Using connect_to_weaviate_cloud method
+[2025-03-06 14:58:43,070] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-06 14:58:43,075] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-06 14:58:48,039] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-06 14:58:48,088] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-06 14:58:48,092] ERROR [retrieval.vector_store] Client connection test failed: 'WeaviateClient' object has no attribute 'schema'
+[2025-03-06 14:58:48,303] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-06 14:58:50,383] INFO [reasoning.auto_rag] Setting up Ollama client with model: qwq:32b
+[2025-03-06 14:58:50,383] INFO [llm.ollama_client] Creating OllamaClient with config: {'api_url': 'http://192.168.100.125:11434', 'model_name': 'qwq:32b', 'temperature': 0.2, 'max_tokens': 32768, 'top_p': 0.95, 'timeout': 120.0, 'request_timeout': 120.0}
+[2025-03-06 14:58:50,418] INFO [llm.ollama_client] Initialized Ollama client for model: qwq:32b at http://192.168.100.125:11434
+[2025-03-06 14:58:50,418] INFO [reasoning.auto_rag] Successfully initialized Ollama client with API URL: http://192.168.100.125:11434
+[2025-03-06 14:58:50,418] INFO [reasoning.auto_rag] Initialized Traffic AutoRAG with LLM provider: LLMProvider.OLLAMA
+[2025-03-06 14:58:50,418] INFO [__main__] Initializing web search integration
+[2025-03-06 14:58:50,419] INFO [web_handle.web_search] Initialized WebSearchIntegrator
+[2025-03-06 14:58:50,419] INFO [__main__] Components initialized successfully
+[2025-03-06 14:58:50,420] INFO [__main__] Processing new question: Các mức xử phạt nồng độ cồn với xe gắn máy
+[2025-03-06 14:58:50,421] INFO [__main__] Processing question: Các mức xử phạt nồng độ cồn với xe gắn máy
+[2025-03-06 14:58:50,421] INFO [reasoning.auto_rag] Question validated as traffic-related via keyword: phạt
+[2025-03-06 14:59:21,222] INFO [httpx] HTTP Request: POST http://192.168.100.125:11434/api/generate "HTTP/1.1 200 OK"
+[2025-03-06 14:59:21,250] INFO [utils] Function process_question completed in 30.83 seconds
+[2025-03-06 14:59:21,251] INFO [__main__] Question processed in 30.83 seconds
+[2025-03-06 14:59:21,253] INFO [__main__] Needs web search: False
+[2025-03-06 14:59:21,254] INFO [__main__] Displaying results
+[2025-03-06 14:59:21,256] INFO [__main__] Response generated using: QWQ:32B (Ollama)
+[2025-03-06 14:59:21,265] INFO [__main__] Cleaning up components
+[2025-03-06 14:59:44,794] INFO [__main__] Starting application
+[2025-03-06 14:59:44,798] INFO [__main__] Selected LLM provider: openai
+[2025-03-06 14:59:44,799] INFO [__main__] Initializing components with LLM provider: openai
+[2025-03-06 14:59:44,799] INFO [retrieval.vector_store] Using connect_to_weaviate_cloud method
+[2025-03-06 14:59:45,311] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-06 14:59:45,317] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-06 14:59:50,091] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-06 14:59:50,141] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-06 14:59:50,145] ERROR [retrieval.vector_store] Client connection test failed: 'WeaviateClient' object has no attribute 'schema'
+[2025-03-06 14:59:50,352] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-06 14:59:52,332] INFO [reasoning.auto_rag] Setting up OpenAI LLM with model: gpt-4o-mini
+[2025-03-06 14:59:52,333] INFO [reasoning.auto_rag] Initialized Traffic AutoRAG with LLM provider: LLMProvider.OPENAI
+[2025-03-06 14:59:52,333] INFO [__main__] Initializing web search integration
+[2025-03-06 14:59:52,333] INFO [web_handle.web_search] Initialized WebSearchIntegrator
+[2025-03-06 14:59:52,333] INFO [__main__] Components initialized successfully
+[2025-03-06 14:59:53,272] INFO [__main__] Starting application
+[2025-03-06 14:59:53,275] INFO [__main__] Selected LLM provider: openai
+[2025-03-06 14:59:53,275] INFO [__main__] Initializing components with LLM provider: openai
+[2025-03-06 14:59:53,276] INFO [retrieval.vector_store] Using connect_to_weaviate_cloud method
+[2025-03-06 14:59:53,512] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-06 14:59:53,518] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-06 14:59:57,948] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-06 14:59:58,007] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-06 14:59:58,012] ERROR [retrieval.vector_store] Client connection test failed: 'WeaviateClient' object has no attribute 'schema'
+[2025-03-06 14:59:58,236] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-06 15:00:00,224] INFO [reasoning.auto_rag] Setting up OpenAI LLM with model: gpt-4o-mini
+[2025-03-06 15:00:00,224] INFO [reasoning.auto_rag] Initialized Traffic AutoRAG with LLM provider: LLMProvider.OPENAI
+[2025-03-06 15:00:00,226] INFO [__main__] Initializing web search integration
+[2025-03-06 15:00:00,226] INFO [web_handle.web_search] Initialized WebSearchIntegrator
+[2025-03-06 15:00:00,226] INFO [__main__] Components initialized successfully
+[2025-03-06 15:00:00,227] INFO [__main__] Processing new question: Các mức xử phạt nồng độ cồn với xe gắn máy
+[2025-03-06 15:00:00,228] INFO [__main__] Processing question: Các mức xử phạt nồng độ cồn với xe gắn máy
+[2025-03-06 15:00:00,228] INFO [reasoning.auto_rag] Question validated as traffic-related via keyword: phạt
+[2025-03-06 15:00:08,390] INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-03-06 15:00:08,407] INFO [utils] Function process_question completed in 8.18 seconds
+[2025-03-06 15:00:08,407] INFO [__main__] Question processed in 8.18 seconds
+[2025-03-06 15:00:08,408] INFO [__main__] Needs web search: False
+[2025-03-06 15:00:08,408] INFO [__main__] Displaying results
+[2025-03-06 15:00:08,409] INFO [__main__] Response generated using: OpenAI GPT-4o mini
+[2025-03-06 15:00:08,414] INFO [__main__] Cleaning up components
+[2025-03-06 15:01:10,844] INFO [__main__] Starting application
+[2025-03-06 15:01:10,848] INFO [__main__] Selected LLM provider: openai
+[2025-03-06 15:01:10,848] INFO [__main__] Initializing components with LLM provider: openai
+[2025-03-06 15:01:10,849] INFO [retrieval.vector_store] Using connect_to_weaviate_cloud method
+[2025-03-06 15:01:11,073] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-06 15:01:11,079] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-06 15:01:15,694] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-06 15:01:15,749] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-06 15:01:15,753] ERROR [retrieval.vector_store] Client connection test failed: 'WeaviateClient' object has no attribute 'schema'
+[2025-03-06 15:01:15,944] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-06 15:01:17,887] INFO [reasoning.auto_rag] Setting up OpenAI LLM with model: gpt-4o-mini
+[2025-03-06 15:01:17,888] INFO [reasoning.auto_rag] Initialized Traffic AutoRAG with LLM provider: LLMProvider.OPENAI
+[2025-03-06 15:01:17,888] INFO [__main__] Initializing web search integration
+[2025-03-06 15:01:17,888] INFO [web_handle.web_search] Initialized WebSearchIntegrator
+[2025-03-06 15:01:17,888] INFO [__main__] Components initialized successfully
+[2025-03-06 15:01:28,741] INFO [__main__] Starting application
+[2025-03-06 15:01:28,744] INFO [__main__] Selected LLM provider: openai
+[2025-03-06 15:01:28,745] INFO [__main__] Initializing components with LLM provider: openai
+[2025-03-06 15:01:28,745] INFO [retrieval.vector_store] Using connect_to_weaviate_cloud method
+[2025-03-06 15:01:29,099] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-06 15:01:29,104] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-06 15:01:33,820] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-06 15:01:33,895] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-06 15:01:33,900] ERROR [retrieval.vector_store] Client connection test failed: 'WeaviateClient' object has no attribute 'schema'
+[2025-03-06 15:01:34,223] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-06 15:01:36,186] INFO [reasoning.auto_rag] Setting up OpenAI LLM with model: gpt-4o-mini
+[2025-03-06 15:01:36,187] INFO [reasoning.auto_rag] Initialized Traffic AutoRAG with LLM provider: LLMProvider.OPENAI
+[2025-03-06 15:01:36,187] INFO [__main__] Initializing web search integration
+[2025-03-06 15:01:36,187] INFO [web_handle.web_search] Initialized WebSearchIntegrator
+[2025-03-06 15:01:36,187] INFO [__main__] Components initialized successfully
+[2025-03-06 15:01:36,188] INFO [__main__] Processing new question: Sử dụng còi trong thời gian từ 22 giờ ngày hôm trước đến 05 giờ ngày hôm sau trong khu đông dân cư, khu vực cơ sở khám bệnh, chữa bệnh bị phạt bao nhiêu tiền?
+[2025-03-06 15:01:36,188] INFO [__main__] Processing question: Sử dụng còi trong thời gian từ 22 giờ ngày hôm trước đến 05 giờ ngày hôm sau trong khu đông dân cư, khu vực cơ sở khám bệnh, chữa bệnh bị phạt bao nhiêu tiền?
+[2025-03-06 15:01:36,188] INFO [reasoning.auto_rag] Question validated as traffic-related via keyword: phạt
+[2025-03-06 15:01:51,119] INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-03-06 15:01:51,123] INFO [utils] Function process_question completed in 14.93 seconds
+[2025-03-06 15:01:51,123] INFO [__main__] Question processed in 14.93 seconds
+[2025-03-06 15:01:51,124] INFO [__main__] Needs web search: False
+[2025-03-06 15:01:51,124] INFO [__main__] Displaying results
+[2025-03-06 15:01:51,124] INFO [__main__] Response generated using: OpenAI GPT-4o mini
+[2025-03-06 15:01:51,127] INFO [__main__] Cleaning up components
+[2025-03-06 15:02:41,350] INFO [__main__] Starting application
+[2025-03-06 15:02:41,353] INFO [__main__] Selected LLM provider: ollama
+[2025-03-06 15:02:41,353] INFO [__main__] Initializing components with LLM provider: ollama
+[2025-03-06 15:02:41,354] INFO [retrieval.vector_store] Using connect_to_weaviate_cloud method
+[2025-03-06 15:02:41,863] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-06 15:02:41,867] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-06 15:02:46,767] INFO [__main__] Starting application
+[2025-03-06 15:02:46,773] INFO [__main__] Selected LLM provider: ollama
+[2025-03-06 15:02:46,774] INFO [__main__] Initializing components with LLM provider: ollama
+[2025-03-06 15:02:46,775] INFO [retrieval.vector_store] Using connect_to_weaviate_cloud method
+[2025-03-06 15:02:46,832] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-06 15:02:47,015] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-06 15:02:47,019] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-06 15:02:47,021] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-06 15:02:47,025] ERROR [retrieval.vector_store] Client connection test failed: 'WeaviateClient' object has no attribute 'schema'
+[2025-03-06 15:02:47,095] INFO [__main__] Starting application
+[2025-03-06 15:02:47,099] INFO [__main__] Selected LLM provider: ollama
+[2025-03-06 15:02:47,099] INFO [__main__] Initializing components with LLM provider: ollama
+[2025-03-06 15:02:47,099] INFO [retrieval.vector_store] Using connect_to_weaviate_cloud method
+[2025-03-06 15:02:47,237] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-06 15:02:47,293] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-06 15:02:47,298] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-06 15:02:49,243] INFO [reasoning.auto_rag] Setting up Ollama client with model: qwq:32b
+[2025-03-06 15:02:49,243] INFO [llm.ollama_client] Creating OllamaClient with config: {'api_url': 'http://192.168.100.125:11434', 'model_name': 'qwq:32b', 'temperature': 0.2, 'max_tokens': 32768, 'top_p': 0.17, 'timeout': 120.0, 'request_timeout': 120.0}
+[2025-03-06 15:02:49,282] INFO [llm.ollama_client] Initialized Ollama client for model: qwq:32b at http://192.168.100.125:11434
+[2025-03-06 15:02:49,282] INFO [reasoning.auto_rag] Successfully initialized Ollama client with API URL: http://192.168.100.125:11434
+[2025-03-06 15:02:49,282] INFO [reasoning.auto_rag] Initialized Traffic AutoRAG with LLM provider: LLMProvider.OLLAMA
+[2025-03-06 15:02:49,283] INFO [__main__] Initializing web search integration
+[2025-03-06 15:02:49,283] INFO [web_handle.web_search] Initialized WebSearchIntegrator
+[2025-03-06 15:02:49,283] INFO [__main__] Components initialized successfully
+[2025-03-06 15:02:49,600] INFO [__main__] Starting application
+[2025-03-06 15:02:49,604] INFO [__main__] Selected LLM provider: ollama
+[2025-03-06 15:02:49,604] INFO [__main__] Initializing components with LLM provider: ollama
+[2025-03-06 15:02:49,604] INFO [retrieval.vector_store] Using connect_to_weaviate_cloud method
+[2025-03-06 15:02:50,019] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-06 15:02:50,026] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-06 15:02:50,066] INFO [__main__] Starting application
+[2025-03-06 15:02:50,074] INFO [__main__] Selected LLM provider: ollama
+[2025-03-06 15:02:50,076] INFO [__main__] Initializing components with LLM provider: ollama
+[2025-03-06 15:02:50,076] INFO [retrieval.vector_store] Using connect_to_weaviate_cloud method
+[2025-03-06 15:02:50,267] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-06 15:02:50,272] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-06 15:02:52,202] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-06 15:02:52,269] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-06 15:02:52,274] ERROR [retrieval.vector_store] Client connection test failed: 'WeaviateClient' object has no attribute 'schema'
+[2025-03-06 15:02:52,535] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-06 15:02:52,875] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-06 15:02:53,000] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-06 15:02:53,004] ERROR [retrieval.vector_store] Client connection test failed: 'WeaviateClient' object has no attribute 'schema'
+[2025-03-06 15:02:53,227] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-06 15:02:54,979] INFO [reasoning.auto_rag] Setting up Ollama client with model: qwq:32b
+[2025-03-06 15:02:54,981] INFO [llm.ollama_client] Creating OllamaClient with config: {'api_url': 'http://192.168.100.125:11434', 'model_name': 'qwq:32b', 'temperature': 0.2, 'max_tokens': 32768, 'top_p': 0.19, 'timeout': 120.0, 'request_timeout': 120.0}
+[2025-03-06 15:02:55,073] INFO [llm.ollama_client] Initialized Ollama client for model: qwq:32b at http://192.168.100.125:11434
+[2025-03-06 15:02:55,073] INFO [reasoning.auto_rag] Successfully initialized Ollama client with API URL: http://192.168.100.125:11434
+[2025-03-06 15:02:55,073] INFO [reasoning.auto_rag] Initialized Traffic AutoRAG with LLM provider: LLMProvider.OLLAMA
+[2025-03-06 15:02:55,073] INFO [__main__] Initializing web search integration
+[2025-03-06 15:02:55,074] INFO [web_handle.web_search] Initialized WebSearchIntegrator
+[2025-03-06 15:02:55,074] INFO [__main__] Components initialized successfully
+[2025-03-06 15:02:55,495] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-06 15:02:55,891] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-06 15:02:56,253] INFO [reasoning.auto_rag] Setting up Ollama client with model: qwq:32b
+[2025-03-06 15:02:56,253] INFO [llm.ollama_client] Creating OllamaClient with config: {'api_url': 'http://192.168.100.125:11434', 'model_name': 'qwq:32b', 'temperature': 0.2, 'max_tokens': 32768, 'top_p': 0.19, 'timeout': 120.0, 'request_timeout': 120.0}
+[2025-03-06 15:02:56,294] INFO [llm.ollama_client] Initialized Ollama client for model: qwq:32b at http://192.168.100.125:11434
+[2025-03-06 15:02:56,294] INFO [reasoning.auto_rag] Successfully initialized Ollama client with API URL: http://192.168.100.125:11434
+[2025-03-06 15:02:56,294] INFO [reasoning.auto_rag] Initialized Traffic AutoRAG with LLM provider: LLMProvider.OLLAMA
+[2025-03-06 15:02:56,294] INFO [__main__] Initializing web search integration
+[2025-03-06 15:02:56,295] INFO [web_handle.web_search] Initialized WebSearchIntegrator
+[2025-03-06 15:02:56,295] INFO [__main__] Components initialized successfully
+[2025-03-06 15:02:56,636] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-06 15:02:56,641] ERROR [retrieval.vector_store] Client connection test failed: 'WeaviateClient' object has no attribute 'schema'
+[2025-03-06 15:02:56,861] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-06 15:02:56,865] ERROR [retrieval.vector_store] Client connection test failed: 'WeaviateClient' object has no attribute 'schema'
+[2025-03-06 15:02:57,021] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-06 15:02:57,106] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-06 15:02:58,990] INFO [reasoning.auto_rag] Setting up Ollama client with model: qwq:32b
+[2025-03-06 15:02:58,990] INFO [llm.ollama_client] Creating OllamaClient with config: {'api_url': 'http://192.168.100.125:11434', 'model_name': 'qwq:32b', 'temperature': 0.2, 'max_tokens': 32768, 'top_p': 0.19, 'timeout': 120.0, 'request_timeout': 120.0}
+[2025-03-06 15:02:59,030] INFO [llm.ollama_client] Initialized Ollama client for model: qwq:32b at http://192.168.100.125:11434
+[2025-03-06 15:02:59,030] INFO [reasoning.auto_rag] Successfully initialized Ollama client with API URL: http://192.168.100.125:11434
+[2025-03-06 15:02:59,031] INFO [reasoning.auto_rag] Initialized Traffic AutoRAG with LLM provider: LLMProvider.OLLAMA
+[2025-03-06 15:02:59,031] INFO [__main__] Initializing web search integration
+[2025-03-06 15:02:59,031] INFO [web_handle.web_search] Initialized WebSearchIntegrator
+[2025-03-06 15:02:59,031] INFO [__main__] Components initialized successfully
+[2025-03-06 15:03:00,135] INFO [reasoning.auto_rag] Setting up Ollama client with model: qwq:32b
+[2025-03-06 15:03:00,135] INFO [llm.ollama_client] Creating OllamaClient with config: {'api_url': 'http://192.168.100.125:11434', 'model_name': 'qwq:32b', 'temperature': 0.2, 'max_tokens': 32768, 'top_p': 0.19, 'timeout': 120.0, 'request_timeout': 120.0}
+[2025-03-06 15:03:00,173] INFO [llm.ollama_client] Initialized Ollama client for model: qwq:32b at http://192.168.100.125:11434
+[2025-03-06 15:03:00,173] INFO [reasoning.auto_rag] Successfully initialized Ollama client with API URL: http://192.168.100.125:11434
+[2025-03-06 15:03:00,173] INFO [reasoning.auto_rag] Initialized Traffic AutoRAG with LLM provider: LLMProvider.OLLAMA
+[2025-03-06 15:03:00,173] INFO [__main__] Initializing web search integration
+[2025-03-06 15:03:00,173] INFO [web_handle.web_search] Initialized WebSearchIntegrator
+[2025-03-06 15:03:00,173] INFO [__main__] Components initialized successfully
+[2025-03-06 15:04:12,877] INFO [__main__] Starting application
+[2025-03-06 15:04:12,882] INFO [__main__] Selected LLM provider: ollama
+[2025-03-06 15:04:12,883] INFO [__main__] Initializing components with LLM provider: ollama
+[2025-03-06 15:04:12,883] INFO [retrieval.vector_store] Using connect_to_weaviate_cloud method
+[2025-03-06 15:04:13,160] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-06 15:04:13,165] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-06 15:04:17,433] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-06 15:04:17,501] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-06 15:04:17,506] ERROR [retrieval.vector_store] Client connection test failed: 'WeaviateClient' object has no attribute 'schema'
+[2025-03-06 15:04:17,690] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-06 15:04:19,640] INFO [reasoning.auto_rag] Setting up Ollama client with model: qwq:32b
+[2025-03-06 15:04:19,640] INFO [llm.ollama_client] Creating OllamaClient with config: {'api_url': 'http://192.168.100.125:11434', 'model_name': 'qwq:32b', 'temperature': 0.2, 'max_tokens': 32768, 'top_p': 0.19, 'timeout': 120.0, 'request_timeout': 120.0}
+[2025-03-06 15:04:19,682] INFO [llm.ollama_client] Initialized Ollama client for model: qwq:32b at http://192.168.100.125:11434
+[2025-03-06 15:04:19,682] INFO [reasoning.auto_rag] Successfully initialized Ollama client with API URL: http://192.168.100.125:11434
+[2025-03-06 15:04:19,682] INFO [reasoning.auto_rag] Initialized Traffic AutoRAG with LLM provider: LLMProvider.OLLAMA
+[2025-03-06 15:04:19,682] INFO [__main__] Initializing web search integration
+[2025-03-06 15:04:19,682] INFO [web_handle.web_search] Initialized WebSearchIntegrator
+[2025-03-06 15:04:19,682] INFO [__main__] Components initialized successfully
+[2025-03-06 15:04:19,683] INFO [__main__] Processing new question: Sử dụng còi trong thời gian từ 22 giờ ngày hôm trước đến 05 giờ ngày hôm sau trong khu đông dân cư, khu vực cơ sở khám bệnh, chữa bệnh bị phạt bao nhiêu tiền?
+[2025-03-06 15:04:19,684] INFO [__main__] Processing question: Sử dụng còi trong thời gian từ 22 giờ ngày hôm trước đến 05 giờ ngày hôm sau trong khu đông dân cư, khu vực cơ sở khám bệnh, chữa bệnh bị phạt bao nhiêu tiền?
+[2025-03-06 15:04:19,684] INFO [reasoning.auto_rag] Question validated as traffic-related via keyword: phạt
+[2025-03-06 15:05:01,007] INFO [httpx] HTTP Request: POST http://192.168.100.125:11434/api/generate "HTTP/1.1 200 OK"
+[2025-03-06 15:05:01,035] INFO [utils] Function process_question completed in 41.35 seconds
+[2025-03-06 15:05:01,036] INFO [__main__] Question processed in 41.35 seconds
+[2025-03-06 15:05:01,037] INFO [__main__] Needs web search: True
+[2025-03-06 15:05:01,037] INFO [__main__] Web search prompt triggered
+[2025-03-06 15:05:01,037] INFO [__main__] Displaying results
+[2025-03-06 15:05:01,038] INFO [__main__] Response generated using: QWQ:32B (Ollama)
+[2025-03-06 15:05:01,047] INFO [__main__] Cleaning up components
+[2025-03-06 15:05:01,052] INFO [__main__] Displaying web search prompt
+[2025-03-06 15:05:15,815] INFO [__main__] Starting application
+[2025-03-06 15:05:15,816] INFO [__main__] Selected LLM provider: openai
+[2025-03-06 15:05:15,816] INFO [__main__] Initializing components with LLM provider: openai
+[2025-03-06 15:05:15,816] INFO [retrieval.vector_store] Using connect_to_weaviate_cloud method
+[2025-03-06 15:05:16,363] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-06 15:05:16,368] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-06 15:05:17,780] INFO [__main__] Starting application
+[2025-03-06 15:05:17,784] INFO [__main__] Selected LLM provider: ollama
+[2025-03-06 15:05:17,784] INFO [__main__] Initializing components with LLM provider: ollama
+[2025-03-06 15:05:17,785] INFO [retrieval.vector_store] Using connect_to_weaviate_cloud method
+[2025-03-06 15:05:18,020] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-06 15:05:18,024] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-06 15:05:21,038] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-06 15:05:21,092] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-06 15:05:21,098] ERROR [retrieval.vector_store] Client connection test failed: 'WeaviateClient' object has no attribute 'schema'
+[2025-03-06 15:05:21,319] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-06 15:05:22,666] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-06 15:05:22,727] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-06 15:05:22,731] ERROR [retrieval.vector_store] Client connection test failed: 'WeaviateClient' object has no attribute 'schema'
+[2025-03-06 15:05:22,911] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-06 15:05:23,367] INFO [reasoning.auto_rag] Setting up OpenAI LLM with model: gpt-4o-mini
+[2025-03-06 15:05:23,368] INFO [reasoning.auto_rag] Initialized Traffic AutoRAG with LLM provider: LLMProvider.OPENAI
+[2025-03-06 15:05:23,368] INFO [__main__] Initializing web search integration
+[2025-03-06 15:05:23,368] INFO [web_handle.web_search] Initialized WebSearchIntegrator
+[2025-03-06 15:05:23,368] INFO [__main__] Components initialized successfully
+[2025-03-06 15:05:32,373] INFO [__main__] Starting application
+[2025-03-06 15:05:32,379] INFO [__main__] Initializing configurations
+[2025-03-06 15:05:32,379] INFO [__main__] Configurations initialized successfully
+[2025-03-06 15:05:32,382] INFO [__main__] Selected LLM provider: ollama
+[2025-03-06 15:05:32,382] INFO [__main__] Initializing components with LLM provider: ollama
+[2025-03-06 15:05:32,383] INFO [retrieval.vector_store] Using connect_to_weaviate_cloud method
+[2025-03-06 15:05:32,655] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-06 15:05:32,724] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-06 15:05:33,770] INFO [__main__] Starting application
+[2025-03-06 15:05:33,771] INFO [__main__] Selected LLM provider: openai
+[2025-03-06 15:05:33,771] INFO [__main__] Initializing components with LLM provider: openai
+[2025-03-06 15:05:33,771] INFO [retrieval.vector_store] Using connect_to_weaviate_cloud method
+[2025-03-06 15:05:34,030] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-06 15:05:34,035] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-06 15:05:35,920] INFO [__main__] Starting application
+[2025-03-06 15:05:35,924] INFO [__main__] Selected LLM provider: ollama
+[2025-03-06 15:05:35,924] INFO [__main__] Initializing components with LLM provider: ollama
+[2025-03-06 15:05:35,925] INFO [retrieval.vector_store] Using connect_to_weaviate_cloud method
+[2025-03-06 15:05:36,193] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-06 15:05:36,199] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-06 15:05:37,434] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-06 15:05:37,493] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-06 15:05:37,572] ERROR [retrieval.vector_store] Client connection test failed: 'WeaviateClient' object has no attribute 'schema'
+[2025-03-06 15:05:38,112] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-06 15:05:38,755] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-06 15:05:38,822] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-06 15:05:38,826] ERROR [retrieval.vector_store] Client connection test failed: 'WeaviateClient' object has no attribute 'schema'
+[2025-03-06 15:05:39,342] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-06 15:05:40,350] INFO [reasoning.auto_rag] Setting up Ollama client with model: qwq:32b
+[2025-03-06 15:05:40,350] INFO [llm.ollama_client] Creating OllamaClient with config: {'api_url': 'http://192.168.100.125:11434', 'model_name': 'qwq:32b', 'temperature': 0.7, 'max_tokens': 32768, 'top_p': 0.95, 'timeout': 120.0, 'request_timeout': 120.0}
+[2025-03-06 15:05:40,391] INFO [llm.ollama_client] Initialized Ollama client for model: qwq:32b at http://192.168.100.125:11434
+[2025-03-06 15:05:40,391] INFO [reasoning.auto_rag] Successfully initialized Ollama client with API URL: http://192.168.100.125:11434
+[2025-03-06 15:05:40,391] INFO [reasoning.auto_rag] Initialized Traffic AutoRAG with LLM provider: LLMProvider.OLLAMA
+[2025-03-06 15:05:40,391] INFO [__main__] Initializing web search integration
+[2025-03-06 15:05:40,391] INFO [web_handle.web_search] Initialized WebSearchIntegrator
+[2025-03-06 15:05:40,391] INFO [__main__] Components initialized successfully
+[2025-03-06 15:05:41,622] INFO [reasoning.auto_rag] Setting up OpenAI LLM with model: gpt-4o-mini
+[2025-03-06 15:05:41,814] INFO [reasoning.auto_rag] Initialized Traffic AutoRAG with LLM provider: LLMProvider.OPENAI
+[2025-03-06 15:05:41,814] INFO [__main__] Initializing web search integration
+[2025-03-06 15:05:41,815] INFO [web_handle.web_search] Initialized WebSearchIntegrator
+[2025-03-06 15:05:41,815] INFO [__main__] Components initialized successfully
+[2025-03-06 15:05:43,865] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-06 15:05:44,026] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-06 15:05:44,030] ERROR [retrieval.vector_store] Client connection test failed: 'WeaviateClient' object has no attribute 'schema'
+[2025-03-06 15:05:44,250] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-06 15:05:46,160] INFO [reasoning.auto_rag] Setting up Ollama client with model: qwq:32b
+[2025-03-06 15:05:46,161] INFO [llm.ollama_client] Creating OllamaClient with config: {'api_url': 'http://192.168.100.125:11434', 'model_name': 'qwq:32b', 'temperature': 0.7, 'max_tokens': 32768, 'top_p': 0.95, 'timeout': 120.0, 'request_timeout': 120.0}
+[2025-03-06 15:05:46,201] INFO [llm.ollama_client] Initialized Ollama client for model: qwq:32b at http://192.168.100.125:11434
+[2025-03-06 15:05:46,201] INFO [reasoning.auto_rag] Successfully initialized Ollama client with API URL: http://192.168.100.125:11434
+[2025-03-06 15:05:46,202] INFO [reasoning.auto_rag] Initialized Traffic AutoRAG with LLM provider: LLMProvider.OLLAMA
+[2025-03-06 15:05:46,202] INFO [__main__] Initializing web search integration
+[2025-03-06 15:05:46,202] INFO [web_handle.web_search] Initialized WebSearchIntegrator
+[2025-03-06 15:05:46,202] INFO [__main__] Components initialized successfully
+[2025-03-06 15:06:37,873] INFO [__main__] Starting application
+[2025-03-06 15:06:37,876] INFO [__main__] Selected LLM provider: ollama
+[2025-03-06 15:06:37,876] INFO [__main__] Initializing components with LLM provider: ollama
+[2025-03-06 15:06:37,876] INFO [retrieval.vector_store] Using connect_to_weaviate_cloud method
+[2025-03-06 15:06:37,958] INFO [__main__] Starting application
+[2025-03-06 15:06:37,962] INFO [__main__] Selected LLM provider: ollama
+[2025-03-06 15:06:37,962] INFO [__main__] Initializing components with LLM provider: ollama
+[2025-03-06 15:06:37,962] INFO [retrieval.vector_store] Using connect_to_weaviate_cloud method
+[2025-03-06 15:06:38,205] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-06 15:06:38,210] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-06 15:06:38,214] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-06 15:06:38,221] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-06 15:06:42,843] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-06 15:06:42,905] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-06 15:06:42,910] ERROR [retrieval.vector_store] Client connection test failed: 'WeaviateClient' object has no attribute 'schema'
+[2025-03-06 15:06:43,142] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-06 15:06:43,476] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-06 15:06:43,619] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-06 15:06:43,623] ERROR [retrieval.vector_store] Client connection test failed: 'WeaviateClient' object has no attribute 'schema'
+[2025-03-06 15:06:43,872] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-06 15:06:45,088] INFO [reasoning.auto_rag] Setting up Ollama client with model: qwq:32b
+[2025-03-06 15:06:45,088] INFO [llm.ollama_client] Creating OllamaClient with config: {'api_url': 'http://192.168.100.125:11434', 'model_name': 'qwq:32b', 'temperature': 0.7, 'max_tokens': 32768, 'top_p': 0.95, 'timeout': 120.0, 'request_timeout': 120.0}
+[2025-03-06 15:06:45,137] INFO [llm.ollama_client] Initialized Ollama client for model: qwq:32b at http://192.168.100.125:11434
+[2025-03-06 15:06:45,137] INFO [reasoning.auto_rag] Successfully initialized Ollama client with API URL: http://192.168.100.125:11434
+[2025-03-06 15:06:45,137] INFO [reasoning.auto_rag] Initialized Traffic AutoRAG with LLM provider: LLMProvider.OLLAMA
+[2025-03-06 15:06:45,138] INFO [__main__] Initializing web search integration
+[2025-03-06 15:06:45,138] INFO [web_handle.web_search] Initialized WebSearchIntegrator
+[2025-03-06 15:06:45,138] INFO [__main__] Components initialized successfully
+[2025-03-06 15:06:45,139] INFO [__main__] Processing new question: Sử dụng còi trong thời gian từ 22 giờ ngày hôm trước đến 05 giờ ngày hôm sau trong khu đông dân cư, khu vực cơ sở khám bệnh, chữa bệnh bị phạt tiền bao nhiêu
+[2025-03-06 15:06:45,140] INFO [__main__] Processing question: Sử dụng còi trong thời gian từ 22 giờ ngày hôm trước đến 05 giờ ngày hôm sau trong khu đông dân cư, khu vực cơ sở khám bệnh, chữa bệnh bị phạt tiền bao nhiêu
+[2025-03-06 15:06:45,140] INFO [reasoning.auto_rag] Question validated as traffic-related via keyword: phạt
+[2025-03-06 15:06:45,719] INFO [reasoning.auto_rag] Setting up Ollama client with model: qwq:32b
+[2025-03-06 15:06:45,720] INFO [llm.ollama_client] Creating OllamaClient with config: {'api_url': 'http://192.168.100.125:11434', 'model_name': 'qwq:32b', 'temperature': 0.7, 'max_tokens': 32768, 'top_p': 0.95, 'timeout': 120.0, 'request_timeout': 120.0}
+[2025-03-06 15:06:45,763] INFO [llm.ollama_client] Initialized Ollama client for model: qwq:32b at http://192.168.100.125:11434
+[2025-03-06 15:06:45,763] INFO [reasoning.auto_rag] Successfully initialized Ollama client with API URL: http://192.168.100.125:11434
+[2025-03-06 15:06:45,763] INFO [reasoning.auto_rag] Initialized Traffic AutoRAG with LLM provider: LLMProvider.OLLAMA
+[2025-03-06 15:06:45,764] INFO [__main__] Initializing web search integration
+[2025-03-06 15:06:45,764] INFO [web_handle.web_search] Initialized WebSearchIntegrator
+[2025-03-06 15:06:45,764] INFO [__main__] Components initialized successfully
+[2025-03-06 15:07:50,127] INFO [httpx] HTTP Request: POST http://192.168.100.125:11434/api/generate "HTTP/1.1 200 OK"
+[2025-03-06 15:08:12,122] INFO [httpx] HTTP Request: POST http://192.168.100.125:11434/api/generate "HTTP/1.1 200 OK"
+[2025-03-06 15:08:12,165] INFO [utils] Function process_question completed in 87.03 seconds
+[2025-03-06 15:08:12,166] INFO [__main__] Question processed in 87.03 seconds
+[2025-03-06 15:08:12,168] INFO [__main__] Needs web search: True
+[2025-03-06 15:08:12,171] INFO [__main__] Web search prompt triggered
+[2025-03-06 15:08:12,171] INFO [__main__] Displaying results
+[2025-03-06 15:08:12,173] INFO [__main__] Response generated using: QWQ:32B (Ollama)
+[2025-03-06 15:08:12,181] INFO [__main__] Cleaning up components
+[2025-03-06 15:08:12,189] INFO [__main__] Displaying web search prompt
+[2025-03-06 15:16:23,201] INFO [__main__] Starting application
+[2025-03-06 15:16:23,204] INFO [__main__] Initializing configurations
+[2025-03-06 15:16:23,204] INFO [__main__] Configurations initialized successfully
+[2025-03-06 15:16:23,204] INFO [__main__] Selected LLM provider: openai
+[2025-03-06 15:16:23,205] INFO [__main__] Initializing components with LLM provider: openai
+[2025-03-06 15:16:23,205] INFO [retrieval.vector_store] Using connect_to_weaviate_cloud method
+[2025-03-06 15:16:23,988] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-06 15:16:24,006] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-06 15:16:29,036] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-06 15:16:29,574] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-06 15:16:29,692] ERROR [retrieval.vector_store] Client connection test failed: 'WeaviateClient' object has no attribute 'schema'
+[2025-03-06 15:16:30,013] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-06 15:16:32,334] INFO [reasoning.auto_rag] Setting up OpenAI LLM with model: gpt-4o-mini
+[2025-03-06 15:16:32,495] INFO [reasoning.auto_rag] Initialized Traffic AutoRAG with LLM provider: LLMProvider.OPENAI
+[2025-03-06 15:16:32,495] INFO [__main__] Initializing web search integration
+[2025-03-06 15:16:32,495] INFO [web_handle.web_search] Initialized WebSearchIntegrator
+[2025-03-06 15:16:32,496] INFO [__main__] Components initialized successfully
+[2025-03-06 15:16:32,498] INFO [__main__] Starting application
+[2025-03-06 15:16:32,500] INFO [__main__] Selected LLM provider: openai
+[2025-03-06 15:16:32,500] INFO [__main__] Initializing components with LLM provider: openai
+[2025-03-06 15:16:32,500] INFO [retrieval.vector_store] Using connect_to_weaviate_cloud method
+[2025-03-06 15:16:32,924] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-06 15:16:32,930] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-06 15:16:36,540] INFO [__main__] Starting application
+[2025-03-06 15:16:36,547] INFO [__main__] Selected LLM provider: ollama
+[2025-03-06 15:16:36,549] INFO [__main__] Initializing components with LLM provider: ollama
+[2025-03-06 15:16:36,552] INFO [retrieval.vector_store] Using connect_to_weaviate_cloud method
+[2025-03-06 15:16:37,168] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-06 15:16:37,172] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-06 15:16:37,611] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-06 15:16:37,665] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-06 15:16:37,670] ERROR [retrieval.vector_store] Client connection test failed: 'WeaviateClient' object has no attribute 'schema'
+[2025-03-06 15:16:37,900] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-06 15:16:40,120] INFO [reasoning.auto_rag] Setting up OpenAI LLM with model: gpt-4o-mini
+[2025-03-06 15:16:40,120] INFO [reasoning.auto_rag] Initialized Traffic AutoRAG with LLM provider: LLMProvider.OPENAI
+[2025-03-06 15:16:40,120] INFO [__main__] Initializing web search integration
+[2025-03-06 15:16:40,121] INFO [web_handle.web_search] Initialized WebSearchIntegrator
+[2025-03-06 15:16:40,121] INFO [__main__] Components initialized successfully
+[2025-03-06 15:16:41,868] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-06 15:16:41,922] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-06 15:16:41,927] ERROR [retrieval.vector_store] Client connection test failed: 'WeaviateClient' object has no attribute 'schema'
+[2025-03-06 15:16:42,125] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-06 15:16:43,998] INFO [reasoning.auto_rag] Setting up Ollama client with model: qwen2.5:32b
+[2025-03-06 15:16:43,998] INFO [llm.ollama_client] Creating OllamaClient with config: {'api_url': 'http://192.168.100.125:11434', 'model_name': 'qwen2.5:32b', 'temperature': 0.7, 'max_tokens': 65536, 'top_p': 0.95, 'timeout': 120.0, 'request_timeout': 120.0}
+[2025-03-06 15:16:44,039] INFO [llm.ollama_client] Initialized Ollama client for model: qwen2.5:32b at http://192.168.100.125:11434
+[2025-03-06 15:16:44,039] INFO [reasoning.auto_rag] Successfully initialized Ollama client with API URL: http://192.168.100.125:11434
+[2025-03-06 15:16:44,039] INFO [reasoning.auto_rag] Initialized Traffic AutoRAG with LLM provider: LLMProvider.OLLAMA
+[2025-03-06 15:16:44,039] INFO [__main__] Initializing web search integration
+[2025-03-06 15:16:44,039] INFO [web_handle.web_search] Initialized WebSearchIntegrator
+[2025-03-06 15:16:44,039] INFO [__main__] Components initialized successfully
+[2025-03-06 15:16:46,521] INFO [__main__] Starting application
+[2025-03-06 15:16:46,530] INFO [__main__] Selected LLM provider: ollama
+[2025-03-06 15:16:46,530] INFO [__main__] Initializing components with LLM provider: ollama
+[2025-03-06 15:16:46,533] INFO [retrieval.vector_store] Using connect_to_weaviate_cloud method
+[2025-03-06 15:16:46,806] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-06 15:16:46,811] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-06 15:16:51,176] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-06 15:16:51,250] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-06 15:16:51,254] ERROR [retrieval.vector_store] Client connection test failed: 'WeaviateClient' object has no attribute 'schema'
+[2025-03-06 15:16:51,435] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-06 15:16:53,339] INFO [reasoning.auto_rag] Setting up Ollama client with model: qwen2.5:32b
+[2025-03-06 15:16:53,339] INFO [llm.ollama_client] Creating OllamaClient with config: {'api_url': 'http://192.168.100.125:11434', 'model_name': 'qwen2.5:32b', 'temperature': 0.7, 'max_tokens': 65536, 'top_p': 0.95, 'timeout': 120.0, 'request_timeout': 120.0}
+[2025-03-06 15:16:53,374] INFO [llm.ollama_client] Initialized Ollama client for model: qwen2.5:32b at http://192.168.100.125:11434
+[2025-03-06 15:16:53,374] INFO [reasoning.auto_rag] Successfully initialized Ollama client with API URL: http://192.168.100.125:11434
+[2025-03-06 15:16:53,374] INFO [reasoning.auto_rag] Initialized Traffic AutoRAG with LLM provider: LLMProvider.OLLAMA
+[2025-03-06 15:16:53,374] INFO [__main__] Initializing web search integration
+[2025-03-06 15:16:53,375] INFO [web_handle.web_search] Initialized WebSearchIntegrator
+[2025-03-06 15:16:53,375] INFO [__main__] Components initialized successfully
+[2025-03-06 15:23:08,186] INFO [__main__] Starting application
+[2025-03-06 15:23:08,190] INFO [__main__] Selected LLM provider: ollama
+[2025-03-06 15:23:08,190] INFO [__main__] Initializing components with LLM provider: ollama
+[2025-03-06 15:23:08,191] INFO [retrieval.vector_store] Using connect_to_weaviate_cloud method
+[2025-03-06 15:23:08,623] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-06 15:23:08,632] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-06 15:23:13,573] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-06 15:23:13,638] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-06 15:23:13,645] ERROR [retrieval.vector_store] Client connection test failed: 'WeaviateClient' object has no attribute 'schema'
+[2025-03-06 15:23:13,884] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-06 15:23:15,753] INFO [reasoning.auto_rag] Setting up Ollama client with model: qwen2.5:32b
+[2025-03-06 15:23:15,753] INFO [llm.ollama_client] Creating OllamaClient with config: {'api_url': 'http://192.168.100.125:11434', 'model_name': 'qwen2.5:32b', 'temperature': 0.7, 'max_tokens': 65536, 'top_p': 0.95, 'timeout': 120.0, 'request_timeout': 120.0}
+[2025-03-06 15:23:15,794] INFO [llm.ollama_client] Initialized Ollama client for model: qwen2.5:32b at http://192.168.100.125:11434
+[2025-03-06 15:23:15,794] INFO [reasoning.auto_rag] Successfully initialized Ollama client with API URL: http://192.168.100.125:11434
+[2025-03-06 15:23:15,794] INFO [reasoning.auto_rag] Initialized Traffic AutoRAG with LLM provider: LLMProvider.OLLAMA
+[2025-03-06 15:23:15,794] INFO [__main__] Initializing web search integration
+[2025-03-06 15:23:15,795] INFO [web_handle.web_search] Initialized WebSearchIntegrator
+[2025-03-06 15:23:15,795] INFO [__main__] Components initialized successfully
+[2025-03-06 15:23:15,796] INFO [__main__] Processing new question: Sử dụng còi trong thời gian từ 22 giờ ngày hôm trước đến 05 giờ ngày hôm sau trong khu đông dân cư, khu vực cơ sở khám bệnh, chữa bệnh bị phạt tiền bao nhiêu
+[2025-03-06 15:23:15,797] INFO [__main__] Processing question: Sử dụng còi trong thời gian từ 22 giờ ngày hôm trước đến 05 giờ ngày hôm sau trong khu đông dân cư, khu vực cơ sở khám bệnh, chữa bệnh bị phạt tiền bao nhiêu
+[2025-03-06 15:23:15,797] INFO [reasoning.auto_rag] Question validated as traffic-related via keyword: phạt
+[2025-03-06 15:23:24,117] INFO [httpx] HTTP Request: POST http://192.168.100.125:11434/api/generate "HTTP/1.1 200 OK"
+[2025-03-06 15:23:29,762] INFO [httpx] HTTP Request: POST http://192.168.100.125:11434/api/generate "HTTP/1.1 200 OK"
+[2025-03-06 15:23:29,792] INFO [utils] Function process_question completed in 13.99 seconds
+[2025-03-06 15:23:29,793] INFO [__main__] Question processed in 14.00 seconds
+[2025-03-06 15:23:29,794] INFO [__main__] Needs web search: True
+[2025-03-06 15:23:29,795] INFO [__main__] Web search prompt triggered
+[2025-03-06 15:23:29,797] INFO [__main__] Displaying results
+[2025-03-06 15:23:29,798] INFO [__main__] Response generated using: QWQ:32B (Ollama)
+[2025-03-06 15:23:29,811] INFO [__main__] Cleaning up components
+[2025-03-06 15:23:29,819] INFO [__main__] Displaying web search prompt
+[2025-03-06 15:23:57,901] INFO [__main__] Starting application
+[2025-03-06 15:23:57,911] INFO [__main__] Selected LLM provider: ollama
+[2025-03-06 15:23:57,912] INFO [__main__] Initializing components with LLM provider: ollama
+[2025-03-06 15:23:57,914] INFO [retrieval.vector_store] Using connect_to_weaviate_cloud method
+[2025-03-06 15:23:58,061] INFO [__main__] Starting application
+[2025-03-06 15:23:58,065] INFO [__main__] Selected LLM provider: ollama
+[2025-03-06 15:23:58,066] INFO [__main__] Initializing components with LLM provider: ollama
+[2025-03-06 15:23:58,066] INFO [retrieval.vector_store] Using connect_to_weaviate_cloud method
+[2025-03-06 15:23:58,193] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-06 15:23:58,198] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-06 15:23:58,271] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-06 15:23:58,276] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-06 15:24:02,678] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-06 15:24:02,741] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-06 15:24:02,744] ERROR [retrieval.vector_store] Client connection test failed: 'WeaviateClient' object has no attribute 'schema'
+[2025-03-06 15:24:02,936] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-06 15:24:03,959] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-06 15:24:04,116] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-06 15:24:04,120] ERROR [retrieval.vector_store] Client connection test failed: 'WeaviateClient' object has no attribute 'schema'
+[2025-03-06 15:24:04,361] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-06 15:24:04,952] INFO [reasoning.auto_rag] Setting up Ollama client with model: qwen2.5:32b
+[2025-03-06 15:24:04,952] INFO [llm.ollama_client] Creating OllamaClient with config: {'api_url': 'http://192.168.100.125:11434', 'model_name': 'qwen2.5:32b', 'temperature': 0.7, 'max_tokens': 65536, 'top_p': 0.95, 'timeout': 120.0, 'request_timeout': 120.0}
+[2025-03-06 15:24:04,992] INFO [llm.ollama_client] Initialized Ollama client for model: qwen2.5:32b at http://192.168.100.125:11434
+[2025-03-06 15:24:04,992] INFO [reasoning.auto_rag] Successfully initialized Ollama client with API URL: http://192.168.100.125:11434
+[2025-03-06 15:24:04,992] INFO [reasoning.auto_rag] Initialized Traffic AutoRAG with LLM provider: LLMProvider.OLLAMA
+[2025-03-06 15:24:04,992] INFO [__main__] Initializing web search integration
+[2025-03-06 15:24:04,992] INFO [web_handle.web_search] Initialized WebSearchIntegrator
+[2025-03-06 15:24:04,992] INFO [__main__] Components initialized successfully
+[2025-03-06 15:24:06,300] INFO [reasoning.auto_rag] Setting up Ollama client with model: qwen2.5:32b
+[2025-03-06 15:24:06,301] INFO [llm.ollama_client] Creating OllamaClient with config: {'api_url': 'http://192.168.100.125:11434', 'model_name': 'qwen2.5:32b', 'temperature': 0.7, 'max_tokens': 65536, 'top_p': 0.95, 'timeout': 120.0, 'request_timeout': 120.0}
+[2025-03-06 15:24:06,340] INFO [llm.ollama_client] Initialized Ollama client for model: qwen2.5:32b at http://192.168.100.125:11434
+[2025-03-06 15:24:06,340] INFO [reasoning.auto_rag] Successfully initialized Ollama client with API URL: http://192.168.100.125:11434
+[2025-03-06 15:24:06,340] INFO [reasoning.auto_rag] Initialized Traffic AutoRAG with LLM provider: LLMProvider.OLLAMA
+[2025-03-06 15:24:06,340] INFO [__main__] Initializing web search integration
+[2025-03-06 15:24:06,341] INFO [web_handle.web_search] Initialized WebSearchIntegrator
+[2025-03-06 15:24:06,341] INFO [__main__] Components initialized successfully
+[2025-03-06 15:24:06,342] INFO [__main__] Processing new question: Điều khiển xe chạy quá tốc độ quy định từ 05 km/h đến dưới 10 km/h bị phạt bao nhiêu
+[2025-03-06 15:24:06,343] INFO [__main__] Processing question: Điều khiển xe chạy quá tốc độ quy định từ 05 km/h đến dưới 10 km/h bị phạt bao nhiêu
+[2025-03-06 15:24:06,343] INFO [reasoning.auto_rag] Question validated as traffic-related via keyword: phạt
+[2025-03-06 15:24:12,259] INFO [httpx] HTTP Request: POST http://192.168.100.125:11434/api/generate "HTTP/1.1 200 OK"
+[2025-03-06 15:24:18,285] INFO [httpx] HTTP Request: POST http://192.168.100.125:11434/api/generate "HTTP/1.1 200 OK"
+[2025-03-06 15:24:18,325] INFO [utils] Function process_question completed in 11.98 seconds
+[2025-03-06 15:24:18,325] INFO [__main__] Question processed in 11.98 seconds
+[2025-03-06 15:24:18,326] INFO [__main__] Needs web search: True
+[2025-03-06 15:24:18,326] INFO [__main__] Web search prompt triggered
+[2025-03-06 15:24:18,326] INFO [__main__] Displaying results
+[2025-03-06 15:24:18,327] INFO [__main__] Response generated using: QWQ:32B (Ollama)
+[2025-03-06 15:24:18,329] INFO [__main__] Cleaning up components
+[2025-03-06 15:24:18,331] INFO [__main__] Displaying web search prompt
+[2025-03-06 15:24:45,043] INFO [__main__] Starting application
+[2025-03-06 15:24:45,046] INFO [__main__] Selected LLM provider: ollama
+[2025-03-06 15:24:45,046] INFO [__main__] Initializing components with LLM provider: ollama
+[2025-03-06 15:24:45,047] INFO [retrieval.vector_store] Using connect_to_weaviate_cloud method
+[2025-03-06 15:24:45,141] INFO [__main__] Starting application
+[2025-03-06 15:24:45,143] INFO [__main__] Selected LLM provider: ollama
+[2025-03-06 15:24:45,144] INFO [__main__] Initializing components with LLM provider: ollama
+[2025-03-06 15:24:45,144] INFO [retrieval.vector_store] Using connect_to_weaviate_cloud method
+[2025-03-06 15:24:45,284] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-06 15:24:45,292] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-06 15:24:45,352] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-06 15:24:45,355] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-06 15:24:49,782] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-06 15:24:49,852] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-06 15:24:50,141] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-06 15:24:50,154] ERROR [retrieval.vector_store] Client connection test failed: 'WeaviateClient' object has no attribute 'schema'
+[2025-03-06 15:24:50,201] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-06 15:24:50,203] ERROR [retrieval.vector_store] Client connection test failed: 'WeaviateClient' object has no attribute 'schema'
+[2025-03-06 15:24:50,368] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-06 15:24:50,392] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-06 15:24:52,435] INFO [reasoning.auto_rag] Setting up Ollama client with model: qwen2.5:32b
+[2025-03-06 15:24:52,435] INFO [llm.ollama_client] Creating OllamaClient with config: {'api_url': 'http://192.168.100.125:11434', 'model_name': 'qwen2.5:32b', 'temperature': 0.7, 'max_tokens': 65536, 'top_p': 0.95, 'timeout': 120.0, 'request_timeout': 120.0}
+[2025-03-06 15:24:52,810] INFO [llm.ollama_client] Initialized Ollama client for model: qwen2.5:32b at http://192.168.100.125:11434
+[2025-03-06 15:24:52,810] INFO [reasoning.auto_rag] Successfully initialized Ollama client with API URL: http://192.168.100.125:11434
+[2025-03-06 15:24:52,810] INFO [reasoning.auto_rag] Initialized Traffic AutoRAG with LLM provider: LLMProvider.OLLAMA
+[2025-03-06 15:24:52,810] INFO [__main__] Initializing web search integration
+[2025-03-06 15:24:52,811] INFO [web_handle.web_search] Initialized WebSearchIntegrator
+[2025-03-06 15:24:52,811] INFO [__main__] Components initialized successfully
+[2025-03-06 15:24:52,813] INFO [__main__] Processing new question: hi
+[2025-03-06 15:24:52,814] INFO [__main__] Processing question: hi
+[2025-03-06 15:24:52,814] WARNING [reasoning.auto_rag] Question may not be traffic-related: hi
+[2025-03-06 15:24:52,815] INFO [utils] Function process_question completed in 0.00 seconds
+[2025-03-06 15:24:52,815] INFO [__main__] Question processed in 0.00 seconds
+[2025-03-06 15:24:52,815] ERROR [__main__] Error in response: Câu hỏi có vẻ không liên quan đến luật giao thông. Vui lòng đặt câu hỏi về luật giao thông.
+[2025-03-06 15:24:52,816] INFO [reasoning.auto_rag] Setting up Ollama client with model: qwen2.5:32b
+[2025-03-06 15:24:52,816] INFO [__main__] Cleaning up components
+[2025-03-06 15:24:52,816] INFO [llm.ollama_client] Creating OllamaClient with config: {'api_url': 'http://192.168.100.125:11434', 'model_name': 'qwen2.5:32b', 'temperature': 0.7, 'max_tokens': 65536, 'top_p': 0.95, 'timeout': 120.0, 'request_timeout': 120.0}
+[2025-03-06 15:24:52,975] INFO [llm.ollama_client] Initialized Ollama client for model: qwen2.5:32b at http://192.168.100.125:11434
+[2025-03-06 15:24:53,160] INFO [reasoning.auto_rag] Successfully initialized Ollama client with API URL: http://192.168.100.125:11434
+[2025-03-06 15:24:53,160] INFO [reasoning.auto_rag] Initialized Traffic AutoRAG with LLM provider: LLMProvider.OLLAMA
+[2025-03-06 15:24:53,160] INFO [__main__] Initializing web search integration
+[2025-03-06 15:24:53,161] INFO [web_handle.web_search] Initialized WebSearchIntegrator
+[2025-03-06 15:24:53,162] INFO [__main__] Components initialized successfully
+[2025-03-06 15:25:13,819] INFO [__main__] Starting application
+[2025-03-06 15:25:13,827] INFO [__main__] Selected LLM provider: ollama
+[2025-03-06 15:25:13,828] INFO [__main__] Initializing components with LLM provider: ollama
+[2025-03-06 15:25:13,829] INFO [retrieval.vector_store] Using connect_to_weaviate_cloud method
+[2025-03-06 15:25:13,947] INFO [__main__] Starting application
+[2025-03-06 15:25:13,949] INFO [__main__] Selected LLM provider: ollama
+[2025-03-06 15:25:13,949] INFO [__main__] Initializing components with LLM provider: ollama
+[2025-03-06 15:25:13,950] INFO [retrieval.vector_store] Using connect_to_weaviate_cloud method
+[2025-03-06 15:25:14,091] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-06 15:25:14,097] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-06 15:25:14,167] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-06 15:25:14,172] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-06 15:25:18,526] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-06 15:25:18,584] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-06 15:25:18,589] ERROR [retrieval.vector_store] Client connection test failed: 'WeaviateClient' object has no attribute 'schema'
+[2025-03-06 15:25:18,791] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-06 15:25:19,123] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-06 15:25:19,188] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-06 15:25:19,193] ERROR [retrieval.vector_store] Client connection test failed: 'WeaviateClient' object has no attribute 'schema'
+[2025-03-06 15:25:19,417] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-06 15:25:20,765] INFO [reasoning.auto_rag] Setting up Ollama client with model: qwen2.5:32b
+[2025-03-06 15:25:20,765] INFO [llm.ollama_client] Creating OllamaClient with config: {'api_url': 'http://192.168.100.125:11434', 'model_name': 'qwen2.5:32b', 'temperature': 0.7, 'max_tokens': 65536, 'top_p': 0.95, 'timeout': 120.0, 'request_timeout': 120.0}
+[2025-03-06 15:25:20,808] INFO [llm.ollama_client] Initialized Ollama client for model: qwen2.5:32b at http://192.168.100.125:11434
+[2025-03-06 15:25:20,808] INFO [reasoning.auto_rag] Successfully initialized Ollama client with API URL: http://192.168.100.125:11434
+[2025-03-06 15:25:20,808] INFO [reasoning.auto_rag] Initialized Traffic AutoRAG with LLM provider: LLMProvider.OLLAMA
+[2025-03-06 15:25:20,808] INFO [__main__] Initializing web search integration
+[2025-03-06 15:25:20,809] INFO [web_handle.web_search] Initialized WebSearchIntegrator
+[2025-03-06 15:25:20,809] INFO [__main__] Components initialized successfully
+[2025-03-06 15:25:22,079] INFO [reasoning.auto_rag] Setting up Ollama client with model: qwen2.5:32b
+[2025-03-06 15:25:22,080] INFO [llm.ollama_client] Creating OllamaClient with config: {'api_url': 'http://192.168.100.125:11434', 'model_name': 'qwen2.5:32b', 'temperature': 0.7, 'max_tokens': 65536, 'top_p': 0.95, 'timeout': 120.0, 'request_timeout': 120.0}
+[2025-03-06 15:25:22,122] INFO [llm.ollama_client] Initialized Ollama client for model: qwen2.5:32b at http://192.168.100.125:11434
+[2025-03-06 15:25:22,122] INFO [reasoning.auto_rag] Successfully initialized Ollama client with API URL: http://192.168.100.125:11434
+[2025-03-06 15:25:22,122] INFO [reasoning.auto_rag] Initialized Traffic AutoRAG with LLM provider: LLMProvider.OLLAMA
+[2025-03-06 15:25:22,122] INFO [__main__] Initializing web search integration
+[2025-03-06 15:25:22,122] INFO [web_handle.web_search] Initialized WebSearchIntegrator
+[2025-03-06 15:25:22,122] INFO [__main__] Components initialized successfully
+[2025-03-06 15:25:22,123] INFO [__main__] Processing new question: không đội mũ bảo hiểm bị phạt bao nhiêu tiền 
+[2025-03-06 15:25:22,124] INFO [__main__] Processing question: không đội mũ bảo hiểm bị phạt bao nhiêu tiền 
+[2025-03-06 15:25:22,124] INFO [reasoning.auto_rag] Question validated as traffic-related via keyword: mũ bảo hiểm
+[2025-03-06 15:25:29,557] INFO [httpx] HTTP Request: POST http://192.168.100.125:11434/api/generate "HTTP/1.1 200 OK"
+[2025-03-06 15:25:41,642] INFO [httpx] HTTP Request: POST http://192.168.100.125:11434/api/generate "HTTP/1.1 200 OK"
+[2025-03-06 15:25:41,678] INFO [utils] Function process_question completed in 19.55 seconds
+[2025-03-06 15:25:41,679] INFO [__main__] Question processed in 19.56 seconds
+[2025-03-06 15:25:41,680] INFO [__main__] Needs web search: False
+[2025-03-06 15:25:41,680] INFO [__main__] Displaying results
+[2025-03-06 15:25:41,681] INFO [__main__] Response generated using: QWQ:32B (Ollama)
+[2025-03-06 15:25:41,687] INFO [__main__] Cleaning up components
+[2025-03-06 15:26:43,244] INFO [__main__] Starting application
+[2025-03-06 15:26:43,246] INFO [__main__] Initializing configurations
+[2025-03-06 15:26:43,246] INFO [__main__] Configurations initialized successfully
+[2025-03-06 15:26:43,246] INFO [__main__] Selected LLM provider: openai
+[2025-03-06 15:26:43,246] INFO [__main__] Initializing components with LLM provider: openai
+[2025-03-06 15:26:43,246] INFO [retrieval.vector_store] Using connect_to_weaviate_cloud method
+[2025-03-06 15:26:43,492] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-06 15:26:43,501] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-06 15:26:48,494] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-06 15:26:48,636] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-06 15:26:48,760] ERROR [retrieval.vector_store] Client connection test failed: 'WeaviateClient' object has no attribute 'schema'
+[2025-03-06 15:26:48,990] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-06 15:26:50,995] INFO [reasoning.auto_rag] Setting up OpenAI LLM with model: gpt-4o-mini
+[2025-03-06 15:26:51,150] INFO [reasoning.auto_rag] Initialized Traffic AutoRAG with LLM provider: LLMProvider.OPENAI
+[2025-03-06 15:26:51,150] INFO [__main__] Initializing web search integration
+[2025-03-06 15:26:51,150] INFO [web_handle.web_search] Initialized WebSearchIntegrator
+[2025-03-06 15:26:51,150] INFO [__main__] Components initialized successfully
+[2025-03-06 15:27:19,288] INFO [__main__] Starting application
+[2025-03-06 15:27:19,288] INFO [__main__] Selected LLM provider: openai
+[2025-03-06 15:27:19,289] INFO [__main__] Initializing components with LLM provider: openai
+[2025-03-06 15:27:19,289] INFO [retrieval.vector_store] Using connect_to_weaviate_cloud method
+[2025-03-06 15:27:19,489] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-06 15:27:19,495] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-06 15:27:21,544] INFO [__main__] Starting application
+[2025-03-06 15:27:21,552] INFO [__main__] Selected LLM provider: ollama
+[2025-03-06 15:27:21,553] INFO [__main__] Initializing components with LLM provider: ollama
+[2025-03-06 15:27:21,553] INFO [retrieval.vector_store] Using connect_to_weaviate_cloud method
+[2025-03-06 15:27:21,742] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-06 15:27:21,746] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-06 15:27:24,045] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-06 15:27:24,104] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-06 15:27:24,106] ERROR [retrieval.vector_store] Client connection test failed: 'WeaviateClient' object has no attribute 'schema'
+[2025-03-06 15:27:24,271] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-06 15:27:26,387] INFO [reasoning.auto_rag] Setting up OpenAI LLM with model: gpt-4o-mini
+[2025-03-06 15:27:26,388] INFO [reasoning.auto_rag] Initialized Traffic AutoRAG with LLM provider: LLMProvider.OPENAI
+[2025-03-06 15:27:26,388] INFO [__main__] Initializing web search integration
+[2025-03-06 15:27:26,388] INFO [web_handle.web_search] Initialized WebSearchIntegrator
+[2025-03-06 15:27:26,388] INFO [__main__] Components initialized successfully
+[2025-03-06 15:27:26,390] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-06 15:27:26,927] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-06 15:27:26,929] ERROR [retrieval.vector_store] Client connection test failed: 'WeaviateClient' object has no attribute 'schema'
+[2025-03-06 15:27:27,128] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-06 15:27:29,218] INFO [reasoning.auto_rag] Setting up Ollama client with model: qwen2.5:32b
+[2025-03-06 15:27:29,219] INFO [llm.ollama_client] Creating OllamaClient with config: {'api_url': 'http://192.168.100.125:11434', 'model_name': 'qwen2.5:32b', 'temperature': 0.7, 'max_tokens': 65536, 'top_p': 0.95, 'timeout': 120.0, 'request_timeout': 120.0}
+[2025-03-06 15:27:29,253] INFO [llm.ollama_client] Initialized Ollama client for model: qwen2.5:32b at http://192.168.100.125:11434
+[2025-03-06 15:27:29,253] INFO [reasoning.auto_rag] Successfully initialized Ollama client with API URL: http://192.168.100.125:11434
+[2025-03-06 15:27:29,253] INFO [reasoning.auto_rag] Initialized Traffic AutoRAG with LLM provider: LLMProvider.OLLAMA
+[2025-03-06 15:27:29,253] INFO [__main__] Initializing web search integration
+[2025-03-06 15:27:29,254] INFO [web_handle.web_search] Initialized WebSearchIntegrator
+[2025-03-06 15:27:29,254] INFO [__main__] Components initialized successfully
+[2025-03-06 15:27:50,162] INFO [__main__] Starting application
+[2025-03-06 15:27:50,164] INFO [__main__] Selected LLM provider: openai
+[2025-03-06 15:27:50,164] INFO [__main__] Initializing components with LLM provider: openai
+[2025-03-06 15:27:50,166] INFO [retrieval.vector_store] Using connect_to_weaviate_cloud method
+[2025-03-06 15:27:50,374] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-06 15:27:50,379] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-06 15:27:55,486] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-06 15:27:55,641] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-06 15:27:55,644] ERROR [retrieval.vector_store] Client connection test failed: 'WeaviateClient' object has no attribute 'schema'
+[2025-03-06 15:27:55,807] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-06 15:27:57,914] INFO [reasoning.auto_rag] Setting up OpenAI LLM with model: gpt-4o-mini
+[2025-03-06 15:27:57,914] INFO [reasoning.auto_rag] Initialized Traffic AutoRAG with LLM provider: LLMProvider.OPENAI
+[2025-03-06 15:27:57,914] INFO [__main__] Initializing web search integration
+[2025-03-06 15:27:57,914] INFO [web_handle.web_search] Initialized WebSearchIntegrator
+[2025-03-06 15:27:57,914] INFO [__main__] Components initialized successfully
+[2025-03-06 15:28:02,325] INFO [__main__] Starting application
+[2025-03-06 15:28:02,326] INFO [__main__] Selected LLM provider: openai
+[2025-03-06 15:28:02,326] INFO [__main__] Initializing components with LLM provider: openai
+[2025-03-06 15:28:02,327] INFO [retrieval.vector_store] Using connect_to_weaviate_cloud method
+[2025-03-06 15:28:02,531] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-06 15:28:02,537] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-06 15:28:05,139] INFO [__main__] Starting application
+[2025-03-06 15:28:05,149] INFO [__main__] Selected LLM provider: ollama
+[2025-03-06 15:28:05,150] INFO [__main__] Initializing components with LLM provider: ollama
+[2025-03-06 15:28:05,153] INFO [retrieval.vector_store] Using connect_to_weaviate_cloud method
+[2025-03-06 15:28:05,244] INFO [__main__] Starting application
+[2025-03-06 15:28:05,247] INFO [__main__] Selected LLM provider: ollama
+[2025-03-06 15:28:05,247] INFO [__main__] Initializing components with LLM provider: ollama
+[2025-03-06 15:28:05,248] INFO [retrieval.vector_store] Using connect_to_weaviate_cloud method
+[2025-03-06 15:28:05,411] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-06 15:28:05,416] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-06 15:28:05,444] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-06 15:28:05,449] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-06 15:28:06,968] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-06 15:28:07,020] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-06 15:28:07,023] ERROR [retrieval.vector_store] Client connection test failed: 'WeaviateClient' object has no attribute 'schema'
+[2025-03-06 15:28:07,246] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-06 15:28:09,321] INFO [reasoning.auto_rag] Setting up OpenAI LLM with model: gpt-4o-mini
+[2025-03-06 15:28:09,321] INFO [reasoning.auto_rag] Initialized Traffic AutoRAG with LLM provider: LLMProvider.OPENAI
+[2025-03-06 15:28:09,321] INFO [__main__] Initializing web search integration
+[2025-03-06 15:28:09,322] INFO [web_handle.web_search] Initialized WebSearchIntegrator
+[2025-03-06 15:28:09,322] INFO [__main__] Components initialized successfully
+[2025-03-06 15:28:10,437] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-06 15:28:10,892] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-06 15:28:10,896] ERROR [retrieval.vector_store] Client connection test failed: 'WeaviateClient' object has no attribute 'schema'
+[2025-03-06 15:28:11,089] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-06 15:28:11,353] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-06 15:28:11,534] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-06 15:28:11,538] ERROR [retrieval.vector_store] Client connection test failed: 'WeaviateClient' object has no attribute 'schema'
+[2025-03-06 15:28:11,724] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-06 15:28:13,019] INFO [reasoning.auto_rag] Setting up Ollama client with model: qwen2.5:32b
+[2025-03-06 15:28:13,019] INFO [llm.ollama_client] Creating OllamaClient with config: {'api_url': 'http://192.168.100.125:11434', 'model_name': 'qwen2.5:32b', 'temperature': 0.7, 'max_tokens': 65536, 'top_p': 0.95, 'timeout': 120.0, 'request_timeout': 120.0}
+[2025-03-06 15:28:13,053] INFO [llm.ollama_client] Initialized Ollama client for model: qwen2.5:32b at http://192.168.100.125:11434
+[2025-03-06 15:28:13,053] INFO [reasoning.auto_rag] Successfully initialized Ollama client with API URL: http://192.168.100.125:11434
+[2025-03-06 15:28:13,053] INFO [reasoning.auto_rag] Initialized Traffic AutoRAG with LLM provider: LLMProvider.OLLAMA
+[2025-03-06 15:28:13,053] INFO [__main__] Initializing web search integration
+[2025-03-06 15:28:13,053] INFO [web_handle.web_search] Initialized WebSearchIntegrator
+[2025-03-06 15:28:13,053] INFO [__main__] Components initialized successfully
+[2025-03-06 15:28:14,340] INFO [reasoning.auto_rag] Setting up Ollama client with model: qwen2.5:32b
+[2025-03-06 15:28:14,340] INFO [llm.ollama_client] Creating OllamaClient with config: {'api_url': 'http://192.168.100.125:11434', 'model_name': 'qwen2.5:32b', 'temperature': 0.7, 'max_tokens': 65536, 'top_p': 0.95, 'timeout': 120.0, 'request_timeout': 120.0}
+[2025-03-06 15:28:14,381] INFO [llm.ollama_client] Initialized Ollama client for model: qwen2.5:32b at http://192.168.100.125:11434
+[2025-03-06 15:28:14,381] INFO [reasoning.auto_rag] Successfully initialized Ollama client with API URL: http://192.168.100.125:11434
+[2025-03-06 15:28:14,381] INFO [reasoning.auto_rag] Initialized Traffic AutoRAG with LLM provider: LLMProvider.OLLAMA
+[2025-03-06 15:28:14,381] INFO [__main__] Initializing web search integration
+[2025-03-06 15:28:14,381] INFO [web_handle.web_search] Initialized WebSearchIntegrator
+[2025-03-06 15:28:14,381] INFO [__main__] Components initialized successfully
+[2025-03-06 15:28:14,382] INFO [__main__] Processing new question: Điều khiển xe chạy quá tốc độ quy định từ 05 km/h đến dưới 10 km/h biị phat bao nhieu tien
+[2025-03-06 15:28:14,383] INFO [__main__] Processing question: Điều khiển xe chạy quá tốc độ quy định từ 05 km/h đến dưới 10 km/h biị phat bao nhieu tien
+[2025-03-06 15:28:14,383] INFO [reasoning.auto_rag] Question validated as traffic-related via keyword: tốc độ
+[2025-03-06 15:28:19,624] INFO [httpx] HTTP Request: POST http://192.168.100.125:11434/api/generate "HTTP/1.1 200 OK"
+[2025-03-06 15:28:25,277] INFO [httpx] HTTP Request: POST http://192.168.100.125:11434/api/generate "HTTP/1.1 200 OK"
+[2025-03-06 15:28:25,318] INFO [utils] Function process_question completed in 10.94 seconds
+[2025-03-06 15:28:25,319] INFO [__main__] Question processed in 10.94 seconds
+[2025-03-06 15:28:25,319] INFO [__main__] Needs web search: True
+[2025-03-06 15:28:25,319] INFO [__main__] Web search prompt triggered
+[2025-03-06 15:28:25,319] INFO [__main__] Displaying results
+[2025-03-06 15:28:25,320] INFO [__main__] Response generated using: QWQ:32B (Ollama)
+[2025-03-06 15:28:25,322] INFO [__main__] Cleaning up components
+[2025-03-06 15:28:25,324] INFO [__main__] Displaying web search prompt
+[2025-03-06 15:28:39,792] INFO [__main__] Starting application
+[2025-03-06 15:28:39,796] INFO [__main__] Selected LLM provider: ollama
+[2025-03-06 15:28:39,797] INFO [__main__] Initializing components with LLM provider: ollama
+[2025-03-06 15:28:39,797] INFO [retrieval.vector_store] Using connect_to_weaviate_cloud method
+[2025-03-06 15:28:40,022] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-06 15:28:40,026] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-06 15:28:44,533] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-06 15:28:44,580] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-06 15:28:44,584] ERROR [retrieval.vector_store] Client connection test failed: 'WeaviateClient' object has no attribute 'schema'
+[2025-03-06 15:28:44,787] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-06 15:28:46,715] INFO [reasoning.auto_rag] Setting up Ollama client with model: qwen2.5:32b
+[2025-03-06 15:28:46,715] INFO [llm.ollama_client] Creating OllamaClient with config: {'api_url': 'http://192.168.100.125:11434', 'model_name': 'qwen2.5:32b', 'temperature': 0.7, 'max_tokens': 65536, 'top_p': 0.95, 'timeout': 120.0, 'request_timeout': 120.0}
+[2025-03-06 15:28:46,748] INFO [llm.ollama_client] Initialized Ollama client for model: qwen2.5:32b at http://192.168.100.125:11434
+[2025-03-06 15:28:46,749] INFO [reasoning.auto_rag] Successfully initialized Ollama client with API URL: http://192.168.100.125:11434
+[2025-03-06 15:28:46,749] INFO [reasoning.auto_rag] Initialized Traffic AutoRAG with LLM provider: LLMProvider.OLLAMA
+[2025-03-06 15:28:46,749] INFO [__main__] Initializing web search integration
+[2025-03-06 15:28:46,749] INFO [web_handle.web_search] Initialized WebSearchIntegrator
+[2025-03-06 15:28:46,749] INFO [__main__] Components initialized successfully
+[2025-03-06 15:28:46,750] INFO [__main__] Displaying web search prompt
+[2025-03-06 15:28:58,695] INFO [__main__] Starting application
+[2025-03-06 15:28:58,699] INFO [__main__] Selected LLM provider: ollama
+[2025-03-06 15:28:58,701] INFO [__main__] Initializing components with LLM provider: ollama
+[2025-03-06 15:28:58,701] INFO [retrieval.vector_store] Using connect_to_weaviate_cloud method
+[2025-03-06 15:28:58,913] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-06 15:28:58,919] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-06 15:29:03,477] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-06 15:29:03,535] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-06 15:29:03,540] ERROR [retrieval.vector_store] Client connection test failed: 'WeaviateClient' object has no attribute 'schema'
+[2025-03-06 15:29:03,784] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-06 15:29:05,909] INFO [reasoning.auto_rag] Setting up Ollama client with model: qwen2.5:32b
+[2025-03-06 15:29:05,909] INFO [llm.ollama_client] Creating OllamaClient with config: {'api_url': 'http://192.168.100.125:11434', 'model_name': 'qwen2.5:32b', 'temperature': 0.7, 'max_tokens': 65536, 'top_p': 0.95, 'timeout': 120.0, 'request_timeout': 120.0}
+[2025-03-06 15:29:05,945] INFO [llm.ollama_client] Initialized Ollama client for model: qwen2.5:32b at http://192.168.100.125:11434
+[2025-03-06 15:29:05,945] INFO [reasoning.auto_rag] Successfully initialized Ollama client with API URL: http://192.168.100.125:11434
+[2025-03-06 15:29:05,945] INFO [reasoning.auto_rag] Initialized Traffic AutoRAG with LLM provider: LLMProvider.OLLAMA
+[2025-03-06 15:29:05,945] INFO [__main__] Initializing web search integration
+[2025-03-06 15:29:05,945] INFO [web_handle.web_search] Initialized WebSearchIntegrator
+[2025-03-06 15:29:05,945] INFO [__main__] Components initialized successfully
+[2025-03-06 15:29:05,946] INFO [__main__] Processing new question: Điều khiển xe chạy quá tốc độ quy định từ 05 km/h đến dưới 10 km/h bị phat bao nhieu tien
+[2025-03-06 15:29:05,948] INFO [__main__] Processing question: Điều khiển xe chạy quá tốc độ quy định từ 05 km/h đến dưới 10 km/h bị phat bao nhieu tien
+[2025-03-06 15:29:05,948] INFO [reasoning.auto_rag] Question validated as traffic-related via keyword: tốc độ
+[2025-03-06 15:29:23,650] INFO [httpx] HTTP Request: POST http://192.168.100.125:11434/api/generate "HTTP/1.1 200 OK"
+[2025-03-06 15:29:23,682] INFO [utils] Function process_question completed in 17.73 seconds
+[2025-03-06 15:29:23,684] INFO [__main__] Question processed in 17.74 seconds
+[2025-03-06 15:29:23,686] INFO [__main__] Needs web search: False
+[2025-03-06 15:29:23,687] INFO [__main__] Displaying results
+[2025-03-06 15:29:23,690] INFO [__main__] Response generated using: QWQ:32B (Ollama)
+[2025-03-06 15:29:23,699] INFO [__main__] Cleaning up components
+[2025-03-06 15:30:09,756] INFO [__main__] Starting application
+[2025-03-06 15:30:09,767] INFO [__main__] Selected LLM provider: ollama
+[2025-03-06 15:30:09,769] INFO [__main__] Initializing components with LLM provider: ollama
+[2025-03-06 15:30:09,769] INFO [retrieval.vector_store] Using connect_to_weaviate_cloud method
+[2025-03-06 15:30:09,897] INFO [__main__] Starting application
+[2025-03-06 15:30:09,899] INFO [__main__] Selected LLM provider: ollama
+[2025-03-06 15:30:09,899] INFO [__main__] Initializing components with LLM provider: ollama
+[2025-03-06 15:30:09,900] INFO [retrieval.vector_store] Using connect_to_weaviate_cloud method
+[2025-03-06 15:30:10,051] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-06 15:30:10,054] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-06 15:30:10,112] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-06 15:30:10,121] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-06 15:30:14,654] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-06 15:30:14,713] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-06 15:30:14,718] ERROR [retrieval.vector_store] Client connection test failed: 'WeaviateClient' object has no attribute 'schema'
+[2025-03-06 15:30:14,907] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-06 15:30:14,920] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-06 15:30:14,983] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-06 15:30:14,987] ERROR [retrieval.vector_store] Client connection test failed: 'WeaviateClient' object has no attribute 'schema'
+[2025-03-06 15:30:15,195] INFO [httpx] HTTP Request: GET https://kh0e0endr9olrknql51vuw.c0.asia-southeast1.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-06 15:30:17,090] INFO [reasoning.auto_rag] Setting up Ollama client with model: qwen2.5:32b
+[2025-03-06 15:30:17,090] INFO [llm.ollama_client] Creating OllamaClient with config: {'api_url': 'http://192.168.100.125:11434', 'model_name': 'qwen2.5:32b', 'temperature': 0.7, 'max_tokens': 65536, 'top_p': 0.95, 'timeout': 120.0, 'request_timeout': 120.0}
+[2025-03-06 15:30:17,433] INFO [llm.ollama_client] Initialized Ollama client for model: qwen2.5:32b at http://192.168.100.125:11434
+[2025-03-06 15:30:17,434] INFO [reasoning.auto_rag] Successfully initialized Ollama client with API URL: http://192.168.100.125:11434
+[2025-03-06 15:30:17,434] INFO [reasoning.auto_rag] Initialized Traffic AutoRAG with LLM provider: LLMProvider.OLLAMA
+[2025-03-06 15:30:17,435] INFO [__main__] Initializing web search integration
+[2025-03-06 15:30:17,436] INFO [web_handle.web_search] Initialized WebSearchIntegrator
+[2025-03-06 15:30:17,436] INFO [__main__] Components initialized successfully
+[2025-03-06 15:30:17,437] INFO [reasoning.auto_rag] Setting up Ollama client with model: qwen2.5:32b
+[2025-03-06 15:30:17,438] INFO [llm.ollama_client] Creating OllamaClient with config: {'api_url': 'http://192.168.100.125:11434', 'model_name': 'qwen2.5:32b', 'temperature': 0.7, 'max_tokens': 65536, 'top_p': 0.95, 'timeout': 120.0, 'request_timeout': 120.0}
+[2025-03-06 15:30:17,598] INFO [llm.ollama_client] Initialized Ollama client for model: qwen2.5:32b at http://192.168.100.125:11434
+[2025-03-06 15:30:17,754] INFO [reasoning.auto_rag] Successfully initialized Ollama client with API URL: http://192.168.100.125:11434
+[2025-03-06 15:30:17,755] INFO [reasoning.auto_rag] Initialized Traffic AutoRAG with LLM provider: LLMProvider.OLLAMA
+[2025-03-06 15:30:17,756] INFO [__main__] Initializing web search integration
+[2025-03-06 15:30:17,757] INFO [web_handle.web_search] Initialized WebSearchIntegrator
+[2025-03-06 15:30:17,757] INFO [__main__] Components initialized successfully
+[2025-03-06 15:30:17,759] INFO [__main__] Processing new question: Điều khiển xe vượt tải trên 50% bị trừ bao nhiêu điểm GPLX?
+[2025-03-06 15:30:17,761] INFO [__main__] Processing question: Điều khiển xe vượt tải trên 50% bị trừ bao nhiêu điểm GPLX?
+[2025-03-06 15:30:17,761] INFO [reasoning.auto_rag] Question validated as traffic-related via keyword: xe
+[2025-03-06 15:30:34,920] INFO [httpx] HTTP Request: POST http://192.168.100.125:11434/api/generate "HTTP/1.1 200 OK"
+[2025-03-06 15:30:34,949] INFO [utils] Function process_question completed in 17.19 seconds
+[2025-03-06 15:30:34,950] INFO [__main__] Question processed in 17.19 seconds
+[2025-03-06 15:30:34,952] INFO [__main__] Needs web search: False
+[2025-03-06 15:30:34,952] INFO [__main__] Displaying results
+[2025-03-06 15:30:34,954] INFO [__main__] Response generated using: QWQ:32B (Ollama)
+[2025-03-06 15:30:34,966] INFO [__main__] Cleaning up components

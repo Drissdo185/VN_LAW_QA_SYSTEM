@@ -7,6 +7,7 @@ from enum import Enum
 class LLMProvider(str, Enum):
     OPENAI = "openai"
     VLLM = "vllm"
+    OLLAMA = "ollama"
 
 @dataclass
 class WeaviateConfig:
@@ -19,7 +20,18 @@ class VLLMConfig:
     api_url: str = "http://192.168.100.125:8000"
     model_name: str = "Qwen/Qwen2.5-14B-Instruct-GPTQ-Int8"
     temperature: float = 0.7
-    max_tokens: int = 2048
+    max_tokens: int = 65536
+    top_p: float = 0.95
+    timeout: float = 120.0
+    request_timeout: float = 120.0
+
+
+@dataclass
+class OllamaConfig:  # Add new config class
+    api_url: str = "http://192.168.100.125:11434"  # Update with your server's address
+    model_name: str = "qwen2.5:32b"
+    temperature: float = 0.7
+    max_tokens: int = 65536
     top_p: float = 0.95
     timeout: float = 120.0
     request_timeout: float = 120.0
@@ -40,11 +52,14 @@ class ModelConfig:
     # VLLM configuration (used when llm_provider is VLLM)
     vllm_config: VLLMConfig = field(default_factory=lambda: VLLMConfig())
     
+    # Ollama configuration (used when llm_provider is OLLAMA)
+    ollama_config: OllamaConfig = field(default_factory=lambda: OllamaConfig())
+    
 @dataclass
 class RetrievalConfig:
     vector_store_query_mode: str = "hybrid"
     similarity_top_k: int = 8
-    alpha: float = 0.2
+    alpha: float = 0.5
 
 @dataclass
 class WebSearchConfig:

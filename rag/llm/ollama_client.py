@@ -14,30 +14,30 @@ from llama_index.core.llms import (
 logger = logging.getLogger(__name__)
 
 @dataclass
-class VLLMConfig:
-    """Configuration for vLLM server."""
-    api_url: str = "http://192.168.100.125:8000"
-    model_name: str = "Qwen/Qwen2.5-14B-Instruct-GPTQ-Int8"
+class OllamaConfig:
+    """Configuration for Ollama server."""
+    api_url: str = "http://192.168.100.125:11434"
+    model_name: str = "qwen2.5:32b"
     temperature: float = 0.7
     max_tokens: int = 65536
     top_p: float = 0.95
     timeout: float = 120.0
     request_timeout: float = 120.0
     
-class VLLMClient(CustomLLM):
-    """Client for vLLM API serving Qwen2.5 models."""
+class OllamaClient(CustomLLM):
+    """Client for Ollama API serving local models."""
     
     def __init__(
         self,
-        api_url: str = "http://192.168.100.125:8000",
-        model_name: str = "Qwen/Qwen2.5-14B-Instruct-GPTQ-Int8",
+        api_url: str = "http://192.168.100.125:11434",
+        model_name: str = "qwen2.5:32b",
         temperature: float = 0.7,
-        max_tokens: int = 2048,
+        max_tokens: int = 65536,
         top_p: float = 0.95,
         timeout: float = 120.0,
         request_timeout: float = 120.0,
     ) -> None:
-        """Initialize the vLLM client."""
+        """Initialize the Ollama client."""
         super().__init__()
         self._api_url = api_url
         self._model_name = model_name
@@ -48,7 +48,7 @@ class VLLMClient(CustomLLM):
         self._request_timeout = request_timeout
         self._client = httpx.AsyncClient(timeout=request_timeout)
         
-        logger.info(f"Initialized vLLM client for model: {model_name} at {api_url}")
+        logger.info(f"Initialized Ollama client for model: {model_name} at {api_url}")
     
     @property
     def api_url(self) -> str:
@@ -79,10 +79,10 @@ class VLLMClient(CustomLLM):
         return self._request_timeout
         
     @classmethod
-    def from_config(cls, config: VLLMConfig) -> "VLLMClient":
-        """Create a VLLMClient from a configuration object."""
+    def from_config(cls, config: "OllamaConfig") -> "OllamaClient":
+        """Create a OllamaClient from a configuration object."""
         try:
-            logger.info(f"Creating VLLMClient with config: {config.__dict__}")
+            logger.info(f"Creating OllamaClient with config: {config.__dict__}")
             return cls(
                 api_url=config.api_url,
                 model_name=config.model_name,
@@ -93,8 +93,8 @@ class VLLMClient(CustomLLM):
                 request_timeout=config.request_timeout,
             )
         except Exception as e:
-            logger.error(f"Error creating VLLMClient from config: {str(e)}")
-            logger.info("Falling back to default VLLMClient initialization")
+            logger.error(f"Error creating OllamaClient from config: {str(e)}")
+            logger.info("Falling back to default OllamaClient initialization")
             return cls()
         
     @property
@@ -102,7 +102,7 @@ class VLLMClient(CustomLLM):
         """Return metadata about the LLM."""
         return LLMMetadata(
             model_name=self._model_name,
-            max_input_tokens=4096,  # Qwen2.5-14B context window size
+            max_input_tokens=32768,  # Default context window size
             max_output_tokens=self._max_tokens,
             is_chat_model=True,
             is_function_calling_model=False,
@@ -111,10 +111,10 @@ class VLLMClient(CustomLLM):
     async def _complete(
         self, prompt: str, **kwargs: Any
     ) -> CompletionResponse:
-        """Complete the prompt using vLLM API."""
-        completion_url = f"{self._api_url}/v1/completions"
+        """Complete the prompt using Ollama API."""
+        completion_url = f"{self._api_url}/api/generate"
         
-        # Prepare payload
+        # Prepare payload for Ollama API
         payload = {
             "model": self._model_name,
             "prompt": prompt,
@@ -125,7 +125,7 @@ class VLLMClient(CustomLLM):
         }
         
         try:
-            logger.debug(f"Sending request to vLLM API: {completion_url}")
+            logger.debug(f"Sending request to Ollama API: {completion_url}")
             response = await self._client.post(
                 completion_url,
                 json=payload,
@@ -134,10 +134,11 @@ class VLLMClient(CustomLLM):
             response.raise_for_status()
             response_data = response.json()
             
-            if "choices" not in response_data or not response_data["choices"]:
+            # Extract response from Ollama's response format
+            generated_text = response_data.get("response", "")
+            if not generated_text:
                 raise ValueError(f"Unexpected response format: {response_data}")
                 
-            generated_text = response_data["choices"][0]["text"]
             return CompletionResponse(text=generated_text)
             
         except httpx.HTTPStatusError as e:
@@ -160,7 +161,7 @@ class VLLMClient(CustomLLM):
         self, prompt: str, **kwargs: Any
     ) -> CompletionResponseGen:
         """Stream the completion (not implemented)."""
-        raise NotImplementedError("Streaming completion not implemented for vLLM client")
+        raise NotImplementedError("Streaming completion not implemented for Ollama client")
         
     def complete(self, prompt: str, **kwargs: Any) -> CompletionResponse:
         """Complete the prompt (blocking version)."""
@@ -169,4 +170,4 @@ class VLLMClient(CustomLLM):
         
     def stream_complete(self, prompt: str, **kwargs: Any) -> CompletionResponseGen:
         """Stream the completion (not implemented)."""
-        raise NotImplementedError("Streaming completion not implemented for vLLM client")
+        raise NotImplementedError("Streaming completion not implemented for Ollama client")

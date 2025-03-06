@@ -88,7 +88,8 @@ class AppComponents:
             llm_provider=llm_provider,
             openai_model=base_model_config.openai_model,
             openai_api_key=base_model_config.openai_api_key,
-            vllm_config=base_model_config.vllm_config
+            vllm_config=base_model_config.vllm_config,
+            ollama_config=base_model_config.ollama_config
         )
         
         try:
@@ -190,7 +191,12 @@ def display_llm_info(response: Dict):
     """Display information about which LLM was used"""
     if 'llm_provider' in response:
         provider = response['llm_provider']
-        provider_name = "OpenAI GPT-4o mini" if provider == LLMProvider.OPENAI else "Qwen2.5-14B (vLLM)"
+        if provider == LLMProvider.OPENAI:
+            provider_name = "OpenAI GPT-4o mini"
+        elif provider == LLMProvider.VLLM:
+            provider_name = "Qwen2.5-14B (vLLM)"
+        elif provider == LLMProvider.OLLAMA:
+            provider_name = "QWQ:32B (Ollama)"
         st.info(f"LLM Provider: {provider_name}")
         logger.info(f"Response generated using: {provider_name}")
 
@@ -248,7 +254,8 @@ def main():
                 # LLM provider selection
                 llm_provider_options = {
                     "OpenAI GPT-4o mini": LLMProvider.OPENAI,
-                    "Qwen2.5-14B (vLLM)": LLMProvider.VLLM
+                    "Qwen2.5-14B (vLLM)": LLMProvider.VLLM,
+                    "QWQ:32B (Ollama)": LLMProvider.OLLAMA  # Add this option
                 }
                 selected_provider_name = st.selectbox(
                     "Select LLM Provider",
@@ -256,21 +263,21 @@ def main():
                     index=0
                 )
                 selected_provider = llm_provider_options[selected_provider_name]
-                
-                # Display vLLM configuration if selected
-                vllm_config = configs[1].vllm_config
-                if selected_provider == LLMProvider.VLLM:
-                    with st.expander("vLLM Configuration"):
-                        vllm_api_url = st.text_input("API URL", vllm_config.api_url, key="vllm_url")
-                        vllm_model = st.text_input("Model Name", vllm_config.model_name, key="vllm_model")
-                        vllm_temp = st.slider("Temperature", 0.0, 1.0, vllm_config.temperature, key="vllm_temp")
-                        vllm_top_p = st.slider("Top P", 0.0, 1.0, vllm_config.top_p, key="vllm_top_p")
+
+                # Display Ollama configuration if selected
+                if selected_provider == LLMProvider.OLLAMA:
+                    ollama_config = configs[1].ollama_config
+                    with st.expander("Ollama Configuration"):
+                        ollama_api_url = st.text_input("API URL", ollama_config.api_url, key="ollama_url")
+                        ollama_model = st.text_input("Model Name", ollama_config.model_name, key="ollama_model")
+                        ollama_temp = st.slider("Temperature", 0.0, 1.0, ollama_config.temperature, key="ollama_temp")
+                        ollama_top_p = st.slider("Top P", 0.0, 1.0, ollama_config.top_p, key="ollama_top_p")
                         
-                        # Update the vllm_config with UI values
-                        vllm_config.api_url = vllm_api_url
-                        vllm_config.model_name = vllm_model
-                        vllm_config.temperature = vllm_temp
-                        vllm_config.top_p = vllm_top_p
+                        # Update the ollama_config with UI values
+                        ollama_config.api_url = ollama_api_url
+                        ollama_config.model_name = ollama_model
+                        ollama_config.temperature = ollama_temp
+                        ollama_config.top_p = ollama_top_p
                 
                 logger.info(f"Selected LLM provider: {selected_provider.value}")
                 
