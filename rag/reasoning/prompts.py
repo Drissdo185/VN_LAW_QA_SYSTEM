@@ -20,7 +20,6 @@ Câu trả lời cuối cùng: <câu trả lời> (nếu đã đủ thông tin)
 DOMAIN_VALIDATION_PROMPT = """
 Analyze if the given question belongs to the traffic domain or stock market domain.
 If it's clearly about traffic (roads, transportation, accidents, traffic rules, etc.), return "traffic".
-If it's clearly about stocks (market, trading, finance, companies, etc.), return "stock".
 If unclear, return the closest matching domain.
 
 Question: {question}

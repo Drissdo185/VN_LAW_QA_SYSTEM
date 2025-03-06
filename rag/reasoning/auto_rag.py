@@ -1,14 +1,13 @@
 from typing import Dict, Any
 from llama_index.llms.openai import OpenAI
 from llama_index.core import PromptTemplate
-from llama_index.core.schema import NodeWithScore
 import tiktoken
 import logging
 import re
 
 from config.config import ModelConfig, LLMProvider
 from retrieval.retriever import DocumentRetriever
-from reasoning.prompts import SYSTEM_PROMPT, DOMAIN_VALIDATION_PROMPT
+from reasoning.prompts import SYSTEM_PROMPT
 from llm.vllm_client import VLLMClient
 
 logger = logging.getLogger(__name__)
@@ -25,9 +24,8 @@ class AutoRAG:
         self.max_iterations = max_iterations
         self.llm = self._setup_llm()
         self.prompt_template = PromptTemplate(template=SYSTEM_PROMPT)
-        self.domain_prompt = PromptTemplate(template=DOMAIN_VALIDATION_PROMPT)
         self.tokenizer = self._setup_tokenizer()
-        logger.info(f"Initialized AutoRAG with LLM provider: {model_config.llm_provider}")
+        logger.info(f"Initialized Traffic AutoRAG with LLM provider: {model_config.llm_provider}")
         
     def _setup_llm(self):
         """Set up the LLM based on the provider configuration"""
@@ -60,43 +58,33 @@ class AutoRAG:
         else:
             raise ValueError(f"Unsupported LLM provider: {self.model_config.llm_provider}")
     
-    async def validate_domain(self, question: str) -> bool:
-        """Validate if question is related to traffic domain"""
-        prompt = self.domain_prompt.format(question=question)
-        response = await self.llm.acomplete(prompt)
-        detected_domain = response.text.strip().lower()
-        
-        logger.info(f"Domain detection response: '{detected_domain}'")
-        
-        # Extract domain keyword using regex pattern matching
-        traffic_pattern = r'traffic|giao\s*thông|đường\s*bộ|đi\s*đường'
-        
-        # Check if response indicates traffic domain
-        if re.search(traffic_pattern, detected_domain, re.IGNORECASE) or "traffic" in detected_domain:
-            logger.info("Domain validated as traffic")
-            return True
-                
+    def _is_traffic_related(self, question: str) -> bool:
+        """Check if question is related to traffic"""
         # Check for common traffic-related terms in Vietnamese
-        traffic_keywords = ['mũ bảo hiểm', 'giao thông', 'đường bộ', 'biển báo', 
-                           'luật giao thông', 'phạt', 'xe máy', 'ô tô', 'bằng lái',
-                           'giấy phép', 'nd168', 'nghị định']
+        traffic_keywords = [
+            'mũ bảo hiểm', 'giao thông', 'đường bộ', 'biển báo', 
+            'luật giao thông', 'phạt', 'xe máy', 'ô tô', 'bằng lái',
+            'giấy phép', 'nd168', 'nghị định', 'nồng độ cồn', 
+            'vượt đèn đỏ', 'tốc độ', 'vạch kẻ đường', 'tai nạn',
+            'xe', 'đường', 'đậu xe', 'đỗ xe', 'dừng xe', 'đăng kiểm',
+            'giấy tờ', 'biển số', 'traffic', 'luật', 'quá tải'
+        ]
         
+        question_lower = question.lower()
         for keyword in traffic_keywords:
-            if keyword in question.lower():
-                logger.info(f"Domain validated as traffic via keyword: {keyword}")
+            if keyword in question_lower:
+                logger.info(f"Question validated as traffic-related via keyword: {keyword}")
                 return True
-                
-        logger.warning(f"Domain validation failed. Detected: {detected_domain}")
+        
         return False
     
     async def get_answer(self, question: str) -> Dict[str, Any]:
-        """Get answer for a question using Auto RAG with domain validation and iterations"""
-        # Validate domain
-        is_valid_domain = await self.validate_domain(question)
-        if not is_valid_domain:
+        """Get answer for a traffic-related question using Auto RAG with iterations"""
+        # Basic validation to check if question is related to traffic
+        if not self._is_traffic_related(question):
+            logger.warning(f"Question may not be traffic-related: {question}")
             return {
-                "error": "Question appears to be about a different domain than traffic. "
-                        "Please switch to the appropriate domain or rephrase your question.",
+                "error": "Câu hỏi có vẻ không liên quan đến luật giao thông. Vui lòng đặt câu hỏi về luật giao thông.",
                 "token_usage": {
                     "input_tokens": self._count_tokens(question),
                     "output_tokens": 0,
@@ -190,9 +178,9 @@ class AutoRAG:
         
         # If we exit the loop without finding enough information
         final_response = {
-            "analysis": "Sau nhiều lần tìm kiếm, hệ thống vẫn chưa tìm thấy đủ thông tin.",
+            "analysis": "Sau nhiều lần tìm kiếm, hệ thống vẫn chưa tìm thấy đủ thông tin về luật giao thông liên quan đến câu hỏi này.",
             "decision": "Không tìm thấy đủ thông tin",
-            "final_answer": "Xin lỗi, tôi không tìm thấy đủ thông tin để trả lời câu hỏi của bạn.",
+            "final_answer": "Xin lỗi, tôi không tìm thấy đủ thông tin trong luật giao thông để trả lời câu hỏi của bạn.",
             "search_history": search_history,
             "token_usage": {
                 "input_tokens": total_input_tokens,
