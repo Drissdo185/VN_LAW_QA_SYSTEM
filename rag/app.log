@@ -1,113 +1,82 @@
-[2025-03-07 21:52:32,884] INFO [__main__] Starting application
-[2025-03-07 21:52:32,886] INFO [__main__] Initializing configurations
-[2025-03-07 21:52:32,886] INFO [__main__] Configurations initialized successfully
-[2025-03-07 21:52:32,887] INFO [__main__] Selected LLM provider: openai
-[2025-03-07 21:52:32,887] INFO [__main__] Initializing components with LLM provider: openai
-[2025-03-07 21:52:32,887] INFO [retrieval.vector_store] Using connect_to_weaviate_cloud method
-[2025-03-07 21:52:33,688] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
-[2025-03-07 21:52:33,717] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
-[2025-03-07 21:52:38,796] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
-[2025-03-07 21:52:39,314] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
-[2025-03-07 21:52:39,422] ERROR [retrieval.vector_store] Client connection test failed: 'WeaviateClient' object has no attribute 'schema'
-[2025-03-07 21:52:39,979] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
-[2025-03-07 21:52:42,091] INFO [retrieval.search_pipline] Initialized SearchPipeline
-[2025-03-07 21:52:42,091] ERROR [__main__] Error initializing components: 'AutoRAG' object has no attribute '_setup_llm'
-[2025-03-07 21:52:42,091] ERROR [__main__] Error initializing components: 'AutoRAG' object has no attribute '_setup_llm'
-[2025-03-07 21:54:20,435] INFO [__main__] Starting application
-[2025-03-07 21:54:20,437] INFO [__main__] Initializing configurations
-[2025-03-07 21:54:20,437] INFO [__main__] Configurations initialized successfully
-[2025-03-07 21:54:20,438] INFO [__main__] Selected LLM provider: openai
-[2025-03-07 21:54:20,438] INFO [__main__] Initializing components with LLM provider: openai
-[2025-03-07 21:54:20,438] INFO [retrieval.vector_store] Using connect_to_weaviate_cloud method
-[2025-03-07 21:54:20,838] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
-[2025-03-07 21:54:20,863] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
-[2025-03-07 21:54:27,423] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
-[2025-03-07 21:54:27,925] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
-[2025-03-07 21:54:28,044] ERROR [retrieval.vector_store] Client connection test failed: 'WeaviateClient' object has no attribute 'schema'
-[2025-03-07 21:54:28,399] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
-[2025-03-07 21:54:30,439] INFO [retrieval.search_pipline] Initialized SearchPipeline
-[2025-03-07 21:54:30,440] ERROR [__main__] Error initializing components: 'AutoRAG' object has no attribute '_setup_llm'
-[2025-03-07 21:54:30,440] ERROR [__main__] Error initializing components: 'AutoRAG' object has no attribute '_setup_llm'
-[2025-03-07 21:55:39,265] INFO [__main__] Starting application
-[2025-03-07 21:55:39,268] INFO [__main__] Initializing configurations
-[2025-03-07 21:55:39,268] INFO [__main__] Configurations initialized successfully
-[2025-03-07 21:55:39,269] INFO [__main__] Selected LLM provider: openai
-[2025-03-07 21:55:39,269] INFO [__main__] Initializing components with LLM provider: openai
-[2025-03-07 21:55:39,269] INFO [retrieval.vector_store] Using connect_to_weaviate_cloud method
-[2025-03-07 21:55:39,887] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
-[2025-03-07 21:55:39,914] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
-[2025-03-07 21:55:44,722] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
-[2025-03-07 21:55:45,023] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
-[2025-03-07 21:55:45,148] ERROR [retrieval.vector_store] Client connection test failed: 'WeaviateClient' object has no attribute 'schema'
-[2025-03-07 21:55:45,534] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
-[2025-03-07 21:55:47,784] INFO [retrieval.search_pipline] Initialized SearchPipeline
-[2025-03-07 21:55:47,784] ERROR [__main__] Error initializing components: 'AutoRAG' object has no attribute '_setup_llm'
-[2025-03-07 21:55:47,784] ERROR [__main__] Error initializing components: 'AutoRAG' object has no attribute '_setup_llm'
-[2025-03-07 22:00:10,076] INFO [__main__] Starting application
-[2025-03-07 22:00:10,078] INFO [__main__] Initializing configurations
-[2025-03-07 22:00:10,078] INFO [__main__] Configurations initialized successfully
-[2025-03-07 22:00:10,079] INFO [__main__] Selected LLM provider: openai
-[2025-03-07 22:00:10,079] INFO [__main__] Initializing components with LLM provider: openai
-[2025-03-07 22:00:10,079] INFO [retrieval.vector_store] Using connect_to_weaviate_cloud method
-[2025-03-07 22:00:10,778] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
-[2025-03-07 22:00:10,818] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
-[2025-03-07 22:00:17,102] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
-[2025-03-07 22:00:17,603] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
-[2025-03-07 22:00:17,767] ERROR [retrieval.vector_store] Client connection test failed: 'WeaviateClient' object has no attribute 'schema'
-[2025-03-07 22:00:18,319] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
-[2025-03-07 22:00:21,229] INFO [retrieval.search_pipline] Initialized SearchPipeline
-[2025-03-07 22:00:21,229] INFO [reasoning.auto_rag] Setting up OpenAI LLM with model: gpt-4o-mini
-[2025-03-07 22:00:21,444] INFO [reasoning.auto_rag] Initialized Traffic AutoRAG with LLM provider: LLMProvider.OPENAI
-[2025-03-07 22:00:21,444] INFO [reasoning.auto_rag] Using basic DocumentRetriever for document retrieval
-[2025-03-07 22:00:21,444] INFO [__main__] Initializing web search integration
-[2025-03-07 22:00:21,444] INFO [web_handle.web_search] Initialized WebSearchIntegrator
-[2025-03-07 22:00:21,444] INFO [__main__] Components initialized successfully
-[2025-03-07 22:00:24,554] INFO [__main__] Starting application
-[2025-03-07 22:00:24,559] INFO [__main__] Selected LLM provider: openai
-[2025-03-07 22:00:24,559] INFO [__main__] Initializing components with LLM provider: openai
-[2025-03-07 22:00:24,560] INFO [retrieval.vector_store] Using connect_to_weaviate_cloud method
-[2025-03-07 22:00:24,675] INFO [__main__] Starting application
-[2025-03-07 22:00:24,677] INFO [__main__] Selected LLM provider: openai
-[2025-03-07 22:00:24,677] INFO [__main__] Initializing components with LLM provider: openai
-[2025-03-07 22:00:24,677] INFO [retrieval.vector_store] Using connect_to_weaviate_cloud method
-[2025-03-07 22:00:25,194] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
-[2025-03-07 22:00:25,208] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
-[2025-03-07 22:00:25,223] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
-[2025-03-07 22:00:25,236] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
-[2025-03-07 22:00:30,533] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
-[2025-03-07 22:00:31,290] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
-[2025-03-07 22:00:31,292] ERROR [retrieval.vector_store] Client connection test failed: 'WeaviateClient' object has no attribute 'schema'
-[2025-03-07 22:00:31,848] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
-[2025-03-07 22:00:31,892] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
-[2025-03-07 22:00:32,408] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
-[2025-03-07 22:00:32,411] ERROR [retrieval.vector_store] Client connection test failed: 'WeaviateClient' object has no attribute 'schema'
-[2025-03-07 22:00:32,964] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
-[2025-03-07 22:00:34,294] INFO [retrieval.search_pipline] Initialized SearchPipeline
-[2025-03-07 22:00:34,294] INFO [reasoning.auto_rag] Setting up OpenAI LLM with model: gpt-4o-mini
-[2025-03-07 22:00:34,295] INFO [reasoning.auto_rag] Initialized Traffic AutoRAG with LLM provider: LLMProvider.OPENAI
-[2025-03-07 22:00:34,295] INFO [reasoning.auto_rag] Using basic DocumentRetriever for document retrieval
-[2025-03-07 22:00:34,295] INFO [__main__] Initializing web search integration
-[2025-03-07 22:00:34,295] INFO [web_handle.web_search] Initialized WebSearchIntegrator
-[2025-03-07 22:00:34,295] INFO [__main__] Components initialized successfully
-[2025-03-07 22:00:35,728] INFO [retrieval.search_pipline] Initialized SearchPipeline
-[2025-03-07 22:00:35,728] INFO [reasoning.auto_rag] Setting up OpenAI LLM with model: gpt-4o-mini
-[2025-03-07 22:00:35,728] INFO [reasoning.auto_rag] Initialized Traffic AutoRAG with LLM provider: LLMProvider.OPENAI
-[2025-03-07 22:00:35,728] INFO [reasoning.auto_rag] Using basic DocumentRetriever for document retrieval
-[2025-03-07 22:00:35,728] INFO [__main__] Initializing web search integration
-[2025-03-07 22:00:35,728] INFO [web_handle.web_search] Initialized WebSearchIntegrator
-[2025-03-07 22:00:35,728] INFO [__main__] Components initialized successfully
-[2025-03-07 22:00:35,729] INFO [__main__] Processing new question: Mức phạt nồng độ cồn 2025 đối với xe máy
-[2025-03-07 22:00:35,730] INFO [__main__] Processing question: Mức phạt nồng độ cồn 2025 đối với xe máy
-[2025-03-07 22:00:35,730] INFO [reasoning.auto_rag] Question validated as traffic-related via keyword: phạt
-[2025-03-07 22:00:35,730] INFO [reasoning.auto_rag] Iteration 1: Retrieving documents for query: Mức phạt nồng độ cồn 2025 đối với xe máy
-[2025-03-07 22:00:36,661] INFO [reasoning.auto_rag] DocumentRetriever returned 0 documents
-[2025-03-07 22:00:36,662] WARNING [reasoning.auto_rag] No documents found for query: Mức phạt nồng độ cồn 2025 đối với xe máy
-[2025-03-07 22:00:36,663] WARNING [reasoning.auto_rag] Exiting loop without sufficient information
-[2025-03-07 22:00:36,664] INFO [utils] Function process_question completed in 0.93 seconds
-[2025-03-07 22:00:36,666] INFO [__main__] Question processed in 0.94 seconds
-[2025-03-07 22:00:36,669] INFO [__main__] Needs web search: True
-[2025-03-07 22:00:36,669] INFO [__main__] Web search prompt triggered
-[2025-03-07 22:00:36,670] INFO [__main__] Displaying results
-[2025-03-07 22:00:36,671] INFO [__main__] Response generated using: OpenAI GPT-4o mini
-[2025-03-07 22:00:36,679] INFO [__main__] Cleaning up components
-[2025-03-07 22:00:36,684] INFO [__main__] Displaying web search prompt
+[2025-03-07 22:40:44,195] INFO [__main__] Starting application
+[2025-03-07 22:40:44,197] INFO [__main__] Selected LLM provider: openai
+[2025-03-07 22:40:44,198] INFO [__main__] Initializing components with LLM provider: openai
+[2025-03-07 22:40:44,198] INFO [retrieval.vector_store] Initializing connection to Weaviate at https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud
+[2025-03-07 22:40:44,198] INFO [retrieval.vector_store] Using collection: ND168
+[2025-03-07 22:40:44,199] INFO [retrieval.vector_store] Creating new Weaviate client connection
+[2025-03-07 22:40:44,829] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-07 22:40:45,137] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-07 22:40:45,139] INFO [retrieval.vector_store] Collection exists: True
+[2025-03-07 22:40:45,140] INFO [retrieval.vector_store] Successfully connected to Weaviate
+[2025-03-07 22:40:45,140] INFO [retrieval.vector_store] Loading embedding model: dangvantuan/vietnamese-document-embedding
+[2025-03-07 22:40:45,143] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-07 22:40:51,278] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-07 22:40:51,785] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-07 22:40:51,797] INFO [retrieval.vector_store] Successfully initialized vector store and index for collection ND168
+[2025-03-07 22:40:51,798] INFO [retrieval.retriever] Retriever setup complete with similarity_top_k=5
+[2025-03-07 22:40:53,953] INFO [retrieval.search_pipline] Initialized CrossEncoder with model: dangvantuan/vietnamese-document-embedding
+[2025-03-07 22:40:53,953] INFO [retrieval.search_pipline] Initialized SearchPipeline
+[2025-03-07 22:40:53,953] INFO [reasoning.auto_rag] Setting up OpenAI LLM with model: gpt-4o-mini
+[2025-03-07 22:40:53,953] INFO [reasoning.auto_rag] Initialized Traffic AutoRAG with LLM provider: LLMProvider.OPENAI
+[2025-03-07 22:40:53,953] INFO [reasoning.auto_rag] Using basic DocumentRetriever for document retrieval
+[2025-03-07 22:40:53,953] INFO [__main__] Initializing web search integration
+[2025-03-07 22:40:53,954] INFO [web_handle.web_search] Initialized WebSearchIntegrator
+[2025-03-07 22:40:53,954] INFO [__main__] Components initialized successfully
+[2025-03-07 22:40:53,954] INFO [__main__] Processing new question: Mức phạt nồng độ cồn 2025 đối với xe máy
+[2025-03-07 22:40:53,956] INFO [__main__] Processing question: Mức phạt nồng độ cồn 2025 đối với xe máy
+[2025-03-07 22:40:53,956] INFO [reasoning.auto_rag] Question validated as traffic-related via keyword: phạt
+[2025-03-07 22:40:53,956] INFO [reasoning.auto_rag] Iteration 1: Retrieving documents for query: Mức phạt nồng độ cồn 2025 đối với xe máy
+[2025-03-07 22:40:53,956] INFO [reasoning.auto_rag] Tokenized query: mức phạt nồng_độ cồn 2025 đối_với xe_máy
+[2025-03-07 22:40:53,956] INFO [reasoning.auto_rag] Using basic DocumentRetriever for retrieval
+[2025-03-07 22:40:53,957] INFO [retrieval.retriever] Original query: 'Mức phạt nồng độ cồn 2025 đối với xe máy'
+[2025-03-07 22:40:53,957] INFO [retrieval.retriever] Tokenized query: 'mức phạt nồng_độ cồn 2025 đối_với xe_máy'
+[2025-03-07 22:40:54,787] INFO [retrieval.retriever] Retrieved 5 documents for query
+[2025-03-07 22:40:54,788] INFO [retrieval.retriever] Top result score: 0.9107164144515991
+[2025-03-07 22:40:54,788] INFO [retrieval.retriever] Score range: 0.6929110288619995 to 0.9107164144515991
+[2025-03-07 22:40:54,789] INFO [reasoning.auto_rag] DocumentRetriever returned 5 documents
+[2025-03-07 22:40:54,789] INFO [reasoning.auto_rag] Retrieved document details:
+[2025-03-07 22:40:54,790] INFO [reasoning.auto_rag] Doc 1 score: 0.9107164144515991
+[2025-03-07 22:40:54,790] INFO [reasoning.auto_rag] Doc 1 metadata: {'category': 'ô tô', 'fine_amount': 'Tước quyền sử dụng giấy phép lái xe từ 22 tháng đến 24 tháng', 'violation_type': 'nồng_độ_cồn', 'original_text': 'Loại phương tiện: ô tô\nMức phạt: Tước quyền sử dụng giấy phép lái xe từ 22 tháng đến 24 tháng\nNội dung vi phạm: Không chấp hành yêu cầu kiểm tra về chất ma túy hoặc chất kích thích khác mà pháp luật cấm sử dụng'}
+[2025-03-07 22:40:54,790] INFO [reasoning.auto_rag] Doc 2 score: 0.8166821002960205
+[2025-03-07 22:40:54,791] INFO [reasoning.auto_rag] Doc 2 metadata: {'category': 'ô tô', 'fine_amount': 'Phạt tiền từ 30.000.000 đồng đến 40.000.000 đồng', 'violation_type': 'nồng_độ_cồn', 'original_text': 'Loại phương tiện: ô tô\nMức phạt: Phạt tiền từ 30.000.000 đồng đến 40.000.000 đồng\nNội dung vi phạm: Không chấp hành yêu cầu kiểm tra về chất ma túy hoặc chất kích thích khác mà pháp luật cấm sử dụng của người thi hành công vụ'}
+[2025-03-07 22:40:54,791] INFO [reasoning.auto_rag] Doc 3 score: 0.7691859006881714
+[2025-03-07 22:40:54,791] INFO [reasoning.auto_rag] Doc 3 metadata: {'category': 'ô tô', 'fine_amount': 'Phạt tiền từ 6.000.000 đồng đến 8.000.000 đồng', 'violation_type': 'nồng_độ_cồn', 'original_text': 'Loại phương tiện: ô tô\nMức phạt: Phạt tiền từ 6.000.000 đồng đến 8.000.000 đồng\nNội dung vi phạm: Điều khiển xe trên đường mà trong máu hoặc hơi thở có nồng độ cồn nhưng chưa vượt quá 50 miligam/100 mililít máu hoặc chưa vượt quá 0,25 miligam/1 lít khí thở'}
+[2025-03-07 22:40:54,792] INFO [reasoning.auto_rag] Context length: 1285 characters
+[2025-03-07 22:40:54,795] INFO [reasoning.auto_rag] Input tokens: 639
+[2025-03-07 22:40:58,244] INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-03-07 22:40:58,247] INFO [reasoning.auto_rag] Output tokens: 178
+[2025-03-07 22:40:58,248] INFO [reasoning.auto_rag] Decision: Cần thêm thông tin
+[2025-03-07 22:40:58,248] INFO [reasoning.auto_rag] Need more information, next query: Tìm kiếm thông tin về mức phạt nồng độ cồn đối với xe máy trong năm 2025.
+[2025-03-07 22:40:58,248] INFO [reasoning.auto_rag] Iteration 2: Retrieving documents for query: Tìm kiếm thông tin về mức phạt nồng độ cồn đối với xe máy trong năm 2025.
+[2025-03-07 22:40:58,248] INFO [reasoning.auto_rag] Tokenized query: tìm_kiếm thông_tin về mức phạt nồng_độ cồn đối_với xe_máy trong năm 2025 .
+[2025-03-07 22:40:58,248] INFO [reasoning.auto_rag] Using basic DocumentRetriever for retrieval
+[2025-03-07 22:40:58,249] INFO [retrieval.retriever] Original query: 'Tìm kiếm thông tin về mức phạt nồng độ cồn đối với xe máy trong năm 2025.'
+[2025-03-07 22:40:58,249] INFO [retrieval.retriever] Tokenized query: 'tìm_kiếm thông_tin về mức phạt nồng_độ cồn đối_với xe_máy trong năm 2025 .'
+[2025-03-07 22:40:58,854] INFO [retrieval.retriever] Retrieved 5 documents for query
+[2025-03-07 22:40:58,854] INFO [retrieval.retriever] Top result score: 0.8750579357147217
+[2025-03-07 22:40:58,855] INFO [retrieval.retriever] Score range: 0.6940207481384277 to 0.8750579357147217
+[2025-03-07 22:40:58,855] INFO [reasoning.auto_rag] DocumentRetriever returned 5 documents
+[2025-03-07 22:40:58,855] INFO [reasoning.auto_rag] Retrieved document details:
+[2025-03-07 22:40:58,855] INFO [reasoning.auto_rag] Doc 1 score: 0.8750579357147217
+[2025-03-07 22:40:58,855] INFO [reasoning.auto_rag] Doc 1 metadata: {'category': 'ô tô', 'fine_amount': 'Tước quyền sử dụng giấy phép lái xe từ 22 tháng đến 24 tháng', 'violation_type': 'nồng_độ_cồn', 'original_text': 'Loại phương tiện: ô tô\nMức phạt: Tước quyền sử dụng giấy phép lái xe từ 22 tháng đến 24 tháng\nNội dung vi phạm: Không chấp hành yêu cầu kiểm tra về chất ma túy hoặc chất kích thích khác mà pháp luật cấm sử dụng'}
+[2025-03-07 22:40:58,855] INFO [reasoning.auto_rag] Doc 2 score: 0.80940842628479
+[2025-03-07 22:40:58,855] INFO [reasoning.auto_rag] Doc 2 metadata: {'category': 'ô tô', 'fine_amount': 'Phạt tiền từ 30.000.000 đồng đến 40.000.000 đồng', 'violation_type': 'nồng_độ_cồn', 'original_text': 'Loại phương tiện: ô tô\nMức phạt: Phạt tiền từ 30.000.000 đồng đến 40.000.000 đồng\nNội dung vi phạm: Không chấp hành yêu cầu kiểm tra về chất ma túy hoặc chất kích thích khác mà pháp luật cấm sử dụng của người thi hành công vụ'}
+[2025-03-07 22:40:58,855] INFO [reasoning.auto_rag] Doc 3 score: 0.7671982049942017
+[2025-03-07 22:40:58,855] INFO [reasoning.auto_rag] Doc 3 metadata: {'category': 'ô tô', 'fine_amount': 'Phạt tiền từ 6.000.000 đồng đến 8.000.000 đồng', 'violation_type': 'nồng_độ_cồn', 'original_text': 'Loại phương tiện: ô tô\nMức phạt: Phạt tiền từ 6.000.000 đồng đến 8.000.000 đồng\nNội dung vi phạm: Điều khiển xe trên đường mà trong máu hoặc hơi thở có nồng độ cồn nhưng chưa vượt quá 50 miligam/100 mililít máu hoặc chưa vượt quá 0,25 miligam/1 lít khí thở'}
+[2025-03-07 22:40:58,856] INFO [reasoning.auto_rag] Context length: 2479 characters
+[2025-03-07 22:40:58,857] INFO [reasoning.auto_rag] Input tokens: 1046
+[2025-03-07 22:41:02,135] INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-03-07 22:41:02,139] INFO [reasoning.auto_rag] Output tokens: 187
+[2025-03-07 22:41:02,140] INFO [reasoning.auto_rag] Decision: Cần thêm thông tin
+[2025-03-07 22:41:02,140] INFO [reasoning.auto_rag] Need more information, next query: Tìm kiếm thông tin về mức phạt nồng độ cồn đối với xe máy trong năm 2025.
+[2025-03-07 22:41:02,140] WARNING [reasoning.auto_rag] Exiting loop without sufficient information
+[2025-03-07 22:41:02,141] INFO [utils] Function process_question completed in 8.19 seconds
+[2025-03-07 22:41:02,142] INFO [__main__] Question processed in 8.19 seconds
+[2025-03-07 22:41:02,143] INFO [__main__] Needs web search: True
+[2025-03-07 22:41:02,144] INFO [__main__] Web search prompt triggered
+[2025-03-07 22:41:02,145] INFO [__main__] Displaying results
+[2025-03-07 22:41:02,146] INFO [__main__] Response generated using: OpenAI GPT-4o mini
+[2025-03-07 22:41:02,152] INFO [__main__] Cleaning up components
+[2025-03-07 22:41:02,153] INFO [retrieval.vector_store] Closing Weaviate client connection
+[2025-03-07 22:41:02,159] INFO [retrieval.vector_store] Weaviate client connection closed
+[2025-03-07 22:41:02,160] INFO [__main__] Displaying web search prompt

@@ -5,6 +5,7 @@ from llama_index.core.schema import NodeWithScore
 import tiktoken
 import logging
 import re
+from pyvi import ViTokenizer
 
 from config.config import ModelConfig, LLMProvider
 from retrieval.retriever import DocumentRetriever
@@ -155,12 +156,18 @@ class AutoRAG:
                 # Get documents for current query using search pipeline if available
                 logger.info(f"Iteration {iteration+1}: Retrieving documents for query: {current_query}")
                 
+                # Tokenize query for Vietnamese text
+                tokenized_query = ViTokenizer.tokenize(current_query.lower())
+                logger.info(f"Tokenized query: {tokenized_query}")
+                
                 if self.search_pipeline:
                     # Use enhanced search pipeline
+                    logger.info("Using SearchPipeline for retrieval")
                     retrieved_docs = self.search_pipeline.search(current_query)
                     logger.info(f"SearchPipeline returned {len(retrieved_docs)} documents")
                 else:
                     # Fallback to basic retriever
+                    logger.info("Using basic DocumentRetriever for retrieval")
                     retrieved_docs = self.retriever.retrieve(current_query)
                     logger.info(f"DocumentRetriever returned {len(retrieved_docs)} documents")
                 
@@ -175,24 +182,37 @@ class AutoRAG:
                     logger.warning(f"No documents found for query: {current_query}")
                     break
                 
+                # Log retrieved document information
+                logger.info("Retrieved document details:")
+                for i, doc in enumerate(retrieved_docs[:3]):  # Log first 3 docs
+                    logger.info(f"Doc {i+1} score: {doc.score}")
+                    # Log metadata if available
+                    if hasattr(doc.node, 'metadata'):
+                        metadata = doc.node.metadata
+                        logger.info(f"Doc {i+1} metadata: {metadata}")
+                
                 # Add retrieved documents to accumulated context
                 accumulated_context.extend(retrieved_docs)
                 
                 # Format context from all retrieved documents
                 context = self.retriever.get_formatted_context(accumulated_context)
                 
+                # Log context length
+                logger.info(f"Context length: {len(context)} characters")
+                
                 # Generate prompt and get response
                 prompt = self.prompt_template.format(
                     question=question,  # Always use original question
                     context=context
                 )
-                
-                # Log prompt length for debugging
-                logger.debug(f"Prompt length: {len(prompt)} characters")
+                print(prompt)
                 
                 input_tokens = self._count_tokens(prompt)
+                logger.info(f"Input tokens: {input_tokens}")
+                
                 response = await self.llm.acomplete(prompt)
                 output_tokens = self._count_tokens(response.text)
+                logger.info(f"Output tokens: {output_tokens}")
                 
                 # Update token counts
                 total_input_tokens += input_tokens
@@ -200,6 +220,7 @@ class AutoRAG:
                 
                 # Parse response
                 parsed_response = self._parse_response(response.text)
+                logger.info(f"Decision: {parsed_response['decision']}")
                 
                 # Track search iteration
                 search_history.append({
