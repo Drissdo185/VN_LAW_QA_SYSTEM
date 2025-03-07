@@ -17,8 +17,8 @@ logger = logging.getLogger(__name__)
 class OllamaConfig:
     """Configuration for Ollama server."""
     api_url: str = "http://192.168.100.125:11434"
-    model_name: str = "qwen2.5:32b"
-    temperature: float = 0.7
+    model_name: str = "qwen2.5:14b"
+    temperature: float = 0.2
     max_tokens: int = 65536
     top_p: float = 0.95
     timeout: float = 120.0
@@ -30,8 +30,8 @@ class OllamaClient(CustomLLM):
     def __init__(
         self,
         api_url: str = "http://192.168.100.125:11434",
-        model_name: str = "qwen2.5:32b",
-        temperature: float = 0.7,
+        model_name: str = "qwen2.5:14b",
+        temperature: float = 0.2,
         max_tokens: int = 65536,
         top_p: float = 0.95,
         timeout: float = 120.0,

@@ -196,7 +196,7 @@ def display_llm_info(response: Dict):
         elif provider == LLMProvider.VLLM:
             provider_name = "Qwen2.5-14B (vLLM)"
         elif provider == LLMProvider.OLLAMA:
-            provider_name = "QWQ:32B (Ollama)"
+            provider_name = "qwen2.5:14b (Ollama)"
         st.info(f"LLM Provider: {provider_name}")
         logger.info(f"Response generated using: {provider_name}")
 
@@ -255,7 +255,7 @@ def main():
                 llm_provider_options = {
                     "OpenAI GPT-4o mini": LLMProvider.OPENAI,
                     "Qwen2.5-14B (vLLM)": LLMProvider.VLLM,
-                    "QWQ:32B (Ollama)": LLMProvider.OLLAMA  # Add this option
+                    "Qwen2.5-32B (Ollama)": LLMProvider.OLLAMA  # Add this option
                 }
                 selected_provider_name = st.selectbox(
                     "Select LLM Provider",

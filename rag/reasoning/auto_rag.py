@@ -141,6 +141,8 @@ class AutoRAG:
                     context=context
                 )
                 
+                print(prompt)
+                
                 input_tokens = self._count_tokens(prompt)
                 response = await self.llm.acomplete(prompt)
                 output_tokens = self._count_tokens(response.text)

@@ -18,9 +18,9 @@ class WeaviateConfig:
 @dataclass
 class VLLMConfig:
     api_url: str = "http://192.168.100.125:8000"
-    model_name: str = "Qwen/Qwen2.5-14B-Instruct-GPTQ-Int8"
-    temperature: float = 0.7
-    max_tokens: int = 65536
+    model_name: str = "Qwen/Qwen2.5-14B-Instruct"
+    temperature: float = 0.2
+    max_tokens: int = 32768
     top_p: float = 0.95
     timeout: float = 120.0
     request_timeout: float = 120.0
@@ -29,8 +29,8 @@ class VLLMConfig:
 @dataclass
 class OllamaConfig:  # Add new config class
     api_url: str = "http://192.168.100.125:11434"  # Update with your server's address
-    model_name: str = "qwen2.5:32b"
-    temperature: float = 0.7
+    model_name: str = "qwen2.5:14b"
+    temperature: float = 0.2
     max_tokens: int = 65536
     top_p: float = 0.95
     timeout: float = 120.0
@@ -58,7 +58,7 @@ class ModelConfig:
 @dataclass
 class RetrievalConfig:
     vector_store_query_mode: str = "hybrid"
-    similarity_top_k: int = 8
+    similarity_top_k: int = 5
     alpha: float = 0.5
 
 @dataclass

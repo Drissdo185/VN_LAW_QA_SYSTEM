@@ -28,7 +28,7 @@ class SearchPipeline:
         Steps:
         1. Initial hybrid retrieval (BM25 + Dense)
         2. Cross-encoder reranking
-        3. Return top 5 results
+        3. Return top 2 results
         """
         # Step 1: Initial retrieval
         initial_results = self.retriever.retrieve(query)
@@ -36,7 +36,7 @@ class SearchPipeline:
         # Step 2: Cross-encoder reranking
         reranked_results = self._rerank_results(query, initial_results)
         
-        return reranked_results[:5]
+        return reranked_results[:1]
     
     def _rerank_results(
         self, 
