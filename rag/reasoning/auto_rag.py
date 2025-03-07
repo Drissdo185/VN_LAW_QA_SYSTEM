@@ -9,6 +9,7 @@ from config.config import ModelConfig, LLMProvider
 from retrieval.retriever import DocumentRetriever
 from reasoning.prompts import SYSTEM_PROMPT
 from llm.vllm_client import VLLMClient
+from llm.ollama_client import OllamaClient
 
 logger = logging.getLogger(__name__)
 
@@ -39,28 +40,42 @@ class AutoRAG:
             logger.info(f"Setting up vLLM client with model: {self.model_config.vllm_config.model_name}")
             try:
                 client = VLLMClient.from_config(self.model_config.vllm_config)
-                # Verify the client was initialized properly
+               
                 logger.info(f"Successfully initialized vLLM client with API URL: {client.api_url}")
                 return client
             except Exception as e:
                 logger.error(f"Error initializing vLLM client: {str(e)}")
                 raise
+        elif self.model_config.llm_provider == LLMProvider.OLLAMA:  
+            logger.info(f"Setting up Ollama client with model: {self.model_config.ollama_config.model_name}")
+            try:
+                client = OllamaClient.from_config(self.model_config.ollama_config)
+                
+                logger.info(f"Successfully initialized Ollama client with API URL: {client.api_url}")
+                return client
+            except Exception as e:
+                logger.error(f"Error initializing Ollama client: {str(e)}")
+                raise
         else:
             raise ValueError(f"Unsupported LLM provider: {self.model_config.llm_provider}")
-    
+
+    # Also update the _setup_tokenizer method:
     def _setup_tokenizer(self):
         """Set up the tokenizer based on the LLM provider"""
         if self.model_config.llm_provider == LLMProvider.OPENAI:
             return tiktoken.encoding_for_model(self.model_config.openai_model)
         elif self.model_config.llm_provider == LLMProvider.VLLM:
-            # For Qwen models, we'll use the tiktoken cl100k_base encoder as an approximation
+            
+            return tiktoken.get_encoding("cl100k_base")
+        elif self.model_config.llm_provider == LLMProvider.OLLAMA:  
+            
             return tiktoken.get_encoding("cl100k_base")
         else:
             raise ValueError(f"Unsupported LLM provider: {self.model_config.llm_provider}")
     
     def _is_traffic_related(self, question: str) -> bool:
         """Check if question is related to traffic"""
-        # Check for common traffic-related terms in Vietnamese
+       
         traffic_keywords = [
             'mũ bảo hiểm', 'giao thông', 'đường bộ', 'biển báo', 
             'luật giao thông', 'phạt', 'xe máy', 'ô tô', 'bằng lái',
@@ -125,6 +140,9 @@ class AutoRAG:
                     question=question,  # Always use original question
                     context=context
                 )
+                print(prompt)
+                
+                
                 
                 input_tokens = self._count_tokens(prompt)
                 response = await self.llm.acomplete(prompt)
