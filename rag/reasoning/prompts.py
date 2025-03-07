@@ -14,5 +14,5 @@ Hãy trả lời theo định dạng sau:
 Phân tích: <phân tích thông tin hiện có>
 Quyết định: [Cần thêm thông tin/Đã đủ thông tin]
 Truy vấn tiếp theo: <truy vấn mới> (nếu cần)
-Câu trả lời cuối cùng: <câu trả lời> (nếu đã đủ thông tin)
+Câu trả lời cuối cùng: <Trả lời câu hỏi dựa trên thông tin đã phân tích, chỉ khi dữ liệu đã đủ.>  (nếu đã đủ thông tin)
 """
