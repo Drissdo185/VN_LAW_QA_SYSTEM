@@ -1,0 +1,113 @@
+[2025-03-07 21:52:32,884] INFO [__main__] Starting application
+[2025-03-07 21:52:32,886] INFO [__main__] Initializing configurations
+[2025-03-07 21:52:32,886] INFO [__main__] Configurations initialized successfully
+[2025-03-07 21:52:32,887] INFO [__main__] Selected LLM provider: openai
+[2025-03-07 21:52:32,887] INFO [__main__] Initializing components with LLM provider: openai
+[2025-03-07 21:52:32,887] INFO [retrieval.vector_store] Using connect_to_weaviate_cloud method
+[2025-03-07 21:52:33,688] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-07 21:52:33,717] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-07 21:52:38,796] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-07 21:52:39,314] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-07 21:52:39,422] ERROR [retrieval.vector_store] Client connection test failed: 'WeaviateClient' object has no attribute 'schema'
+[2025-03-07 21:52:39,979] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-07 21:52:42,091] INFO [retrieval.search_pipline] Initialized SearchPipeline
+[2025-03-07 21:52:42,091] ERROR [__main__] Error initializing components: 'AutoRAG' object has no attribute '_setup_llm'
+[2025-03-07 21:52:42,091] ERROR [__main__] Error initializing components: 'AutoRAG' object has no attribute '_setup_llm'
+[2025-03-07 21:54:20,435] INFO [__main__] Starting application
+[2025-03-07 21:54:20,437] INFO [__main__] Initializing configurations
+[2025-03-07 21:54:20,437] INFO [__main__] Configurations initialized successfully
+[2025-03-07 21:54:20,438] INFO [__main__] Selected LLM provider: openai
+[2025-03-07 21:54:20,438] INFO [__main__] Initializing components with LLM provider: openai
+[2025-03-07 21:54:20,438] INFO [retrieval.vector_store] Using connect_to_weaviate_cloud method
+[2025-03-07 21:54:20,838] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-07 21:54:20,863] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-07 21:54:27,423] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-07 21:54:27,925] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-07 21:54:28,044] ERROR [retrieval.vector_store] Client connection test failed: 'WeaviateClient' object has no attribute 'schema'
+[2025-03-07 21:54:28,399] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-07 21:54:30,439] INFO [retrieval.search_pipline] Initialized SearchPipeline
+[2025-03-07 21:54:30,440] ERROR [__main__] Error initializing components: 'AutoRAG' object has no attribute '_setup_llm'
+[2025-03-07 21:54:30,440] ERROR [__main__] Error initializing components: 'AutoRAG' object has no attribute '_setup_llm'
+[2025-03-07 21:55:39,265] INFO [__main__] Starting application
+[2025-03-07 21:55:39,268] INFO [__main__] Initializing configurations
+[2025-03-07 21:55:39,268] INFO [__main__] Configurations initialized successfully
+[2025-03-07 21:55:39,269] INFO [__main__] Selected LLM provider: openai
+[2025-03-07 21:55:39,269] INFO [__main__] Initializing components with LLM provider: openai
+[2025-03-07 21:55:39,269] INFO [retrieval.vector_store] Using connect_to_weaviate_cloud method
+[2025-03-07 21:55:39,887] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-07 21:55:39,914] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-07 21:55:44,722] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-07 21:55:45,023] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-07 21:55:45,148] ERROR [retrieval.vector_store] Client connection test failed: 'WeaviateClient' object has no attribute 'schema'
+[2025-03-07 21:55:45,534] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-07 21:55:47,784] INFO [retrieval.search_pipline] Initialized SearchPipeline
+[2025-03-07 21:55:47,784] ERROR [__main__] Error initializing components: 'AutoRAG' object has no attribute '_setup_llm'
+[2025-03-07 21:55:47,784] ERROR [__main__] Error initializing components: 'AutoRAG' object has no attribute '_setup_llm'
+[2025-03-07 22:00:10,076] INFO [__main__] Starting application
+[2025-03-07 22:00:10,078] INFO [__main__] Initializing configurations
+[2025-03-07 22:00:10,078] INFO [__main__] Configurations initialized successfully
+[2025-03-07 22:00:10,079] INFO [__main__] Selected LLM provider: openai
+[2025-03-07 22:00:10,079] INFO [__main__] Initializing components with LLM provider: openai
+[2025-03-07 22:00:10,079] INFO [retrieval.vector_store] Using connect_to_weaviate_cloud method
+[2025-03-07 22:00:10,778] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-07 22:00:10,818] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-07 22:00:17,102] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-07 22:00:17,603] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-07 22:00:17,767] ERROR [retrieval.vector_store] Client connection test failed: 'WeaviateClient' object has no attribute 'schema'
+[2025-03-07 22:00:18,319] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-07 22:00:21,229] INFO [retrieval.search_pipline] Initialized SearchPipeline
+[2025-03-07 22:00:21,229] INFO [reasoning.auto_rag] Setting up OpenAI LLM with model: gpt-4o-mini
+[2025-03-07 22:00:21,444] INFO [reasoning.auto_rag] Initialized Traffic AutoRAG with LLM provider: LLMProvider.OPENAI
+[2025-03-07 22:00:21,444] INFO [reasoning.auto_rag] Using basic DocumentRetriever for document retrieval
+[2025-03-07 22:00:21,444] INFO [__main__] Initializing web search integration
+[2025-03-07 22:00:21,444] INFO [web_handle.web_search] Initialized WebSearchIntegrator
+[2025-03-07 22:00:21,444] INFO [__main__] Components initialized successfully
+[2025-03-07 22:00:24,554] INFO [__main__] Starting application
+[2025-03-07 22:00:24,559] INFO [__main__] Selected LLM provider: openai
+[2025-03-07 22:00:24,559] INFO [__main__] Initializing components with LLM provider: openai
+[2025-03-07 22:00:24,560] INFO [retrieval.vector_store] Using connect_to_weaviate_cloud method
+[2025-03-07 22:00:24,675] INFO [__main__] Starting application
+[2025-03-07 22:00:24,677] INFO [__main__] Selected LLM provider: openai
+[2025-03-07 22:00:24,677] INFO [__main__] Initializing components with LLM provider: openai
+[2025-03-07 22:00:24,677] INFO [retrieval.vector_store] Using connect_to_weaviate_cloud method
+[2025-03-07 22:00:25,194] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-07 22:00:25,208] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-07 22:00:25,223] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-07 22:00:25,236] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-07 22:00:30,533] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-07 22:00:31,290] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-07 22:00:31,292] ERROR [retrieval.vector_store] Client connection test failed: 'WeaviateClient' object has no attribute 'schema'
+[2025-03-07 22:00:31,848] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-07 22:00:31,892] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-07 22:00:32,408] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-07 22:00:32,411] ERROR [retrieval.vector_store] Client connection test failed: 'WeaviateClient' object has no attribute 'schema'
+[2025-03-07 22:00:32,964] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-07 22:00:34,294] INFO [retrieval.search_pipline] Initialized SearchPipeline
+[2025-03-07 22:00:34,294] INFO [reasoning.auto_rag] Setting up OpenAI LLM with model: gpt-4o-mini
+[2025-03-07 22:00:34,295] INFO [reasoning.auto_rag] Initialized Traffic AutoRAG with LLM provider: LLMProvider.OPENAI
+[2025-03-07 22:00:34,295] INFO [reasoning.auto_rag] Using basic DocumentRetriever for document retrieval
+[2025-03-07 22:00:34,295] INFO [__main__] Initializing web search integration
+[2025-03-07 22:00:34,295] INFO [web_handle.web_search] Initialized WebSearchIntegrator
+[2025-03-07 22:00:34,295] INFO [__main__] Components initialized successfully
+[2025-03-07 22:00:35,728] INFO [retrieval.search_pipline] Initialized SearchPipeline
+[2025-03-07 22:00:35,728] INFO [reasoning.auto_rag] Setting up OpenAI LLM with model: gpt-4o-mini
+[2025-03-07 22:00:35,728] INFO [reasoning.auto_rag] Initialized Traffic AutoRAG with LLM provider: LLMProvider.OPENAI
+[2025-03-07 22:00:35,728] INFO [reasoning.auto_rag] Using basic DocumentRetriever for document retrieval
+[2025-03-07 22:00:35,728] INFO [__main__] Initializing web search integration
+[2025-03-07 22:00:35,728] INFO [web_handle.web_search] Initialized WebSearchIntegrator
+[2025-03-07 22:00:35,728] INFO [__main__] Components initialized successfully
+[2025-03-07 22:00:35,729] INFO [__main__] Processing new question: Mức phạt nồng độ cồn 2025 đối với xe máy
+[2025-03-07 22:00:35,730] INFO [__main__] Processing question: Mức phạt nồng độ cồn 2025 đối với xe máy
+[2025-03-07 22:00:35,730] INFO [reasoning.auto_rag] Question validated as traffic-related via keyword: phạt
+[2025-03-07 22:00:35,730] INFO [reasoning.auto_rag] Iteration 1: Retrieving documents for query: Mức phạt nồng độ cồn 2025 đối với xe máy
+[2025-03-07 22:00:36,661] INFO [reasoning.auto_rag] DocumentRetriever returned 0 documents
+[2025-03-07 22:00:36,662] WARNING [reasoning.auto_rag] No documents found for query: Mức phạt nồng độ cồn 2025 đối với xe máy
+[2025-03-07 22:00:36,663] WARNING [reasoning.auto_rag] Exiting loop without sufficient information
+[2025-03-07 22:00:36,664] INFO [utils] Function process_question completed in 0.93 seconds
+[2025-03-07 22:00:36,666] INFO [__main__] Question processed in 0.94 seconds
+[2025-03-07 22:00:36,669] INFO [__main__] Needs web search: True
+[2025-03-07 22:00:36,669] INFO [__main__] Web search prompt triggered
+[2025-03-07 22:00:36,670] INFO [__main__] Displaying results
+[2025-03-07 22:00:36,671] INFO [__main__] Response generated using: OpenAI GPT-4o mini
+[2025-03-07 22:00:36,679] INFO [__main__] Cleaning up components
+[2025-03-07 22:00:36,684] INFO [__main__] Displaying web search prompt
