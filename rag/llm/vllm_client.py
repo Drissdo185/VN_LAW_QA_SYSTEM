@@ -17,7 +17,7 @@ logger = logging.getLogger(__name__)
 class VLLMConfig:
     """Configuration for vLLM server."""
     api_url: str = "http://192.168.100.125:8000"
-    model_name: str = "Qwen/Qwen2.5-Coder-14B-Instruct-GPTQ-Int8"
+    model_name: str = "Qwen/QwQ-32B-AWQ"
     temperature: float = 0.7
     max_tokens: int = 4096
     top_p: float = 0.95
@@ -30,7 +30,7 @@ class VLLMClient(CustomLLM):
     def __init__(
         self,
         api_url: str = "http://192.168.100.125:8000",
-        model_name: str = "Qwen/Qwen2.5-Coder-14B-Instruct-GPTQ-Int8",
+        model_name: str = "Qwen/QwQ-32B-AWQ",
         temperature: float = 0.7,
         max_tokens: int = 4096,
         top_p: float = 0.95,

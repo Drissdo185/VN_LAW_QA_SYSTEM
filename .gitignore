@@ -18,3 +18,5 @@ deploy/terraform/output.tf
 deploy/terraform/variables.tf
 
 deploy/terraform/.terraform
+
+rag/app.log

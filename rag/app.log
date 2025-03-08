@@ -80,3 +80,1349 @@
 [2025-03-07 22:41:02,153] INFO [retrieval.vector_store] Closing Weaviate client connection
 [2025-03-07 22:41:02,159] INFO [retrieval.vector_store] Weaviate client connection closed
 [2025-03-07 22:41:02,160] INFO [__main__] Displaying web search prompt
+[2025-03-07 22:43:30,737] INFO [__main__] Starting application
+[2025-03-07 22:43:30,745] INFO [__main__] Selected LLM provider: openai
+[2025-03-07 22:43:30,747] INFO [__main__] Initializing components with LLM provider: openai
+[2025-03-07 22:43:30,748] INFO [retrieval.vector_store] Initializing connection to Weaviate at https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud
+[2025-03-07 22:43:30,749] INFO [retrieval.vector_store] Using collection: ND168
+[2025-03-07 22:43:30,749] INFO [retrieval.vector_store] Creating new Weaviate client connection
+[2025-03-07 22:43:31,540] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-07 22:43:31,758] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-07 22:43:31,763] INFO [retrieval.vector_store] Collection exists: True
+[2025-03-07 22:43:31,763] INFO [retrieval.vector_store] Successfully connected to Weaviate
+[2025-03-07 22:43:31,763] INFO [retrieval.vector_store] Loading embedding model: dangvantuan/vietnamese-document-embedding
+[2025-03-07 22:43:31,766] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-07 22:43:36,305] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-07 22:43:36,531] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-07 22:43:36,536] INFO [retrieval.vector_store] Successfully initialized vector store and index for collection ND168
+[2025-03-07 22:43:36,536] INFO [retrieval.retriever] Retriever setup complete with similarity_top_k=5
+[2025-03-07 22:43:38,875] INFO [retrieval.search_pipline] Initialized CrossEncoder with model: dangvantuan/vietnamese-document-embedding
+[2025-03-07 22:43:38,875] INFO [retrieval.search_pipline] Initialized SearchPipeline
+[2025-03-07 22:43:38,875] INFO [reasoning.auto_rag] Setting up OpenAI LLM with model: gpt-4o-mini
+[2025-03-07 22:43:38,875] INFO [reasoning.auto_rag] Initialized Traffic AutoRAG with LLM provider: LLMProvider.OPENAI
+[2025-03-07 22:43:38,875] INFO [reasoning.auto_rag] Using basic DocumentRetriever for document retrieval
+[2025-03-07 22:43:38,875] INFO [__main__] Initializing web search integration
+[2025-03-07 22:43:38,875] INFO [web_handle.web_search] Initialized WebSearchIntegrator
+[2025-03-07 22:43:38,875] INFO [__main__] Components initialized successfully
+[2025-03-07 22:43:38,876] INFO [__main__] Displaying web search prompt
+[2025-03-07 22:43:41,287] INFO [__main__] Starting application
+[2025-03-07 22:43:41,293] INFO [__main__] Selected LLM provider: openai
+[2025-03-07 22:43:41,293] INFO [__main__] Initializing components with LLM provider: openai
+[2025-03-07 22:43:41,294] INFO [retrieval.vector_store] Initializing connection to Weaviate at https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud
+[2025-03-07 22:43:41,294] INFO [retrieval.vector_store] Using collection: ND168
+[2025-03-07 22:43:41,294] INFO [retrieval.vector_store] Creating new Weaviate client connection
+[2025-03-07 22:43:41,389] INFO [__main__] Starting application
+[2025-03-07 22:43:41,391] INFO [__main__] Selected LLM provider: openai
+[2025-03-07 22:43:41,392] INFO [__main__] Initializing components with LLM provider: openai
+[2025-03-07 22:43:41,392] INFO [retrieval.vector_store] Initializing connection to Weaviate at https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud
+[2025-03-07 22:43:41,392] INFO [retrieval.vector_store] Using collection: ND168
+[2025-03-07 22:43:41,392] INFO [retrieval.vector_store] Creating new Weaviate client connection
+[2025-03-07 22:43:41,715] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-07 22:43:41,925] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-07 22:43:41,945] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-07 22:43:41,951] INFO [retrieval.vector_store] Collection exists: True
+[2025-03-07 22:43:41,951] INFO [retrieval.vector_store] Successfully connected to Weaviate
+[2025-03-07 22:43:41,951] INFO [retrieval.vector_store] Loading embedding model: dangvantuan/vietnamese-document-embedding
+[2025-03-07 22:43:41,952] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-07 22:43:42,157] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-07 22:43:42,161] INFO [retrieval.vector_store] Collection exists: True
+[2025-03-07 22:43:42,161] INFO [retrieval.vector_store] Successfully connected to Weaviate
+[2025-03-07 22:43:42,161] INFO [retrieval.vector_store] Loading embedding model: dangvantuan/vietnamese-document-embedding
+[2025-03-07 22:43:42,162] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-07 22:43:46,632] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-07 22:43:46,857] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-07 22:43:46,861] INFO [retrieval.vector_store] Successfully initialized vector store and index for collection ND168
+[2025-03-07 22:43:46,862] INFO [retrieval.retriever] Retriever setup complete with similarity_top_k=5
+[2025-03-07 22:43:47,996] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-07 22:43:48,533] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-07 22:43:48,536] INFO [retrieval.vector_store] Successfully initialized vector store and index for collection ND168
+[2025-03-07 22:43:48,536] INFO [retrieval.retriever] Retriever setup complete with similarity_top_k=5
+[2025-03-07 22:43:49,140] INFO [retrieval.search_pipline] Initialized CrossEncoder with model: dangvantuan/vietnamese-document-embedding
+[2025-03-07 22:43:49,140] INFO [retrieval.search_pipline] Initialized SearchPipeline
+[2025-03-07 22:43:49,140] INFO [reasoning.auto_rag] Setting up OpenAI LLM with model: gpt-4o-mini
+[2025-03-07 22:43:49,141] INFO [reasoning.auto_rag] Initialized Traffic AutoRAG with LLM provider: LLMProvider.OPENAI
+[2025-03-07 22:43:49,141] INFO [reasoning.auto_rag] Using basic DocumentRetriever for document retrieval
+[2025-03-07 22:43:49,141] INFO [__main__] Initializing web search integration
+[2025-03-07 22:43:49,141] INFO [web_handle.web_search] Initialized WebSearchIntegrator
+[2025-03-07 22:43:49,141] INFO [__main__] Components initialized successfully
+[2025-03-07 22:43:49,142] INFO [__main__] Processing new question: Mức phạt nồng độ cồn 2025 đối với xe ô tô
+[2025-03-07 22:43:49,143] INFO [__main__] Processing question: Mức phạt nồng độ cồn 2025 đối với xe ô tô
+[2025-03-07 22:43:49,143] INFO [reasoning.auto_rag] Question validated as traffic-related via keyword: phạt
+[2025-03-07 22:43:49,143] INFO [reasoning.auto_rag] Iteration 1: Retrieving documents for query: Mức phạt nồng độ cồn 2025 đối với xe ô tô
+[2025-03-07 22:43:49,143] INFO [reasoning.auto_rag] Tokenized query: mức phạt nồng_độ cồn 2025 đối_với xe ô_tô
+[2025-03-07 22:43:49,143] INFO [reasoning.auto_rag] Using basic DocumentRetriever for retrieval
+[2025-03-07 22:43:49,144] INFO [retrieval.retriever] Original query: 'Mức phạt nồng độ cồn 2025 đối với xe ô tô'
+[2025-03-07 22:43:49,144] INFO [retrieval.retriever] Tokenized query: 'mức phạt nồng_độ cồn 2025 đối_với xe ô_tô'
+[2025-03-07 22:43:50,205] INFO [retrieval.retriever] Retrieved 5 documents for query
+[2025-03-07 22:43:50,205] INFO [retrieval.retriever] Top result score: 0.9035042524337769
+[2025-03-07 22:43:50,205] INFO [retrieval.retriever] Score range: 0.693583607673645 to 0.9035042524337769
+[2025-03-07 22:43:50,205] INFO [reasoning.auto_rag] DocumentRetriever returned 5 documents
+[2025-03-07 22:43:50,205] INFO [reasoning.auto_rag] Retrieved document details:
+[2025-03-07 22:43:50,206] INFO [reasoning.auto_rag] Doc 1 score: 0.9035042524337769
+[2025-03-07 22:43:50,206] INFO [reasoning.auto_rag] Doc 1 metadata: {'category': 'ô tô', 'fine_amount': 'Tước quyền sử dụng giấy phép lái xe từ 22 tháng đến 24 tháng', 'violation_type': 'nồng_độ_cồn', 'original_text': 'Loại phương tiện: ô tô\nMức phạt: Tước quyền sử dụng giấy phép lái xe từ 22 tháng đến 24 tháng\nNội dung vi phạm: Không chấp hành yêu cầu kiểm tra về chất ma túy hoặc chất kích thích khác mà pháp luật cấm sử dụng'}
+[2025-03-07 22:43:50,206] INFO [reasoning.auto_rag] Doc 2 score: 0.8224883079528809
+[2025-03-07 22:43:50,206] INFO [reasoning.auto_rag] Doc 2 metadata: {'category': 'ô tô', 'fine_amount': 'Phạt tiền từ 30.000.000 đồng đến 40.000.000 đồng', 'violation_type': 'nồng_độ_cồn', 'original_text': 'Loại phương tiện: ô tô\nMức phạt: Phạt tiền từ 30.000.000 đồng đến 40.000.000 đồng\nNội dung vi phạm: Không chấp hành yêu cầu kiểm tra về chất ma túy hoặc chất kích thích khác mà pháp luật cấm sử dụng của người thi hành công vụ'}
+[2025-03-07 22:43:50,206] INFO [reasoning.auto_rag] Doc 3 score: 0.7692970037460327
+[2025-03-07 22:43:50,207] INFO [reasoning.auto_rag] Doc 3 metadata: {'category': 'ô tô', 'fine_amount': 'Phạt tiền từ 6.000.000 đồng đến 8.000.000 đồng', 'violation_type': 'nồng_độ_cồn', 'original_text': 'Loại phương tiện: ô tô\nMức phạt: Phạt tiền từ 6.000.000 đồng đến 8.000.000 đồng\nNội dung vi phạm: Điều khiển xe trên đường mà trong máu hoặc hơi thở có nồng độ cồn nhưng chưa vượt quá 50 miligam/100 mililít máu hoặc chưa vượt quá 0,25 miligam/1 lít khí thở'}
+[2025-03-07 22:43:50,207] INFO [reasoning.auto_rag] Context length: 1285 characters
+[2025-03-07 22:43:50,208] INFO [reasoning.auto_rag] Input tokens: 640
+[2025-03-07 22:43:50,927] INFO [retrieval.search_pipline] Initialized CrossEncoder with model: dangvantuan/vietnamese-document-embedding
+[2025-03-07 22:43:50,927] INFO [retrieval.search_pipline] Initialized SearchPipeline
+[2025-03-07 22:43:50,927] INFO [reasoning.auto_rag] Setting up OpenAI LLM with model: gpt-4o-mini
+[2025-03-07 22:43:50,927] INFO [reasoning.auto_rag] Initialized Traffic AutoRAG with LLM provider: LLMProvider.OPENAI
+[2025-03-07 22:43:50,927] INFO [reasoning.auto_rag] Using basic DocumentRetriever for document retrieval
+[2025-03-07 22:43:50,927] INFO [__main__] Initializing web search integration
+[2025-03-07 22:43:50,927] INFO [web_handle.web_search] Initialized WebSearchIntegrator
+[2025-03-07 22:43:50,927] INFO [__main__] Components initialized successfully
+[2025-03-07 22:44:03,379] INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-03-07 22:44:03,381] INFO [reasoning.auto_rag] Output tokens: 507
+[2025-03-07 22:44:03,382] INFO [reasoning.auto_rag] Decision: Đã đủ thông tin
+[2025-03-07 22:44:03,382] INFO [reasoning.auto_rag] Found sufficient information, returning final answer
+[2025-03-07 22:44:03,382] INFO [utils] Function process_question completed in 14.24 seconds
+[2025-03-07 22:44:03,382] INFO [__main__] Question processed in 14.24 seconds
+[2025-03-07 22:44:03,382] INFO [__main__] Needs web search: False
+[2025-03-07 22:44:03,383] INFO [__main__] Displaying results
+[2025-03-07 22:44:03,383] INFO [__main__] Response generated using: OpenAI GPT-4o mini
+[2025-03-07 22:44:03,385] INFO [__main__] Cleaning up components
+[2025-03-07 22:44:03,385] INFO [retrieval.vector_store] Closing Weaviate client connection
+[2025-03-07 22:44:03,386] INFO [retrieval.vector_store] Weaviate client connection closed
+[2025-03-07 22:46:51,691] INFO [__main__] Starting application
+[2025-03-07 22:46:51,695] INFO [__main__] Selected LLM provider: openai
+[2025-03-07 22:46:51,695] INFO [__main__] Initializing components with LLM provider: openai
+[2025-03-07 22:46:51,696] INFO [retrieval.vector_store] Initializing connection to Weaviate at https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud
+[2025-03-07 22:46:51,696] INFO [retrieval.vector_store] Using collection: ND168
+[2025-03-07 22:46:51,697] INFO [retrieval.vector_store] Creating new Weaviate client connection
+[2025-03-07 22:46:52,303] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-07 22:46:52,553] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-07 22:46:52,559] INFO [retrieval.vector_store] Collection exists: True
+[2025-03-07 22:46:52,559] INFO [retrieval.vector_store] Successfully connected to Weaviate
+[2025-03-07 22:46:52,560] INFO [retrieval.vector_store] Loading embedding model: dangvantuan/vietnamese-document-embedding
+[2025-03-07 22:46:52,563] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-07 22:46:57,545] INFO [__main__] Starting application
+[2025-03-07 22:46:57,550] INFO [__main__] Selected LLM provider: openai
+[2025-03-07 22:46:57,552] INFO [__main__] Initializing components with LLM provider: openai
+[2025-03-07 22:46:57,555] INFO [retrieval.vector_store] Initializing connection to Weaviate at https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud
+[2025-03-07 22:46:57,556] INFO [retrieval.vector_store] Using collection: ND168
+[2025-03-07 22:46:57,557] INFO [retrieval.vector_store] Creating new Weaviate client connection
+[2025-03-07 22:46:57,642] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-07 22:46:57,966] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-07 22:46:57,968] INFO [retrieval.vector_store] Successfully initialized vector store and index for collection ND168
+[2025-03-07 22:46:57,968] INFO [retrieval.retriever] Retriever setup complete with similarity_top_k=5
+[2025-03-07 22:46:58,191] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-07 22:46:58,500] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-07 22:46:58,502] INFO [retrieval.vector_store] Collection exists: True
+[2025-03-07 22:46:58,503] INFO [retrieval.vector_store] Successfully connected to Weaviate
+[2025-03-07 22:46:58,503] INFO [retrieval.vector_store] Loading embedding model: dangvantuan/vietnamese-document-embedding
+[2025-03-07 22:46:58,505] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-07 22:46:59,919] INFO [retrieval.search_pipline] Initialized CrossEncoder with model: dangvantuan/vietnamese-document-embedding
+[2025-03-07 22:46:59,919] INFO [retrieval.search_pipline] Initialized SearchPipeline
+[2025-03-07 22:46:59,919] INFO [reasoning.auto_rag] Setting up OpenAI LLM with model: gpt-4o-mini
+[2025-03-07 22:46:59,919] INFO [reasoning.auto_rag] Initialized Traffic AutoRAG with LLM provider: LLMProvider.OPENAI
+[2025-03-07 22:46:59,919] INFO [reasoning.auto_rag] Using basic DocumentRetriever for document retrieval
+[2025-03-07 22:46:59,919] INFO [__main__] Initializing web search integration
+[2025-03-07 22:46:59,919] INFO [web_handle.web_search] Initialized WebSearchIntegrator
+[2025-03-07 22:46:59,919] INFO [__main__] Components initialized successfully
+[2025-03-07 22:47:03,961] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-07 22:47:04,503] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-07 22:47:04,514] INFO [retrieval.vector_store] Successfully initialized vector store and index for collection ND168
+[2025-03-07 22:47:04,515] INFO [retrieval.retriever] Retriever setup complete with similarity_top_k=5
+[2025-03-07 22:47:06,488] INFO [retrieval.search_pipline] Initialized CrossEncoder with model: dangvantuan/vietnamese-document-embedding
+[2025-03-07 22:47:06,488] INFO [retrieval.search_pipline] Initialized SearchPipeline
+[2025-03-07 22:47:06,488] INFO [reasoning.auto_rag] Setting up OpenAI LLM with model: gpt-4o-mini
+[2025-03-07 22:47:06,488] INFO [reasoning.auto_rag] Initialized Traffic AutoRAG with LLM provider: LLMProvider.OPENAI
+[2025-03-07 22:47:06,489] INFO [reasoning.auto_rag] Using basic DocumentRetriever for document retrieval
+[2025-03-07 22:47:06,489] INFO [__main__] Initializing web search integration
+[2025-03-07 22:47:06,489] INFO [web_handle.web_search] Initialized WebSearchIntegrator
+[2025-03-07 22:47:06,489] INFO [__main__] Components initialized successfully
+[2025-03-07 22:47:11,499] INFO [__main__] Starting application
+[2025-03-07 22:47:11,504] INFO [__main__] Selected LLM provider: openai
+[2025-03-07 22:47:11,505] INFO [__main__] Initializing components with LLM provider: openai
+[2025-03-07 22:47:11,506] INFO [retrieval.vector_store] Initializing connection to Weaviate at https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud
+[2025-03-07 22:47:11,507] INFO [retrieval.vector_store] Using collection: ND168
+[2025-03-07 22:47:11,515] INFO [retrieval.vector_store] Creating new Weaviate client connection
+[2025-03-07 22:47:11,600] INFO [__main__] Starting application
+[2025-03-07 22:47:11,601] INFO [__main__] Selected LLM provider: openai
+[2025-03-07 22:47:11,601] INFO [__main__] Initializing components with LLM provider: openai
+[2025-03-07 22:47:11,602] INFO [retrieval.vector_store] Initializing connection to Weaviate at https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud
+[2025-03-07 22:47:11,602] INFO [retrieval.vector_store] Using collection: ND168
+[2025-03-07 22:47:11,602] INFO [retrieval.vector_store] Creating new Weaviate client connection
+[2025-03-07 22:47:11,965] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-07 22:47:12,222] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-07 22:47:12,225] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-07 22:47:12,229] INFO [retrieval.vector_store] Collection exists: True
+[2025-03-07 22:47:12,230] INFO [retrieval.vector_store] Successfully connected to Weaviate
+[2025-03-07 22:47:12,230] INFO [retrieval.vector_store] Loading embedding model: dangvantuan/vietnamese-document-embedding
+[2025-03-07 22:47:12,235] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-07 22:47:12,527] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-07 22:47:12,533] INFO [retrieval.vector_store] Collection exists: True
+[2025-03-07 22:47:12,536] INFO [retrieval.vector_store] Successfully connected to Weaviate
+[2025-03-07 22:47:12,536] INFO [retrieval.vector_store] Loading embedding model: dangvantuan/vietnamese-document-embedding
+[2025-03-07 22:47:12,539] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-07 22:47:16,661] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-07 22:47:16,933] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-07 22:47:16,943] INFO [retrieval.vector_store] Successfully initialized vector store and index for collection ND168
+[2025-03-07 22:47:16,943] INFO [retrieval.retriever] Retriever setup complete with similarity_top_k=5
+[2025-03-07 22:47:16,950] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-07 22:47:17,185] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-07 22:47:17,191] INFO [retrieval.vector_store] Successfully initialized vector store and index for collection ND168
+[2025-03-07 22:47:17,191] INFO [retrieval.retriever] Retriever setup complete with similarity_top_k=5
+[2025-03-07 22:47:18,890] INFO [retrieval.search_pipline] Initialized CrossEncoder with model: dangvantuan/vietnamese-document-embedding
+[2025-03-07 22:47:18,890] INFO [retrieval.search_pipline] Initialized SearchPipeline
+[2025-03-07 22:47:18,890] INFO [reasoning.auto_rag] Setting up OpenAI LLM with model: gpt-4o-mini
+[2025-03-07 22:47:18,890] INFO [reasoning.auto_rag] Initialized Traffic AutoRAG with LLM provider: LLMProvider.OPENAI
+[2025-03-07 22:47:18,891] INFO [reasoning.auto_rag] Using basic DocumentRetriever for document retrieval
+[2025-03-07 22:47:18,891] INFO [__main__] Initializing web search integration
+[2025-03-07 22:47:18,891] INFO [web_handle.web_search] Initialized WebSearchIntegrator
+[2025-03-07 22:47:18,891] INFO [__main__] Components initialized successfully
+[2025-03-07 22:47:20,476] INFO [retrieval.search_pipline] Initialized CrossEncoder with model: dangvantuan/vietnamese-document-embedding
+[2025-03-07 22:47:20,476] INFO [retrieval.search_pipline] Initialized SearchPipeline
+[2025-03-07 22:47:20,476] INFO [reasoning.auto_rag] Setting up OpenAI LLM with model: gpt-4o-mini
+[2025-03-07 22:47:20,476] INFO [reasoning.auto_rag] Initialized Traffic AutoRAG with LLM provider: LLMProvider.OPENAI
+[2025-03-07 22:47:20,476] INFO [reasoning.auto_rag] Using basic DocumentRetriever for document retrieval
+[2025-03-07 22:47:20,476] INFO [__main__] Initializing web search integration
+[2025-03-07 22:47:20,476] INFO [web_handle.web_search] Initialized WebSearchIntegrator
+[2025-03-07 22:47:20,476] INFO [__main__] Components initialized successfully
+[2025-03-07 22:47:20,477] INFO [__main__] Processing new question: Điều khiển xe trên đường mà trong máu hoặc hơi thở có nồng độ cồn vượt quá 80 miligam/100 mililít máu bị phạt bao nhiêu tiền ?
+[2025-03-07 22:47:20,478] INFO [__main__] Processing question: Điều khiển xe trên đường mà trong máu hoặc hơi thở có nồng độ cồn vượt quá 80 miligam/100 mililít máu bị phạt bao nhiêu tiền ?
+[2025-03-07 22:47:20,478] INFO [reasoning.auto_rag] Question validated as traffic-related via keyword: phạt
+[2025-03-07 22:47:20,478] INFO [reasoning.auto_rag] Iteration 1: Retrieving documents for query: Điều khiển xe trên đường mà trong máu hoặc hơi thở có nồng độ cồn vượt quá 80 miligam/100 mililít máu bị phạt bao nhiêu tiền ?
+[2025-03-07 22:47:20,479] INFO [reasoning.auto_rag] Tokenized query: điều_khiển xe trên đường mà trong máu hoặc hơi thở có nồng_độ cồn vượt quá 80 miligam / 100 mililít máu bị phạt bao_nhiêu tiền ?
+[2025-03-07 22:47:20,479] INFO [reasoning.auto_rag] Using basic DocumentRetriever for retrieval
+[2025-03-07 22:47:20,480] INFO [retrieval.retriever] Original query: 'Điều khiển xe trên đường mà trong máu hoặc hơi thở có nồng độ cồn vượt quá 80 miligam/100 mililít máu bị phạt bao nhiêu tiền ?'
+[2025-03-07 22:47:20,480] INFO [retrieval.retriever] Tokenized query: 'điều_khiển xe trên đường mà trong máu hoặc hơi thở có nồng_độ cồn vượt quá 80 miligam / 100 mililít máu bị phạt bao_nhiêu tiền ?'
+[2025-03-07 22:47:21,368] INFO [retrieval.retriever] Retrieved 5 documents for query
+[2025-03-07 22:47:21,369] INFO [retrieval.retriever] Top result score: 0.995373547077179
+[2025-03-07 22:47:21,369] INFO [retrieval.retriever] Score range: 0.924194872379303 to 0.995373547077179
+[2025-03-07 22:47:21,370] INFO [reasoning.auto_rag] DocumentRetriever returned 5 documents
+[2025-03-07 22:47:21,370] INFO [reasoning.auto_rag] Retrieved document details:
+[2025-03-07 22:47:21,371] INFO [reasoning.auto_rag] Doc 1 score: 0.995373547077179
+[2025-03-07 22:47:21,371] INFO [reasoning.auto_rag] Doc 1 metadata: {'category': 'ô tô', 'fine_amount': 'Phạt tiền từ 30.000.000 đồng đến 40.000.000 đồng', 'violation_type': 'nồng_độ_cồn', 'original_text': 'Loại phương tiện: ô tô\nMức phạt: Phạt tiền từ 30.000.000 đồng đến 40.000.000 đồng\nNội dung vi phạm: Điều khiển xe trên đường mà trong máu hoặc hơi thở có nồng độ cồn vượt quá 80 miligam/100 mililít máu hoặc vượt quá 0,4 miligam/1 lít khí thở'}
+[2025-03-07 22:47:21,372] INFO [reasoning.auto_rag] Doc 2 score: 0.9901199340820312
+[2025-03-07 22:47:21,374] INFO [reasoning.auto_rag] Doc 2 metadata: {'category': 'ô tô', 'fine_amount': 'Trừ 10 điểm giấy phép lái xe', 'violation_type': 'nồng_độ_cồn', 'original_text': 'Loại phương tiện: ô tô\nMức phạt: Trừ 10 điểm giấy phép lái xe\nNội dung vi phạm: Điều khiển xe trên đường mà trong máu hoặc hơi thở có nồng độ cồn vượt quá 50 miligam đến 80 miligam/100 mililít máu hoặc vượt quá 0,25 miligam đến 0,4 miligam/1 lít khí thở'}
+[2025-03-07 22:47:21,374] INFO [reasoning.auto_rag] Doc 3 score: 0.9645097255706787
+[2025-03-07 22:47:21,375] INFO [reasoning.auto_rag] Doc 3 metadata: {'category': 'ô tô', 'fine_amount': 'Phạt tiền từ 18.000.000 đồng đến 20.000.000 đồng', 'violation_type': 'nồng_độ_cồn', 'original_text': 'Loại phương tiện: ô tô\nMức phạt: Phạt tiền từ 18.000.000 đồng đến 20.000.000 đồng\nNội dung vi phạm: Điều khiển xe trên đường mà trong máu hoặc hơi thở có nồng độ cồn vượt quá 50 miligam đến 80 miligam/100 mililít máu hoặc vượt quá 0,25 miligam đến 0,4 miligam/1 lít khí thở'}
+[2025-03-07 22:47:21,377] INFO [reasoning.auto_rag] Context length: 1344 characters
+[2025-03-07 22:47:21,382] INFO [reasoning.auto_rag] Input tokens: 716
+[2025-03-07 22:47:27,276] INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-03-07 22:47:27,281] INFO [reasoning.auto_rag] Output tokens: 206
+[2025-03-07 22:47:27,281] INFO [reasoning.auto_rag] Decision: Đã đủ thông tin
+[2025-03-07 22:47:27,282] INFO [reasoning.auto_rag] Found sufficient information, returning final answer
+[2025-03-07 22:47:27,282] INFO [utils] Function process_question completed in 6.80 seconds
+[2025-03-07 22:47:27,283] INFO [__main__] Question processed in 6.81 seconds
+[2025-03-07 22:47:27,284] INFO [__main__] Needs web search: False
+[2025-03-07 22:47:27,285] INFO [__main__] Displaying results
+[2025-03-07 22:47:27,285] INFO [__main__] Response generated using: OpenAI GPT-4o mini
+[2025-03-07 22:47:27,292] INFO [__main__] Cleaning up components
+[2025-03-07 22:47:27,292] INFO [retrieval.vector_store] Closing Weaviate client connection
+[2025-03-07 22:47:27,302] INFO [retrieval.vector_store] Weaviate client connection closed
+[2025-03-07 22:47:46,959] INFO [__main__] Starting application
+[2025-03-07 22:47:46,968] INFO [__main__] Selected LLM provider: openai
+[2025-03-07 22:47:46,969] INFO [__main__] Initializing components with LLM provider: openai
+[2025-03-07 22:47:46,970] INFO [retrieval.vector_store] Initializing connection to Weaviate at https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud
+[2025-03-07 22:47:46,971] INFO [retrieval.vector_store] Using collection: ND168
+[2025-03-07 22:47:46,972] INFO [retrieval.vector_store] Creating new Weaviate client connection
+[2025-03-07 22:47:47,653] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-07 22:47:47,899] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-07 22:47:47,902] INFO [retrieval.vector_store] Collection exists: True
+[2025-03-07 22:47:47,903] INFO [retrieval.vector_store] Successfully connected to Weaviate
+[2025-03-07 22:47:47,903] INFO [retrieval.vector_store] Loading embedding model: dangvantuan/vietnamese-document-embedding
+[2025-03-07 22:47:47,907] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-07 22:47:53,383] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-07 22:47:53,999] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-07 22:47:54,003] INFO [retrieval.vector_store] Successfully initialized vector store and index for collection ND168
+[2025-03-07 22:47:54,003] INFO [retrieval.retriever] Retriever setup complete with similarity_top_k=5
+[2025-03-07 22:47:56,661] INFO [retrieval.search_pipline] Initialized CrossEncoder with model: dangvantuan/vietnamese-document-embedding
+[2025-03-07 22:47:56,661] INFO [retrieval.search_pipline] Initialized SearchPipeline
+[2025-03-07 22:47:56,661] INFO [reasoning.auto_rag] Setting up OpenAI LLM with model: gpt-4o-mini
+[2025-03-07 22:47:56,661] INFO [reasoning.auto_rag] Initialized Traffic AutoRAG with LLM provider: LLMProvider.OPENAI
+[2025-03-07 22:47:56,661] INFO [reasoning.auto_rag] Using basic DocumentRetriever for document retrieval
+[2025-03-07 22:47:56,661] INFO [__main__] Initializing web search integration
+[2025-03-07 22:47:56,662] INFO [web_handle.web_search] Initialized WebSearchIntegrator
+[2025-03-07 22:47:56,662] INFO [__main__] Components initialized successfully
+[2025-03-07 22:48:25,205] INFO [__main__] Starting application
+[2025-03-07 22:48:25,212] INFO [__main__] Selected LLM provider: openai
+[2025-03-07 22:48:25,214] INFO [__main__] Initializing components with LLM provider: openai
+[2025-03-07 22:48:25,214] INFO [retrieval.vector_store] Initializing connection to Weaviate at https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud
+[2025-03-07 22:48:25,215] INFO [retrieval.vector_store] Using collection: ND168
+[2025-03-07 22:48:25,216] INFO [retrieval.vector_store] Creating new Weaviate client connection
+[2025-03-07 22:48:25,315] INFO [__main__] Starting application
+[2025-03-07 22:48:25,317] INFO [__main__] Selected LLM provider: openai
+[2025-03-07 22:48:25,317] INFO [__main__] Initializing components with LLM provider: openai
+[2025-03-07 22:48:25,317] INFO [retrieval.vector_store] Initializing connection to Weaviate at https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud
+[2025-03-07 22:48:25,317] INFO [retrieval.vector_store] Using collection: ND168
+[2025-03-07 22:48:25,317] INFO [retrieval.vector_store] Creating new Weaviate client connection
+[2025-03-07 22:48:25,652] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-07 22:48:25,863] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-07 22:48:25,892] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-07 22:48:25,895] INFO [retrieval.vector_store] Collection exists: True
+[2025-03-07 22:48:25,896] INFO [retrieval.vector_store] Successfully connected to Weaviate
+[2025-03-07 22:48:25,896] INFO [retrieval.vector_store] Loading embedding model: dangvantuan/vietnamese-document-embedding
+[2025-03-07 22:48:25,898] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-07 22:48:26,102] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-07 22:48:26,108] INFO [retrieval.vector_store] Collection exists: True
+[2025-03-07 22:48:26,108] INFO [retrieval.vector_store] Successfully connected to Weaviate
+[2025-03-07 22:48:26,108] INFO [retrieval.vector_store] Loading embedding model: dangvantuan/vietnamese-document-embedding
+[2025-03-07 22:48:26,110] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-07 22:48:30,508] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-07 22:48:30,764] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-07 22:48:30,769] INFO [retrieval.vector_store] Successfully initialized vector store and index for collection ND168
+[2025-03-07 22:48:30,769] INFO [retrieval.retriever] Retriever setup complete with similarity_top_k=5
+[2025-03-07 22:48:32,002] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-07 22:48:32,549] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-07 22:48:32,553] INFO [retrieval.vector_store] Successfully initialized vector store and index for collection ND168
+[2025-03-07 22:48:32,553] INFO [retrieval.retriever] Retriever setup complete with similarity_top_k=5
+[2025-03-07 22:48:33,029] INFO [retrieval.search_pipline] Initialized CrossEncoder with model: dangvantuan/vietnamese-document-embedding
+[2025-03-07 22:48:33,029] INFO [retrieval.search_pipline] Initialized SearchPipeline
+[2025-03-07 22:48:33,030] INFO [reasoning.auto_rag] Setting up OpenAI LLM with model: gpt-4o-mini
+[2025-03-07 22:48:33,030] INFO [reasoning.auto_rag] Initialized Traffic AutoRAG with LLM provider: LLMProvider.OPENAI
+[2025-03-07 22:48:33,030] INFO [reasoning.auto_rag] Using basic DocumentRetriever for document retrieval
+[2025-03-07 22:48:33,030] INFO [__main__] Initializing web search integration
+[2025-03-07 22:48:33,030] INFO [web_handle.web_search] Initialized WebSearchIntegrator
+[2025-03-07 22:48:33,030] INFO [__main__] Components initialized successfully
+[2025-03-07 22:48:34,918] INFO [retrieval.search_pipline] Initialized CrossEncoder with model: dangvantuan/vietnamese-document-embedding
+[2025-03-07 22:48:34,918] INFO [retrieval.search_pipline] Initialized SearchPipeline
+[2025-03-07 22:48:34,918] INFO [reasoning.auto_rag] Setting up OpenAI LLM with model: gpt-4o-mini
+[2025-03-07 22:48:34,918] INFO [reasoning.auto_rag] Initialized Traffic AutoRAG with LLM provider: LLMProvider.OPENAI
+[2025-03-07 22:48:34,919] INFO [reasoning.auto_rag] Using basic DocumentRetriever for document retrieval
+[2025-03-07 22:48:34,919] INFO [__main__] Initializing web search integration
+[2025-03-07 22:48:34,919] INFO [web_handle.web_search] Initialized WebSearchIntegrator
+[2025-03-07 22:48:34,919] INFO [__main__] Components initialized successfully
+[2025-03-07 22:48:34,919] INFO [__main__] Processing new question: Các mức tiền xử phạt nồng độ cồn đối với xe ô tô 
+[2025-03-07 22:48:34,920] INFO [__main__] Processing question: Các mức tiền xử phạt nồng độ cồn đối với xe ô tô 
+[2025-03-07 22:48:34,920] INFO [reasoning.auto_rag] Question validated as traffic-related via keyword: phạt
+[2025-03-07 22:48:34,920] INFO [reasoning.auto_rag] Iteration 1: Retrieving documents for query: Các mức tiền xử phạt nồng độ cồn đối với xe ô tô 
+[2025-03-07 22:48:34,921] INFO [reasoning.auto_rag] Tokenized query: các mức tiền xử_phạt nồng_độ cồn đối_với xe ô_tô
+[2025-03-07 22:48:34,921] INFO [reasoning.auto_rag] Using basic DocumentRetriever for retrieval
+[2025-03-07 22:48:34,921] INFO [retrieval.retriever] Original query: 'Các mức tiền xử phạt nồng độ cồn đối với xe ô tô '
+[2025-03-07 22:48:34,921] INFO [retrieval.retriever] Tokenized query: 'các mức tiền xử_phạt nồng_độ cồn đối_với xe ô_tô'
+[2025-03-07 22:48:35,862] INFO [retrieval.retriever] Retrieved 5 documents for query
+[2025-03-07 22:48:35,862] INFO [retrieval.retriever] Top result score: 0.9019197821617126
+[2025-03-07 22:48:35,863] INFO [retrieval.retriever] Score range: 0.75495445728302 to 0.9019197821617126
+[2025-03-07 22:48:35,864] INFO [reasoning.auto_rag] DocumentRetriever returned 5 documents
+[2025-03-07 22:48:35,864] INFO [reasoning.auto_rag] Retrieved document details:
+[2025-03-07 22:48:35,864] INFO [reasoning.auto_rag] Doc 1 score: 0.9019197821617126
+[2025-03-07 22:48:35,864] INFO [reasoning.auto_rag] Doc 1 metadata: {'category': 'ô tô', 'fine_amount': 'Phạt tiền từ 30.000.000 đồng đến 40.000.000 đồng', 'violation_type': 'nồng_độ_cồn', 'original_text': 'Loại phương tiện: ô tô\nMức phạt: Phạt tiền từ 30.000.000 đồng đến 40.000.000 đồng\nNội dung vi phạm: Không chấp hành yêu cầu kiểm tra về chất ma túy hoặc chất kích thích khác mà pháp luật cấm sử dụng của người thi hành công vụ'}
+[2025-03-07 22:48:35,864] INFO [reasoning.auto_rag] Doc 2 score: 0.8833048343658447
+[2025-03-07 22:48:35,865] INFO [reasoning.auto_rag] Doc 2 metadata: {'category': 'ô tô', 'fine_amount': 'Tước quyền sử dụng giấy phép lái xe từ 22 tháng đến 24 tháng', 'violation_type': 'nồng_độ_cồn', 'original_text': 'Loại phương tiện: ô tô\nMức phạt: Tước quyền sử dụng giấy phép lái xe từ 22 tháng đến 24 tháng\nNội dung vi phạm: Không chấp hành yêu cầu kiểm tra về chất ma túy hoặc chất kích thích khác mà pháp luật cấm sử dụng'}
+[2025-03-07 22:48:35,865] INFO [reasoning.auto_rag] Doc 3 score: 0.7743741273880005
+[2025-03-07 22:48:35,865] INFO [reasoning.auto_rag] Doc 3 metadata: {'category': 'ô tô', 'fine_amount': 'Phạt tiền từ 6.000.000 đồng đến 8.000.000 đồng', 'violation_type': 'nồng_độ_cồn', 'original_text': 'Loại phương tiện: ô tô\nMức phạt: Phạt tiền từ 6.000.000 đồng đến 8.000.000 đồng\nNội dung vi phạm: Điều khiển xe trên đường mà trong máu hoặc hơi thở có nồng độ cồn nhưng chưa vượt quá 50 miligam/100 mililít máu hoặc chưa vượt quá 0,25 miligam/1 lít khí thở'}
+[2025-03-07 22:48:35,865] INFO [reasoning.auto_rag] Context length: 1273 characters
+[2025-03-07 22:48:35,868] INFO [reasoning.auto_rag] Input tokens: 640
+[2025-03-07 22:48:38,891] INFO [__main__] Starting application
+[2025-03-07 22:48:38,893] INFO [__main__] Selected LLM provider: openai
+[2025-03-07 22:48:38,895] INFO [__main__] Initializing components with LLM provider: openai
+[2025-03-07 22:48:38,895] INFO [retrieval.vector_store] Initializing connection to Weaviate at https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud
+[2025-03-07 22:48:38,895] INFO [retrieval.vector_store] Using collection: ND168
+[2025-03-07 22:48:38,896] INFO [retrieval.vector_store] Creating new Weaviate client connection
+[2025-03-07 22:48:39,486] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-07 22:48:39,776] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-07 22:48:39,780] INFO [retrieval.vector_store] Collection exists: True
+[2025-03-07 22:48:39,781] INFO [retrieval.vector_store] Successfully connected to Weaviate
+[2025-03-07 22:48:39,782] INFO [retrieval.vector_store] Loading embedding model: dangvantuan/vietnamese-document-embedding
+[2025-03-07 22:48:39,786] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-07 22:48:45,618] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-07 22:48:45,943] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-07 22:48:45,949] INFO [retrieval.vector_store] Successfully initialized vector store and index for collection ND168
+[2025-03-07 22:48:45,949] INFO [retrieval.retriever] Retriever setup complete with similarity_top_k=5
+[2025-03-07 22:48:48,124] INFO [retrieval.search_pipline] Initialized CrossEncoder with model: dangvantuan/vietnamese-document-embedding
+[2025-03-07 22:48:48,124] INFO [retrieval.search_pipline] Initialized SearchPipeline
+[2025-03-07 22:48:48,124] INFO [reasoning.auto_rag] Setting up OpenAI LLM with model: gpt-4o-mini
+[2025-03-07 22:48:48,124] INFO [reasoning.auto_rag] Initialized Traffic AutoRAG with LLM provider: LLMProvider.OPENAI
+[2025-03-07 22:48:48,124] INFO [reasoning.auto_rag] Using basic DocumentRetriever for document retrieval
+[2025-03-07 22:48:48,124] INFO [__main__] Initializing web search integration
+[2025-03-07 22:48:48,124] INFO [web_handle.web_search] Initialized WebSearchIntegrator
+[2025-03-07 22:48:48,124] INFO [__main__] Components initialized successfully
+[2025-03-07 22:48:48,125] INFO [__main__] Processing new question: Các mức tiền xử phạt nồng độ cồn đối với xe ô tô 
+[2025-03-07 22:48:48,125] INFO [__main__] Processing question: Các mức tiền xử phạt nồng độ cồn đối với xe ô tô 
+[2025-03-07 22:48:48,126] INFO [reasoning.auto_rag] Question validated as traffic-related via keyword: phạt
+[2025-03-07 22:48:48,126] INFO [reasoning.auto_rag] Iteration 1: Retrieving documents for query: Các mức tiền xử phạt nồng độ cồn đối với xe ô tô 
+[2025-03-07 22:48:48,126] INFO [reasoning.auto_rag] Tokenized query: các mức tiền xử_phạt nồng_độ cồn đối_với xe ô_tô
+[2025-03-07 22:48:48,126] INFO [reasoning.auto_rag] Using basic DocumentRetriever for retrieval
+[2025-03-07 22:48:48,126] INFO [retrieval.retriever] Original query: 'Các mức tiền xử phạt nồng độ cồn đối với xe ô tô '
+[2025-03-07 22:48:48,126] INFO [retrieval.retriever] Tokenized query: 'các mức tiền xử_phạt nồng_độ cồn đối_với xe ô_tô'
+[2025-03-07 22:48:48,997] INFO [retrieval.retriever] Retrieved 5 documents for query
+[2025-03-07 22:48:48,997] INFO [retrieval.retriever] Top result score: 0.9019197821617126
+[2025-03-07 22:48:48,997] INFO [retrieval.retriever] Score range: 0.75495445728302 to 0.9019197821617126
+[2025-03-07 22:48:48,998] INFO [reasoning.auto_rag] DocumentRetriever returned 5 documents
+[2025-03-07 22:48:48,998] INFO [reasoning.auto_rag] Retrieved document details:
+[2025-03-07 22:48:48,999] INFO [reasoning.auto_rag] Doc 1 score: 0.9019197821617126
+[2025-03-07 22:48:48,999] INFO [reasoning.auto_rag] Doc 1 metadata: {'category': 'ô tô', 'fine_amount': 'Phạt tiền từ 30.000.000 đồng đến 40.000.000 đồng', 'violation_type': 'nồng_độ_cồn', 'original_text': 'Loại phương tiện: ô tô\nMức phạt: Phạt tiền từ 30.000.000 đồng đến 40.000.000 đồng\nNội dung vi phạm: Không chấp hành yêu cầu kiểm tra về chất ma túy hoặc chất kích thích khác mà pháp luật cấm sử dụng của người thi hành công vụ'}
+[2025-03-07 22:48:48,999] INFO [reasoning.auto_rag] Doc 2 score: 0.8833048343658447
+[2025-03-07 22:48:49,000] INFO [reasoning.auto_rag] Doc 2 metadata: {'category': 'ô tô', 'fine_amount': 'Tước quyền sử dụng giấy phép lái xe từ 22 tháng đến 24 tháng', 'violation_type': 'nồng_độ_cồn', 'original_text': 'Loại phương tiện: ô tô\nMức phạt: Tước quyền sử dụng giấy phép lái xe từ 22 tháng đến 24 tháng\nNội dung vi phạm: Không chấp hành yêu cầu kiểm tra về chất ma túy hoặc chất kích thích khác mà pháp luật cấm sử dụng'}
+[2025-03-07 22:48:49,000] INFO [reasoning.auto_rag] Doc 3 score: 0.7743741273880005
+[2025-03-07 22:48:49,000] INFO [reasoning.auto_rag] Doc 3 metadata: {'category': 'ô tô', 'fine_amount': 'Phạt tiền từ 6.000.000 đồng đến 8.000.000 đồng', 'violation_type': 'nồng_độ_cồn', 'original_text': 'Loại phương tiện: ô tô\nMức phạt: Phạt tiền từ 6.000.000 đồng đến 8.000.000 đồng\nNội dung vi phạm: Điều khiển xe trên đường mà trong máu hoặc hơi thở có nồng độ cồn nhưng chưa vượt quá 50 miligam/100 mililít máu hoặc chưa vượt quá 0,25 miligam/1 lít khí thở'}
+[2025-03-07 22:48:49,001] INFO [reasoning.auto_rag] Context length: 1273 characters
+[2025-03-07 22:48:49,005] INFO [reasoning.auto_rag] Input tokens: 640
+[2025-03-07 22:48:50,530] INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-03-07 22:48:50,538] INFO [reasoning.auto_rag] Output tokens: 541
+[2025-03-07 22:48:50,538] INFO [reasoning.auto_rag] Decision: Đã đủ thông tin
+[2025-03-07 22:48:50,538] INFO [reasoning.auto_rag] Found sufficient information, returning final answer
+[2025-03-07 22:48:50,539] INFO [utils] Function process_question completed in 15.62 seconds
+[2025-03-07 22:48:50,540] INFO [__main__] Cleaning up components
+[2025-03-07 22:48:50,541] INFO [retrieval.vector_store] Closing Weaviate client connection
+[2025-03-07 22:48:50,546] INFO [retrieval.vector_store] Weaviate client connection closed
+[2025-03-07 22:49:00,313] INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-03-07 22:49:00,318] INFO [reasoning.auto_rag] Output tokens: 529
+[2025-03-07 22:49:00,318] INFO [reasoning.auto_rag] Decision: Đã đủ thông tin
+[2025-03-07 22:49:00,319] INFO [reasoning.auto_rag] Found sufficient information, returning final answer
+[2025-03-07 22:49:00,319] INFO [utils] Function process_question completed in 12.19 seconds
+[2025-03-07 22:49:00,319] INFO [__main__] Question processed in 12.19 seconds
+[2025-03-07 22:49:00,320] INFO [__main__] Needs web search: False
+[2025-03-07 22:49:00,321] INFO [__main__] Displaying results
+[2025-03-07 22:49:00,322] INFO [__main__] Response generated using: OpenAI GPT-4o mini
+[2025-03-07 22:49:00,327] INFO [__main__] Cleaning up components
+[2025-03-07 22:49:00,328] INFO [retrieval.vector_store] Closing Weaviate client connection
+[2025-03-07 22:49:00,331] INFO [retrieval.vector_store] Weaviate client connection closed
+[2025-03-07 22:51:09,853] INFO [__main__] Starting application
+[2025-03-07 22:51:09,859] INFO [__main__] Selected LLM provider: openai
+[2025-03-07 22:51:09,860] INFO [__main__] Initializing components with LLM provider: openai
+[2025-03-07 22:51:09,862] INFO [retrieval.vector_store] Initializing connection to Weaviate at https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud
+[2025-03-07 22:51:09,897] INFO [retrieval.vector_store] Using collection: ND168
+[2025-03-07 22:51:09,899] INFO [retrieval.vector_store] Creating new Weaviate client connection
+[2025-03-07 22:51:09,982] INFO [__main__] Starting application
+[2025-03-07 22:51:09,983] INFO [__main__] Selected LLM provider: openai
+[2025-03-07 22:51:09,983] INFO [__main__] Initializing components with LLM provider: openai
+[2025-03-07 22:51:09,983] INFO [retrieval.vector_store] Initializing connection to Weaviate at https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud
+[2025-03-07 22:51:09,983] INFO [retrieval.vector_store] Using collection: ND168
+[2025-03-07 22:51:09,983] INFO [retrieval.vector_store] Creating new Weaviate client connection
+[2025-03-07 22:51:10,294] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-07 22:51:10,525] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-07 22:51:10,528] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-07 22:51:10,533] INFO [retrieval.vector_store] Collection exists: True
+[2025-03-07 22:51:10,534] INFO [retrieval.vector_store] Successfully connected to Weaviate
+[2025-03-07 22:51:10,534] INFO [retrieval.vector_store] Loading embedding model: dangvantuan/vietnamese-document-embedding
+[2025-03-07 22:51:10,540] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-07 22:51:10,764] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-07 22:51:10,768] INFO [retrieval.vector_store] Collection exists: True
+[2025-03-07 22:51:10,768] INFO [retrieval.vector_store] Successfully connected to Weaviate
+[2025-03-07 22:51:10,769] INFO [retrieval.vector_store] Loading embedding model: dangvantuan/vietnamese-document-embedding
+[2025-03-07 22:51:10,773] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-07 22:51:16,503] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-07 22:51:17,054] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-07 22:51:17,060] INFO [retrieval.vector_store] Successfully initialized vector store and index for collection ND168
+[2025-03-07 22:51:17,060] INFO [retrieval.retriever] Retriever setup complete with similarity_top_k=5
+[2025-03-07 22:51:18,797] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-07 22:51:19,431] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-07 22:51:19,434] INFO [retrieval.search_pipline] Initialized CrossEncoder with model: dangvantuan/vietnamese-document-embedding
+[2025-03-07 22:51:19,435] INFO [retrieval.search_pipline] Initialized SearchPipeline
+[2025-03-07 22:51:19,435] INFO [reasoning.auto_rag] Setting up OpenAI LLM with model: gpt-4o-mini
+[2025-03-07 22:51:19,435] INFO [reasoning.auto_rag] Initialized Traffic AutoRAG with LLM provider: LLMProvider.OPENAI
+[2025-03-07 22:51:19,436] INFO [reasoning.auto_rag] Using basic DocumentRetriever for document retrieval
+[2025-03-07 22:51:19,436] INFO [__main__] Initializing web search integration
+[2025-03-07 22:51:19,436] INFO [retrieval.vector_store] Successfully initialized vector store and index for collection ND168
+[2025-03-07 22:51:19,436] INFO [web_handle.web_search] Initialized WebSearchIntegrator
+[2025-03-07 22:51:19,436] INFO [retrieval.retriever] Retriever setup complete with similarity_top_k=5
+[2025-03-07 22:51:19,437] INFO [__main__] Components initialized successfully
+[2025-03-07 22:51:21,780] INFO [retrieval.search_pipline] Initialized CrossEncoder with model: dangvantuan/vietnamese-document-embedding
+[2025-03-07 22:51:21,780] INFO [retrieval.search_pipline] Initialized SearchPipeline
+[2025-03-07 22:51:21,780] INFO [reasoning.auto_rag] Setting up OpenAI LLM with model: gpt-4o-mini
+[2025-03-07 22:51:21,781] INFO [reasoning.auto_rag] Initialized Traffic AutoRAG with LLM provider: LLMProvider.OPENAI
+[2025-03-07 22:51:21,781] INFO [reasoning.auto_rag] Using basic DocumentRetriever for document retrieval
+[2025-03-07 22:51:21,781] INFO [__main__] Initializing web search integration
+[2025-03-07 22:51:21,781] INFO [web_handle.web_search] Initialized WebSearchIntegrator
+[2025-03-07 22:51:21,781] INFO [__main__] Components initialized successfully
+[2025-03-07 22:51:21,781] INFO [__main__] Processing new question: Không chấp hành hiệu lệnh, chỉ dẫn của biển báo hiệu, vạch kẻ đường với xe ô tô 
+[2025-03-07 22:51:21,782] INFO [__main__] Processing question: Không chấp hành hiệu lệnh, chỉ dẫn của biển báo hiệu, vạch kẻ đường với xe ô tô 
+[2025-03-07 22:51:21,782] INFO [reasoning.auto_rag] Question validated as traffic-related via keyword: biển báo
+[2025-03-07 22:51:21,782] INFO [reasoning.auto_rag] Iteration 1: Retrieving documents for query: Không chấp hành hiệu lệnh, chỉ dẫn của biển báo hiệu, vạch kẻ đường với xe ô tô 
+[2025-03-07 22:51:21,783] INFO [reasoning.auto_rag] Tokenized query: không chấp_hành hiệu_lệnh , chỉ_dẫn của biển_báo_hiệu , vạch kẻ đường với xe ô_tô
+[2025-03-07 22:51:21,783] INFO [reasoning.auto_rag] Using basic DocumentRetriever for retrieval
+[2025-03-07 22:51:21,783] INFO [retrieval.retriever] Original query: 'Không chấp hành hiệu lệnh, chỉ dẫn của biển báo hiệu, vạch kẻ đường với xe ô tô '
+[2025-03-07 22:51:21,783] INFO [retrieval.retriever] Tokenized query: 'không chấp_hành hiệu_lệnh , chỉ_dẫn của biển_báo_hiệu , vạch kẻ đường với xe ô_tô'
+[2025-03-07 22:51:22,882] INFO [retrieval.retriever] Retrieved 5 documents for query
+[2025-03-07 22:51:22,883] INFO [retrieval.retriever] Top result score: 1.0
+[2025-03-07 22:51:22,883] INFO [retrieval.retriever] Score range: 0.40871119499206543 to 1.0
+[2025-03-07 22:51:22,883] INFO [reasoning.auto_rag] DocumentRetriever returned 5 documents
+[2025-03-07 22:51:22,883] INFO [reasoning.auto_rag] Retrieved document details:
+[2025-03-07 22:51:22,884] INFO [reasoning.auto_rag] Doc 1 score: 1.0
+[2025-03-07 22:51:22,884] INFO [reasoning.auto_rag] Doc 1 metadata: {'category': 'ô tô', 'fine_amount': 'Phạt tiền từ 400.000 đồng đến 600.000 đồng', 'violation_type': 'đỗ_dừng_xe', 'original_text': 'Loại phương tiện: ô tô\nMức phạt: Phạt tiền từ 400.000 đồng đến 600.000 đồng\nNội dung vi phạm: Không chấp hành hiệu lệnh, chỉ dẫn của biển báo hiệu, vạch kẻ đường'}
+[2025-03-07 22:51:22,884] INFO [reasoning.auto_rag] Doc 2 score: 0.5741774439811707
+[2025-03-07 22:51:22,884] INFO [reasoning.auto_rag] Doc 2 metadata: {'category': 'ô tô', 'fine_amount': 'Phạt tiền từ 400.000 đồng đến 600.000 đồng', 'violation_type': 'chở_hàng', 'original_text': 'Loại phương tiện: ô tô\nMức phạt: Phạt tiền từ 400.000 đồng đến 600.000 đồng\nNội dung vi phạm: Không gắn biển báo hiệu ở phía trước xe kéo, phía sau xe được kéo; điều khiển xe kéo rơ moóc không có biển báo hiệu theo quy định'}
+[2025-03-07 22:51:22,885] INFO [reasoning.auto_rag] Doc 3 score: 0.4791165590286255
+[2025-03-07 22:51:22,885] INFO [reasoning.auto_rag] Doc 3 metadata: {'category': 'ô tô', 'fine_amount': 'Trừ 10 điểm giấy phép lái xe - Điều kiện phương tiện', 'violation_type': 'giấy_tờ', 'original_text': 'Loại phương tiện: ô tô\nMức phạt: Trừ 10 điểm giấy phép lái xe - Điều kiện phương tiện\nNội dung vi phạm: Gắn biển số không đúng chứng nhận đăng ký xe/không do cơ quan có thẩm quyền cấp'}
+[2025-03-07 22:51:22,885] INFO [reasoning.auto_rag] Context length: 992 characters
+[2025-03-07 22:51:22,887] INFO [reasoning.auto_rag] Input tokens: 524
+[2025-03-07 22:51:26,490] INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-03-07 22:51:26,498] INFO [reasoning.auto_rag] Output tokens: 187
+[2025-03-07 22:51:26,498] INFO [reasoning.auto_rag] Decision: Đã đủ thông tin
+[2025-03-07 22:51:26,498] INFO [reasoning.auto_rag] Found sufficient information, returning final answer
+[2025-03-07 22:51:26,499] INFO [utils] Function process_question completed in 4.72 seconds
+[2025-03-07 22:51:26,499] INFO [__main__] Question processed in 4.72 seconds
+[2025-03-07 22:51:26,501] INFO [__main__] Needs web search: False
+[2025-03-07 22:51:26,502] INFO [__main__] Displaying results
+[2025-03-07 22:51:26,503] INFO [__main__] Response generated using: OpenAI GPT-4o mini
+[2025-03-07 22:51:26,509] INFO [__main__] Cleaning up components
+[2025-03-07 22:51:26,511] INFO [retrieval.vector_store] Closing Weaviate client connection
+[2025-03-07 22:51:26,519] INFO [retrieval.vector_store] Weaviate client connection closed
+[2025-03-07 22:51:33,625] INFO [__main__] Starting application
+[2025-03-07 22:51:33,630] INFO [__main__] Selected LLM provider: openai
+[2025-03-07 22:51:33,631] INFO [__main__] Initializing components with LLM provider: openai
+[2025-03-07 22:51:33,632] INFO [retrieval.vector_store] Initializing connection to Weaviate at https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud
+[2025-03-07 22:51:33,633] INFO [retrieval.vector_store] Using collection: ND168
+[2025-03-07 22:51:33,634] INFO [retrieval.vector_store] Creating new Weaviate client connection
+[2025-03-07 22:51:34,078] INFO [__main__] Starting application
+[2025-03-07 22:51:34,080] INFO [__main__] Selected LLM provider: openai
+[2025-03-07 22:51:34,081] INFO [__main__] Initializing components with LLM provider: openai
+[2025-03-07 22:51:34,081] INFO [retrieval.vector_store] Initializing connection to Weaviate at https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud
+[2025-03-07 22:51:34,081] INFO [retrieval.vector_store] Using collection: ND168
+[2025-03-07 22:51:34,081] INFO [retrieval.vector_store] Creating new Weaviate client connection
+[2025-03-07 22:51:34,235] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-07 22:51:34,480] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-07 22:51:34,484] INFO [retrieval.vector_store] Collection exists: True
+[2025-03-07 22:51:34,484] INFO [retrieval.vector_store] Successfully connected to Weaviate
+[2025-03-07 22:51:34,485] INFO [retrieval.vector_store] Loading embedding model: dangvantuan/vietnamese-document-embedding
+[2025-03-07 22:51:34,488] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-07 22:51:34,644] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-07 22:51:34,881] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-07 22:51:34,887] INFO [retrieval.vector_store] Collection exists: True
+[2025-03-07 22:51:34,887] INFO [retrieval.vector_store] Successfully connected to Weaviate
+[2025-03-07 22:51:34,888] INFO [retrieval.vector_store] Loading embedding model: dangvantuan/vietnamese-document-embedding
+[2025-03-07 22:51:34,890] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-07 22:51:38,749] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-07 22:51:39,242] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-07 22:51:39,243] INFO [retrieval.vector_store] Successfully initialized vector store and index for collection ND168
+[2025-03-07 22:51:39,243] INFO [retrieval.retriever] Retriever setup complete with similarity_top_k=5
+[2025-03-07 22:51:39,829] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-07 22:51:40,059] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-07 22:51:40,066] INFO [retrieval.vector_store] Successfully initialized vector store and index for collection ND168
+[2025-03-07 22:51:40,066] INFO [retrieval.retriever] Retriever setup complete with similarity_top_k=5
+[2025-03-07 22:51:41,267] INFO [retrieval.search_pipline] Initialized CrossEncoder with model: dangvantuan/vietnamese-document-embedding
+[2025-03-07 22:51:41,267] INFO [retrieval.search_pipline] Initialized SearchPipeline
+[2025-03-07 22:51:41,267] INFO [reasoning.auto_rag] Setting up OpenAI LLM with model: gpt-4o-mini
+[2025-03-07 22:51:41,267] INFO [reasoning.auto_rag] Initialized Traffic AutoRAG with LLM provider: LLMProvider.OPENAI
+[2025-03-07 22:51:41,267] INFO [reasoning.auto_rag] Using basic DocumentRetriever for document retrieval
+[2025-03-07 22:51:41,267] INFO [__main__] Initializing web search integration
+[2025-03-07 22:51:41,268] INFO [web_handle.web_search] Initialized WebSearchIntegrator
+[2025-03-07 22:51:41,268] INFO [__main__] Components initialized successfully
+[2025-03-07 22:51:43,044] INFO [retrieval.search_pipline] Initialized CrossEncoder with model: dangvantuan/vietnamese-document-embedding
+[2025-03-07 22:51:43,044] INFO [retrieval.search_pipline] Initialized SearchPipeline
+[2025-03-07 22:51:43,044] INFO [reasoning.auto_rag] Setting up OpenAI LLM with model: gpt-4o-mini
+[2025-03-07 22:51:43,044] INFO [reasoning.auto_rag] Initialized Traffic AutoRAG with LLM provider: LLMProvider.OPENAI
+[2025-03-07 22:51:43,044] INFO [reasoning.auto_rag] Using basic DocumentRetriever for document retrieval
+[2025-03-07 22:51:43,044] INFO [__main__] Initializing web search integration
+[2025-03-07 22:51:43,044] INFO [web_handle.web_search] Initialized WebSearchIntegrator
+[2025-03-07 22:51:43,044] INFO [__main__] Components initialized successfully
+[2025-03-07 22:51:43,045] INFO [__main__] Processing new question: Chở người trên buồng lái quá số lượng quy định
+[2025-03-07 22:51:43,045] INFO [__main__] Processing question: Chở người trên buồng lái quá số lượng quy định
+[2025-03-07 22:51:43,046] WARNING [reasoning.auto_rag] Question may not be traffic-related: Chở người trên buồng lái quá số lượng quy định
+[2025-03-07 22:51:43,047] INFO [utils] Function process_question completed in 0.00 seconds
+[2025-03-07 22:51:43,047] INFO [__main__] Question processed in 0.00 seconds
+[2025-03-07 22:51:43,047] ERROR [__main__] Error in response: Câu hỏi có vẻ không liên quan đến luật giao thông. Vui lòng đặt câu hỏi về luật giao thông.
+[2025-03-07 22:51:43,049] INFO [__main__] Cleaning up components
+[2025-03-07 22:51:43,049] INFO [retrieval.vector_store] Closing Weaviate client connection
+[2025-03-07 22:51:43,051] INFO [retrieval.vector_store] Weaviate client connection closed
+[2025-03-07 22:51:58,641] INFO [__main__] Starting application
+[2025-03-07 22:51:58,642] INFO [__main__] Selected LLM provider: openai
+[2025-03-07 22:51:58,642] INFO [__main__] Initializing components with LLM provider: openai
+[2025-03-07 22:51:58,642] INFO [retrieval.vector_store] Initializing connection to Weaviate at https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud
+[2025-03-07 22:51:58,642] INFO [retrieval.vector_store] Using collection: ND168
+[2025-03-07 22:51:58,642] INFO [retrieval.vector_store] Creating new Weaviate client connection
+[2025-03-07 22:51:59,258] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-07 22:51:59,493] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-07 22:51:59,497] INFO [retrieval.vector_store] Collection exists: True
+[2025-03-07 22:51:59,498] INFO [retrieval.vector_store] Successfully connected to Weaviate
+[2025-03-07 22:51:59,498] INFO [retrieval.vector_store] Loading embedding model: dangvantuan/vietnamese-document-embedding
+[2025-03-07 22:51:59,499] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-07 22:52:04,213] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-07 22:52:04,445] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-07 22:52:04,451] INFO [retrieval.vector_store] Successfully initialized vector store and index for collection ND168
+[2025-03-07 22:52:04,452] INFO [retrieval.retriever] Retriever setup complete with similarity_top_k=5
+[2025-03-07 22:52:06,641] INFO [retrieval.search_pipline] Initialized CrossEncoder with model: dangvantuan/vietnamese-document-embedding
+[2025-03-07 22:52:06,641] INFO [retrieval.search_pipline] Initialized SearchPipeline
+[2025-03-07 22:52:06,641] INFO [reasoning.auto_rag] Setting up OpenAI LLM with model: gpt-4o-mini
+[2025-03-07 22:52:06,642] INFO [reasoning.auto_rag] Initialized Traffic AutoRAG with LLM provider: LLMProvider.OPENAI
+[2025-03-07 22:52:06,642] INFO [reasoning.auto_rag] Using basic DocumentRetriever for document retrieval
+[2025-03-07 22:52:06,642] INFO [__main__] Initializing web search integration
+[2025-03-07 22:52:06,642] INFO [web_handle.web_search] Initialized WebSearchIntegrator
+[2025-03-07 22:52:06,642] INFO [__main__] Components initialized successfully
+[2025-03-07 22:52:09,222] INFO [__main__] Starting application
+[2025-03-07 22:52:09,225] INFO [__main__] Selected LLM provider: openai
+[2025-03-07 22:52:09,227] INFO [__main__] Initializing components with LLM provider: openai
+[2025-03-07 22:52:09,228] INFO [retrieval.vector_store] Initializing connection to Weaviate at https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud
+[2025-03-07 22:52:09,229] INFO [retrieval.vector_store] Using collection: ND168
+[2025-03-07 22:52:09,230] INFO [retrieval.vector_store] Creating new Weaviate client connection
+[2025-03-07 22:52:09,303] INFO [__main__] Starting application
+[2025-03-07 22:52:09,304] INFO [__main__] Selected LLM provider: openai
+[2025-03-07 22:52:09,305] INFO [__main__] Initializing components with LLM provider: openai
+[2025-03-07 22:52:09,306] INFO [retrieval.vector_store] Initializing connection to Weaviate at https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud
+[2025-03-07 22:52:09,306] INFO [retrieval.vector_store] Using collection: ND168
+[2025-03-07 22:52:09,306] INFO [retrieval.vector_store] Creating new Weaviate client connection
+[2025-03-07 22:52:09,850] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-07 22:52:09,860] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-07 22:52:10,079] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-07 22:52:10,085] INFO [retrieval.vector_store] Collection exists: True
+[2025-03-07 22:52:10,085] INFO [retrieval.vector_store] Successfully connected to Weaviate
+[2025-03-07 22:52:10,085] INFO [retrieval.vector_store] Loading embedding model: dangvantuan/vietnamese-document-embedding
+[2025-03-07 22:52:10,086] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-07 22:52:10,105] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-07 22:52:10,112] INFO [retrieval.vector_store] Collection exists: True
+[2025-03-07 22:52:10,112] INFO [retrieval.vector_store] Successfully connected to Weaviate
+[2025-03-07 22:52:10,113] INFO [retrieval.vector_store] Loading embedding model: dangvantuan/vietnamese-document-embedding
+[2025-03-07 22:52:10,116] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-07 22:52:15,565] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-07 22:52:16,473] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-07 22:52:16,480] INFO [retrieval.vector_store] Successfully initialized vector store and index for collection ND168
+[2025-03-07 22:52:16,480] INFO [retrieval.retriever] Retriever setup complete with similarity_top_k=5
+[2025-03-07 22:52:16,550] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-07 22:52:17,040] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-07 22:52:17,045] INFO [retrieval.vector_store] Successfully initialized vector store and index for collection ND168
+[2025-03-07 22:52:17,045] INFO [retrieval.retriever] Retriever setup complete with similarity_top_k=5
+[2025-03-07 22:52:18,388] INFO [retrieval.search_pipline] Initialized CrossEncoder with model: dangvantuan/vietnamese-document-embedding
+[2025-03-07 22:52:18,388] INFO [retrieval.search_pipline] Initialized SearchPipeline
+[2025-03-07 22:52:18,388] INFO [reasoning.auto_rag] Setting up OpenAI LLM with model: gpt-4o-mini
+[2025-03-07 22:52:18,389] INFO [reasoning.auto_rag] Initialized Traffic AutoRAG with LLM provider: LLMProvider.OPENAI
+[2025-03-07 22:52:18,389] INFO [reasoning.auto_rag] Using basic DocumentRetriever for document retrieval
+[2025-03-07 22:52:18,389] INFO [__main__] Initializing web search integration
+[2025-03-07 22:52:18,389] INFO [web_handle.web_search] Initialized WebSearchIntegrator
+[2025-03-07 22:52:18,389] INFO [__main__] Components initialized successfully
+[2025-03-07 22:52:19,873] INFO [retrieval.search_pipline] Initialized CrossEncoder with model: dangvantuan/vietnamese-document-embedding
+[2025-03-07 22:52:19,873] INFO [retrieval.search_pipline] Initialized SearchPipeline
+[2025-03-07 22:52:19,873] INFO [reasoning.auto_rag] Setting up OpenAI LLM with model: gpt-4o-mini
+[2025-03-07 22:52:19,873] INFO [reasoning.auto_rag] Initialized Traffic AutoRAG with LLM provider: LLMProvider.OPENAI
+[2025-03-07 22:52:19,873] INFO [reasoning.auto_rag] Using basic DocumentRetriever for document retrieval
+[2025-03-07 22:52:19,873] INFO [__main__] Initializing web search integration
+[2025-03-07 22:52:19,873] INFO [web_handle.web_search] Initialized WebSearchIntegrator
+[2025-03-07 22:52:19,873] INFO [__main__] Components initialized successfully
+[2025-03-07 22:52:19,874] INFO [__main__] Processing new question: Chở người trên buồng lái quá số lượng quy định mức phạt đối với ô tô 
+[2025-03-07 22:52:19,875] INFO [__main__] Processing question: Chở người trên buồng lái quá số lượng quy định mức phạt đối với ô tô 
+[2025-03-07 22:52:19,875] INFO [reasoning.auto_rag] Question validated as traffic-related via keyword: phạt
+[2025-03-07 22:52:19,875] INFO [reasoning.auto_rag] Iteration 1: Retrieving documents for query: Chở người trên buồng lái quá số lượng quy định mức phạt đối với ô tô 
+[2025-03-07 22:52:19,877] INFO [reasoning.auto_rag] Tokenized query: chở người trên buồng_lái quá số_lượng quy_định_mức phạt đối_với ô_tô
+[2025-03-07 22:52:19,877] INFO [reasoning.auto_rag] Using basic DocumentRetriever for retrieval
+[2025-03-07 22:52:19,877] INFO [retrieval.retriever] Original query: 'Chở người trên buồng lái quá số lượng quy định mức phạt đối với ô tô '
+[2025-03-07 22:52:19,877] INFO [retrieval.retriever] Tokenized query: 'chở người trên buồng_lái quá số_lượng quy_định_mức phạt đối_với ô_tô'
+[2025-03-07 22:52:20,593] INFO [retrieval.retriever] Retrieved 5 documents for query
+[2025-03-07 22:52:20,593] INFO [retrieval.retriever] Top result score: 1.0
+[2025-03-07 22:52:20,593] INFO [retrieval.retriever] Score range: 0.3966062068939209 to 1.0
+[2025-03-07 22:52:20,593] INFO [reasoning.auto_rag] DocumentRetriever returned 5 documents
+[2025-03-07 22:52:20,593] INFO [reasoning.auto_rag] Retrieved document details:
+[2025-03-07 22:52:20,593] INFO [reasoning.auto_rag] Doc 1 score: 1.0
+[2025-03-07 22:52:20,593] INFO [reasoning.auto_rag] Doc 1 metadata: {'category': 'ô tô', 'fine_amount': 'Phạt tiền từ 600.000 đồng đến 800.000 đồng', 'violation_type': 'chở_người', 'original_text': 'Loại phương tiện: ô tô\nMức phạt: Phạt tiền từ 600.000 đồng đến 800.000 đồng\nNội dung vi phạm: Chở người trên buồng lái quá số lượng quy định'}
+[2025-03-07 22:52:20,594] INFO [reasoning.auto_rag] Doc 2 score: 0.48092687129974365
+[2025-03-07 22:52:20,594] INFO [reasoning.auto_rag] Doc 2 metadata: {'category': 'ô tô chở khách', 'fine_amount': 'Phạt tiền từ 1.000.000 đồng đến 2.000.000 đồng', 'violation_type': 'chở_người', 'original_text': 'Loại phương tiện: ô tô chở khách\nMức phạt: Phạt tiền từ 1.000.000 đồng đến 2.000.000 đồng\nNội dung vi phạm: Chở quá số người quy định cho xe khách tuyến cố định, hợp đồng có cự ly >300km'}
+[2025-03-07 22:52:20,594] INFO [reasoning.auto_rag] Doc 3 score: 0.47595900297164917
+[2025-03-07 22:52:20,594] INFO [reasoning.auto_rag] Doc 3 metadata: {'category': 'ô tô chở khách', 'fine_amount': 'Trừ 10 điểm giấy phép lái xe', 'violation_type': 'chở_người', 'original_text': 'Loại phương tiện: ô tô chở khách\nMức phạt: Trừ 10 điểm giấy phép lái xe\nNội dung vi phạm: Chở quá số người quy định (vượt trên 100%)'}
+[2025-03-07 22:52:20,594] INFO [reasoning.auto_rag] Context length: 824 characters
+[2025-03-07 22:52:20,598] INFO [reasoning.auto_rag] Input tokens: 490
+[2025-03-07 22:52:25,578] INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-03-07 22:52:25,593] INFO [reasoning.auto_rag] Output tokens: 151
+[2025-03-07 22:52:25,594] INFO [reasoning.auto_rag] Decision: Đã đủ thông tin
+[2025-03-07 22:52:25,594] INFO [reasoning.auto_rag] Found sufficient information, returning final answer
+[2025-03-07 22:52:25,595] INFO [utils] Function process_question completed in 5.72 seconds
+[2025-03-07 22:52:25,596] INFO [__main__] Question processed in 5.72 seconds
+[2025-03-07 22:52:25,597] INFO [__main__] Needs web search: False
+[2025-03-07 22:52:25,599] INFO [__main__] Displaying results
+[2025-03-07 22:52:25,600] INFO [__main__] Response generated using: OpenAI GPT-4o mini
+[2025-03-07 22:52:25,607] INFO [__main__] Cleaning up components
+[2025-03-07 22:52:25,608] INFO [retrieval.vector_store] Closing Weaviate client connection
+[2025-03-07 22:52:25,617] INFO [retrieval.vector_store] Weaviate client connection closed
+[2025-03-07 22:52:44,069] INFO [__main__] Starting application
+[2025-03-07 22:52:44,074] INFO [__main__] Selected LLM provider: openai
+[2025-03-07 22:52:44,077] INFO [__main__] Initializing components with LLM provider: openai
+[2025-03-07 22:52:44,078] INFO [retrieval.vector_store] Initializing connection to Weaviate at https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud
+[2025-03-07 22:52:44,079] INFO [retrieval.vector_store] Using collection: ND168
+[2025-03-07 22:52:44,081] INFO [retrieval.vector_store] Creating new Weaviate client connection
+[2025-03-07 22:52:44,172] INFO [__main__] Starting application
+[2025-03-07 22:52:44,174] INFO [__main__] Selected LLM provider: openai
+[2025-03-07 22:52:44,174] INFO [__main__] Initializing components with LLM provider: openai
+[2025-03-07 22:52:44,174] INFO [retrieval.vector_store] Initializing connection to Weaviate at https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud
+[2025-03-07 22:52:44,174] INFO [retrieval.vector_store] Using collection: ND168
+[2025-03-07 22:52:44,174] INFO [retrieval.vector_store] Creating new Weaviate client connection
+[2025-03-07 22:52:44,575] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-07 22:52:44,716] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-07 22:52:44,811] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-07 22:52:44,815] INFO [retrieval.vector_store] Collection exists: True
+[2025-03-07 22:52:44,816] INFO [retrieval.vector_store] Successfully connected to Weaviate
+[2025-03-07 22:52:44,817] INFO [retrieval.vector_store] Loading embedding model: dangvantuan/vietnamese-document-embedding
+[2025-03-07 22:52:44,823] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-07 22:52:44,957] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-07 22:52:44,962] INFO [retrieval.vector_store] Collection exists: True
+[2025-03-07 22:52:44,962] INFO [retrieval.vector_store] Successfully connected to Weaviate
+[2025-03-07 22:52:44,963] INFO [retrieval.vector_store] Loading embedding model: dangvantuan/vietnamese-document-embedding
+[2025-03-07 22:52:44,967] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-07 22:52:49,833] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-07 22:52:50,278] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-07 22:52:50,280] INFO [retrieval.vector_store] Successfully initialized vector store and index for collection ND168
+[2025-03-07 22:52:50,280] INFO [retrieval.retriever] Retriever setup complete with similarity_top_k=5
+[2025-03-07 22:52:50,887] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-07 22:52:51,411] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-07 22:52:51,417] INFO [retrieval.vector_store] Successfully initialized vector store and index for collection ND168
+[2025-03-07 22:52:51,417] INFO [retrieval.retriever] Retriever setup complete with similarity_top_k=5
+[2025-03-07 22:52:52,506] INFO [retrieval.search_pipline] Initialized CrossEncoder with model: dangvantuan/vietnamese-document-embedding
+[2025-03-07 22:52:52,508] INFO [retrieval.search_pipline] Initialized SearchPipeline
+[2025-03-07 22:52:52,508] INFO [reasoning.auto_rag] Setting up OpenAI LLM with model: gpt-4o-mini
+[2025-03-07 22:52:52,509] INFO [reasoning.auto_rag] Initialized Traffic AutoRAG with LLM provider: LLMProvider.OPENAI
+[2025-03-07 22:52:52,509] INFO [reasoning.auto_rag] Using basic DocumentRetriever for document retrieval
+[2025-03-07 22:52:52,509] INFO [__main__] Initializing web search integration
+[2025-03-07 22:52:52,509] INFO [web_handle.web_search] Initialized WebSearchIntegrator
+[2025-03-07 22:52:52,509] INFO [__main__] Components initialized successfully
+[2025-03-07 22:52:54,035] INFO [retrieval.search_pipline] Initialized CrossEncoder with model: dangvantuan/vietnamese-document-embedding
+[2025-03-07 22:52:54,035] INFO [retrieval.search_pipline] Initialized SearchPipeline
+[2025-03-07 22:52:54,035] INFO [reasoning.auto_rag] Setting up OpenAI LLM with model: gpt-4o-mini
+[2025-03-07 22:52:54,035] INFO [reasoning.auto_rag] Initialized Traffic AutoRAG with LLM provider: LLMProvider.OPENAI
+[2025-03-07 22:52:54,035] INFO [reasoning.auto_rag] Using basic DocumentRetriever for document retrieval
+[2025-03-07 22:52:54,035] INFO [__main__] Initializing web search integration
+[2025-03-07 22:52:54,035] INFO [web_handle.web_search] Initialized WebSearchIntegrator
+[2025-03-07 22:52:54,035] INFO [__main__] Components initialized successfully
+[2025-03-07 22:52:54,036] INFO [__main__] Processing new question: Điều khiển xe chạy quá tốc độ quy định từ 05 km/h đến dưới 10 km/h mức phạt đối với ô tô 
+[2025-03-07 22:52:54,037] INFO [__main__] Processing question: Điều khiển xe chạy quá tốc độ quy định từ 05 km/h đến dưới 10 km/h mức phạt đối với ô tô 
+[2025-03-07 22:52:54,037] INFO [reasoning.auto_rag] Question validated as traffic-related via keyword: phạt
+[2025-03-07 22:52:54,037] INFO [reasoning.auto_rag] Iteration 1: Retrieving documents for query: Điều khiển xe chạy quá tốc độ quy định từ 05 km/h đến dưới 10 km/h mức phạt đối với ô tô 
+[2025-03-07 22:52:54,038] INFO [reasoning.auto_rag] Tokenized query: điều_khiển xe chạy quá tốc_độ quy_định từ 05 km / h đến dưới 10 km / h mức phạt đối_với ô_tô
+[2025-03-07 22:52:54,038] INFO [reasoning.auto_rag] Using basic DocumentRetriever for retrieval
+[2025-03-07 22:52:54,038] INFO [retrieval.retriever] Original query: 'Điều khiển xe chạy quá tốc độ quy định từ 05 km/h đến dưới 10 km/h mức phạt đối với ô tô '
+[2025-03-07 22:52:54,038] INFO [retrieval.retriever] Tokenized query: 'điều_khiển xe chạy quá tốc_độ quy_định từ 05 km / h đến dưới 10 km / h mức phạt đối_với ô_tô'
+[2025-03-07 22:52:54,888] INFO [retrieval.retriever] Retrieved 5 documents for query
+[2025-03-07 22:52:54,888] INFO [retrieval.retriever] Top result score: 1.0
+[2025-03-07 22:52:54,888] INFO [retrieval.retriever] Score range: 0.6093366742134094 to 1.0
+[2025-03-07 22:52:54,888] INFO [reasoning.auto_rag] DocumentRetriever returned 5 documents
+[2025-03-07 22:52:54,888] INFO [reasoning.auto_rag] Retrieved document details:
+[2025-03-07 22:52:54,888] INFO [reasoning.auto_rag] Doc 1 score: 1.0
+[2025-03-07 22:52:54,888] INFO [reasoning.auto_rag] Doc 1 metadata: {'category': 'ô tô', 'fine_amount': 'Phạt tiền từ 800.000 đồng đến 1.000.000 đồng', 'violation_type': 'tốc_độ', 'original_text': 'Loại phương tiện: ô tô\nMức phạt: Phạt tiền từ 800.000 đồng đến 1.000.000 đồng\nNội dung vi phạm: Điều khiển xe chạy quá tốc độ quy định từ 05 km/h đến dưới 10 km/h'}
+[2025-03-07 22:52:54,888] INFO [reasoning.auto_rag] Doc 2 score: 0.8090487122535706
+[2025-03-07 22:52:54,889] INFO [reasoning.auto_rag] Doc 2 metadata: {'category': 'ô tô', 'fine_amount': 'Phạt tiền từ 4.000.000 đồng đến 6.000.000 đồng', 'violation_type': 'tốc_độ', 'original_text': 'Loại phương tiện: ô tô\nMức phạt: Phạt tiền từ 4.000.000 đồng đến 6.000.000 đồng\nNội dung vi phạm: Điều khiển xe chạy quá tốc độ quy định từ 10 km/h đến 20 km/h'}
+[2025-03-07 22:52:54,889] INFO [reasoning.auto_rag] Doc 3 score: 0.7544904947280884
+[2025-03-07 22:52:54,889] INFO [reasoning.auto_rag] Doc 3 metadata: {'category': 'ô tô', 'fine_amount': 'Trừ 02 điểm giấy phép lái xe', 'violation_type': 'tốc_độ', 'original_text': 'Loại phương tiện: ô tô\nMức phạt: Trừ 02 điểm giấy phép lái xe\nNội dung vi phạm: Điều khiển xe chạy quá tốc độ quy định từ 10 km/h đến 20 km/h'}
+[2025-03-07 22:52:54,889] INFO [reasoning.auto_rag] Context length: 834 characters
+[2025-03-07 22:52:54,895] INFO [reasoning.auto_rag] Input tokens: 508
+[2025-03-07 22:52:59,678] INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-03-07 22:52:59,683] INFO [reasoning.auto_rag] Output tokens: 180
+[2025-03-07 22:52:59,684] INFO [reasoning.auto_rag] Decision: Đã đủ thông tin
+[2025-03-07 22:52:59,684] INFO [reasoning.auto_rag] Found sufficient information, returning final answer
+[2025-03-07 22:52:59,685] INFO [utils] Function process_question completed in 5.65 seconds
+[2025-03-07 22:52:59,685] INFO [__main__] Question processed in 5.65 seconds
+[2025-03-07 22:52:59,688] INFO [__main__] Needs web search: False
+[2025-03-07 22:52:59,688] INFO [__main__] Displaying results
+[2025-03-07 22:52:59,688] INFO [__main__] Response generated using: OpenAI GPT-4o mini
+[2025-03-07 22:52:59,692] INFO [__main__] Cleaning up components
+[2025-03-07 22:52:59,694] INFO [retrieval.vector_store] Closing Weaviate client connection
+[2025-03-07 22:52:59,697] INFO [retrieval.vector_store] Weaviate client connection closed
+[2025-03-07 23:17:18,723] INFO [__main__] Starting application
+[2025-03-07 23:17:18,726] INFO [__main__] Selected LLM provider: openai
+[2025-03-07 23:17:18,727] INFO [__main__] Initializing components with LLM provider: openai
+[2025-03-07 23:17:18,728] INFO [retrieval.vector_store] Initializing connection to Weaviate at https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud
+[2025-03-07 23:17:18,728] INFO [retrieval.vector_store] Using collection: ND168
+[2025-03-07 23:17:18,728] INFO [retrieval.vector_store] Creating new Weaviate client connection
+[2025-03-07 23:17:19,485] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-07 23:17:19,725] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-07 23:17:19,731] INFO [retrieval.vector_store] Collection exists: True
+[2025-03-07 23:17:19,731] INFO [retrieval.vector_store] Successfully connected to Weaviate
+[2025-03-07 23:17:19,731] INFO [retrieval.vector_store] Loading embedding model: dangvantuan/vietnamese-document-embedding
+[2025-03-07 23:17:19,736] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-07 23:17:26,731] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-07 23:17:27,245] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-07 23:17:27,254] INFO [retrieval.vector_store] Successfully initialized vector store and index for collection ND168
+[2025-03-07 23:17:27,254] INFO [retrieval.retriever] Retriever setup complete with similarity_top_k=5
+[2025-03-07 23:17:30,852] INFO [retrieval.search_pipline] Initialized CrossEncoder with model: dangvantuan/vietnamese-document-embedding
+[2025-03-07 23:17:30,852] INFO [retrieval.search_pipline] Initialized SearchPipeline
+[2025-03-07 23:17:30,852] INFO [reasoning.auto_rag] Setting up OpenAI LLM with model: gpt-4o-mini
+[2025-03-07 23:17:30,853] INFO [reasoning.auto_rag] Initialized Traffic AutoRAG with LLM provider: LLMProvider.OPENAI
+[2025-03-07 23:17:30,853] INFO [reasoning.auto_rag] Using basic DocumentRetriever for document retrieval
+[2025-03-07 23:17:30,853] INFO [__main__] Initializing web search integration
+[2025-03-07 23:17:30,853] INFO [web_handle.web_search] Initialized WebSearchIntegrator
+[2025-03-07 23:17:30,853] INFO [__main__] Components initialized successfully
+[2025-03-08 08:29:44,325] INFO [__main__] Starting application
+[2025-03-08 08:29:44,327] INFO [__main__] Initializing configurations
+[2025-03-08 08:29:44,327] INFO [__main__] Configurations initialized successfully
+[2025-03-08 08:29:44,328] INFO [__main__] Selected LLM provider: openai
+[2025-03-08 08:29:44,328] INFO [__main__] Initializing components with LLM provider: openai
+[2025-03-08 08:29:44,328] INFO [retrieval.vector_store] Initializing connection to Weaviate at https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud
+[2025-03-08 08:29:44,328] INFO [retrieval.vector_store] Using collection: ND168
+[2025-03-08 08:29:44,328] INFO [retrieval.vector_store] Creating new Weaviate client connection
+[2025-03-08 08:29:45,188] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-08 08:29:45,498] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-08 08:29:45,501] INFO [retrieval.vector_store] Collection exists: True
+[2025-03-08 08:29:45,502] INFO [retrieval.vector_store] Successfully connected to Weaviate
+[2025-03-08 08:29:45,502] INFO [retrieval.vector_store] Loading embedding model: dangvantuan/vietnamese-document-embedding
+[2025-03-08 08:29:45,504] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-08 08:42:03,516] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-08 08:42:04,042] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-08 08:42:04,184] INFO [retrieval.vector_store] Successfully initialized vector store and index for collection ND168
+[2025-03-08 08:42:04,185] INFO [retrieval.retriever] Retriever setup complete with similarity_top_k=5
+[2025-03-08 08:42:06,208] INFO [retrieval.search_pipline] Initialized CrossEncoder with model: dangvantuan/vietnamese-document-embedding
+[2025-03-08 08:42:06,208] INFO [retrieval.search_pipline] Initialized SearchPipeline
+[2025-03-08 08:42:06,208] INFO [reasoning.auto_rag] Setting up OpenAI LLM with model: gpt-4o-mini
+[2025-03-08 08:42:13,537] INFO [__main__] Starting application
+[2025-03-08 08:42:13,539] INFO [__main__] Selected LLM provider: vllm
+[2025-03-08 08:42:13,539] INFO [__main__] Initializing components with LLM provider: vllm
+[2025-03-08 08:42:13,539] INFO [retrieval.vector_store] Initializing connection to Weaviate at https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud
+[2025-03-08 08:42:13,539] INFO [retrieval.vector_store] Using collection: ND168
+[2025-03-08 08:42:13,539] INFO [retrieval.vector_store] Creating new Weaviate client connection
+[2025-03-08 08:42:14,272] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-08 08:42:14,530] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-08 08:42:14,533] INFO [retrieval.vector_store] Collection exists: True
+[2025-03-08 08:42:14,533] INFO [retrieval.vector_store] Successfully connected to Weaviate
+[2025-03-08 08:42:14,534] INFO [retrieval.vector_store] Loading embedding model: dangvantuan/vietnamese-document-embedding
+[2025-03-08 08:42:14,536] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-08 08:42:20,116] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-08 08:42:20,689] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-08 08:42:20,694] INFO [retrieval.vector_store] Successfully initialized vector store and index for collection ND168
+[2025-03-08 08:42:20,695] INFO [retrieval.retriever] Retriever setup complete with similarity_top_k=5
+[2025-03-08 08:42:22,646] INFO [retrieval.search_pipline] Initialized CrossEncoder with model: dangvantuan/vietnamese-document-embedding
+[2025-03-08 08:42:22,646] INFO [retrieval.search_pipline] Initialized SearchPipeline
+[2025-03-08 08:42:22,646] INFO [reasoning.auto_rag] Setting up vLLM client with model: Qwen/Qwen2.5-14B-Instruct-AWQ
+[2025-03-08 08:42:22,646] INFO [llm.vllm_client] Creating VLLMClient with config: {'api_url': 'http://192.168.100.125:8000', 'model_name': 'Qwen/Qwen2.5-14B-Instruct-AWQ', 'temperature': 0.2, 'max_tokens': 4096, 'top_p': 0.95, 'timeout': 500, 'request_timeout': 500}
+[2025-03-08 08:42:22,682] INFO [llm.vllm_client] Initialized vLLM client for model: Qwen/Qwen2.5-14B-Instruct-AWQ at http://192.168.100.125:8000
+[2025-03-08 08:42:22,682] INFO [reasoning.auto_rag] Successfully initialized vLLM client with API URL: http://192.168.100.125:8000
+[2025-03-08 08:42:22,682] INFO [reasoning.auto_rag] Initialized Traffic AutoRAG with LLM provider: LLMProvider.VLLM
+[2025-03-08 08:42:22,682] INFO [reasoning.auto_rag] Using basic DocumentRetriever for document retrieval
+[2025-03-08 08:42:22,682] INFO [__main__] Initializing web search integration
+[2025-03-08 08:42:22,683] INFO [web_handle.web_search] Initialized WebSearchIntegrator
+[2025-03-08 08:42:22,683] INFO [__main__] Components initialized successfully
+[2025-03-08 08:42:23,188] INFO [reasoning.auto_rag] Initialized Traffic AutoRAG with LLM provider: LLMProvider.OPENAI
+[2025-03-08 08:42:23,188] INFO [reasoning.auto_rag] Using basic DocumentRetriever for document retrieval
+[2025-03-08 08:42:23,188] INFO [__main__] Initializing web search integration
+[2025-03-08 08:42:23,188] INFO [web_handle.web_search] Initialized WebSearchIntegrator
+[2025-03-08 08:42:23,189] INFO [__main__] Components initialized successfully
+[2025-03-08 08:42:35,523] INFO [__main__] Starting application
+[2025-03-08 08:42:35,527] INFO [__main__] Selected LLM provider: vllm
+[2025-03-08 08:42:35,528] INFO [__main__] Initializing components with LLM provider: vllm
+[2025-03-08 08:42:35,528] INFO [retrieval.vector_store] Initializing connection to Weaviate at https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud
+[2025-03-08 08:42:35,529] INFO [retrieval.vector_store] Using collection: ND168
+[2025-03-08 08:42:35,530] INFO [retrieval.vector_store] Creating new Weaviate client connection
+[2025-03-08 08:42:36,192] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-08 08:42:36,420] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-08 08:42:36,425] INFO [retrieval.vector_store] Collection exists: True
+[2025-03-08 08:42:36,425] INFO [retrieval.vector_store] Successfully connected to Weaviate
+[2025-03-08 08:42:36,425] INFO [retrieval.vector_store] Loading embedding model: dangvantuan/vietnamese-document-embedding
+[2025-03-08 08:42:36,427] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-08 08:42:42,724] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-08 08:42:43,341] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-08 08:42:43,347] INFO [retrieval.vector_store] Successfully initialized vector store and index for collection ND168
+[2025-03-08 08:42:43,347] INFO [retrieval.retriever] Retriever setup complete with similarity_top_k=5
+[2025-03-08 08:42:45,439] INFO [retrieval.search_pipline] Initialized CrossEncoder with model: dangvantuan/vietnamese-document-embedding
+[2025-03-08 08:42:45,439] INFO [retrieval.search_pipline] Initialized SearchPipeline
+[2025-03-08 08:42:45,440] INFO [reasoning.auto_rag] Setting up vLLM client with model: Qwen/Qwen2.5-14B-Instruct-AWQ
+[2025-03-08 08:42:45,440] INFO [llm.vllm_client] Creating VLLMClient with config: {'api_url': 'http://192.168.100.125:8000', 'model_name': 'Qwen/Qwen2.5-14B-Instruct-AWQ', 'temperature': 0.2, 'max_tokens': 4096, 'top_p': 0.95, 'timeout': 500, 'request_timeout': 500}
+[2025-03-08 08:42:45,488] INFO [llm.vllm_client] Initialized vLLM client for model: Qwen/Qwen2.5-14B-Instruct-AWQ at http://192.168.100.125:8000
+[2025-03-08 08:42:45,489] INFO [reasoning.auto_rag] Successfully initialized vLLM client with API URL: http://192.168.100.125:8000
+[2025-03-08 08:42:45,489] INFO [reasoning.auto_rag] Initialized Traffic AutoRAG with LLM provider: LLMProvider.VLLM
+[2025-03-08 08:42:45,489] INFO [reasoning.auto_rag] Using basic DocumentRetriever for document retrieval
+[2025-03-08 08:42:45,489] INFO [__main__] Initializing web search integration
+[2025-03-08 08:42:45,489] INFO [web_handle.web_search] Initialized WebSearchIntegrator
+[2025-03-08 08:42:45,489] INFO [__main__] Components initialized successfully
+[2025-03-08 08:43:26,882] INFO [__main__] Starting application
+[2025-03-08 08:43:26,887] INFO [__main__] Selected LLM provider: vllm
+[2025-03-08 08:43:26,888] INFO [__main__] Initializing components with LLM provider: vllm
+[2025-03-08 08:43:26,889] INFO [retrieval.vector_store] Initializing connection to Weaviate at https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud
+[2025-03-08 08:43:26,889] INFO [retrieval.vector_store] Using collection: ND168
+[2025-03-08 08:43:26,889] INFO [retrieval.vector_store] Creating new Weaviate client connection
+[2025-03-08 08:43:26,984] INFO [__main__] Starting application
+[2025-03-08 08:43:26,986] INFO [__main__] Selected LLM provider: vllm
+[2025-03-08 08:43:26,986] INFO [__main__] Initializing components with LLM provider: vllm
+[2025-03-08 08:43:26,986] INFO [retrieval.vector_store] Initializing connection to Weaviate at https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud
+[2025-03-08 08:43:26,986] INFO [retrieval.vector_store] Using collection: ND168
+[2025-03-08 08:43:26,986] INFO [retrieval.vector_store] Creating new Weaviate client connection
+[2025-03-08 08:43:27,612] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-08 08:43:27,790] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-08 08:43:27,846] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-08 08:43:27,855] INFO [retrieval.vector_store] Collection exists: True
+[2025-03-08 08:43:27,856] INFO [retrieval.vector_store] Successfully connected to Weaviate
+[2025-03-08 08:43:27,856] INFO [retrieval.vector_store] Loading embedding model: dangvantuan/vietnamese-document-embedding
+[2025-03-08 08:43:27,860] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-08 08:43:28,085] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-08 08:43:28,089] INFO [retrieval.vector_store] Collection exists: True
+[2025-03-08 08:43:28,089] INFO [retrieval.vector_store] Successfully connected to Weaviate
+[2025-03-08 08:43:28,090] INFO [retrieval.vector_store] Loading embedding model: dangvantuan/vietnamese-document-embedding
+[2025-03-08 08:43:28,094] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-08 08:43:32,707] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-08 08:43:33,082] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-08 08:43:33,083] INFO [retrieval.vector_store] Successfully initialized vector store and index for collection ND168
+[2025-03-08 08:43:33,083] INFO [retrieval.retriever] Retriever setup complete with similarity_top_k=5
+[2025-03-08 08:43:33,719] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-08 08:43:34,639] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-08 08:43:34,645] INFO [retrieval.vector_store] Successfully initialized vector store and index for collection ND168
+[2025-03-08 08:43:34,648] INFO [retrieval.retriever] Retriever setup complete with similarity_top_k=5
+[2025-03-08 08:43:35,406] INFO [retrieval.search_pipline] Initialized CrossEncoder with model: dangvantuan/vietnamese-document-embedding
+[2025-03-08 08:43:35,406] INFO [retrieval.search_pipline] Initialized SearchPipeline
+[2025-03-08 08:43:35,406] INFO [reasoning.auto_rag] Setting up vLLM client with model: Qwen/Qwen2.5-14B-Instruct-AWQ
+[2025-03-08 08:43:35,406] INFO [llm.vllm_client] Creating VLLMClient with config: {'api_url': 'http://192.168.100.125:8000', 'model_name': 'Qwen/Qwen2.5-14B-Instruct-AWQ', 'temperature': 0.2, 'max_tokens': 4096, 'top_p': 0.95, 'timeout': 500, 'request_timeout': 500}
+[2025-03-08 08:43:35,440] INFO [llm.vllm_client] Initialized vLLM client for model: Qwen/Qwen2.5-14B-Instruct-AWQ at http://192.168.100.125:8000
+[2025-03-08 08:43:35,440] INFO [reasoning.auto_rag] Successfully initialized vLLM client with API URL: http://192.168.100.125:8000
+[2025-03-08 08:43:35,440] INFO [reasoning.auto_rag] Initialized Traffic AutoRAG with LLM provider: LLMProvider.VLLM
+[2025-03-08 08:43:35,440] INFO [reasoning.auto_rag] Using basic DocumentRetriever for document retrieval
+[2025-03-08 08:43:35,440] INFO [__main__] Initializing web search integration
+[2025-03-08 08:43:35,441] INFO [web_handle.web_search] Initialized WebSearchIntegrator
+[2025-03-08 08:43:35,441] INFO [__main__] Components initialized successfully
+[2025-03-08 08:43:37,025] INFO [retrieval.search_pipline] Initialized CrossEncoder with model: dangvantuan/vietnamese-document-embedding
+[2025-03-08 08:43:37,025] INFO [retrieval.search_pipline] Initialized SearchPipeline
+[2025-03-08 08:43:37,025] INFO [reasoning.auto_rag] Setting up vLLM client with model: Qwen/Qwen2.5-14B-Instruct-AWQ
+[2025-03-08 08:43:37,025] INFO [llm.vllm_client] Creating VLLMClient with config: {'api_url': 'http://192.168.100.125:8000', 'model_name': 'Qwen/Qwen2.5-14B-Instruct-AWQ', 'temperature': 0.2, 'max_tokens': 4096, 'top_p': 0.95, 'timeout': 500, 'request_timeout': 500}
+[2025-03-08 08:43:37,057] INFO [llm.vllm_client] Initialized vLLM client for model: Qwen/Qwen2.5-14B-Instruct-AWQ at http://192.168.100.125:8000
+[2025-03-08 08:43:37,057] INFO [reasoning.auto_rag] Successfully initialized vLLM client with API URL: http://192.168.100.125:8000
+[2025-03-08 08:43:37,058] INFO [reasoning.auto_rag] Initialized Traffic AutoRAG with LLM provider: LLMProvider.VLLM
+[2025-03-08 08:43:37,058] INFO [reasoning.auto_rag] Using basic DocumentRetriever for document retrieval
+[2025-03-08 08:43:37,058] INFO [__main__] Initializing web search integration
+[2025-03-08 08:43:37,058] INFO [web_handle.web_search] Initialized WebSearchIntegrator
+[2025-03-08 08:43:37,058] INFO [__main__] Components initialized successfully
+[2025-03-08 08:43:37,059] INFO [__main__] Processing new question: Các mức phạt tiền nồng độ tô cồn của xe ô tô 
+[2025-03-08 08:43:37,061] INFO [__main__] Processing question: Các mức phạt tiền nồng độ tô cồn của xe ô tô 
+[2025-03-08 08:43:37,061] INFO [reasoning.auto_rag] Question validated as traffic-related via keyword: phạt
+[2025-03-08 08:43:37,061] INFO [reasoning.auto_rag] Iteration 1: Retrieving documents for query: Các mức phạt tiền nồng độ tô cồn của xe ô tô 
+[2025-03-08 08:43:37,062] INFO [reasoning.auto_rag] Tokenized query: các mức phạt tiền nồng_độ tô cồn của xe ô_tô
+[2025-03-08 08:43:37,062] INFO [reasoning.auto_rag] Using basic DocumentRetriever for retrieval
+[2025-03-08 08:43:37,062] INFO [retrieval.retriever] Original query: 'Các mức phạt tiền nồng độ tô cồn của xe ô tô '
+[2025-03-08 08:43:37,063] INFO [retrieval.retriever] Tokenized query: 'các mức phạt tiền nồng_độ tô cồn của xe ô_tô'
+[2025-03-08 08:43:38,200] INFO [retrieval.retriever] Retrieved 5 documents for query
+[2025-03-08 08:43:38,201] INFO [retrieval.retriever] Top result score: 0.884679913520813
+[2025-03-08 08:43:38,201] INFO [retrieval.retriever] Score range: 0.7026976346969604 to 0.884679913520813
+[2025-03-08 08:43:38,202] INFO [reasoning.auto_rag] DocumentRetriever returned 5 documents
+[2025-03-08 08:43:38,202] INFO [reasoning.auto_rag] Retrieved document details:
+[2025-03-08 08:43:38,202] INFO [reasoning.auto_rag] Doc 1 score: 0.884679913520813
+[2025-03-08 08:43:38,202] INFO [reasoning.auto_rag] Doc 1 metadata: {'category': 'ô tô', 'fine_amount': 'Phạt tiền từ 30.000.000 đồng đến 40.000.000 đồng', 'violation_type': 'nồng_độ_cồn', 'original_text': 'Loại phương tiện: ô tô\nMức phạt: Phạt tiền từ 30.000.000 đồng đến 40.000.000 đồng\nNội dung vi phạm: Không chấp hành yêu cầu kiểm tra về chất ma túy hoặc chất kích thích khác mà pháp luật cấm sử dụng của người thi hành công vụ'}
+[2025-03-08 08:43:38,202] INFO [reasoning.auto_rag] Doc 2 score: 0.8292246460914612
+[2025-03-08 08:43:38,202] INFO [reasoning.auto_rag] Doc 2 metadata: {'category': 'ô tô', 'fine_amount': 'Tước quyền sử dụng giấy phép lái xe từ 22 tháng đến 24 tháng', 'violation_type': 'nồng_độ_cồn', 'original_text': 'Loại phương tiện: ô tô\nMức phạt: Tước quyền sử dụng giấy phép lái xe từ 22 tháng đến 24 tháng\nNội dung vi phạm: Không chấp hành yêu cầu kiểm tra về chất ma túy hoặc chất kích thích khác mà pháp luật cấm sử dụng'}
+[2025-03-08 08:43:38,202] INFO [reasoning.auto_rag] Doc 3 score: 0.7439647912979126
+[2025-03-08 08:43:38,203] INFO [reasoning.auto_rag] Doc 3 metadata: {'category': 'ô tô', 'fine_amount': 'Phạt tiền từ 6.000.000 đồng đến 8.000.000 đồng', 'violation_type': 'nồng_độ_cồn', 'original_text': 'Loại phương tiện: ô tô\nMức phạt: Phạt tiền từ 6.000.000 đồng đến 8.000.000 đồng\nNội dung vi phạm: Điều khiển xe trên đường mà trong máu hoặc hơi thở có nồng độ cồn nhưng chưa vượt quá 50 miligam/100 mililít máu hoặc chưa vượt quá 0,25 miligam/1 lít khí thở'}
+[2025-03-08 08:43:38,203] INFO [reasoning.auto_rag] Context length: 1206 characters
+[2025-03-08 08:43:38,205] INFO [reasoning.auto_rag] Input tokens: 911
+[2025-03-08 08:44:22,252] INFO [httpx] HTTP Request: POST http://192.168.100.125:8000/v1/completions "HTTP/1.1 200 OK"
+[2025-03-08 08:44:22,264] INFO [reasoning.auto_rag] Output tokens: 5439
+[2025-03-08 08:44:22,264] INFO [reasoning.auto_rag] Decision: Đã đủ thông tin
+[2025-03-08 08:44:22,265] INFO [reasoning.auto_rag] Found sufficient information, returning final answer
+[2025-03-08 08:44:22,265] INFO [utils] Function process_question completed in 45.20 seconds
+[2025-03-08 08:44:22,266] INFO [__main__] Question processed in 45.21 seconds
+[2025-03-08 08:44:22,266] INFO [__main__] Needs web search: False
+[2025-03-08 08:44:22,266] INFO [__main__] Displaying results
+[2025-03-08 08:44:22,267] INFO [__main__] Response generated using: Qwen2.5-14B (vLLM)
+[2025-03-08 08:44:22,271] INFO [__main__] Cleaning up components
+[2025-03-08 08:44:22,271] INFO [retrieval.vector_store] Closing Weaviate client connection
+[2025-03-08 08:44:22,275] INFO [retrieval.vector_store] Weaviate client connection closed
+[2025-03-08 08:44:48,417] INFO [__main__] Starting application
+[2025-03-08 08:44:48,419] INFO [__main__] Selected LLM provider: openai
+[2025-03-08 08:44:48,419] INFO [__main__] Initializing components with LLM provider: openai
+[2025-03-08 08:44:48,419] INFO [retrieval.vector_store] Initializing connection to Weaviate at https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud
+[2025-03-08 08:44:48,419] INFO [retrieval.vector_store] Using collection: ND168
+[2025-03-08 08:44:48,419] INFO [retrieval.vector_store] Creating new Weaviate client connection
+[2025-03-08 08:44:49,287] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-08 08:44:49,595] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-08 08:44:49,598] INFO [retrieval.vector_store] Collection exists: True
+[2025-03-08 08:44:49,599] INFO [retrieval.vector_store] Successfully connected to Weaviate
+[2025-03-08 08:44:49,600] INFO [retrieval.vector_store] Loading embedding model: dangvantuan/vietnamese-document-embedding
+[2025-03-08 08:44:49,604] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-08 08:44:54,719] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-08 08:44:55,075] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-08 08:44:55,079] INFO [retrieval.vector_store] Successfully initialized vector store and index for collection ND168
+[2025-03-08 08:44:55,080] INFO [retrieval.retriever] Retriever setup complete with similarity_top_k=5
+[2025-03-08 08:44:57,452] INFO [retrieval.search_pipline] Initialized CrossEncoder with model: dangvantuan/vietnamese-document-embedding
+[2025-03-08 08:44:57,452] INFO [retrieval.search_pipline] Initialized SearchPipeline
+[2025-03-08 08:44:57,452] INFO [reasoning.auto_rag] Setting up OpenAI LLM with model: gpt-4o-mini
+[2025-03-08 08:44:57,452] INFO [reasoning.auto_rag] Initialized Traffic AutoRAG with LLM provider: LLMProvider.OPENAI
+[2025-03-08 08:44:57,452] INFO [reasoning.auto_rag] Using basic DocumentRetriever for document retrieval
+[2025-03-08 08:44:57,452] INFO [__main__] Initializing web search integration
+[2025-03-08 08:44:57,452] INFO [web_handle.web_search] Initialized WebSearchIntegrator
+[2025-03-08 08:44:57,452] INFO [__main__] Components initialized successfully
+[2025-03-08 08:45:02,781] INFO [__main__] Starting application
+[2025-03-08 08:45:02,783] INFO [__main__] Selected LLM provider: openai
+[2025-03-08 08:45:02,784] INFO [__main__] Initializing components with LLM provider: openai
+[2025-03-08 08:45:02,785] INFO [retrieval.vector_store] Initializing connection to Weaviate at https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud
+[2025-03-08 08:45:02,785] INFO [retrieval.vector_store] Using collection: ND168
+[2025-03-08 08:45:02,785] INFO [retrieval.vector_store] Creating new Weaviate client connection
+[2025-03-08 08:45:03,385] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-08 08:45:03,731] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-08 08:45:03,734] INFO [retrieval.vector_store] Collection exists: True
+[2025-03-08 08:45:03,734] INFO [retrieval.vector_store] Successfully connected to Weaviate
+[2025-03-08 08:45:03,734] INFO [retrieval.vector_store] Loading embedding model: dangvantuan/vietnamese-document-embedding
+[2025-03-08 08:45:03,736] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-08 08:45:08,537] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-08 08:45:08,845] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-08 08:45:08,849] INFO [retrieval.vector_store] Successfully initialized vector store and index for collection ND168
+[2025-03-08 08:45:08,849] INFO [retrieval.retriever] Retriever setup complete with similarity_top_k=5
+[2025-03-08 08:45:10,775] INFO [retrieval.search_pipline] Initialized CrossEncoder with model: dangvantuan/vietnamese-document-embedding
+[2025-03-08 08:45:10,775] INFO [retrieval.search_pipline] Initialized SearchPipeline
+[2025-03-08 08:45:10,776] INFO [reasoning.auto_rag] Setting up OpenAI LLM with model: gpt-4o-mini
+[2025-03-08 08:45:10,776] INFO [reasoning.auto_rag] Initialized Traffic AutoRAG with LLM provider: LLMProvider.OPENAI
+[2025-03-08 08:45:10,776] INFO [reasoning.auto_rag] Using basic DocumentRetriever for document retrieval
+[2025-03-08 08:45:10,776] INFO [__main__] Initializing web search integration
+[2025-03-08 08:45:10,776] INFO [web_handle.web_search] Initialized WebSearchIntegrator
+[2025-03-08 08:45:10,776] INFO [__main__] Components initialized successfully
+[2025-03-08 08:45:10,776] INFO [__main__] Processing new question: Các mức phạt tiền nồng độ tô cồn của xe ô tô 
+[2025-03-08 08:45:10,777] INFO [__main__] Processing question: Các mức phạt tiền nồng độ tô cồn của xe ô tô 
+[2025-03-08 08:45:10,777] INFO [reasoning.auto_rag] Question validated as traffic-related via keyword: phạt
+[2025-03-08 08:45:10,778] INFO [reasoning.auto_rag] Iteration 1: Retrieving documents for query: Các mức phạt tiền nồng độ tô cồn của xe ô tô 
+[2025-03-08 08:45:10,778] INFO [reasoning.auto_rag] Tokenized query: các mức phạt tiền nồng_độ tô cồn của xe ô_tô
+[2025-03-08 08:45:10,778] INFO [reasoning.auto_rag] Using basic DocumentRetriever for retrieval
+[2025-03-08 08:45:10,778] INFO [retrieval.retriever] Original query: 'Các mức phạt tiền nồng độ tô cồn của xe ô tô '
+[2025-03-08 08:45:10,778] INFO [retrieval.retriever] Tokenized query: 'các mức phạt tiền nồng_độ tô cồn của xe ô_tô'
+[2025-03-08 08:45:11,586] INFO [retrieval.retriever] Retrieved 5 documents for query
+[2025-03-08 08:45:11,586] INFO [retrieval.retriever] Top result score: 0.884679913520813
+[2025-03-08 08:45:11,587] INFO [retrieval.retriever] Score range: 0.7026976346969604 to 0.884679913520813
+[2025-03-08 08:45:11,588] INFO [reasoning.auto_rag] DocumentRetriever returned 5 documents
+[2025-03-08 08:45:11,588] INFO [reasoning.auto_rag] Retrieved document details:
+[2025-03-08 08:45:11,588] INFO [reasoning.auto_rag] Doc 1 score: 0.884679913520813
+[2025-03-08 08:45:11,588] INFO [reasoning.auto_rag] Doc 1 metadata: {'category': 'ô tô', 'fine_amount': 'Phạt tiền từ 30.000.000 đồng đến 40.000.000 đồng', 'violation_type': 'nồng_độ_cồn', 'original_text': 'Loại phương tiện: ô tô\nMức phạt: Phạt tiền từ 30.000.000 đồng đến 40.000.000 đồng\nNội dung vi phạm: Không chấp hành yêu cầu kiểm tra về chất ma túy hoặc chất kích thích khác mà pháp luật cấm sử dụng của người thi hành công vụ'}
+[2025-03-08 08:45:11,589] INFO [reasoning.auto_rag] Doc 2 score: 0.8292246460914612
+[2025-03-08 08:45:11,589] INFO [reasoning.auto_rag] Doc 2 metadata: {'category': 'ô tô', 'fine_amount': 'Tước quyền sử dụng giấy phép lái xe từ 22 tháng đến 24 tháng', 'violation_type': 'nồng_độ_cồn', 'original_text': 'Loại phương tiện: ô tô\nMức phạt: Tước quyền sử dụng giấy phép lái xe từ 22 tháng đến 24 tháng\nNội dung vi phạm: Không chấp hành yêu cầu kiểm tra về chất ma túy hoặc chất kích thích khác mà pháp luật cấm sử dụng'}
+[2025-03-08 08:45:11,589] INFO [reasoning.auto_rag] Doc 3 score: 0.7439647912979126
+[2025-03-08 08:45:11,589] INFO [reasoning.auto_rag] Doc 3 metadata: {'category': 'ô tô', 'fine_amount': 'Phạt tiền từ 6.000.000 đồng đến 8.000.000 đồng', 'violation_type': 'nồng_độ_cồn', 'original_text': 'Loại phương tiện: ô tô\nMức phạt: Phạt tiền từ 6.000.000 đồng đến 8.000.000 đồng\nNội dung vi phạm: Điều khiển xe trên đường mà trong máu hoặc hơi thở có nồng độ cồn nhưng chưa vượt quá 50 miligam/100 mililít máu hoặc chưa vượt quá 0,25 miligam/1 lít khí thở'}
+[2025-03-08 08:45:11,590] INFO [reasoning.auto_rag] Context length: 1206 characters
+[2025-03-08 08:45:11,594] INFO [reasoning.auto_rag] Input tokens: 608
+[2025-03-08 08:45:22,463] INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-03-08 08:45:22,474] INFO [reasoning.auto_rag] Output tokens: 459
+[2025-03-08 08:45:22,474] INFO [reasoning.auto_rag] Decision: Cần thêm thông tin
+[2025-03-08 08:45:22,474] INFO [reasoning.auto_rag] Need more information, next query: Tìm hiểu về mức phạt cho nồng độ cồn vượt quá 80 miligam/100 mililít máu hoặc 0,4 miligam/1 lít khí thở và các hình thức xử phạt khác liên quan đến nồng độ cồn khi điều khiển ô tô.
+[2025-03-08 08:45:22,474] INFO [reasoning.auto_rag] Iteration 2: Retrieving documents for query: Tìm hiểu về mức phạt cho nồng độ cồn vượt quá 80 miligam/100 mililít máu hoặc 0,4 miligam/1 lít khí thở và các hình thức xử phạt khác liên quan đến nồng độ cồn khi điều khiển ô tô.
+[2025-03-08 08:45:22,475] INFO [reasoning.auto_rag] Tokenized query: tìm_hiểu về mức phạt cho nồng_độ cồn vượt quá 80 miligam / 100 mililít máu hoặc 0,4 miligam / 1 lít khí thở và các hình_thức xử_phạt khác liên_quan đến nồng_độ cồn khi điều_khiển ô_tô .
+[2025-03-08 08:45:22,475] INFO [reasoning.auto_rag] Using basic DocumentRetriever for retrieval
+[2025-03-08 08:45:22,476] INFO [retrieval.retriever] Original query: 'Tìm hiểu về mức phạt cho nồng độ cồn vượt quá 80 miligam/100 mililít máu hoặc 0,4 miligam/1 lít khí thở và các hình thức xử phạt khác liên quan đến nồng độ cồn khi điều khiển ô tô.'
+[2025-03-08 08:45:22,477] INFO [retrieval.retriever] Tokenized query: 'tìm_hiểu về mức phạt cho nồng_độ cồn vượt quá 80 miligam / 100 mililít máu hoặc 0,4 miligam / 1 lít khí thở và các hình_thức xử_phạt khác liên_quan đến nồng_độ cồn khi điều_khiển ô_tô .'
+[2025-03-08 08:45:23,445] INFO [retrieval.retriever] Retrieved 5 documents for query
+[2025-03-08 08:45:23,445] INFO [retrieval.retriever] Top result score: 0.9802299737930298
+[2025-03-08 08:45:23,445] INFO [retrieval.retriever] Score range: 0.8822737336158752 to 0.9802299737930298
+[2025-03-08 08:45:23,445] INFO [reasoning.auto_rag] DocumentRetriever returned 5 documents
+[2025-03-08 08:45:23,445] INFO [reasoning.auto_rag] Retrieved document details:
+[2025-03-08 08:45:23,445] INFO [reasoning.auto_rag] Doc 1 score: 0.9802299737930298
+[2025-03-08 08:45:23,446] INFO [reasoning.auto_rag] Doc 1 metadata: {'category': 'ô tô', 'fine_amount': 'Phạt tiền từ 30.000.000 đồng đến 40.000.000 đồng', 'violation_type': 'nồng_độ_cồn', 'original_text': 'Loại phương tiện: ô tô\nMức phạt: Phạt tiền từ 30.000.000 đồng đến 40.000.000 đồng\nNội dung vi phạm: Điều khiển xe trên đường mà trong máu hoặc hơi thở có nồng độ cồn vượt quá 80 miligam/100 mililít máu hoặc vượt quá 0,4 miligam/1 lít khí thở'}
+[2025-03-08 08:45:23,446] INFO [reasoning.auto_rag] Doc 2 score: 0.9492136836051941
+[2025-03-08 08:45:23,446] INFO [reasoning.auto_rag] Doc 2 metadata: {'category': 'ô tô', 'fine_amount': 'Trừ 10 điểm giấy phép lái xe', 'violation_type': 'nồng_độ_cồn', 'original_text': 'Loại phương tiện: ô tô\nMức phạt: Trừ 10 điểm giấy phép lái xe\nNội dung vi phạm: Điều khiển xe trên đường mà trong máu hoặc hơi thở có nồng độ cồn vượt quá 50 miligam đến 80 miligam/100 mililít máu hoặc vượt quá 0,25 miligam đến 0,4 miligam/1 lít khí thở'}
+[2025-03-08 08:45:23,447] INFO [reasoning.auto_rag] Doc 3 score: 0.9231983423233032
+[2025-03-08 08:45:23,447] INFO [reasoning.auto_rag] Doc 3 metadata: {'category': 'ô tô', 'fine_amount': 'Phạt tiền từ 18.000.000 đồng đến 20.000.000 đồng', 'violation_type': 'nồng_độ_cồn', 'original_text': 'Loại phương tiện: ô tô\nMức phạt: Phạt tiền từ 18.000.000 đồng đến 20.000.000 đồng\nNội dung vi phạm: Điều khiển xe trên đường mà trong máu hoặc hơi thở có nồng độ cồn vượt quá 50 miligam đến 80 miligam/100 mililít máu hoặc vượt quá 0,25 miligam đến 0,4 miligam/1 lít khí thở'}
+[2025-03-08 08:45:23,447] INFO [reasoning.auto_rag] Context length: 2553 characters
+[2025-03-08 08:45:23,450] INFO [reasoning.auto_rag] Input tokens: 1104
+[2025-03-08 08:45:51,925] INFO [httpx] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-03-08 08:45:51,939] INFO [reasoning.auto_rag] Output tokens: 604
+[2025-03-08 08:45:51,939] INFO [reasoning.auto_rag] Decision: Đã đủ thông tin
+[2025-03-08 08:45:51,939] INFO [reasoning.auto_rag] Found sufficient information, returning final answer
+[2025-03-08 08:45:51,940] INFO [utils] Function process_question completed in 41.16 seconds
+[2025-03-08 08:45:51,940] INFO [__main__] Question processed in 41.16 seconds
+[2025-03-08 08:45:51,941] INFO [__main__] Needs web search: False
+[2025-03-08 08:45:51,941] INFO [__main__] Displaying results
+[2025-03-08 08:45:51,942] INFO [__main__] Response generated using: OpenAI GPT-4o mini
+[2025-03-08 08:45:51,947] INFO [__main__] Cleaning up components
+[2025-03-08 08:45:51,948] INFO [retrieval.vector_store] Closing Weaviate client connection
+[2025-03-08 08:45:51,951] INFO [retrieval.vector_store] Weaviate client connection closed
+[2025-03-08 08:46:29,357] INFO [__main__] Starting application
+[2025-03-08 08:46:29,360] INFO [__main__] Selected LLM provider: vllm
+[2025-03-08 08:46:29,361] INFO [__main__] Initializing components with LLM provider: vllm
+[2025-03-08 08:46:29,361] INFO [retrieval.vector_store] Initializing connection to Weaviate at https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud
+[2025-03-08 08:46:29,362] INFO [retrieval.vector_store] Using collection: ND168
+[2025-03-08 08:46:29,362] INFO [retrieval.vector_store] Creating new Weaviate client connection
+[2025-03-08 08:46:29,895] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-08 08:46:30,254] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-08 08:46:30,257] INFO [retrieval.vector_store] Collection exists: True
+[2025-03-08 08:46:30,257] INFO [retrieval.vector_store] Successfully connected to Weaviate
+[2025-03-08 08:46:30,257] INFO [retrieval.vector_store] Loading embedding model: dangvantuan/vietnamese-document-embedding
+[2025-03-08 08:46:30,260] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-08 08:46:36,695] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-08 08:46:37,077] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-08 08:46:37,080] INFO [retrieval.vector_store] Successfully initialized vector store and index for collection ND168
+[2025-03-08 08:46:37,080] INFO [retrieval.retriever] Retriever setup complete with similarity_top_k=5
+[2025-03-08 08:46:39,088] INFO [retrieval.search_pipline] Initialized CrossEncoder with model: dangvantuan/vietnamese-document-embedding
+[2025-03-08 08:46:39,088] INFO [retrieval.search_pipline] Initialized SearchPipeline
+[2025-03-08 08:46:39,089] INFO [reasoning.auto_rag] Setting up vLLM client with model: Qwen/Qwen2.5-14B-Instruct-AWQ
+[2025-03-08 08:46:39,089] INFO [llm.vllm_client] Creating VLLMClient with config: {'api_url': 'http://192.168.100.125:8000', 'model_name': 'Qwen/Qwen2.5-14B-Instruct-AWQ', 'temperature': 0.2, 'max_tokens': 4096, 'top_p': 0.95, 'timeout': 500, 'request_timeout': 500}
+[2025-03-08 08:46:39,122] INFO [llm.vllm_client] Initialized vLLM client for model: Qwen/Qwen2.5-14B-Instruct-AWQ at http://192.168.100.125:8000
+[2025-03-08 08:46:39,122] INFO [reasoning.auto_rag] Successfully initialized vLLM client with API URL: http://192.168.100.125:8000
+[2025-03-08 08:46:39,122] INFO [reasoning.auto_rag] Initialized Traffic AutoRAG with LLM provider: LLMProvider.VLLM
+[2025-03-08 08:46:39,123] INFO [reasoning.auto_rag] Using basic DocumentRetriever for document retrieval
+[2025-03-08 08:46:39,123] INFO [__main__] Initializing web search integration
+[2025-03-08 08:46:39,123] INFO [web_handle.web_search] Initialized WebSearchIntegrator
+[2025-03-08 08:46:39,123] INFO [__main__] Components initialized successfully
+[2025-03-08 08:46:56,131] INFO [__main__] Starting application
+[2025-03-08 08:46:56,134] INFO [__main__] Selected LLM provider: vllm
+[2025-03-08 08:46:56,134] INFO [__main__] Initializing components with LLM provider: vllm
+[2025-03-08 08:46:56,135] INFO [retrieval.vector_store] Initializing connection to Weaviate at https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud
+[2025-03-08 08:46:56,135] INFO [retrieval.vector_store] Using collection: ND168
+[2025-03-08 08:46:56,135] INFO [retrieval.vector_store] Creating new Weaviate client connection
+[2025-03-08 08:46:56,776] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-08 08:46:57,070] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-08 08:46:57,074] INFO [retrieval.vector_store] Collection exists: True
+[2025-03-08 08:46:57,074] INFO [retrieval.vector_store] Successfully connected to Weaviate
+[2025-03-08 08:46:57,074] INFO [retrieval.vector_store] Loading embedding model: dangvantuan/vietnamese-document-embedding
+[2025-03-08 08:46:57,077] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-08 08:47:03,027] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-08 08:47:03,787] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-08 08:47:03,843] INFO [retrieval.vector_store] Successfully initialized vector store and index for collection ND168
+[2025-03-08 08:47:03,844] INFO [retrieval.retriever] Retriever setup complete with similarity_top_k=5
+[2025-03-08 08:47:06,082] INFO [retrieval.search_pipline] Initialized CrossEncoder with model: dangvantuan/vietnamese-document-embedding
+[2025-03-08 08:47:06,082] INFO [retrieval.search_pipline] Initialized SearchPipeline
+[2025-03-08 08:47:06,082] INFO [reasoning.auto_rag] Setting up vLLM client with model: Qwen/Qwen2.5-14B-Instruct-AWQ
+[2025-03-08 08:47:06,082] INFO [llm.vllm_client] Creating VLLMClient with config: {'api_url': 'http://192.168.100.125:8000', 'model_name': 'Qwen/Qwen2.5-14B-Instruct-AWQ', 'temperature': 0.2, 'max_tokens': 4096, 'top_p': 0.95, 'timeout': 500, 'request_timeout': 500}
+[2025-03-08 08:47:06,117] INFO [llm.vllm_client] Initialized vLLM client for model: Qwen/Qwen2.5-14B-Instruct-AWQ at http://192.168.100.125:8000
+[2025-03-08 08:47:06,117] INFO [reasoning.auto_rag] Successfully initialized vLLM client with API URL: http://192.168.100.125:8000
+[2025-03-08 08:47:06,117] INFO [reasoning.auto_rag] Initialized Traffic AutoRAG with LLM provider: LLMProvider.VLLM
+[2025-03-08 08:47:06,117] INFO [reasoning.auto_rag] Using basic DocumentRetriever for document retrieval
+[2025-03-08 08:47:06,117] INFO [__main__] Initializing web search integration
+[2025-03-08 08:47:06,117] INFO [web_handle.web_search] Initialized WebSearchIntegrator
+[2025-03-08 08:47:06,117] INFO [__main__] Components initialized successfully
+[2025-03-08 08:47:19,481] INFO [__main__] Starting application
+[2025-03-08 08:47:19,483] INFO [__main__] Selected LLM provider: vllm
+[2025-03-08 08:47:19,484] INFO [__main__] Initializing components with LLM provider: vllm
+[2025-03-08 08:47:19,485] INFO [retrieval.vector_store] Initializing connection to Weaviate at https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud
+[2025-03-08 08:47:19,486] INFO [retrieval.vector_store] Using collection: ND168
+[2025-03-08 08:47:19,486] INFO [retrieval.vector_store] Creating new Weaviate client connection
+[2025-03-08 08:47:20,123] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-08 08:47:20,433] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-08 08:47:20,436] INFO [retrieval.vector_store] Collection exists: True
+[2025-03-08 08:47:20,436] INFO [retrieval.vector_store] Successfully connected to Weaviate
+[2025-03-08 08:47:20,437] INFO [retrieval.vector_store] Loading embedding model: dangvantuan/vietnamese-document-embedding
+[2025-03-08 08:47:20,439] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-08 08:47:25,351] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-08 08:47:25,653] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-08 08:47:25,656] INFO [retrieval.vector_store] Successfully initialized vector store and index for collection ND168
+[2025-03-08 08:47:25,656] INFO [retrieval.retriever] Retriever setup complete with similarity_top_k=5
+[2025-03-08 08:47:27,827] INFO [retrieval.search_pipline] Initialized CrossEncoder with model: dangvantuan/vietnamese-document-embedding
+[2025-03-08 08:47:27,827] INFO [retrieval.search_pipline] Initialized SearchPipeline
+[2025-03-08 08:47:27,827] INFO [reasoning.auto_rag] Setting up vLLM client with model: Qwen/Qwen2.5-14B-Instruct-AWQ
+[2025-03-08 08:47:27,827] INFO [llm.vllm_client] Creating VLLMClient with config: {'api_url': 'http://192.168.100.125:8000', 'model_name': 'Qwen/Qwen2.5-14B-Instruct-AWQ', 'temperature': 0.2, 'max_tokens': 4096, 'top_p': 0.95, 'timeout': 500, 'request_timeout': 500}
+[2025-03-08 08:47:27,866] INFO [llm.vllm_client] Initialized vLLM client for model: Qwen/Qwen2.5-14B-Instruct-AWQ at http://192.168.100.125:8000
+[2025-03-08 08:47:27,866] INFO [reasoning.auto_rag] Successfully initialized vLLM client with API URL: http://192.168.100.125:8000
+[2025-03-08 08:47:27,866] INFO [reasoning.auto_rag] Initialized Traffic AutoRAG with LLM provider: LLMProvider.VLLM
+[2025-03-08 08:47:27,866] INFO [reasoning.auto_rag] Using basic DocumentRetriever for document retrieval
+[2025-03-08 08:47:27,866] INFO [__main__] Initializing web search integration
+[2025-03-08 08:47:27,867] INFO [web_handle.web_search] Initialized WebSearchIntegrator
+[2025-03-08 08:47:27,867] INFO [__main__] Components initialized successfully
+[2025-03-08 08:47:39,824] INFO [__main__] Starting application
+[2025-03-08 08:47:39,830] INFO [__main__] Selected LLM provider: vllm
+[2025-03-08 08:47:39,830] INFO [__main__] Initializing components with LLM provider: vllm
+[2025-03-08 08:47:39,831] INFO [retrieval.vector_store] Initializing connection to Weaviate at https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud
+[2025-03-08 08:47:39,832] INFO [retrieval.vector_store] Using collection: ND168
+[2025-03-08 08:47:39,832] INFO [retrieval.vector_store] Creating new Weaviate client connection
+[2025-03-08 08:47:39,937] INFO [__main__] Starting application
+[2025-03-08 08:47:39,941] INFO [__main__] Selected LLM provider: vllm
+[2025-03-08 08:47:39,941] INFO [__main__] Initializing components with LLM provider: vllm
+[2025-03-08 08:47:39,942] INFO [retrieval.vector_store] Initializing connection to Weaviate at https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud
+[2025-03-08 08:47:39,942] INFO [retrieval.vector_store] Using collection: ND168
+[2025-03-08 08:47:39,943] INFO [retrieval.vector_store] Creating new Weaviate client connection
+[2025-03-08 08:47:40,397] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-08 08:47:40,556] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-08 08:47:40,635] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-08 08:47:40,640] INFO [retrieval.vector_store] Collection exists: True
+[2025-03-08 08:47:40,640] INFO [retrieval.vector_store] Successfully connected to Weaviate
+[2025-03-08 08:47:40,640] INFO [retrieval.vector_store] Loading embedding model: dangvantuan/vietnamese-document-embedding
+[2025-03-08 08:47:40,641] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-08 08:47:40,793] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-08 08:47:40,796] INFO [retrieval.vector_store] Collection exists: True
+[2025-03-08 08:47:40,796] INFO [retrieval.vector_store] Successfully connected to Weaviate
+[2025-03-08 08:47:40,796] INFO [retrieval.vector_store] Loading embedding model: dangvantuan/vietnamese-document-embedding
+[2025-03-08 08:47:40,799] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-08 08:47:45,610] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-08 08:47:45,838] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-08 08:47:45,843] INFO [retrieval.vector_store] Successfully initialized vector store and index for collection ND168
+[2025-03-08 08:47:45,844] INFO [retrieval.retriever] Retriever setup complete with similarity_top_k=5
+[2025-03-08 08:47:47,012] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-08 08:47:47,571] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-08 08:47:47,575] INFO [retrieval.vector_store] Successfully initialized vector store and index for collection ND168
+[2025-03-08 08:47:47,575] INFO [retrieval.retriever] Retriever setup complete with similarity_top_k=5
+[2025-03-08 08:47:47,921] INFO [retrieval.search_pipline] Initialized CrossEncoder with model: dangvantuan/vietnamese-document-embedding
+[2025-03-08 08:47:47,921] INFO [retrieval.search_pipline] Initialized SearchPipeline
+[2025-03-08 08:47:47,921] INFO [reasoning.auto_rag] Setting up vLLM client with model: Qwen/Qwen2.5-14B-Instruct-AWQ
+[2025-03-08 08:47:47,922] INFO [llm.vllm_client] Creating VLLMClient with config: {'api_url': 'http://192.168.100.125:8000', 'model_name': 'Qwen/Qwen2.5-14B-Instruct-AWQ', 'temperature': 0.2, 'max_tokens': 4096, 'top_p': 0.95, 'timeout': 500, 'request_timeout': 500}
+[2025-03-08 08:47:47,963] INFO [llm.vllm_client] Initialized vLLM client for model: Qwen/Qwen2.5-14B-Instruct-AWQ at http://192.168.100.125:8000
+[2025-03-08 08:47:47,963] INFO [reasoning.auto_rag] Successfully initialized vLLM client with API URL: http://192.168.100.125:8000
+[2025-03-08 08:47:47,963] INFO [reasoning.auto_rag] Initialized Traffic AutoRAG with LLM provider: LLMProvider.VLLM
+[2025-03-08 08:47:47,963] INFO [reasoning.auto_rag] Using basic DocumentRetriever for document retrieval
+[2025-03-08 08:47:47,963] INFO [__main__] Initializing web search integration
+[2025-03-08 08:47:47,963] INFO [web_handle.web_search] Initialized WebSearchIntegrator
+[2025-03-08 08:47:47,963] INFO [__main__] Components initialized successfully
+[2025-03-08 08:47:47,964] INFO [__main__] Processing new question: Điều khiển xe ô tô chạy quá tốc độ quy định từ 10 km/h đến 20 km/h bị phạt bao nhiêu tiền và trừ bao nhiêu điểm
+[2025-03-08 08:47:47,964] INFO [__main__] Processing question: Điều khiển xe ô tô chạy quá tốc độ quy định từ 10 km/h đến 20 km/h bị phạt bao nhiêu tiền và trừ bao nhiêu điểm
+[2025-03-08 08:47:47,965] INFO [reasoning.auto_rag] Question validated as traffic-related via keyword: phạt
+[2025-03-08 08:47:47,965] INFO [reasoning.auto_rag] Iteration 1: Retrieving documents for query: Điều khiển xe ô tô chạy quá tốc độ quy định từ 10 km/h đến 20 km/h bị phạt bao nhiêu tiền và trừ bao nhiêu điểm
+[2025-03-08 08:47:47,965] INFO [reasoning.auto_rag] Tokenized query: điều_khiển xe ô_tô chạy quá tốc_độ quy_định từ 10 km / h đến 20 km / h bị phạt bao_nhiêu tiền và trừ bao_nhiêu điểm
+[2025-03-08 08:47:47,965] INFO [reasoning.auto_rag] Using basic DocumentRetriever for retrieval
+[2025-03-08 08:47:47,966] INFO [retrieval.retriever] Original query: 'Điều khiển xe ô tô chạy quá tốc độ quy định từ 10 km/h đến 20 km/h bị phạt bao nhiêu tiền và trừ bao nhiêu điểm'
+[2025-03-08 08:47:47,966] INFO [retrieval.retriever] Tokenized query: 'điều_khiển xe ô_tô chạy quá tốc_độ quy_định từ 10 km / h đến 20 km / h bị phạt bao_nhiêu tiền và trừ bao_nhiêu điểm'
+[2025-03-08 08:47:49,107] INFO [retrieval.retriever] Retrieved 5 documents for query
+[2025-03-08 08:47:49,107] INFO [retrieval.retriever] Top result score: 1.0
+[2025-03-08 08:47:49,108] INFO [retrieval.retriever] Score range: 0.6491713523864746 to 1.0
+[2025-03-08 08:47:49,108] INFO [reasoning.auto_rag] DocumentRetriever returned 5 documents
+[2025-03-08 08:47:49,108] INFO [reasoning.auto_rag] Retrieved document details:
+[2025-03-08 08:47:49,108] INFO [reasoning.auto_rag] Doc 1 score: 1.0
+[2025-03-08 08:47:49,108] INFO [reasoning.auto_rag] Doc 1 metadata: {'category': 'ô tô', 'fine_amount': 'Trừ 02 điểm giấy phép lái xe', 'violation_type': 'tốc_độ', 'original_text': 'Loại phương tiện: ô tô\nMức phạt: Trừ 02 điểm giấy phép lái xe\nNội dung vi phạm: Điều khiển xe chạy quá tốc độ quy định từ 10 km/h đến 20 km/h'}
+[2025-03-08 08:47:49,109] INFO [reasoning.auto_rag] Doc 2 score: 0.877963662147522
+[2025-03-08 08:47:49,109] INFO [reasoning.auto_rag] Doc 2 metadata: {'category': 'ô tô', 'fine_amount': 'Phạt tiền từ 4.000.000 đồng đến 6.000.000 đồng', 'violation_type': 'tốc_độ', 'original_text': 'Loại phương tiện: ô tô\nMức phạt: Phạt tiền từ 4.000.000 đồng đến 6.000.000 đồng\nNội dung vi phạm: Điều khiển xe chạy quá tốc độ quy định từ 10 km/h đến 20 km/h'}
+[2025-03-08 08:47:49,109] INFO [reasoning.auto_rag] Doc 3 score: 0.7984384298324585
+[2025-03-08 08:47:49,109] INFO [reasoning.auto_rag] Doc 3 metadata: {'category': 'ô tô', 'fine_amount': 'Trừ 04 điểm giấy phép lái xe', 'violation_type': 'tốc_độ', 'original_text': 'Loại phương tiện: ô tô\nMức phạt: Trừ 04 điểm giấy phép lái xe\nNội dung vi phạm: Điều khiển xe chạy quá tốc độ quy định trên 20 km/h đến 35 km/h'}
+[2025-03-08 08:47:49,110] INFO [reasoning.auto_rag] Context length: 834 characters
+[2025-03-08 08:47:49,111] INFO [reasoning.auto_rag] Input tokens: 776
+[2025-03-08 08:47:49,829] INFO [retrieval.search_pipline] Initialized CrossEncoder with model: dangvantuan/vietnamese-document-embedding
+[2025-03-08 08:47:49,829] INFO [retrieval.search_pipline] Initialized SearchPipeline
+[2025-03-08 08:47:49,829] INFO [reasoning.auto_rag] Setting up vLLM client with model: Qwen/Qwen2.5-14B-Instruct-AWQ
+[2025-03-08 08:47:49,829] INFO [llm.vllm_client] Creating VLLMClient with config: {'api_url': 'http://192.168.100.125:8000', 'model_name': 'Qwen/Qwen2.5-14B-Instruct-AWQ', 'temperature': 0.2, 'max_tokens': 4096, 'top_p': 0.95, 'timeout': 500, 'request_timeout': 500}
+[2025-03-08 08:47:49,861] INFO [llm.vllm_client] Initialized vLLM client for model: Qwen/Qwen2.5-14B-Instruct-AWQ at http://192.168.100.125:8000
+[2025-03-08 08:47:49,862] INFO [reasoning.auto_rag] Successfully initialized vLLM client with API URL: http://192.168.100.125:8000
+[2025-03-08 08:47:49,862] INFO [reasoning.auto_rag] Initialized Traffic AutoRAG with LLM provider: LLMProvider.VLLM
+[2025-03-08 08:47:49,862] INFO [reasoning.auto_rag] Using basic DocumentRetriever for document retrieval
+[2025-03-08 08:47:49,862] INFO [__main__] Initializing web search integration
+[2025-03-08 08:47:49,862] INFO [web_handle.web_search] Initialized WebSearchIntegrator
+[2025-03-08 08:47:49,862] INFO [__main__] Components initialized successfully
+[2025-03-08 08:48:32,725] INFO [httpx] HTTP Request: POST http://192.168.100.125:8000/v1/completions "HTTP/1.1 200 OK"
+[2025-03-08 08:48:32,735] INFO [reasoning.auto_rag] Output tokens: 5367
+[2025-03-08 08:48:32,735] INFO [reasoning.auto_rag] Decision: Đã đủ thông tin
+[2025-03-08 08:48:32,736] INFO [reasoning.auto_rag] Found sufficient information, returning final answer
+[2025-03-08 08:48:32,736] INFO [utils] Function process_question completed in 44.77 seconds
+[2025-03-08 08:48:32,736] INFO [__main__] Question processed in 44.77 seconds
+[2025-03-08 08:48:32,737] INFO [__main__] Needs web search: False
+[2025-03-08 08:48:32,737] INFO [__main__] Displaying results
+[2025-03-08 08:48:32,737] INFO [__main__] Response generated using: Qwen2.5-14B (vLLM)
+[2025-03-08 08:48:32,744] INFO [__main__] Cleaning up components
+[2025-03-08 08:48:32,745] INFO [retrieval.vector_store] Closing Weaviate client connection
+[2025-03-08 08:48:32,749] INFO [retrieval.vector_store] Weaviate client connection closed
+[2025-03-08 09:05:07,838] INFO [__main__] Starting application
+[2025-03-08 09:05:07,842] INFO [__main__] Initializing configurations
+[2025-03-08 09:05:07,842] INFO [__main__] Configurations initialized successfully
+[2025-03-08 09:05:07,843] INFO [__main__] Selected LLM provider: openai
+[2025-03-08 09:05:07,843] INFO [__main__] Initializing components with LLM provider: openai
+[2025-03-08 09:05:07,843] INFO [retrieval.vector_store] Initializing connection to Weaviate at https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud
+[2025-03-08 09:05:07,843] INFO [retrieval.vector_store] Using collection: ND168
+[2025-03-08 09:05:07,843] INFO [retrieval.vector_store] Creating new Weaviate client connection
+[2025-03-08 09:05:08,562] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-08 09:05:08,841] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-08 09:05:08,844] INFO [retrieval.vector_store] Collection exists: True
+[2025-03-08 09:05:08,844] INFO [retrieval.vector_store] Successfully connected to Weaviate
+[2025-03-08 09:05:08,845] INFO [retrieval.vector_store] Loading embedding model: dangvantuan/vietnamese-document-embedding
+[2025-03-08 09:05:08,848] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-08 09:05:15,769] INFO [__main__] Starting application
+[2025-03-08 09:05:15,771] INFO [__main__] Selected LLM provider: openai
+[2025-03-08 09:05:15,771] INFO [__main__] Initializing components with LLM provider: openai
+[2025-03-08 09:05:15,771] INFO [retrieval.vector_store] Initializing connection to Weaviate at https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud
+[2025-03-08 09:05:15,772] INFO [retrieval.vector_store] Using collection: ND168
+[2025-03-08 09:05:15,772] INFO [retrieval.vector_store] Creating new Weaviate client connection
+[2025-03-08 09:05:15,914] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-08 09:05:16,507] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-08 09:05:16,574] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-08 09:05:16,713] INFO [retrieval.vector_store] Successfully initialized vector store and index for collection ND168
+[2025-03-08 09:05:16,713] INFO [retrieval.retriever] Retriever setup complete with similarity_top_k=5
+[2025-03-08 09:05:16,743] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-08 09:05:16,757] INFO [retrieval.vector_store] Collection exists: True
+[2025-03-08 09:05:16,757] INFO [retrieval.vector_store] Successfully connected to Weaviate
+[2025-03-08 09:05:16,758] INFO [retrieval.vector_store] Loading embedding model: dangvantuan/vietnamese-document-embedding
+[2025-03-08 09:05:16,760] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-08 09:05:22,755] INFO [retrieval.search_pipline] Initialized CrossEncoder with model: dangvantuan/vietnamese-document-embedding
+[2025-03-08 09:05:22,755] INFO [retrieval.search_pipline] Initialized SearchPipeline
+[2025-03-08 09:05:22,755] INFO [reasoning.auto_rag] Setting up OpenAI LLM with model: gpt-4o-mini
+[2025-03-08 09:05:22,930] INFO [reasoning.auto_rag] Initialized Traffic AutoRAG with LLM provider: LLMProvider.OPENAI
+[2025-03-08 09:05:22,930] INFO [reasoning.auto_rag] Using basic DocumentRetriever for document retrieval
+[2025-03-08 09:05:22,930] INFO [__main__] Initializing web search integration
+[2025-03-08 09:05:22,930] INFO [web_handle.web_search] Initialized WebSearchIntegrator
+[2025-03-08 09:05:22,931] INFO [__main__] Components initialized successfully
+[2025-03-08 09:05:23,260] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-08 09:05:23,755] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-08 09:05:23,759] INFO [retrieval.vector_store] Successfully initialized vector store and index for collection ND168
+[2025-03-08 09:05:23,759] INFO [retrieval.retriever] Retriever setup complete with similarity_top_k=5
+[2025-03-08 09:05:25,889] INFO [retrieval.search_pipline] Initialized CrossEncoder with model: dangvantuan/vietnamese-document-embedding
+[2025-03-08 09:05:25,889] INFO [retrieval.search_pipline] Initialized SearchPipeline
+[2025-03-08 09:05:25,889] INFO [reasoning.auto_rag] Setting up OpenAI LLM with model: gpt-4o-mini
+[2025-03-08 09:05:25,890] INFO [reasoning.auto_rag] Initialized Traffic AutoRAG with LLM provider: LLMProvider.OPENAI
+[2025-03-08 09:05:25,890] INFO [reasoning.auto_rag] Using basic DocumentRetriever for document retrieval
+[2025-03-08 09:05:25,890] INFO [__main__] Initializing web search integration
+[2025-03-08 09:05:25,890] INFO [web_handle.web_search] Initialized WebSearchIntegrator
+[2025-03-08 09:05:25,890] INFO [__main__] Components initialized successfully
+[2025-03-08 09:05:29,702] INFO [__main__] Starting application
+[2025-03-08 09:05:29,706] INFO [__main__] Selected LLM provider: vllm
+[2025-03-08 09:05:29,706] INFO [__main__] Initializing components with LLM provider: vllm
+[2025-03-08 09:05:29,706] INFO [retrieval.vector_store] Initializing connection to Weaviate at https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud
+[2025-03-08 09:05:29,707] INFO [retrieval.vector_store] Using collection: ND168
+[2025-03-08 09:05:29,707] INFO [retrieval.vector_store] Creating new Weaviate client connection
+[2025-03-08 09:05:30,489] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-08 09:05:30,785] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-08 09:05:30,791] INFO [retrieval.vector_store] Collection exists: True
+[2025-03-08 09:05:30,791] INFO [retrieval.vector_store] Successfully connected to Weaviate
+[2025-03-08 09:05:30,792] INFO [retrieval.vector_store] Loading embedding model: dangvantuan/vietnamese-document-embedding
+[2025-03-08 09:05:30,792] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-08 09:05:37,344] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-08 09:05:37,946] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-08 09:05:37,949] INFO [retrieval.vector_store] Successfully initialized vector store and index for collection ND168
+[2025-03-08 09:05:37,949] INFO [retrieval.retriever] Retriever setup complete with similarity_top_k=5
+[2025-03-08 09:05:40,278] INFO [retrieval.search_pipline] Initialized CrossEncoder with model: dangvantuan/vietnamese-document-embedding
+[2025-03-08 09:05:40,278] INFO [retrieval.search_pipline] Initialized SearchPipeline
+[2025-03-08 09:05:40,278] INFO [reasoning.auto_rag] Setting up vLLM client with model: Qwen/QwQ-32B-AWQ
+[2025-03-08 09:05:40,278] INFO [llm.vllm_client] Creating VLLMClient with config: {'api_url': 'http://192.168.100.125:8000', 'model_name': 'Qwen/QwQ-32B-AWQ', 'temperature': 0.2, 'max_tokens': 4096, 'top_p': 0.95, 'timeout': 500, 'request_timeout': 500}
+[2025-03-08 09:05:40,329] INFO [llm.vllm_client] Initialized vLLM client for model: Qwen/QwQ-32B-AWQ at http://192.168.100.125:8000
+[2025-03-08 09:05:40,329] INFO [reasoning.auto_rag] Successfully initialized vLLM client with API URL: http://192.168.100.125:8000
+[2025-03-08 09:05:40,329] INFO [reasoning.auto_rag] Initialized Traffic AutoRAG with LLM provider: LLMProvider.VLLM
+[2025-03-08 09:05:40,330] INFO [reasoning.auto_rag] Using basic DocumentRetriever for document retrieval
+[2025-03-08 09:05:40,330] INFO [__main__] Initializing web search integration
+[2025-03-08 09:05:40,330] INFO [web_handle.web_search] Initialized WebSearchIntegrator
+[2025-03-08 09:05:40,330] INFO [__main__] Components initialized successfully
+[2025-03-08 09:06:31,974] INFO [__main__] Starting application
+[2025-03-08 09:06:31,977] INFO [__main__] Selected LLM provider: vllm
+[2025-03-08 09:06:31,978] INFO [__main__] Initializing components with LLM provider: vllm
+[2025-03-08 09:06:31,979] INFO [retrieval.vector_store] Initializing connection to Weaviate at https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud
+[2025-03-08 09:06:31,980] INFO [retrieval.vector_store] Using collection: ND168
+[2025-03-08 09:06:31,980] INFO [retrieval.vector_store] Creating new Weaviate client connection
+[2025-03-08 09:06:32,081] INFO [__main__] Starting application
+[2025-03-08 09:06:32,083] INFO [__main__] Selected LLM provider: vllm
+[2025-03-08 09:06:32,084] INFO [__main__] Initializing components with LLM provider: vllm
+[2025-03-08 09:06:32,085] INFO [retrieval.vector_store] Initializing connection to Weaviate at https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud
+[2025-03-08 09:06:32,085] INFO [retrieval.vector_store] Using collection: ND168
+[2025-03-08 09:06:32,085] INFO [retrieval.vector_store] Creating new Weaviate client connection
+[2025-03-08 09:06:32,743] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-08 09:06:33,048] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/meta "HTTP/1.1 200 OK"
+[2025-03-08 09:06:33,052] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-08 09:06:33,055] INFO [retrieval.vector_store] Collection exists: True
+[2025-03-08 09:06:33,056] INFO [retrieval.vector_store] Successfully connected to Weaviate
+[2025-03-08 09:06:33,059] INFO [retrieval.vector_store] Loading embedding model: dangvantuan/vietnamese-document-embedding
+[2025-03-08 09:06:33,064] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-08 09:06:33,294] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-08 09:06:33,296] INFO [retrieval.vector_store] Collection exists: True
+[2025-03-08 09:06:33,297] INFO [retrieval.vector_store] Successfully connected to Weaviate
+[2025-03-08 09:06:33,297] INFO [retrieval.vector_store] Loading embedding model: dangvantuan/vietnamese-document-embedding
+[2025-03-08 09:06:33,298] INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: dangvantuan/vietnamese-document-embedding
+[2025-03-08 09:06:37,761] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-08 09:06:38,160] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-08 09:06:38,165] INFO [retrieval.vector_store] Successfully initialized vector store and index for collection ND168
+[2025-03-08 09:06:38,165] INFO [retrieval.retriever] Retriever setup complete with similarity_top_k=5
+[2025-03-08 09:06:39,605] INFO [sentence_transformers.SentenceTransformer] 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-03-08 09:06:40,310] INFO [httpx] HTTP Request: GET https://eypxka08rk6gbnyt57idzq.c0.us-west3.gcp.weaviate.cloud/v1/schema/ND168 "HTTP/1.1 200 OK"
+[2025-03-08 09:06:40,312] INFO [retrieval.search_pipline] Initialized CrossEncoder with model: dangvantuan/vietnamese-document-embedding
+[2025-03-08 09:06:40,312] INFO [retrieval.search_pipline] Initialized SearchPipeline
+[2025-03-08 09:06:40,313] INFO [reasoning.auto_rag] Setting up vLLM client with model: Qwen/QwQ-32B-AWQ
+[2025-03-08 09:06:40,313] INFO [llm.vllm_client] Creating VLLMClient with config: {'api_url': 'http://192.168.100.125:8000', 'model_name': 'Qwen/QwQ-32B-AWQ', 'temperature': 0.2, 'max_tokens': 4096, 'top_p': 0.95, 'timeout': 500, 'request_timeout': 500}
+[2025-03-08 09:06:40,314] INFO [retrieval.vector_store] Successfully initialized vector store and index for collection ND168
+[2025-03-08 09:06:40,314] INFO [retrieval.retriever] Retriever setup complete with similarity_top_k=5
+[2025-03-08 09:06:40,381] INFO [llm.vllm_client] Initialized vLLM client for model: Qwen/QwQ-32B-AWQ at http://192.168.100.125:8000
+[2025-03-08 09:06:40,381] INFO [reasoning.auto_rag] Successfully initialized vLLM client with API URL: http://192.168.100.125:8000
+[2025-03-08 09:06:40,382] INFO [reasoning.auto_rag] Initialized Traffic AutoRAG with LLM provider: LLMProvider.VLLM
+[2025-03-08 09:06:40,382] INFO [reasoning.auto_rag] Using basic DocumentRetriever for document retrieval
+[2025-03-08 09:06:40,382] INFO [__main__] Initializing web search integration
+[2025-03-08 09:06:40,382] INFO [web_handle.web_search] Initialized WebSearchIntegrator
+[2025-03-08 09:06:40,382] INFO [__main__] Components initialized successfully
+[2025-03-08 09:06:42,817] INFO [retrieval.search_pipline] Initialized CrossEncoder with model: dangvantuan/vietnamese-document-embedding
+[2025-03-08 09:06:42,817] INFO [retrieval.search_pipline] Initialized SearchPipeline
+[2025-03-08 09:06:42,817] INFO [reasoning.auto_rag] Setting up vLLM client with model: Qwen/QwQ-32B-AWQ
+[2025-03-08 09:06:42,817] INFO [llm.vllm_client] Creating VLLMClient with config: {'api_url': 'http://192.168.100.125:8000', 'model_name': 'Qwen/QwQ-32B-AWQ', 'temperature': 0.2, 'max_tokens': 4096, 'top_p': 0.95, 'timeout': 500, 'request_timeout': 500}
+[2025-03-08 09:06:42,849] INFO [llm.vllm_client] Initialized vLLM client for model: Qwen/QwQ-32B-AWQ at http://192.168.100.125:8000
+[2025-03-08 09:06:42,849] INFO [reasoning.auto_rag] Successfully initialized vLLM client with API URL: http://192.168.100.125:8000
+[2025-03-08 09:06:42,850] INFO [reasoning.auto_rag] Initialized Traffic AutoRAG with LLM provider: LLMProvider.VLLM
+[2025-03-08 09:06:42,850] INFO [reasoning.auto_rag] Using basic DocumentRetriever for document retrieval
+[2025-03-08 09:06:42,850] INFO [__main__] Initializing web search integration
+[2025-03-08 09:06:42,850] INFO [web_handle.web_search] Initialized WebSearchIntegrator
+[2025-03-08 09:06:42,850] INFO [__main__] Components initialized successfully
+[2025-03-08 09:06:42,851] INFO [__main__] Processing new question: Điều khiển xe ô tô trên đường mà trong máu hoặc hơi thở có nồng độ cồn vượt quá 50 miligam đến 80 miligam/100 mililít máu hoặc vượt quá 0,25 miligam đến 0,4 miligam/1 lít khí thở bị phạt bao nhiêu tiền
+[2025-03-08 09:06:42,853] INFO [__main__] Processing question: Điều khiển xe ô tô trên đường mà trong máu hoặc hơi thở có nồng độ cồn vượt quá 50 miligam đến 80 miligam/100 mililít máu hoặc vượt quá 0,25 miligam đến 0,4 miligam/1 lít khí thở bị phạt bao nhiêu tiền
+[2025-03-08 09:06:42,853] INFO [reasoning.auto_rag] Question validated as traffic-related via keyword: phạt
+[2025-03-08 09:06:42,853] INFO [reasoning.auto_rag] Iteration 1: Retrieving documents for query: Điều khiển xe ô tô trên đường mà trong máu hoặc hơi thở có nồng độ cồn vượt quá 50 miligam đến 80 miligam/100 mililít máu hoặc vượt quá 0,25 miligam đến 0,4 miligam/1 lít khí thở bị phạt bao nhiêu tiền
+[2025-03-08 09:06:42,854] INFO [reasoning.auto_rag] Tokenized query: điều_khiển xe ô_tô trên đường mà trong máu hoặc hơi thở có nồng_độ cồn vượt quá 50 miligam đến 80 miligam / 100 mililít máu hoặc vượt quá 0,25 miligam đến 0,4 miligam / 1 lít khí thở bị phạt bao_nhiêu tiền
+[2025-03-08 09:06:42,854] INFO [reasoning.auto_rag] Using basic DocumentRetriever for retrieval
+[2025-03-08 09:06:42,854] INFO [retrieval.retriever] Original query: 'Điều khiển xe ô tô trên đường mà trong máu hoặc hơi thở có nồng độ cồn vượt quá 50 miligam đến 80 miligam/100 mililít máu hoặc vượt quá 0,25 miligam đến 0,4 miligam/1 lít khí thở bị phạt bao nhiêu tiền'
+[2025-03-08 09:06:42,855] INFO [retrieval.retriever] Tokenized query: 'điều_khiển xe ô_tô trên đường mà trong máu hoặc hơi thở có nồng_độ cồn vượt quá 50 miligam đến 80 miligam / 100 mililít máu hoặc vượt quá 0,25 miligam đến 0,4 miligam / 1 lít khí thở bị phạt bao_nhiêu tiền'
+[2025-03-08 09:06:44,306] INFO [retrieval.retriever] Retrieved 5 documents for query
+[2025-03-08 09:06:44,306] INFO [retrieval.retriever] Top result score: 0.9967820048332214
+[2025-03-08 09:06:44,307] INFO [retrieval.retriever] Score range: 0.8688719272613525 to 0.9967820048332214
+[2025-03-08 09:06:44,307] INFO [reasoning.auto_rag] DocumentRetriever returned 5 documents
+[2025-03-08 09:06:44,308] INFO [reasoning.auto_rag] Retrieved document details:
+[2025-03-08 09:06:44,308] INFO [reasoning.auto_rag] Doc 1 score: 0.9967820048332214
+[2025-03-08 09:06:44,309] INFO [reasoning.auto_rag] Doc 1 metadata: {'category': 'ô tô', 'fine_amount': 'Trừ 10 điểm giấy phép lái xe', 'violation_type': 'nồng_độ_cồn', 'original_text': 'Loại phương tiện: ô tô\nMức phạt: Trừ 10 điểm giấy phép lái xe\nNội dung vi phạm: Điều khiển xe trên đường mà trong máu hoặc hơi thở có nồng độ cồn vượt quá 50 miligam đến 80 miligam/100 mililít máu hoặc vượt quá 0,25 miligam đến 0,4 miligam/1 lít khí thở'}
+[2025-03-08 09:06:44,309] INFO [reasoning.auto_rag] Doc 2 score: 0.9524011611938477
+[2025-03-08 09:06:44,309] INFO [reasoning.auto_rag] Doc 2 metadata: {'category': 'ô tô', 'fine_amount': 'Phạt tiền từ 18.000.000 đồng đến 20.000.000 đồng', 'violation_type': 'nồng_độ_cồn', 'original_text': 'Loại phương tiện: ô tô\nMức phạt: Phạt tiền từ 18.000.000 đồng đến 20.000.000 đồng\nNội dung vi phạm: Điều khiển xe trên đường mà trong máu hoặc hơi thở có nồng độ cồn vượt quá 50 miligam đến 80 miligam/100 mililít máu hoặc vượt quá 0,25 miligam đến 0,4 miligam/1 lít khí thở'}
+[2025-03-08 09:06:44,310] INFO [reasoning.auto_rag] Doc 3 score: 0.9128038883209229
+[2025-03-08 09:06:44,310] INFO [reasoning.auto_rag] Doc 3 metadata: {'category': 'ô tô', 'fine_amount': 'Phạt tiền từ 30.000.000 đồng đến 40.000.000 đồng', 'violation_type': 'nồng_độ_cồn', 'original_text': 'Loại phương tiện: ô tô\nMức phạt: Phạt tiền từ 30.000.000 đồng đến 40.000.000 đồng\nNội dung vi phạm: Điều khiển xe trên đường mà trong máu hoặc hơi thở có nồng độ cồn vượt quá 80 miligam/100 mililít máu hoặc vượt quá 0,4 miligam/1 lít khí thở'}
+[2025-03-08 09:06:44,310] INFO [reasoning.auto_rag] Context length: 1344 characters
+[2025-03-08 09:06:44,315] INFO [reasoning.auto_rag] Input tokens: 1141
+[2025-03-08 09:08:02,373] INFO [httpx] HTTP Request: POST http://192.168.100.125:8000/v1/completions "HTTP/1.1 200 OK"
+[2025-03-08 09:08:02,378] INFO [reasoning.auto_rag] Output tokens: 4852
+[2025-03-08 09:08:02,378] INFO [reasoning.auto_rag] Decision: 
+[2025-03-08 09:08:02,378] WARNING [reasoning.auto_rag] Need more information but no next query provided
+[2025-03-08 09:08:02,378] WARNING [reasoning.auto_rag] Exiting loop without sufficient information
+[2025-03-08 09:08:02,379] INFO [utils] Function process_question completed in 79.53 seconds
+[2025-03-08 09:08:02,380] INFO [__main__] Question processed in 79.53 seconds
+[2025-03-08 09:08:02,381] INFO [__main__] Needs web search: True
+[2025-03-08 09:08:02,381] INFO [__main__] Web search prompt triggered
+[2025-03-08 09:08:02,382] INFO [__main__] Displaying results
+[2025-03-08 09:08:02,382] INFO [__main__] Response generated using: Qwen2.5-14B (vLLM)
+[2025-03-08 09:08:02,390] INFO [__main__] Cleaning up components
+[2025-03-08 09:08:02,391] INFO [retrieval.vector_store] Closing Weaviate client connection
+[2025-03-08 09:08:02,399] INFO [retrieval.vector_store] Weaviate client connection closed
+[2025-03-08 09:08:02,400] INFO [__main__] Displaying web search prompt
