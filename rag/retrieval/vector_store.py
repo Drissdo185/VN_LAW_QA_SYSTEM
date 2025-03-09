@@ -74,9 +74,6 @@ class VectorStoreManager:
                         skip_init_checks=True
                     )
                 
-                # Test connection with a simple API call
-                # Using collections API to check if the collection exists
-                # This is more reliable than using schema which might be version-specific
                 try:
                     # Try newer Weaviate client API (v4+)
                     collection_info = self.client.collections.exists(self.weaviate_config.collection)
@@ -121,7 +118,7 @@ class VectorStoreManager:
         return HuggingFaceEmbedding(
             model_name=self.model_config.embedding_model,
             device=self.model_config.device,
-            max_length=512,  # Increased from 256 in original
+            max_length=512,  
             trust_remote_code=True
         )
     
@@ -131,7 +128,7 @@ class VectorStoreManager:
             logger.warning("Index requested but not initialized, attempting initialization")
             self.initialize()
             
-        # No need to check connection here since initialize() will do it
+    
         return self.index
     
     def cleanup(self):

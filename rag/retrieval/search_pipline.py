@@ -100,6 +100,7 @@ class SearchPipeline:
     def _rerank_results(self, query: str, nodes: List[NodeWithScore]) -> List[NodeWithScore]:
         """
         Rerank results using cross-encoder
+        
         """
         if not nodes:
             logger.warning("No nodes to rerank")
@@ -187,29 +188,157 @@ class SearchPipeline:
         violation_types = []
         
         # Child safety violations
-        if any(keyword in query_lower for keyword in ["trẻ em", "trẻ nhỏ", "1,35 mét", "mầm non", "học sinh", 
-                                                    "dưới 10 tuổi", "chiều cao", "ghế trẻ em"]):
+        if any(keyword in query_lower for keyword in ["trẻ em", "trẻ nhỏ", "dưới 10 tuổi", "chiều cao dưới", 
+                                                    "1,35 mét", "mầm non", "học sinh", "thiết bị an toàn",
+                                                    "dưới 12 tuổi", "dưới 06 tuổi", "người già yếu"]):
             violation_types.append("trẻ_em")
         
         # Speed violations
-        if any(keyword in query_lower for keyword in ["tốc độ", "km/h", "chạy quá", "vượt quá tốc độ", 
-                                                    "tốc độ tối đa", "tốc độ tối thiểu", "chạy nhanh"]):
+        if any(keyword in query_lower for keyword in ["tốc độ", "km/h", "chạy quá", "vượt quá", "tốc độ tối thiểu", 
+                                                    "chạy dưới", "tốc độ thấp", "đuổi nhau", "20 km", "10 km", 
+                                                    "05 km", "tốc độ quy định"]):
             violation_types.append("tốc_độ")
             
         # Alcohol violations
         if any(keyword in query_lower for keyword in ["nồng độ cồn", "cồn", "rượu", "bia", "miligam", 
-                                                    "nồng độ trong máu", "hơi thở", "say xỉn"]):
+                                                    "nồng độ trong máu", "hơi thở", "say xỉn", 
+                                                    "không chấp hành yêu cầu kiểm tra", "80 miligam", 
+                                                    "50 miligam", "mililít máu"]):
             violation_types.append("nồng_độ_cồn")
         
         # Drug violations
         if any(keyword in query_lower for keyword in ["ma túy", "chất kích thích", "chất gây nghiện", 
-                                                    "chất ma túy", "dương tính"]):
+                                                    "pháp luật cấm sử dụng", "chất ma túy", "dương tính", 
+                                                    "trong cơ thể có chất"]):
             violation_types.append("ma_túy")
         
         # Parking violations
         if any(keyword in query_lower for keyword in ["đỗ xe", "đậu xe", "dừng xe", "đỗ trái phép", 
-                                                    "đỗ sai quy định", "vạch kẻ đường", "lề đường", "vỉa hè"]):
+                                                    "đỗ sai quy định", "vạch kẻ đường", "lề đường", "vỉa hè",
+                                                    "trên cầu", "trong hầm", "nơi đường giao nhau", 
+                                                    "điểm đón trả khách", "tụ tập từ 03 xe"]):
             violation_types.append("đỗ_dừng_xe")
+        
+        # Documentation violations
+        if any(keyword in query_lower for keyword in ["giấy phép", "chứng nhận", "đăng ký", "kiểm định", 
+                                                    "bảo hiểm", "giấy tờ", "không mang theo", "hết hạn",
+                                                    "tẩy xóa", "không đúng số khung", "đăng ký tạm thời"]):
+            violation_types.append("giấy_tờ")
+        
+        # Highway violations
+        if any(keyword in query_lower for keyword in ["đường cao tốc", "cao tốc", "làn khẩn cấp", 
+                                                    "vào cao tốc", "ra cao tốc", "đi vào đường cao tốc"]):
+            violation_types.append("đường_cao_tốc")
+        
+        # Traffic signals violations
+        if any(keyword in query_lower for keyword in ["đèn tín hiệu", "đèn giao thông", "đèn đỏ", 
+                                                    "vượt đèn", "không chấp hành", "biển báo", "hiệu lệnh", 
+                                                    "hướng dẫn", "người điều khiển giao thông", 
+                                                    "người kiểm soát giao thông"]):
+            violation_types.append("biển_báo")
+        
+        # Lane violations
+        if any(keyword in query_lower for keyword in ["làn đường", "chuyển làn", "làn xe", "phần đường", 
+                                                    "vượt làn", "đi sai làn", "không đúng phần đường", 
+                                                    "không đi bên phải", "dàn hàng ngang"]):
+            violation_types.append("làn_đường")
+        
+        # Passenger violations
+        if any(keyword in query_lower for keyword in ["chở người", "quá số người", "chở quá", "người ngồi", 
+                                                    "chở trên mui", "thùng xe", "chở theo 02 người", 
+                                                    "chở theo từ 03 người"]):
+            violation_types.append("chở_người")
+        
+        # Cargo violations
+        if any(keyword in query_lower for keyword in ["chở hàng", "trọng tải", "quá tải", "hàng hóa", 
+                                                    "vượt kích thước", "kích thước giới hạn", "kéo theo xe khác", 
+                                                    "kéo vật khác"]):
+            violation_types.append("chở_hàng")
+        
+        # Phone usage violations
+        if any(keyword in query_lower for keyword in ["điện thoại", "nghe điện thoại", "nhắn tin", 
+                                                    "sử dụng điện thoại", "thiết bị điện tử", "dùng tay cầm"]):
+            violation_types.append("điện_thoại")
+        
+        # Dangerous driving
+        if any(keyword in query_lower for keyword in ["lạng lách", "đánh võng", "nguy hiểm", "liều lĩnh", 
+                                                    "không giữ khoảng cách", "vô lăng", "buông cả hai tay", 
+                                                    "dùng chân điều khiển", "nằm trên yên xe", "quay người", 
+                                                    "bịt mắt", "một bánh", "chân chống", "quệt xuống đường"]):
+            violation_types.append("lái_xe_nguy_hiểm")
+        
+        # Motorcycle-specific violations
+        if any(keyword in query_lower for keyword in ["mũ bảo hiểm", "đội mũ", "cài quai", "không đội mũ", 
+                                                    "mô tô ba bánh", "xe hai bánh", "xe ba bánh", 
+                                                    "xe lạng lách", "gắn máy", "xe máy", "ngồi phía sau vòng tay qua", 
+                                                    "thành nhóm", "thành đoàn"]):
+            violation_types.append("xe_máy_đặc_thù")
+        
+        # Vehicle accessories and equipment
+        if any(keyword in query_lower for keyword in ["còi", "đèn soi biển số", "đèn báo hãm", "gương chiếu hậu", 
+                                                    "đèn tín hiệu", "đèn chiếu sáng", "ô (dù)", "thiết bị âm thanh",
+                                                    "rú ga", "nẹt pô", "đèn chiếu xa", "đèn chiếu gần"]):
+            violation_types.append("kỹ_thuật_xe")
+        
+        # Environmental violations
+        if any(keyword in query_lower for keyword in ["khói", "bụi", "ô nhiễm", "tiếng ồn", "môi trường", 
+                                                    "giảm thanh", "giảm khói", "quy chuẩn môi trường"]):
+            violation_types.append("môi_trường")
+        
+        # Wrong-way driving and turning
+        if any(keyword in query_lower for keyword in ["lùi xe", "quay đầu", "đảo chiều", "quay xe", 
+                                                    "cấm quay đầu", "ngược chiều", "đường một chiều", 
+                                                    "cấm đi ngược chiều", "không quan sát hai bên"]):
+            violation_types.append("lùi_quay_đầu")
+        
+        # Overtaking violations
+        if any(keyword in query_lower for keyword in ["vượt xe", "không được vượt", "vượt bên phải", 
+                                                    "nơi cấm vượt", "không có tín hiệu", "tín hiệu vượt xe"]):
+            violation_types.append("vượt_xe")
+        
+        # Accident related
+        if any(keyword in query_lower for keyword in ["tai nạn", "va chạm", "không dừng lại", "bỏ chạy", 
+                                                    "không trợ giúp", "trốn khỏi", "không giữ nguyên hiện trường", 
+                                                    "không dừng ngay phương tiện", "liên quan trực tiếp"]):
+            violation_types.append("tai_nạn")
+        
+        # Safety violations
+        if any(keyword in query_lower for keyword in ["an toàn", "khoảng cách an toàn", "xảy ra va chạm", 
+                                                    "chuyển hướng không quan sát", "xe phía sau", 
+                                                    "giảm tốc độ", "dừng lại"]):
+            violation_types.append("an_toàn")
+        
+        # Priority violations
+        if any(keyword in query_lower for keyword in ["nhường đường", "quyền ưu tiên", "xe ưu tiên", 
+                                                    "xe được quyền ưu tiên", "xe cứu thương", "xe cứu hỏa", 
+                                                    "phát tín hiệu ưu tiên", "đường ưu tiên", 
+                                                    "không giảm tốc độ", "không nhường đường"]):
+            violation_types.append("xe_ưu_tiên")
+        
+        # License point deduction
+        if any(keyword in query_lower for keyword in ["trừ điểm", "giấy phép lái xe", "02 điểm", "04 điểm", 
+                                                    "06 điểm", "10 điểm"]):
+            violation_types.append("trừ_điểm")
+        
+        # License suspension
+        if any(keyword in query_lower for keyword in ["tước quyền", "giấy phép lái xe", "10 tháng", "12 tháng", 
+                                                    "22 tháng", "24 tháng"]):
+            violation_types.append("tước_giấy_phép")
+        
+        # Vehicle confiscation
+        if any(keyword in query_lower for keyword in ["tịch thu", "thu giữ", "phương tiện", "tái phạm"]):
+            violation_types.append("tịch_thu")
+        
+        # Intersection violations
+        if any(keyword in query_lower for keyword in ["giao nhau", "ngã ba", "ngã tư", "vòng xuyến", 
+                                                    "đường giao nhau", "giao lộ"]):
+            violation_types.append("giao_nhau")
+        
+        # License plate violations
+        if any(keyword in query_lower for keyword in ["biển số", "không gắn biển số", "gắn biển số không đúng", 
+                                                    "che lấp", "bẻ cong", "thay đổi chữ", "thay đổi số", 
+                                                    "vị trí", "quy cách"]):
+            violation_types.append("biển_số")
         
         # Vehicle-specific queries
         if any(keyword in query_lower for keyword in ["xe máy", "mô tô", "xe gắn máy"]):

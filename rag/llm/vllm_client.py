@@ -17,9 +17,9 @@ logger = logging.getLogger(__name__)
 class VLLMConfig:
     """Configuration for vLLM server."""
     api_url: str = "http://192.168.100.125:8000"
-    model_name: str = "Qwen/QwQ-32B-AWQ"
+    model_name: str = "Qwen/Qwen2.5-14B-Instruct-AWQ"
     temperature: float = 0.7
-    max_tokens: int = 4096
+    max_tokens: int = 512
     top_p: float = 0.95
     timeout: float = 120.0
     request_timeout: float = 120.0
@@ -30,9 +30,9 @@ class VLLMClient(CustomLLM):
     def __init__(
         self,
         api_url: str = "http://192.168.100.125:8000",
-        model_name: str = "Qwen/QwQ-32B-AWQ",
+        model_name: str = "Qwen/Qwen2.5-14B-Instruct-AWQ",
         temperature: float = 0.7,
-        max_tokens: int = 4096,
+        max_tokens: int = 512,
         top_p: float = 0.95,
         timeout: float = 120.0,
         request_timeout: float = 120.0,
@@ -102,7 +102,7 @@ class VLLMClient(CustomLLM):
         """Return metadata about the LLM."""
         return LLMMetadata(
             model_name=self._model_name,
-            max_input_tokens=4096,  # Qwen2.5-14B context window size
+            max_input_tokens=512,  # Qwen2.5-14B context window size
             max_output_tokens=self._max_tokens,
             is_chat_model=True,
             is_function_calling_model=False,
