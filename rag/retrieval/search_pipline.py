@@ -341,9 +341,24 @@ class SearchPipeline:
             violation_types.append("biển_số")
         
         # Vehicle-specific queries
-        if any(keyword in query_lower for keyword in ["xe máy", "mô tô", "xe gắn máy", "xe Honda"]):
-            vehicle_type = "xe máy"
-        elif any(keyword in query_lower for keyword in ["ô tô", "xe hơi", "xe bốn bánh"]):
+        if any(keyword in query_lower for keyword in ["xe máy", "mô tô", "xe gắn máy", "xe Honda",
+                                                    "xe Yamaha", "xe Suzuki", "xe Piaggio", "xe SYM",
+                                                    "xe Vespa", "xe SH", "xe Air Blade", "xe Wave", "xe SH 350i",
+                                                    "xe SH 150i",
+                                                    "xe Dream", "xe Future", "xe Click", "xe Lead",
+                                                    "xe Vision", "xe Wave Alpha", "xe Wave RSX",
+                                                    "xe Wave RSX 110", "xe Wave S", "xe Wave S 110",
+                                                    "xe Wave RS", "xe Wave RS 110", "xe Wave Alpha 110",
+                                                    "xe Wave Alpha 100", "xe Wave RSX 100", "xe Wave S 100",
+                                                    "xe Wave RS 100", "xe Wave RSX 110 Fi", "xe Wave S 110 Fi",
+                                                    "xe Wave RS 110 Fi", "xe Wave Alpha 110 Fi", "xe Wave Alpha 100 Fi"]):
+            vehicle_type = "mô tô, gắn máy"
+        elif any(keyword in query_lower for keyword in ["ô tô", "xe hơi", "xe bốn bánh", "xe con","Mercedes",
+                                                    "BMW", "Audi", "Toyota", "Honda", "Hyundai", "Kia",
+                                                    "Mazda", "Ford", "Chevrolet", "Nissan", "Suzuki",
+                                                    "Peugeot", "Renault", "Lexus", "Volvo", "Volkswagen",
+                                                    "Mitsubishi", "Subaru", "Isuzu", "Hino"
+                                        ]):
             vehicle_type = "ô tô"
         else:
             vehicle_type = None

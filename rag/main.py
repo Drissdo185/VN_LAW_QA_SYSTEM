@@ -1,4 +1,3 @@
-# Add this at the top of main.py
 import streamlit as st
 import asyncio
 import time
@@ -28,6 +27,7 @@ try:
     from retrieval.retriever import DocumentRetriever
     from retrieval.vector_store import VectorStoreManager
     from reasoning.auto_rag import AutoRAG
+    from reasoning.enhanced_autorag import EnhancedAutoRAG
     from web_handle.web_search import WebSearchIntegrator, WebEnabledAutoRAG
     from config.config import (
         ModelConfig, 
@@ -52,6 +52,8 @@ if 'current_question' not in st.session_state:
     st.session_state.current_question = None
 if 'initial_response' not in st.session_state:
     st.session_state.initial_response = None
+if 'use_simplified_query' not in st.session_state:
+    st.session_state.use_simplified_query = True  # Default to using simplified queries
 
 @st.cache_resource
 def init_configs():
@@ -110,7 +112,14 @@ class AppComponents:
                 retrieval_config=retrieval_config
             )
             
+            # Initialize either standard or enhanced AutoRAG based on session state
             self.auto_rag = AutoRAG(
+                model_config=model_config,
+                retriever=self.retriever
+            )
+            
+            # Initialize the enhanced AutoRAG
+            self.enhanced_auto_rag = EnhancedAutoRAG(
                 model_config=model_config,
                 retriever=self.retriever
             )
@@ -134,17 +143,27 @@ class AppComponents:
             logger.error(f"Error initializing components: {str(e)}")
             raise
     
-    def get_web_enabled_rag(self, fallback_threshold: float = 0.5):
+    def get_active_rag(self, use_simplified=True):
+        """Get active RAG component based on whether to use query simplification"""
+        if use_simplified:
+            logger.info("Using enhanced AutoRAG with query simplification")
+            return self.enhanced_auto_rag
+        else:
+            logger.info("Using standard AutoRAG")
+            return self.auto_rag
+    
+    def get_web_enabled_rag(self, use_simplified=True, fallback_threshold: float = 0.5):
         """Create web-enabled RAG wrapper on demand"""
         logger.info("Creating web-enabled RAG wrapper")
         if hasattr(self, 'web_search') and self.web_search:
+            base_rag = self.get_active_rag(use_simplified)
             return WebEnabledAutoRAG(
-                auto_rag=self.auto_rag,
+                auto_rag=base_rag,
                 web_search=self.web_search,
                 fallback_threshold=fallback_threshold
             )
         logger.warning("Web search not available, returning standard AutoRAG")
-        return self.auto_rag
+        return self.get_active_rag(use_simplified)
 
     def cleanup(self):
         """Clean up resources"""
@@ -167,7 +186,7 @@ def run_async(coroutine):
     return loop.run_until_complete(coroutine)
 
 @measure_performance
-async def process_question(auto_rag: AutoRAG, question: str):
+async def process_question(auto_rag, question: str):
     """Process a question using the RAG system"""
     logger.info(f"Processing question: {question}")
     return await auto_rag.get_answer(question)
@@ -207,6 +226,38 @@ def display_source_info(response: Dict):
         st.info(f"Source: {source_type}")
         logger.info(f"Response source: {source_type}")
 
+def display_query_info(response: Dict):
+    """Display information about query standardization if applicable"""
+    if 'query_info' in response:
+        with st.expander("Query Processing", expanded=False):
+            query_info = response['query_info']
+            st.write("**Original Query:**")
+            st.write(query_info.get('original_query', 'N/A'))
+            st.write("**Standardized Query:**")
+            st.write(query_info.get('standardized_query', 'N/A'))
+            
+            st.write("**Detected Violations:**")
+            violations = query_info.get('metadata', {}).get('violations', [])
+            if violations:
+                for violation in violations:
+                    st.write(f"- {violation}")
+            else:
+                st.write("No specific violations detected")
+                
+            st.write("**Vehicle Type:**")
+            vehicle_type = query_info.get('metadata', {}).get('vehicle_type', 'Not specified')
+            st.write(vehicle_type)
+            
+            st.write("**Penalty Types:**")
+            penalty_types = query_info.get('metadata', {}).get('penalty_types', [])
+            if penalty_types:
+                for penalty in penalty_types:
+                    st.write(f"- {penalty}")
+            else:
+                st.write("No specific penalty types detected")
+            
+            logger.info(f"Query standardized from '{query_info.get('original_query')}' to '{query_info.get('standardized_query')}'")
+
 def display_results(response: Dict):
     """Display the analysis results"""
     logger.info("Displaying results")
@@ -214,6 +265,10 @@ def display_results(response: Dict):
     display_source_info(response)
     display_token_usage(response["token_usage"])
     display_performance_metrics()
+    
+    # Display query simplification info if available
+    if 'query_info' in response:
+        display_query_info(response)
     
     st.subheader("📊 Analysis Results")
     
@@ -245,7 +300,7 @@ def main():
         st.set_page_config(page_title="QA System for Vietnamese Traffic Law", layout="wide")
         st.title("📖 Question and Answering System for Vietnamese Traffic Law")
 
-        # Sidebar for LLM provider selection
+        # Sidebar for configuration
         with st.sidebar:
             st.header("⚙️ Configuration")
             try:
@@ -255,7 +310,7 @@ def main():
                 llm_provider_options = {
                     "OpenAI GPT-4o mini": LLMProvider.OPENAI,
                     "Qwen2.5-14B (vLLM)": LLMProvider.VLLM,
-                    "Qwen2.5-32B (Ollama)": LLMProvider.OLLAMA  # Add this option
+                    "Qwen2.5-32B (Ollama)": LLMProvider.OLLAMA
                 }
                 selected_provider_name = st.selectbox(
                     "Select LLM Provider",
@@ -263,6 +318,13 @@ def main():
                     index=0
                 )
                 selected_provider = llm_provider_options[selected_provider_name]
+                
+                # Query standardization toggle
+                st.session_state.use_simplified_query = st.toggle(
+                    "Use Query Standardization",
+                    value=st.session_state.use_simplified_query,
+                    help="Enable LLM-based query standardization to extract key legal concepts"
+                )
 
                 # Display Ollama configuration if selected
                 if selected_provider == LLMProvider.OLLAMA:
@@ -280,6 +342,7 @@ def main():
                         ollama_config.top_p = ollama_top_p
                 
                 logger.info(f"Selected LLM provider: {selected_provider.value}")
+                logger.info(f"Query simplification enabled: {st.session_state.use_simplified_query}")
                 
                 # Initialize components with selected provider and updated config
                 components = AppComponents(configs, selected_provider)
@@ -310,8 +373,11 @@ def main():
                 progress_bar = st.progress(0)
                 
                 with st.spinner("🔍 Searching knowledge base..."):
+                    # Get the appropriate RAG model based on simplification toggle
+                    rag_model = components.get_active_rag(st.session_state.use_simplified_query)
+                    
                     # Run async function safely
-                    response = run_async(process_question(components.auto_rag, question))
+                    response = run_async(process_question(rag_model, question))
                     
                     st.session_state.processing_time = time.time() - start_time
                     logger.info(f"Question processed in {st.session_state.processing_time:.2f} seconds")
@@ -357,8 +423,8 @@ def main():
                         progress_bar = st.progress(0)
                         
                         with st.spinner("🌐 Searching web..."):
-                            # Get web-enabled RAG instance
-                            web_rag = components.get_web_enabled_rag()
+                            # Get web-enabled RAG instance with appropriate simplification setting
+                            web_rag = components.get_web_enabled_rag(st.session_state.use_simplified_query)
                             
                             # Run async function safely
                             response = run_async(process_question(web_rag, st.session_state.current_question))
