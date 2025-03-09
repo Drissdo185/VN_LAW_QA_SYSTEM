@@ -341,7 +341,7 @@ class SearchPipeline:
             violation_types.append("biển_số")
         
         # Vehicle-specific queries
-        if any(keyword in query_lower for keyword in ["xe máy", "mô tô", "xe gắn máy"]):
+        if any(keyword in query_lower for keyword in ["xe máy", "mô tô", "xe gắn máy", "xe Honda"]):
             vehicle_type = "xe máy"
         elif any(keyword in query_lower for keyword in ["ô tô", "xe hơi", "xe bốn bánh"]):
             vehicle_type = "ô tô"
