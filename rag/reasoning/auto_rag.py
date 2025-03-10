@@ -156,11 +156,11 @@ class AutoRAG:
         elif "ô tô" in query.lower() or "xe hơi" in query.lower():
             return "ô tô"
         else:
-            return "phương tiện"  # Default
+            return "phương tiện"  
 
     def _extract_violation_type(self, query: str) -> str:
         """Extract violation type from query"""
-        # Extract what's between "thông tin về" and "sẽ bị" or end of string
+        
         violation = query
         if "thông tin về" in query:
             violation = query.split("thông tin về")[1].strip()

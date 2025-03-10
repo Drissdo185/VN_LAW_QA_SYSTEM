@@ -25,10 +25,9 @@ class VLLMConfig:
     timeout: float = 500
     request_timeout: float = 500
 
-
 @dataclass
-class OllamaConfig:  # Add new config class
-    api_url: str = "http://192.168.100.125:11434"  # Update with your server's address
+class OllamaConfig:
+    api_url: str = "http://192.168.100.125:11434"
     model_name: str = "qwen2.5:14b"
     temperature: float = 0.2
     max_tokens: int = 512
@@ -44,15 +43,11 @@ class ModelConfig:
     chunk_size: int = 512
     chunk_overlap: int = 50
     
-    # LLM configuration
     llm_provider: LLMProvider = LLMProvider.OPENAI
     openai_model: str = "gpt-4o-mini"
     openai_api_key: Optional[str] = os.getenv("OPENAI_API_KEY")
     
-    # VLLM configuration (used when llm_provider is VLLM)
     vllm_config: VLLMConfig = field(default_factory=lambda: VLLMConfig())
-    
-    # Ollama configuration (used when llm_provider is OLLAMA)
     ollama_config: OllamaConfig = field(default_factory=lambda: OllamaConfig())
     
 @dataclass

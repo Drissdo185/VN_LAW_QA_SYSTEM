@@ -7,9 +7,9 @@ class TrafficSynonymExpander:
     """
     
     def __init__(self):
-        # Từ điển đồng nghĩa cho các vi phạm giao thông phổ biến
+       
         self.traffic_synonyms = {
-            # Đèn giao thông
+           
             "vượt đèn đỏ": [
                 "không chấp hành hiệu lệnh của đèn tín hiệu giao thông",
                 "không chấp hành hiệu lệnh đèn giao thông",
@@ -23,7 +23,7 @@ class TrafficSynonymExpander:
                 "chạy đèn đỏ"
             ],
             
-            # Nồng độ cồn
+           
             "nồng độ cồn": [
                 "vi phạm nồng độ cồn",
                 "lái xe sau khi uống rượu bia",
@@ -33,10 +33,30 @@ class TrafficSynonymExpander:
                 "có cồn trong hơi thở",
                 "uống rượu bia khi lái xe",
                 "nồng độ cồn trong máu",
-                "nồng độ cồn trong hơi thở"
+                "nồng độ cồn trong hơi thở",
+                "uống bia",
+                "uống rượu",
+                "uống cồn",
+                "say xỉn",
+                "say rượu",
+                "say bia",
+                "có men",
+                "có men bia",
+                "men rượu",
+                "đã uống bia",
+                "đã uống rượu",
+                "uống vài lon",
+                "uống vài chai",
+                "uống một thùng",
+                "nhậu",
+                "đi nhậu",
+                "nhậu xong",
+                "bia rượu",
+                "bia",
+                "rượu"
             ],
             
-            # Tốc độ
+           
             "chạy quá tốc độ": [
                 "vượt quá tốc độ quy định",
                 "vi phạm tốc độ",
@@ -48,7 +68,7 @@ class TrafficSynonymExpander:
                 "chạy nhanh quá mức"
             ],
             
-            # Giấy phép lái xe
+           
             "không có giấy phép lái xe": [
                 "không mang giấy phép lái xe",
                 "không có bằng lái",
@@ -61,7 +81,7 @@ class TrafficSynonymExpander:
                 "chưa có giấy phép lái xe"
             ],
             
-            # Đỗ xe
+           
             "đỗ xe sai quy định": [
                 "đậu xe sai quy định",
                 "dừng xe sai quy định",
@@ -73,8 +93,8 @@ class TrafficSynonymExpander:
                 "đỗ xe nơi cấm đỗ",
                 "dừng xe nơi cấm dừng"
             ],
-            
-            # Mũ bảo hiểm
+           
+           
             "không đội mũ bảo hiểm": [
                 "không sử dụng mũ bảo hiểm",
                 "thiếu mũ bảo hiểm",
@@ -83,7 +103,7 @@ class TrafficSynonymExpander:
                 "không đội mũ"
             ],
             
-            # Biển báo
+          
             "không chấp hành biển báo": [
                 "vi phạm biển báo",
                 "không tuân thủ biển báo",
@@ -93,7 +113,7 @@ class TrafficSynonymExpander:
                 "không tuân thủ biển hiệu đường bộ"
             ],
             
-            # Làn đường
+          
             "đi không đúng làn đường": [
                 "vi phạm làn đường",
                 "không đi đúng phần đường",
@@ -103,7 +123,7 @@ class TrafficSynonymExpander:
                 "không tuân thủ làn đường"
             ],
             
-            # Gây tai nạn
+           
             "gây tai nạn": [
                 "gây tai nạn giao thông",
                 "làm xảy ra tai nạn",
@@ -113,7 +133,7 @@ class TrafficSynonymExpander:
                 "để xảy ra tai nạn"
             ],
             
-            # Vượt ẩu
+            
             "vượt ẩu": [
                 "vượt không đúng quy định",
                 "vượt xe sai quy định",
@@ -123,7 +143,7 @@ class TrafficSynonymExpander:
                 "vượt xe trái phép"
             ],
             
-            # Chất kích thích
+            
             "sử dụng ma túy": [
                 "sử dụng chất kích thích",
                 "sử dụng chất cấm",

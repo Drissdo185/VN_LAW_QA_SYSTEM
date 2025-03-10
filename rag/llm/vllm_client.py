@@ -15,7 +15,6 @@ logger = logging.getLogger(__name__)
 
 @dataclass
 class VLLMConfig:
-    """Configuration for vLLM server."""
     api_url: str = "http://192.168.100.125:8000"
     model_name: str = "Qwen/Qwen2.5-14B-Instruct-AWQ"
     temperature: float = 0.7
@@ -25,8 +24,6 @@ class VLLMConfig:
     request_timeout: float = 120.0
     
 class VLLMClient(CustomLLM):
-    """Client for vLLM API serving Qwen2.5 models."""
-    
     def __init__(
         self,
         api_url: str = "http://192.168.100.125:8000",
@@ -37,7 +34,6 @@ class VLLMClient(CustomLLM):
         timeout: float = 120.0,
         request_timeout: float = 120.0,
     ) -> None:
-        """Initialize the vLLM client."""
         super().__init__()
         self._api_url = api_url
         self._model_name = model_name
@@ -80,7 +76,6 @@ class VLLMClient(CustomLLM):
         
     @classmethod
     def from_config(cls, config: VLLMConfig) -> "VLLMClient":
-        """Create a VLLMClient from a configuration object."""
         try:
             logger.info(f"Creating VLLMClient with config: {config.__dict__}")
             return cls(
@@ -99,7 +94,6 @@ class VLLMClient(CustomLLM):
         
     @property
     def metadata(self) -> LLMMetadata:
-        """Return metadata about the LLM."""
         return LLMMetadata(
             model_name=self._model_name,
             max_input_tokens=512,  # Qwen2.5-14B context window size
@@ -108,13 +102,9 @@ class VLLMClient(CustomLLM):
             is_function_calling_model=False,
         )
         
-    async def _complete(
-        self, prompt: str, **kwargs: Any
-    ) -> CompletionResponse:
-        """Complete the prompt using vLLM API."""
+    async def _complete(self, prompt: str, **kwargs: Any) -> CompletionResponse:
         completion_url = f"{self._api_url}/v1/completions"
         
-        # Prepare payload
         payload = {
             "model": self._model_name,
             "prompt": prompt,
@@ -150,23 +140,15 @@ class VLLMClient(CustomLLM):
             logger.error(f"Unexpected error: {str(e)}")
             raise
             
-    async def _acomplete(
-        self, prompt: str, **kwargs: Any
-    ) -> CompletionResponse:
-        """Asynchronously complete the prompt."""
+    async def _acomplete(self, prompt: str, **kwargs: Any) -> CompletionResponse:
         return await self._complete(prompt, **kwargs)
         
-    async def _acompletion_stream(
-        self, prompt: str, **kwargs: Any
-    ) -> CompletionResponseGen:
-        """Stream the completion (not implemented)."""
+    async def _acompletion_stream(self, prompt: str, **kwargs: Any) -> CompletionResponseGen:
         raise NotImplementedError("Streaming completion not implemented for vLLM client")
         
     def complete(self, prompt: str, **kwargs: Any) -> CompletionResponse:
-        """Complete the prompt (blocking version)."""
         loop = asyncio.get_event_loop()
         return loop.run_until_complete(self._acomplete(prompt, **kwargs))
         
     def stream_complete(self, prompt: str, **kwargs: Any) -> CompletionResponseGen:
-        """Stream the completion (not implemented)."""
         raise NotImplementedError("Streaming completion not implemented for vLLM client")
