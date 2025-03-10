@@ -9,40 +9,35 @@ def setup_logging(
 ) -> None:
     """
     Set up logging configuration for the entire application.
+    Only logs to console regardless of log_file parameter.
     """
     if log_format is None:
         log_format = '[%(asctime)s] %(levelname)s [%(name)s.%(funcName)s:%(lineno)d] %(message)s'
     
-    # Create formatter
+    
     formatter = logging.Formatter(log_format)
     
-    # Configure handlers
+   
     handlers = []
     
-    # Console handler
+  
     console_handler = logging.StreamHandler(sys.stdout)
     console_handler.setFormatter(formatter)
     handlers.append(console_handler)
     
-    # File handler (if log_file is specified)
-    if log_file:
-        file_handler = logging.FileHandler(log_file, mode='a')
-        file_handler.setFormatter(formatter)
-        handlers.append(file_handler)
     
-    # Get root logger and configure it
     root_logger = logging.getLogger()
     root_logger.setLevel(level)
     
-    # Remove existing handlers to avoid duplicates and properly close them
+    
     for handler in root_logger.handlers[:]:
-        # Close the handler if possible
+        
         try:
             handler.close()
         except:
             pass
         root_logger.removeHandler(handler)
     
-    # Add new handlers
+    
     for handler in handlers:
         root_logger.addHandler(handler)

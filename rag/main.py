@@ -17,12 +17,12 @@ from log.logging_config import setup_logging
 setup_logging(
     level=logging.INFO,
     log_format='[%(asctime)s] %(levelname)s [%(name)s] %(message)s',
-    log_file='app.log'
 )
 logger = logging.getLogger(__name__)
 
 # Import the rest of the dependencies
 try:
+    from retrieval.traffic_synonyms import TrafficSynonymExpander
     from retrieval.search_pipline import SearchPipeline
     from retrieval.retriever import DocumentRetriever
     from retrieval.vector_store import VectorStoreManager

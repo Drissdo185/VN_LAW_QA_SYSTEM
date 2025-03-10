@@ -4,6 +4,7 @@ from pyvi import ViTokenizer
 from llama_index.core import VectorStoreIndex
 from llama_index.core.schema import NodeWithScore
 from config.config import RetrievalConfig
+from retrieval.traffic_synonyms import TrafficSynonymExpander
 
 logger = logging.getLogger(__name__)
 
@@ -16,6 +17,7 @@ class DocumentRetriever:
         self.index = index
         self.config = config
         self._setup_retriever()
+        self.synonym_expander = TrafficSynonymExpander()
         
     def _setup_retriever(self):
         """Setup the retriever with configured parameters"""
@@ -41,15 +43,18 @@ class DocumentRetriever:
             List of retrieved documents with relevance scores
         """
         try:
-            # Apply Vietnamese tokenization like in hehe.py
-            tokenized_query = ViTokenizer.tokenize(query.lower())
+            
+            expanded_query = self.synonym_expander.expand_query(query)
             logger.info(f"Original query: '{query}'")
+            logger.info(f"Expanded query: '{expanded_query}'")
+            
+         
+            tokenized_query = ViTokenizer.tokenize(expanded_query.lower())
             logger.info(f"Tokenized query: '{tokenized_query}'")
             
             results = self.retriever.retrieve(tokenized_query)
             logger.info(f"Retrieved {len(results)} documents for query")
             
-            # Log the top result scores for debugging
             if results:
                 logger.info(f"Top result score: {results[0].score}")
                 logger.info(f"Score range: {results[-1].score} to {results[0].score}")
@@ -59,7 +64,9 @@ class DocumentRetriever:
             if "closed" in str(e).lower():
                 logger.warning("Client connection closed, attempting to reinitialize retriever")
                 self._setup_retriever()
-                tokenized_query = ViTokenizer.tokenize(query.lower())
+                # Dùng lại mở rộng từ đồng nghĩa nếu kết nối lại
+                expanded_query = self.synonym_expander.expand_query(query)
+                tokenized_query = ViTokenizer.tokenize(expanded_query.lower())
                 return self.retriever.retrieve(tokenized_query)
             logger.error(f"Error during retrieval: {str(e)}")
             raise

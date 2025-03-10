@@ -5,6 +5,7 @@ from pyvi import ViTokenizer
 import logging
 from config.config import ModelConfig, RetrievalConfig
 from retrieval.retriever import DocumentRetriever
+from retrieval.traffic_synonyms import TrafficSynonymExpander
 
 # Setup logger
 logger = logging.getLogger(__name__)
@@ -19,6 +20,7 @@ class SearchPipeline:
         self.retriever = retriever
         self.model_config = model_config
         self.retrieval_config = retrieval_config
+        self.synonym_expander = TrafficSynonymExpander()
         
         try:
             self.cross_encoder = CrossEncoder(
@@ -46,6 +48,7 @@ class SearchPipeline:
         5. Return top results
         """
         # Tokenize query for Vietnamese
+        expanded_query = self.synonym_expander.expand_query(query)
         tokenized_query = ViTokenizer.tokenize(query.lower())
         logger.info(f"Processing search query: '{query}'")
         logger.info(f"Tokenized query: '{tokenized_query}'")
@@ -183,9 +186,24 @@ class SearchPipeline:
         Filter nodes based on metadata matching query
         """
         query_lower = query.lower()
+        legal_terms = self.synonym_expander.get_legal_terms(query)
         
         # Detect violation types in query with expanded keywords
         violation_types = []
+        
+        term_to_violation = {
+            "vượt đèn đỏ": "biển_báo",
+            "nồng độ cồn": "nồng_độ_cồn",
+            "chạy quá tốc độ": "tốc_độ",
+            "không có giấy phép lái xe": "giấy_tờ",
+            "đỗ xe sai quy định": "đỗ_dừng_xe",
+            "sử dụng ma túy": "ma_túy"
+        }
+        
+        # Add violation types based on legal terms
+        for term in legal_terms:
+            if term in term_to_violation and term_to_violation[term] not in violation_types:
+                violation_types.append(term_to_violation[term])
         
         # Child safety violations
         if any(keyword in query_lower for keyword in ["trẻ em", "trẻ nhỏ", "dưới 10 tuổi", "chiều cao dưới", 

@@ -5,6 +5,7 @@ from llama_index.llms.openai import OpenAI
 from config.config import ModelConfig, LLMProvider
 from llm.vllm_client import VLLMClient
 from llm.ollama_client import OllamaClient
+from retrieval.traffic_synonyms import TrafficSynonymExpander
 
 logger = logging.getLogger(__name__)
 
@@ -17,7 +18,7 @@ class QuerySimplifier:
     def __init__(self, model_config: ModelConfig):
         self.model_config = model_config
         self.llm = self._setup_llm()
-        logger.info(f"Initialized QuerySimplifier with LLM provider: {model_config.llm_provider}")
+        self.synonym_expander = TrafficSynonymExpander()
         
     def _setup_llm(self):
         """Set up the LLM based on the provider configuration"""
@@ -48,6 +49,7 @@ class QuerySimplifier:
         else:
             raise ValueError(f"Unsupported LLM provider: {self.model_config.llm_provider}")
     
+
     async def simplify_query(self, original_query: str) -> Dict[str, Any]:
         """
         Standardize a user query by extracting relevant legal concepts and removing noise.
@@ -60,7 +62,22 @@ class QuerySimplifier:
         """
         logger.info(f"Standardizing query: {original_query}")
         
-        # Define system prompt for query standardization with standardized format
+        # Identify legal terms from the original query
+        legal_terms = self.synonym_expander.get_legal_terms(original_query)
+        logger.info(f"Identified legal terms: {legal_terms}")
+        
+        # Build a hint for the LLM based on legal terms found
+        legal_terms_hint = ""
+        if legal_terms:
+            legal_terms_hint = f"""
+            Các thuật ngữ pháp lý được nhận diện trong câu hỏi:
+            {', '.join(legal_terms)}
+            
+            Lưu ý: "vượt đèn đỏ" có thể đồng nghĩa với "không chấp hành hiệu lệnh của đèn tín hiệu giao thông".
+            "chạy quá tốc độ" có thể đồng nghĩa với "vượt quá tốc độ quy định".
+            """
+        
+        # Define system prompt with standard format and legal terms hint
         prompt = f"""
         Bạn là trợ lý hỗ trợ đơn giản hóa các câu hỏi về luật giao thông Việt Nam. 
         Hãy phân tích câu hỏi của người dùng và đơn giản hóa thành một câu truy vấn chuẩn hóa,
@@ -68,15 +85,29 @@ class QuerySimplifier:
         
         Câu hỏi gốc: {original_query}
         
-        Hãy chuyển đổi câu hỏi gốc thành câu hỏi chuẩn hóa theo mẫu:
-        "Đối với [vehicle_type], vi phạm [loại vi phạm] sẽ bị xử phạt như thế nào?"
+        {legal_terms_hint}
+        
+        QUAN TRỌNG: Câu truy vấn chuẩn hóa PHẢI theo đúng định dạng sau:
+        "Đối với [vehicle_type], vi phạm [loại vi phạm] sẽ bị xử phạt [loại hình phạt nếu có đề cập] như thế nào?"
+        
+        Khi nói đến "vượt đèn đỏ", hãy dùng thuật ngữ pháp lý: "không chấp hành hiệu lệnh của đèn tín hiệu giao thông"
         
         Ví dụ:
-        - Câu hỏi: "ôm qua tôi chạy xe máy 70km/h trên đường nội thành, vượt đèn và có nồng độ cồn 0.3mg/L thì bị phạt bao nhiêu?"
-        - Chuẩn hóa: "Đối với xe máy, vi phạm nồng độ cồn 0.3mg/L, chạy quá tốc độ trên 20km/h và vượt đèn đỏ sẽ bị xử phạt như thế nào?"
+        - Câu hỏi: "Hôm qua tôi chạy xe máy 70km/h trên đường nội thành, vượt đèn và có nồng độ cồn 0.3mg/L thì bị phạt bao nhiêu?"
+        - Chuẩn hóa: "Đối với xe máy, vi phạm nồng độ cồn 0.3mg/L, vượt quá tốc độ quy định trên 20km/h và không chấp hành hiệu lệnh của đèn tín hiệu giao thông sẽ bị xử phạt như thế nào?"
         
         - Câu hỏi: "Lái ô tô không mang giấy phép lái xe bị phạt bao nhiêu?"
-        - Chuẩn hóa: "Đối với ô tô, vi phạm không mang giấy phép lái xe sẽ bị xử phạt như thế nào?"
+        - Chuẩn hóa: "Đối với ô tô, vi phạm không mang giấy phép lái xe sẽ bị xử phạt tiền như thế nào?"
+        
+        - Câu hỏi: "Bao nhiêu điểm bị trừ khi lái xe máy vượt đèn đỏ?"
+        - Chuẩn hóa: "Đối với xe máy, vi phạm không chấp hành hiệu lệnh của đèn tín hiệu giao thông sẽ bị xử phạt trừ điểm như thế nào?"
+        
+        Quy tắc:
+        1. Nếu người dùng không đề cập cụ thể loại hình phạt, bỏ qua phần [loại hình phạt] trong câu truy vấn
+        2. Nếu người dùng đề cập cụ thể (như tiền phạt, trừ điểm), đưa vào câu truy vấn
+        3. Sử dụng "xe máy" hoặc "ô tô" làm vehicle_type khi có thể. Nếu không rõ, dùng "phương tiện"
+        4. Luôn bảo toàn chi tiết cụ thể của vi phạm (ví dụ: tốc độ, nồng độ cồn)
+        5. Luôn sử dụng thuật ngữ pháp lý chính thức cho các vi phạm
         
         Hãy trả về kết quả theo định dạng JSON với các trường sau:
         - standardized_query: Câu truy vấn đã được chuẩn hóa theo mẫu trên
@@ -90,11 +121,12 @@ class QuerySimplifier:
         try:
             response = await self.llm.acomplete(prompt)
             simplified_result = self._parse_simplifier_response(response.text)
+            simplified_result = self._parse_simplifier_response(response.text)
             
-            # Make sure we have a standardized_query
+          
             standardized_query = simplified_result.get('standardized_query')
             if not standardized_query:
-                # Fall back to a basic standardized format if parsing fails
+               
                 vehicle_type = simplified_result.get('vehicle_type', 'phương tiện')
                 violations_str = ', '.join(simplified_result.get('violations', ['vi phạm giao thông']))
                 standardized_query = f"Đối với {vehicle_type}, vi phạm {violations_str} sẽ bị xử phạt như thế nào?"
@@ -114,6 +146,8 @@ class QuerySimplifier:
                     "penalty_types": simplified_result.get("penalty_types", [])
                 }
             }
+            
+            
         except Exception as e:
             logger.error(f"Error standardizing query: {str(e)}")
             # Fall back to original query if standardization fails
@@ -137,8 +171,6 @@ class QuerySimplifier:
         import re
         
         try:
-            # Try to parse as JSON
-            # Find JSON block if it exists
             json_pattern = r'```json\s*([\s\S]*?)\s*```|{\s*"[\s\S]*?}'
             json_match = re.search(json_pattern, response_text)
             

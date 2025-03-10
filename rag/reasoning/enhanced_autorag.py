@@ -19,7 +19,7 @@ class EnhancedAutoRAG:
         model_config: ModelConfig,
         retriever: DocumentRetriever,
         search_pipeline: Optional[SearchPipeline] = None,
-        max_iterations: int = 2
+        max_iterations: int = 3
     ):
         self.model_config = model_config
         self.retriever = retriever
