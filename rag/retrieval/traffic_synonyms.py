@@ -78,7 +78,10 @@ class TrafficSynonymExpander:
                 "thiếu giấy phép lái xe",
                 "không xuất trình được giấy phép lái xe",
                 "vi phạm về giấy phép lái xe",
-                "chưa có giấy phép lái xe"
+                "chưa có giấy phép lái xe",
+                "chưa có bằng lái",
+                "không mang theo chứng nhận đăng ký xe",
+                "Không có chứng nhận đăng ký xe"
             ],
             
            

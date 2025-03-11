@@ -6,6 +6,8 @@ from config.config import ModelConfig, LLMProvider
 from llm.vllm_client import VLLMClient
 from llm.ollama_client import OllamaClient
 from retrieval.traffic_synonyms import TrafficSynonymExpander
+import json
+import re
 
 logger = logging.getLogger(__name__)
 
@@ -23,29 +25,15 @@ class QuerySimplifier:
     def _setup_llm(self):
         """Set up the LLM based on the provider configuration"""
         if self.model_config.llm_provider == LLMProvider.OPENAI:
-            logger.info(f"Setting up OpenAI LLM with model: {self.model_config.openai_model}")
             return OpenAI(
                 model=self.model_config.openai_model,
                 api_key=self.model_config.openai_api_key
             )
         elif self.model_config.llm_provider == LLMProvider.VLLM:
-            logger.info(f"Setting up vLLM client with model: {self.model_config.vllm_config.model_name}")
-            try:
+            
                 client = VLLMClient.from_config(self.model_config.vllm_config)
-                logger.info(f"Successfully initialized vLLM client with API URL: {client.api_url}")
+        
                 return client
-            except Exception as e:
-                logger.error(f"Error initializing vLLM client: {str(e)}")
-                raise
-        elif self.model_config.llm_provider == LLMProvider.OLLAMA:
-            logger.info(f"Setting up Ollama client with model: {self.model_config.ollama_config.model_name}")
-            try:
-                client = OllamaClient.from_config(self.model_config.ollama_config)
-                logger.info(f"Successfully initialized Ollama client with API URL: {client.api_url}")
-                return client
-            except Exception as e:
-                logger.error(f"Error initializing Ollama client: {str(e)}")
-                raise
         else:
             raise ValueError(f"Unsupported LLM provider: {self.model_config.llm_provider}")
     
@@ -62,22 +50,19 @@ class QuerySimplifier:
         """
         logger.info(f"Standardizing query: {original_query}")
         
-        # Identify legal terms from the original query
+        
         legal_terms = self.synonym_expander.get_legal_terms(original_query)
         logger.info(f"Identified legal terms: {legal_terms}")
         
-        # Build a hint for the LLM based on legal terms found
+        
         legal_terms_hint = ""
         if legal_terms:
             legal_terms_hint = f"""
             Các thuật ngữ pháp lý được nhận diện trong câu hỏi:
             {', '.join(legal_terms)}
-            
-            Lưu ý: "vượt đèn đỏ" có thể đồng nghĩa với "không chấp hành hiệu lệnh của đèn tín hiệu giao thông".
-            "chạy quá tốc độ" có thể đồng nghĩa với "vượt quá tốc độ quy định".
             """
         
-        # Define system prompt with standard format and legal terms hint
+        
         prompt = f"""
         Bạn là trợ lý hỗ trợ đơn giản hóa các câu hỏi về luật giao thông Việt Nam. 
         Hãy phân tích câu hỏi của người dùng và đơn giản hóa thành một câu truy vấn chuẩn hóa,
@@ -150,7 +135,6 @@ class QuerySimplifier:
             
         except Exception as e:
             logger.error(f"Error standardizing query: {str(e)}")
-            # Fall back to original query if standardization fails
             return {
                 "original_query": original_query,
                 "standardized_query": original_query,
@@ -167,8 +151,6 @@ class QuerySimplifier:
         Parse the JSON response from the LLM.
         If parsing fails, extract data using simpler methods.
         """
-        import json
-        import re
         
         try:
             json_pattern = r'```json\s*([\s\S]*?)\s*```|{\s*"[\s\S]*?}'
@@ -176,11 +158,11 @@ class QuerySimplifier:
             
             if json_match:
                 json_str = json_match.group(1) if json_match.group(1) else json_match.group(0)
-                # Clean up the JSON string
+                
                 json_str = json_str.replace('```json', '').replace('```', '')
                 return json.loads(json_str)
             
-            # If no JSON found, look for key-value pairs in the text
+           
             standardized_query = None
             match = re.search(r'standardized_query[": ]+(.*?)[\n",}]', response_text)
             if match:
@@ -212,7 +194,6 @@ class QuerySimplifier:
         except Exception as e:
             logger.error(f"Error parsing simplifier response: {str(e)}")
             logger.debug(f"Original response: {response_text}")
-            # Return a basic result with just the cleaned response
             return {
                 "standardized_query": response_text.strip(),
                 "violations": [],

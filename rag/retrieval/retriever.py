@@ -55,16 +55,12 @@ class DocumentRetriever:
             results = self.retriever.retrieve(tokenized_query)
             logger.info(f"Retrieved {len(results)} documents for query")
             
-            if results:
-                logger.info(f"Top result score: {results[0].score}")
-                logger.info(f"Score range: {results[-1].score} to {results[0].score}")
             
             return results
         except Exception as e:
             if "closed" in str(e).lower():
                 logger.warning("Client connection closed, attempting to reinitialize retriever")
                 self._setup_retriever()
-                # Dùng lại mở rộng từ đồng nghĩa nếu kết nối lại
                 expanded_query = self.synonym_expander.expand_query(query)
                 tokenized_query = ViTokenizer.tokenize(expanded_query.lower())
                 return self.retriever.retrieve(tokenized_query)

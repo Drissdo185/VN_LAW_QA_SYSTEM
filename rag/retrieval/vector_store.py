@@ -64,52 +64,19 @@ class VectorStoreManager:
         retry_count = 0
         
         while retry_count < max_retries:
-            try:
-                if not self.client:
-                    logger.info("Creating new Weaviate client connection")
-                    # Use the connect_to_weaviate_cloud method from hehe.py
-                    self.client = weaviate.connect_to_weaviate_cloud(
-                        cluster_url=os.getenv("WEAVIATE_TRAFFIC_URL"),
-                        auth_credentials=Auth.api_key(os.getenv("WEAVIATE_TRAFFIC_KEY")),
-                        skip_init_checks=True
-                    )
-                
-                try:
-                    # Try newer Weaviate client API (v4+)
-                    collection_info = self.client.collections.exists(self.weaviate_config.collection)
-                    logger.info(f"Collection exists: {collection_info}")
-                except (AttributeError, TypeError) as e:
-                    # Try older Weaviate client API (pre-v4)
-                    try:
-                        # Older versions use schema.contains
-                        collection_info = self.client.schema.contains(self.weaviate_config.collection)
-                        logger.info(f"Collection exists (legacy API): {collection_info}")
-                    except (AttributeError, TypeError) as e:
-                        # Last resort - try basic connection test with meta endpoint
-                        self.client.get_meta()
-                        logger.warning("Could not verify collection, but connection works")
-                
-                logger.info("Successfully connected to Weaviate")
+            
+            if not self.client:
+                logger.info("Creating new Weaviate client connection")
+                # self.client = weaviate.connect_to_weaviate_cloud(
+                #     cluster_url=os.getenv("WEAVIATE_TRAFFIC_URL"),
+                #     auth_credentials=Auth.api_key(os.getenv("WEAVIATE_TRAFFIC_KEY")),
+                #     skip_init_checks=True
+                #     )
+                self.client = weaviate.connect_to_local()
+        
+               
                 return
                 
-            except Exception as e:
-                retry_count += 1
-                logger.warning(f"Connection attempt {retry_count} failed: {str(e)}")
-                
-                if retry_count < max_retries:
-                    wait_time = 2 ** retry_count  # Exponential backoff
-                    logger.info(f"Retrying in {wait_time} seconds...")
-                    time.sleep(wait_time)
-                    # Close the client if it exists to avoid resource leaks
-                    if self.client:
-                        try:
-                            self.client.close()
-                        except:
-                            pass
-                    self.client = None  # Reset client for retry
-                else:
-                    logger.error(f"Failed to connect to Weaviate after {max_retries} attempts")
-                    raise RuntimeError(f"Failed to connect to Weaviate: {str(e)}")
     
     @lru_cache(maxsize=1)
     def _get_cached_embedding_model(self):

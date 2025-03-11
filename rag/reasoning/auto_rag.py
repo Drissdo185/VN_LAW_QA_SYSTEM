@@ -31,11 +31,6 @@ class AutoRAG:
         self.llm = self._setup_llm()
         self.prompt_template = PromptTemplate(template=SYSTEM_PROMPT)
         self.tokenizer = self._setup_tokenizer()
-        logger.info(f"Initialized Traffic AutoRAG with LLM provider: {model_config.llm_provider}")
-        if search_pipeline:
-            logger.info("Using enhanced SearchPipeline for document retrieval")
-        else:
-            logger.info("Using basic DocumentRetriever for document retrieval")
     
     def _setup_llm(self):
         """Set up the LLM based on the provider configuration"""
@@ -54,15 +49,6 @@ class AutoRAG:
             except Exception as e:
                 logger.error(f"Error initializing vLLM client: {str(e)}")
                 raise
-        elif self.model_config.llm_provider == LLMProvider.OLLAMA:  
-            logger.info(f"Setting up Ollama client with model: {self.model_config.ollama_config.model_name}")
-            try:
-                client = OllamaClient.from_config(self.model_config.ollama_config)
-                logger.info(f"Successfully initialized Ollama client with API URL: {client.api_url}")
-                return client
-            except Exception as e:
-                logger.error(f"Error initializing Ollama client: {str(e)}")
-                raise
         else:
             raise ValueError(f"Unsupported LLM provider: {self.model_config.llm_provider}")
 
@@ -71,8 +57,6 @@ class AutoRAG:
         if self.model_config.llm_provider == LLMProvider.OPENAI:
             return tiktoken.encoding_for_model(self.model_config.openai_model)
         elif self.model_config.llm_provider == LLMProvider.VLLM:
-            return tiktoken.get_encoding("cl100k_base")
-        elif self.model_config.llm_provider == LLMProvider.OLLAMA:  
             return tiktoken.get_encoding("cl100k_base")
         else:
             raise ValueError(f"Unsupported LLM provider: {self.model_config.llm_provider}")
@@ -100,7 +84,6 @@ class AutoRAG:
         """Count tokens in text"""
         return len(self.tokenizer.encode(text))
     
-    # Add this enhancement to the _parse_response method in auto_rag.py
 
     def _parse_response(self, response: str) -> Dict[str, Any]:
         """Parse LLM response into structured format with standardized next query"""
@@ -129,15 +112,15 @@ class AutoRAG:
             elif current_section and line.strip():
                 parsed[current_section] += " " + line.strip()
         
-        # Ensure next_query follows standardized format if it exists
+        
         if parsed["next_query"] and "Đối với" not in parsed["next_query"]:
-            # Extract relevant information from original query
+           
             original_query = parsed["next_query"]
             vehicle_type = self._extract_vehicle_type(original_query)
             violation_type = self._extract_violation_type(original_query)
             penalty_types = self._extract_penalty_types(original_query)
             
-            # Format next query according to standard
+        
             penalty_phrase = ""
             if penalty_types:
                 penalty_phrase = f"bị xử phạt {', '.join(penalty_types)} như thế nào?"
@@ -186,7 +169,7 @@ class AutoRAG:
 
     async def get_answer(self, question: str) -> Dict[str, Any]:
         """Get answer for a traffic-related question using Auto RAG with iterations"""
-        # Basic validation to check if question is related to traffic
+    
         if not self._is_traffic_related(question):
             logger.warning(f"Question may not be traffic-related: {question}")
             return {
@@ -198,7 +181,7 @@ class AutoRAG:
                 }
             }
         
-        # Initialize tracking variables
+       
         iteration = 0
         accumulated_context = []  # This will store all retrieved documents across iterations
         accumulated_docs = []     # Keep a copy of all NodeWithScore objects
@@ -212,9 +195,7 @@ class AutoRAG:
                 # Get documents for current query using search pipeline if available
                 logger.info(f"Iteration {iteration+1}: Retrieving documents for query: {current_query}")
                 
-                # Tokenize query for Vietnamese text
-                tokenized_query = ViTokenizer.tokenize(current_query.lower())
-                logger.info(f"Tokenized query: {tokenized_query}")
+                
                 
                 if self.search_pipeline:
                     # Use enhanced search pipeline
@@ -247,8 +228,7 @@ class AutoRAG:
                         metadata = doc.node.metadata
                         logger.info(f"Doc {i+1} metadata: {metadata}")
                 
-                # IMPORTANT CHANGE: Add retrieved documents to accumulated collections
-                # Use a set-like approach to avoid duplicate documents
+                
                 new_docs = []
                 seen_texts = {doc.text for doc in accumulated_docs}
                 
@@ -269,7 +249,7 @@ class AutoRAG:
                 
                 # Generate prompt and get response
                 prompt = self.prompt_template.format(
-                    question=question,  # Always use original question
+                    question=question,  
                     context=context
                 )
                 
@@ -311,7 +291,7 @@ class AutoRAG:
                     parsed_response["llm_provider"] = self.model_config.llm_provider
                     return parsed_response
                 
-                # If we need more information and have a next query
+                # If we need more information
                 if parsed_response["next_query"]:
                     current_query = parsed_response["next_query"]
                     logger.info(f"Need more information, next query: {current_query}")
@@ -334,8 +314,7 @@ class AutoRAG:
         
         # After max iterations, if we still need more information, use what we have
         if accumulated_docs:
-            try:
-                # Generate final answer using all accumulated documents
+            
                 logger.info("Generating final answer using all accumulated documents")
                 context = self.retriever.get_formatted_context(accumulated_docs)
                 
@@ -387,8 +366,7 @@ class AutoRAG:
                 
                 return parsed_response
                 
-            except Exception as e:
-                logger.error(f"Error generating final answer: {str(e)}")
+        
         
         # If all else fails
         logger.warning("Exiting loop without sufficient information")

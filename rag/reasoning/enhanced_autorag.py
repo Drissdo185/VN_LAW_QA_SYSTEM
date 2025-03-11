@@ -51,23 +51,23 @@ class EnhancedAutoRAG:
             Dict containing answer, analysis, and metadata
         """
         try:
-            # Step 1: Standardize the query
+           
             logger.info(f"Processing question via standardized flow: {question}")
             simplification_result = await self.query_simplifier.simplify_query(question)
             
-            # Get the standardized query from the result
+           
             standardized_query = simplification_result.get("standardized_query", question)
             query_metadata = simplification_result.get("metadata", {})
             
-            # Log information about standardization
+         
             logger.info(f"Original query: '{question}'")
             logger.info(f"Standardized query: '{standardized_query}'")
             logger.info(f"Query metadata: {query_metadata}")
             
-            # Step 2: Use original AutoRAG with standardized query
+           
             response = await self.auto_rag.get_answer(standardized_query)
             
-            # Step 3: Enhance response with query metadata
+          
             response["query_info"] = {
                 "original_query": question,
                 "standardized_query": standardized_query,
