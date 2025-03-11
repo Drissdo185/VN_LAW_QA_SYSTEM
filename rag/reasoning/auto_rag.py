@@ -10,7 +10,7 @@ from pyvi import ViTokenizer
 from config.config import ModelConfig, LLMProvider
 from retrieval.retriever import DocumentRetriever
 from retrieval.search_pipline import SearchPipeline
-from reasoning.prompts import SYSTEM_PROMPT
+from reasoning.prompts import SYSTEM_PROMPT, FINAL_EFFORT_PROMPT
 from llm.vllm_client import VLLMClient
 from llm.ollama_client import OllamaClient
 
@@ -49,6 +49,15 @@ class AutoRAG:
             except Exception as e:
                 logger.error(f"Error initializing vLLM client: {str(e)}")
                 raise
+        elif self.model_config.llm_provider == LLMProvider.OLLAMA:
+            logger.info(f"Setting up Ollama client with model: {self.model_config.ollama_config.model_name}")
+            try:
+                client = OllamaClient.from_config(self.model_config.ollama_config)
+                logger.info(f"Successfully initialized Ollama client with API URL: {client.api_url}")
+                return client
+            except Exception as e:
+                logger.error(f"Error initializing Ollama client: {str(e)}")
+                raise
         else:
             raise ValueError(f"Unsupported LLM provider: {self.model_config.llm_provider}")
 
@@ -56,7 +65,7 @@ class AutoRAG:
         """Set up the tokenizer based on the LLM provider"""
         if self.model_config.llm_provider == LLMProvider.OPENAI:
             return tiktoken.encoding_for_model(self.model_config.openai_model)
-        elif self.model_config.llm_provider == LLMProvider.VLLM:
+        elif self.model_config.llm_provider in [LLMProvider.VLLM, LLMProvider.OLLAMA]:
             return tiktoken.get_encoding("cl100k_base")
         else:
             raise ValueError(f"Unsupported LLM provider: {self.model_config.llm_provider}")
@@ -166,7 +175,6 @@ class AutoRAG:
             penalty_types.append("tước giấy phép lái xe")
         return penalty_types
     
-
     async def get_answer(self, question: str) -> Dict[str, Any]:
         """Get answer for a traffic-related question using Auto RAG with iterations"""
     
@@ -181,7 +189,7 @@ class AutoRAG:
                 }
             }
         
-       
+        # Initialize retrieval variables
         iteration = 0
         accumulated_context = []  # This will store all retrieved documents across iterations
         accumulated_docs = []     # Keep a copy of all NodeWithScore objects
@@ -192,21 +200,26 @@ class AutoRAG:
         current_query = question
         while iteration < self.max_iterations:
             try:
-                # Get documents for current query using search pipeline if available
+                # Get documents for current query
                 logger.info(f"Iteration {iteration+1}: Retrieving documents for query: {current_query}")
                 
-                
-                
+                # Always use SearchPipeline for retrieval
                 if self.search_pipeline:
-                    # Use enhanced search pipeline
+                    # Use existing SearchPipeline
                     logger.info("Using SearchPipeline for retrieval")
                     retrieved_docs = self.search_pipeline.search(current_query)
-                    logger.info(f"SearchPipeline returned {len(retrieved_docs)} documents")
                 else:
-                    # Fallback to basic retriever
-                    logger.info("Using basic DocumentRetriever for retrieval")
-                    retrieved_docs = self.retriever.retrieve(current_query)
-                    logger.info(f"DocumentRetriever returned {len(retrieved_docs)} documents")
+                    # Create a new search pipeline with the retriever
+                    from config.config import RetrievalConfig
+                    logger.info("Creating temporary SearchPipeline")
+                    temp_pipeline = SearchPipeline(
+                        retriever=self.retriever,
+                        model_config=self.model_config,
+                        retrieval_config=RetrievalConfig()
+                    )
+                    retrieved_docs = temp_pipeline.search(current_query)
+                
+                logger.info(f"Retrieved {len(retrieved_docs)} documents")
                 
                 # Skip iteration if no documents found
                 if not retrieved_docs:
@@ -319,23 +332,10 @@ class AutoRAG:
                 context = self.retriever.get_formatted_context(accumulated_docs)
                 
                 # Create a special final prompt that instructs the LLM to provide a best effort answer
-                final_prompt = f"""
-                Dựa trên tài liệu đã trích xuất, hãy phân tích và trả lời câu hỏi.
-                
-                Câu hỏi: {question}
-                
-                Tài liệu: {context}
-                
-                Mặc dù thông tin có thể chưa đầy đủ, hãy cố gắng đưa ra câu trả lời tốt nhất có thể dựa trên thông tin hiện có.
-                Hãy trả lời theo định dạng sau:
-                Phân tích: <phân tích thông tin hiện có>
-                Quyết định: Đã đủ thông tin
-                Câu trả lời cuối cùng: <Trả lời câu hỏi dựa trên thông tin đã phân tích>
-                
-                LƯU Ý:
-                + CHỈ TRẢ LỜI CHỈ CÓ TIẾNG VIỆT
-                + CÂU TRẢ LỜI GẮN GỌN ĐẦY ĐỦ Ý CÂU HỎI
-                """
+                final_prompt = FINAL_EFFORT_PROMPT.format(
+                    question=question,
+                    context=context
+                )
                 
                 input_tokens = self._count_tokens(final_prompt)
                 logger.info(f"Final input tokens: {input_tokens}")

@@ -74,73 +74,128 @@ def init_configs():
         logger.error(f"Error initializing configurations: {str(e)}")
         raise
 
-class AppComponents:
-    def __init__(self, configs: tuple, llm_provider: LLMProvider = LLMProvider.OPENAI):
-        logger.info(f"Initializing components with LLM provider: {llm_provider.value}")
-        self.configs = configs
-        weaviate_config, base_model_config, retrieval_config, web_search_config = configs
+@st.cache_resource
+def init_components(configs: tuple, llm_provider: LLMProvider = LLMProvider.OPENAI):
+    """
+    Initialize all RAG components with the specified configurations.
+    
+    Args:
+        configs: Tuple of configuration objects (weaviate_config, model_config, etc.)
+        llm_provider: LLM provider to use
         
-        # Create a copy of model_config with the selected LLM provider
-        model_config = ModelConfig(
-            device=base_model_config.device,
-            embedding_model=base_model_config.embedding_model,
-            cross_encoder_model=base_model_config.cross_encoder_model,
-            chunk_size=base_model_config.chunk_size,
-            chunk_overlap=base_model_config.chunk_overlap,
-            llm_provider=llm_provider,
-            openai_model=base_model_config.openai_model,
-            openai_api_key=base_model_config.openai_api_key,
-            vllm_config=base_model_config.vllm_config,
-            ollama_config=base_model_config.ollama_config
+    Returns:
+        Dictionary containing all initialized components
+    """
+    logger.info(f"Initializing components with LLM provider: {llm_provider.value}")
+    weaviate_config, base_model_config, retrieval_config, web_search_config = configs
+    
+    # Create a copy of model_config with the selected LLM provider
+    model_config = ModelConfig(
+        device=base_model_config.device,
+        embedding_model=base_model_config.embedding_model,
+        cross_encoder_model=base_model_config.cross_encoder_model,
+        chunk_size=base_model_config.chunk_size,
+        chunk_overlap=base_model_config.chunk_overlap,
+        llm_provider=llm_provider,
+        openai_model=base_model_config.openai_model,
+        openai_api_key=base_model_config.openai_api_key,
+        vllm_config=base_model_config.vllm_config,
+        ollama_config=base_model_config.ollama_config
+    )
+    
+    try:
+        # Initialize vector store
+        logger.info("Initializing vector store")
+        vector_store_manager = VectorStoreManager(
+            weaviate_config=weaviate_config,
+            model_config=model_config
+        )
+        vector_store_manager.initialize()
+        
+        # Initialize retriever
+        logger.info("Initializing document retriever")
+        retriever = DocumentRetriever(
+            index=vector_store_manager.get_index(),
+            config=retrieval_config
         )
         
-        try:
-            self.vector_store_manager = VectorStoreManager(
-                weaviate_config=weaviate_config,
-                model_config=model_config
-            )
-            self.vector_store_manager.initialize()
-            
-            self.retriever = DocumentRetriever(
-                index=self.vector_store_manager.get_index(),
-                config=retrieval_config
-            )
-            
-            self.search_pipeline = SearchPipeline(
-                retriever=self.retriever,
+        # Initialize search pipeline
+        logger.info("Initializing search pipeline")
+        search_pipeline = SearchPipeline(
+            retriever=retriever,
+            model_config=model_config,
+            retrieval_config=retrieval_config
+        )
+        
+        # Initialize standard AutoRAG
+        logger.info("Initializing AutoRAG")
+        auto_rag = AutoRAG(
+            model_config=model_config,
+            retriever=retriever,
+            search_pipeline=search_pipeline  # Always provide search_pipeline
+        )
+        
+        # Initialize enhanced AutoRAG
+        logger.info("Initializing EnhancedAutoRAG")
+        enhanced_auto_rag = EnhancedAutoRAG(
+            model_config=model_config,
+            retriever=retriever,
+            search_pipeline=search_pipeline  # Always provide search_pipeline
+        )
+        
+        # Initialize web search if enabled
+        web_search = None
+        if web_search_config.web_search_enabled:
+            logger.info("Initializing web search integration")
+            web_search = WebSearchIntegrator(
+                google_api_key=web_search_config.google_api_key,
+                google_cse_id=web_search_config.google_cse_id,
                 model_config=model_config,
                 retrieval_config=retrieval_config
             )
+        else:
+            logger.info("Web search is disabled")
+        
+        logger.info("All components initialized successfully")
+        
+        # Return all components in a dictionary
+        return {
+            'vector_store_manager': vector_store_manager,
+            'retriever': retriever,
+            'search_pipeline': search_pipeline,
+            'auto_rag': auto_rag,
+            'enhanced_auto_rag': enhanced_auto_rag,
+            'web_search': web_search
+        }
+        
+    except Exception as e:
+        logger.error(f"Error initializing components: {str(e)}")
+        raise
+
+class AppComponents:
+    """
+    Container for all application components, handling initialization and cleanup.
+    """
+    def __init__(self, configs: tuple, llm_provider: LLMProvider = LLMProvider.OPENAI):
+        logger.info(f"Setting up application components with LLM provider: {llm_provider.value}")
+        self.configs = configs
+        
+        try:
+            # Initialize all components using the helper function
+            components = init_components(configs, llm_provider)
             
-            # Initialize either standard or enhanced AutoRAG based on session state
-            self.auto_rag = AutoRAG(
-                model_config=model_config,
-                retriever=self.retriever
-            )
+            # Assign components to class attributes for easy access
+            self.vector_store_manager = components['vector_store_manager']
+            self.retriever = components['retriever']
+            self.search_pipeline = components['search_pipeline']
+            self.auto_rag = components['auto_rag']
+            self.enhanced_auto_rag = components['enhanced_auto_rag']
+            self.web_search = components['web_search']
             
-            # Initialize the enhanced AutoRAG
-            self.enhanced_auto_rag = EnhancedAutoRAG(
-                model_config=model_config,
-                retriever=self.retriever
-            )
-            
-            # Initialize web search if enabled
-            if web_search_config.web_search_enabled:
-                logger.info("Initializing web search integration")
-                self.web_search = WebSearchIntegrator(
-                    google_api_key=web_search_config.google_api_key,
-                    google_cse_id=web_search_config.google_cse_id,
-                    model_config=model_config,
-                    retrieval_config=retrieval_config
-                )
-            else:
-                logger.info("Web search is disabled")
-                self.web_search = None
-                
-            logger.info("Components initialized successfully")
+            logger.info("AppComponents initialized successfully")
             
         except Exception as e:
-            logger.error(f"Error initializing components: {str(e)}")
+            logger.error(f"Error initializing AppComponents: {str(e)}")
             raise
     
     def get_active_rag(self, use_simplified=True):
@@ -227,15 +282,24 @@ def display_source_info(response: Dict):
         logger.info(f"Response source: {source_type}")
 
 def display_query_info(response: Dict):
-    """Display information about query standardization if applicable"""
+    """Display information about query processing pipeline"""
     if 'query_info' in response:
-        with st.expander("Query Processing", expanded=False):
+        with st.expander("Query Processing Pipeline", expanded=False):
             query_info = response['query_info']
+            
+            # Original query
             st.write("**Original Query:**")
             st.write(query_info.get('original_query', 'N/A'))
+            
+            # Expanded query (with synonyms)
+            st.write("**Expanded Query (Synonyms):**")
+            st.write(query_info.get('expanded_query', 'N/A'))
+            
+            # Standardized query
             st.write("**Standardized Query:**")
             st.write(query_info.get('standardized_query', 'N/A'))
             
+            # Show detected violations
             st.write("**Detected Violations:**")
             violations = query_info.get('metadata', {}).get('violations', [])
             if violations:
@@ -244,10 +308,12 @@ def display_query_info(response: Dict):
             else:
                 st.write("No specific violations detected")
                 
+            # Show vehicle type
             st.write("**Vehicle Type:**")
             vehicle_type = query_info.get('metadata', {}).get('vehicle_type', 'Not specified')
             st.write(vehicle_type)
             
+            # Show penalty types
             st.write("**Penalty Types:**")
             penalty_types = query_info.get('metadata', {}).get('penalty_types', [])
             if penalty_types:
@@ -256,7 +322,10 @@ def display_query_info(response: Dict):
             else:
                 st.write("No specific penalty types detected")
             
-            logger.info(f"Query standardized from '{query_info.get('original_query')}' to '{query_info.get('standardized_query')}'")
+            # Log the complete transformation
+            logger.info(f"Query transformation: '{query_info.get('original_query')}' → " +
+                      f"'{query_info.get('expanded_query')}' → " +
+                      f"'{query_info.get('standardized_query')}'")
 
 def display_results(response: Dict):
     """Display the analysis results"""
@@ -266,7 +335,7 @@ def display_results(response: Dict):
     display_token_usage(response["token_usage"])
     display_performance_metrics()
     
-    # Display query simplification info if available
+    # Display query processing pipeline if available
     if 'query_info' in response:
         display_query_info(response)
     
@@ -283,6 +352,10 @@ def display_results(response: Dict):
     if response.get("final_answer"):
         st.markdown("**Final Answer:**")
         st.write(response["final_answer"])
+        
+    # Show note if present (e.g., for best-effort answers)
+    if response.get("note"):
+        st.warning(response["note"])
 
 def needs_web_search(response: Dict) -> bool:
     """Check if web search might be helpful"""

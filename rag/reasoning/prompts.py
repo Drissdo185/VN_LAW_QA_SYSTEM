@@ -1,3 +1,41 @@
+"""
+This module contains prompt templates used in the retrieval pipeline.
+Templates are defined as strings and can include placeholders for
+dynamic content that will be filled at runtime.
+"""
+
+# Prompt template for query standardization in the retrieval pipeline
+QUERY_STANDARDIZATION_PROMPT = """
+Bạn là trợ lý hỗ trợ đơn giản hóa các câu hỏi về luật giao thông Việt Nam. 
+Hãy phân tích câu hỏi của người dùng và đơn giản hóa thành một câu truy vấn chuẩn hóa,
+tập trung vào các yếu tố pháp lý liên quan đến vi phạm giao thông.
+
+Câu hỏi đầu vào: {query}
+
+{legal_terms_hint}
+
+QUAN TRỌNG: Câu truy vấn chuẩn hóa PHẢI theo đúng định dạng sau:
+"Đối với [vehicle_type], vi phạm [loại vi phạm] sẽ bị xử phạt [loại hình phạt nếu có đề cập] như thế nào?"
+
+Khi nói đến "vượt đèn đỏ", hãy dùng thuật ngữ pháp lý: "không chấp hành hiệu lệnh của đèn tín hiệu giao thông"
+
+Quy tắc:
+1. Nếu người dùng không đề cập cụ thể loại hình phạt, bỏ qua phần [loại hình phạt] trong câu truy vấn
+2. Nếu người dùng đề cập cụ thể (như tiền phạt, trừ điểm), đưa vào câu truy vấn
+3. Sử dụng "xe máy" hoặc "ô tô" làm vehicle_type khi có thể. Nếu không rõ, dùng "phương tiện"
+4. Luôn bảo toàn chi tiết cụ thể của vi phạm (ví dụ: tốc độ, nồng độ cồn)
+5. Luôn sử dụng thuật ngữ pháp lý chính thức cho các vi phạm
+
+Hãy trả về kết quả theo định dạng JSON với các trường sau:
+- standardized_query: Câu truy vấn đã được chuẩn hóa theo mẫu trên
+- violations: Danh sách các loại vi phạm được nhắc đến (nồng độ cồn, không mang giấy tờ, v.v)
+- vehicle_type: Loại phương tiện (ô tô, xe máy, v.v)
+- penalty_types: Loại hình phạt đang được hỏi (tiền phạt, trừ điểm, tước giấy phép lái xe, v.v)
+
+Chỉ trả về JSON, không trả lời gì thêm.
+"""
+
+# System prompt for AutoRAG reasoning
 SYSTEM_PROMPT = """
 Dựa trên tài liệu đã trích xuất, hãy phân tích và trả lời câu hỏi.
 
@@ -31,6 +69,24 @@ Ví dụ:
 
 Nếu người hỏi không đề cập cụ thể loại hình phạt, liệt kê đầy đủ các loại hình phạt (tiền, tịch thu, trừ điểm, tước giấy phép lái xe).
 Nếu người hỏi đề cập cụ thể loại hình phạt, chỉ đề cập đến những loại đó trong truy vấn.
+
+LƯU Ý:
++ CHỈ TRẢ LỜI CHỈ CÓ TIẾNG VIỆT
++ CÂU TRẢ LỜI GẮN GỌN ĐẦY ĐỦ Ý CÂU HỎI
+"""
+
+FINAL_EFFORT_PROMPT = """
+Dựa trên tài liệu đã trích xuất, hãy phân tích và trả lời câu hỏi.
+
+Câu hỏi: {question}
+
+Tài liệu: {context}
+
+Mặc dù thông tin có thể chưa đầy đủ, hãy cố gắng đưa ra câu trả lời tốt nhất có thể dựa trên thông tin hiện có.
+Hãy trả lời theo định dạng sau:
+Phân tích: <phân tích thông tin hiện có>
+Quyết định: Đã đủ thông tin
+Câu trả lời cuối cùng: <Trả lời câu hỏi dựa trên thông tin đã phân tích>
 
 LƯU Ý:
 + CHỈ TRẢ LỜI CHỈ CÓ TIẾNG VIỆT
