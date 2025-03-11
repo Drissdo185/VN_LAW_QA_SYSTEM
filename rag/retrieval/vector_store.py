@@ -67,12 +67,12 @@ class VectorStoreManager:
             
             if not self.client:
                 logger.info("Creating new Weaviate client connection")
-                # self.client = weaviate.connect_to_weaviate_cloud(
-                #     cluster_url=os.getenv("WEAVIATE_TRAFFIC_URL"),
-                #     auth_credentials=Auth.api_key(os.getenv("WEAVIATE_TRAFFIC_KEY")),
-                #     skip_init_checks=True
-                #     )
-                self.client = weaviate.connect_to_local()
+                self.client = weaviate.connect_to_weaviate_cloud(
+                    cluster_url=os.getenv("WEAVIATE_TRAFFIC_URL"),
+                    auth_credentials=Auth.api_key(os.getenv("WEAVIATE_TRAFFIC_KEY")),
+                    skip_init_checks=True
+                    )
+                # self.client = weaviate.connect_to_local()
         
                
                 return

@@ -21,28 +21,14 @@ class DocumentRetriever:
         
     def _setup_retriever(self):
         """Setup the retriever with configured parameters"""
-        try:
-            self.retriever = self.index.as_retriever(
-                vector_store_query_mode=self.config.vector_store_query_mode,
-                similarity_top_k=self.config.similarity_top_k,
-                alpha=self.config.alpha
+        self.retriever = self.index.as_retriever(
+                vector_store_query_mode="hybrid",
+                similarity_top_k=10,
+                alpha=0.5
             )
-            logger.info(f"Retriever setup complete with similarity_top_k={self.config.similarity_top_k}")
-        except Exception as e:
-            logger.error(f"Error setting up retriever: {str(e)}")
-            raise
     
     def retrieve(self, query: str) -> List[NodeWithScore]:
-        """
-        Retrieve relevant documents for the given query
         
-        Args:
-            query: The search query
-            
-        Returns:
-            List of retrieved documents with relevance scores
-        """
-        try:
             
             expanded_query = self.synonym_expander.expand_query(query)
             logger.info(f"Original query: '{query}'")
@@ -57,15 +43,7 @@ class DocumentRetriever:
             
             
             return results
-        except Exception as e:
-            if "closed" in str(e).lower():
-                logger.warning("Client connection closed, attempting to reinitialize retriever")
-                self._setup_retriever()
-                expanded_query = self.synonym_expander.expand_query(query)
-                tokenized_query = ViTokenizer.tokenize(expanded_query.lower())
-                return self.retriever.retrieve(tokenized_query)
-            logger.error(f"Error during retrieval: {str(e)}")
-            raise
+        
     
     def get_formatted_context(self, nodes: List[NodeWithScore]) -> str:
         """

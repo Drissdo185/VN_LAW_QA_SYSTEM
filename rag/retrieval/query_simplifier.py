@@ -77,15 +77,6 @@ class QuerySimplifier:
         
         Khi nói đến "vượt đèn đỏ", hãy dùng thuật ngữ pháp lý: "không chấp hành hiệu lệnh của đèn tín hiệu giao thông"
         
-        Ví dụ:
-        - Câu hỏi: "Hôm qua tôi chạy xe máy 70km/h trên đường nội thành, vượt đèn và có nồng độ cồn 0.3mg/L thì bị phạt bao nhiêu?"
-        - Chuẩn hóa: "Đối với xe máy, vi phạm nồng độ cồn 0.3mg/L, vượt quá tốc độ quy định trên 20km/h và không chấp hành hiệu lệnh của đèn tín hiệu giao thông sẽ bị xử phạt như thế nào?"
-        
-        - Câu hỏi: "Lái ô tô không mang giấy phép lái xe bị phạt bao nhiêu?"
-        - Chuẩn hóa: "Đối với ô tô, vi phạm không mang giấy phép lái xe sẽ bị xử phạt tiền như thế nào?"
-        
-        - Câu hỏi: "Bao nhiêu điểm bị trừ khi lái xe máy vượt đèn đỏ?"
-        - Chuẩn hóa: "Đối với xe máy, vi phạm không chấp hành hiệu lệnh của đèn tín hiệu giao thông sẽ bị xử phạt trừ điểm như thế nào?"
         
         Quy tắc:
         1. Nếu người dùng không đề cập cụ thể loại hình phạt, bỏ qua phần [loại hình phạt] trong câu truy vấn

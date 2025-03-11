@@ -79,7 +79,7 @@ class SearchPipeline:
             
         top_k = min(self.retrieval_config.similarity_top_k, len(final_results))
         logger.info(f"Returning top {top_k} results")
-        return final_results[:top_k]
+        return filtered_results[:10]
             
     
     def _rerank_results(self, query: str, nodes: List[NodeWithScore]) -> List[NodeWithScore]:
