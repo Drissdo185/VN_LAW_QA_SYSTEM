@@ -62,20 +62,40 @@ class VectorStoreManager:
         """Ensure Weaviate client is connected, reconnect if needed"""
         max_retries = 3
         retry_count = 0
+        last_error = None
         
         while retry_count < max_retries:
-            
-            if not self.client:
-                logger.info("Creating new Weaviate client connection")
-                self.client = weaviate.connect_to_weaviate_cloud(
-                    cluster_url=os.getenv("WEAVIATE_TRAFFIC_URL"),
-                    auth_credentials=Auth.api_key(os.getenv("WEAVIATE_TRAFFIC_KEY")),
-                    skip_init_checks=True
+            try:
+                # Check if client exists and is connected
+                if self.client:
+                    # Test connection with a simple query
+                    try:
+                        
+                        logger.info("Existing Weaviate connection is active")
+                        return
+                    except Exception as e:
+                        logger.warning(f"Existing connection is broken, reconnecting: {str(e)}")
+                        try:
+                            self.client.close()
+                        except:
+                            pass
+                        self.client = None
+                
+                # Create new connection if needed
+                if not self.client:
+                    logger.info(f"Creating new Weaviate client connection (attempt {retry_count+1}/{max_retries})")
+                    self.client = weaviate.connect_to_weaviate_cloud(
+                        cluster_url=os.getenv("WEAVIATE_TRAFFIC_URL"),
+                        auth_credentials=Auth.api_key(os.getenv("WEAVIATE_TRAFFIC_KEY")),
+                        skip_init_checks=False  # Changed to validate connection
                     )
-                # self.client = weaviate.connect_to_local()
-        
-               
-                return
+                    logger.info("Successfully connected to Weaviate")
+                    return
+            except Exception as e:
+                last_error = e
+                logger.error(f"Connection attempt {retry_count+1} failed: {str(e)}")
+                retry_count += 1
+                time.sleep(1)
                 
     
     @lru_cache(maxsize=1)

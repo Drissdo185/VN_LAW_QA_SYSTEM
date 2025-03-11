@@ -66,20 +66,17 @@ class SearchPipeline:
         if self.cross_encoder:
             logger.info("Applying cross-encoder reranking")
             reranked_results = self._rerank_results(query, filtered_results)
-
         else:
             logger.info("Skipping cross-encoder reranking (not available)")
             reranked_results = filtered_results
-            
-           
-            logger.info("Applying term-based ranking")
-            final_results = self._rank_results(reranked_results, query)
-           
-            
-            
+
+        
+        logger.info("Applying term-based ranking")
+        final_results = self._rank_results(reranked_results, query)
+
         top_k = min(self.retrieval_config.similarity_top_k, len(final_results))
         logger.info(f"Returning top {top_k} results")
-        return filtered_results[:10]
+        return filtered_results[:5]
             
     
     def _rerank_results(self, query: str, nodes: List[NodeWithScore]) -> List[NodeWithScore]:
