@@ -52,7 +52,7 @@ class SearchPipeline:
         tokenized_query = ViTokenizer.tokenize(query.lower())
         
         
-        initial_results = self.retriever.retrieve(tokenized_query)
+        initial_results = self.retriever.retrieve(query)
         logger.info(f"Initial retrieval returned {len(initial_results)} documents")
             
             
@@ -76,7 +76,7 @@ class SearchPipeline:
 
         top_k = min(self.retrieval_config.similarity_top_k, len(final_results))
         logger.info(f"Returning top {top_k} results")
-        return filtered_results[:5]
+        return filtered_results[:10]
             
     
     def _rerank_results(self, query: str, nodes: List[NodeWithScore]) -> List[NodeWithScore]:

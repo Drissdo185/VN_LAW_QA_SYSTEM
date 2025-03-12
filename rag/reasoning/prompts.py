@@ -22,14 +22,14 @@ Khi nói đến "vượt đèn đỏ", hãy dùng thuật ngữ pháp lý: "khô
 Quy tắc:
 1. Nếu người dùng không đề cập cụ thể loại hình phạt, bỏ qua phần [loại hình phạt] trong câu truy vấn
 2. Nếu người dùng đề cập cụ thể (như tiền phạt, trừ điểm), đưa vào câu truy vấn
-3. Sử dụng "xe máy" hoặc "ô tô" làm vehicle_type khi có thể. Nếu không rõ, dùng "phương tiện"
+3. Sử dụng "mô tô và gắn máy" hoặc "ô tô" làm vehicle_type khi có thể. Nếu không rõ, dùng "phương tiện"
 4. Luôn bảo toàn chi tiết cụ thể của vi phạm (ví dụ: tốc độ, nồng độ cồn)
 5. Luôn sử dụng thuật ngữ pháp lý chính thức cho các vi phạm
 
 Hãy trả về kết quả theo định dạng JSON với các trường sau:
 - standardized_query: Câu truy vấn đã được chuẩn hóa theo mẫu trên
 - violations: Danh sách các loại vi phạm được nhắc đến (nồng độ cồn, không mang giấy tờ, v.v)
-- vehicle_type: Loại phương tiện (ô tô, xe máy, v.v)
+- vehicle_type: Loại phương tiện (ô tô, mô tô, gắn máy, v.v)
 - penalty_types: Loại hình phạt đang được hỏi (tiền phạt, trừ điểm, tước giấy phép lái xe, v.v)
 
 Chỉ trả về JSON, không trả lời gì thêm.
@@ -64,7 +64,7 @@ Nếu cần thêm thông tin, truy vấn tiếp theo PHẢI theo định dạng:
 "Đối với [loại phương tiện], vi phạm [loại vi phạm] sẽ bị xử phạt [tiền/tịch thu/trừ điểm] như thế nào?"
 
 Ví dụ:
-- "Đối với xe máy, vi phạm chạy quá tốc độ trên 20km/h và vượt đèn đỏ sẽ bị xử phạt như thế nào?"
+- "Đối với mô tô và gắn máy, vi phạm chạy quá tốc độ trên 20km/h và vượt đèn đỏ sẽ bị xử phạt như thế nào?"
 - "Đối với ô tô, vi phạm nồng độ cồn trong máu vượt quá 50mg/100ml sẽ bị xử phạt tiền, trừ điểm và tước giấy phép lái xe như thế nào?"
 
 Nếu người hỏi không đề cập cụ thể loại hình phạt, liệt kê đầy đủ các loại hình phạt (tiền, tịch thu, trừ điểm, tước giấy phép lái xe).

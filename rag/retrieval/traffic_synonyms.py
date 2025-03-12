@@ -26,6 +26,9 @@ class TrafficSynonymExpander:
                 "có cồn trong hơi thở",
             ],
             
+            "đi nhậu": ["vi phạm nồng độ cồn",
+                "lái xe sau khi uống rượu bia",],
+            
             # Added specific alcohol amount term
             "1 thùng bia": [
                 "nồng độ cồn vượt quá 80 miligam/100 mililít máu hoặc vượt quá 0,4 miligam/1 lít khí thở"
@@ -72,12 +75,23 @@ class TrafficSynonymExpander:
                 "không mang theo giấy đăng ký xe"
             ],
             
+            "quên mang cà vẹt xe":[
+                "không mang theo giấy đăng ký xe"
+            ],
+            
+            "quên cà vẹt xe":[
+                "không mang theo giấy đăng ký xe"
+            ],
+            
             "không có cà vẹt xe":[
-                "không có giấy đăng ký xe"
+                "không chứng nhận đăng ký xe"
+            ],
+            "chưa có cà vẹt xe":[
+                "không chứng nhận đăng ký xe"
             ],
             
             "chưa đăng ký giấy tờ": [
-                "không có giấy đăng ký xe",
+                "không chứng nhận đăng ký xe",
                 "không đăng ký xe",
                 "sử dụng xe không có giấy tờ hợp lệ"
             ],

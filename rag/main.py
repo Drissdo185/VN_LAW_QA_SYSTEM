@@ -99,8 +99,7 @@ def init_components(configs: tuple, llm_provider: LLMProvider = LLMProvider.OPEN
         llm_provider=llm_provider,
         openai_model=base_model_config.openai_model,
         openai_api_key=base_model_config.openai_api_key,
-        vllm_config=base_model_config.vllm_config,
-        ollama_config=base_model_config.ollama_config
+        vllm_config=base_model_config.vllm_config
     )
     
     try:
@@ -221,10 +220,17 @@ class AppComponents:
         return self.get_active_rag(use_simplified)
 
     def cleanup(self):
-        """Clean up resources"""
+        """Clean up resources - only call this when the application is shutting down"""
         logger.info("Cleaning up components")
         if hasattr(self, 'vector_store_manager'):
             self.vector_store_manager.cleanup()
+
+# Create a session-based component holder that persists across reruns
+@st.cache_resource
+def get_app_components(configs, selected_provider):
+    """Create and cache AppComponents to persist across Streamlit reruns"""
+    logger.info("Creating or retrieving cached AppComponents")
+    return AppComponents(configs, selected_provider)
 
 # Fixed event loop handler
 def run_async(coroutine):
@@ -269,8 +275,6 @@ def display_llm_info(response: Dict):
             provider_name = "OpenAI GPT-4o mini"
         elif provider == LLMProvider.VLLM:
             provider_name = "Qwen2.5-14B (vLLM)"
-        elif provider == LLMProvider.OLLAMA:
-            provider_name = "qwen2.5:14b (Ollama)"
         st.info(f"LLM Provider: {provider_name}")
         logger.info(f"Response generated using: {provider_name}")
 
@@ -379,11 +383,10 @@ def main():
             try:
                 configs = init_configs()
                 
-                # LLM provider selection
+                # LLM provider selection (removed Ollama)
                 llm_provider_options = {
                     "OpenAI GPT-4o mini": LLMProvider.OPENAI,
-                    "Qwen2.5-14B (vLLM)": LLMProvider.VLLM,
-                    "Qwen2.5-32B (Ollama)": LLMProvider.OLLAMA
+                    "Qwen2.5-14B (vLLM)": LLMProvider.VLLM
                 }
                 selected_provider_name = st.selectbox(
                     "Select LLM Provider",
@@ -398,27 +401,13 @@ def main():
                     value=st.session_state.use_simplified_query,
                     help="Enable LLM-based query standardization to extract key legal concepts"
                 )
-
-                # Display Ollama configuration if selected
-                if selected_provider == LLMProvider.OLLAMA:
-                    ollama_config = configs[1].ollama_config
-                    with st.expander("Ollama Configuration"):
-                        ollama_api_url = st.text_input("API URL", ollama_config.api_url, key="ollama_url")
-                        ollama_model = st.text_input("Model Name", ollama_config.model_name, key="ollama_model")
-                        ollama_temp = st.slider("Temperature", 0.0, 1.0, ollama_config.temperature, key="ollama_temp")
-                        ollama_top_p = st.slider("Top P", 0.0, 1.0, ollama_config.top_p, key="ollama_top_p")
-                        
-                        # Update the ollama_config with UI values
-                        ollama_config.api_url = ollama_api_url
-                        ollama_config.model_name = ollama_model
-                        ollama_config.temperature = ollama_temp
-                        ollama_config.top_p = ollama_top_p
                 
                 logger.info(f"Selected LLM provider: {selected_provider.value}")
                 logger.info(f"Query simplification enabled: {st.session_state.use_simplified_query}")
                 
                 # Initialize components with selected provider and updated config
-                components = AppComponents(configs, selected_provider)
+                # Use the cached version to maintain connection state
+                components = get_app_components(configs, selected_provider)
                 
             except Exception as e:
                 error_msg = f"Error initializing components: {str(e)}"
@@ -472,14 +461,13 @@ def main():
                     
                     # Display initial results
                     display_results(response)
-                    
+                
             except Exception as e:
                 error_msg = f"Error: {str(e)}"
                 logger.error(error_msg)
                 st.error(error_msg)
                 return
-            finally:
-                components.cleanup()
+            # Connection stays open, no cleanup call here
         
         # Show web search prompt if needed
         if st.session_state.show_web_search_prompt:
@@ -522,8 +510,7 @@ def main():
                         error_msg = f"Error during web search: {str(e)}"
                         logger.error(error_msg)
                         st.error(error_msg)
-                    finally:
-                        components.cleanup()
+                    # Connection stays open, no cleanup call here
     except Exception as e:
         logger.error(f"Unhandled exception in main: {str(e)}")
         st.error(f"An unexpected error occurred: {str(e)}")
