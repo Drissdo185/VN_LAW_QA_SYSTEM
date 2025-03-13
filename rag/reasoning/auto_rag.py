@@ -117,19 +117,24 @@ class AutoRAG:
                 parsed["next_query"] = line.replace("Truy vấn tiếp theo:", "").strip()
             elif line.startswith("Câu trả lời cuối cùng:"):
                 current_section = "final_answer"
-                parsed["final_answer"] = line.replace("Câu trả lời cuối cùng:", "").strip()
-            elif current_section and line.strip():
-                parsed[current_section] += " " + line.strip()
+                # Start collecting the final answer, but don't include this line
+                parsed["final_answer"] = ""
+            elif current_section == "final_answer" and line is not None:
+                # Append each line of the final answer, preserving line breaks for Markdown
+                if parsed["final_answer"]:
+                    parsed["final_answer"] += "\n" + line
+                else:
+                    parsed["final_answer"] = line
+            elif current_section and current_section != "final_answer" and line:
+                parsed[current_section] += " " + line
         
-        
+        # Process next query logic (your existing code)
         if parsed["next_query"] and "Đối với" not in parsed["next_query"]:
-           
             original_query = parsed["next_query"]
             vehicle_type = self._extract_vehicle_type(original_query)
             violation_type = self._extract_violation_type(original_query)
             penalty_types = self._extract_penalty_types(original_query)
             
-        
             penalty_phrase = ""
             if penalty_types:
                 penalty_phrase = f"bị xử phạt {', '.join(penalty_types)} như thế nào?"

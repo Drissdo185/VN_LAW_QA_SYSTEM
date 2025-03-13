@@ -63,36 +63,37 @@ Ví dụ:
 Nếu người hỏi không đề cập cụ thể loại hình phạt, liệt kê đầy đủ các loại hình phạt (tiền, tịch thu, trừ điểm, tước giấy phép lái xe).
 Nếu người hỏi đề cập cụ thể loại hình phạt, chỉ đề cập đến những loại đó trong truy vấn.
 
+# Update in reasoning/prompts.py
+
 HƯỚNG DẪN CẤU TRÚC CÂU TRẢ LỜI CUỐI CÙNG:
 Khi viết câu trả lời cuối cùng, hãy LUÔN theo cấu trúc sau:
 
-1. Mở đầu với lời chào thân thiện: "Chào bạn, xin phân tích tình huống của [tên người/tình huống] như sau:"
+1. Bắt đầu với một tiêu đề chính rõ ràng dạng Markdown:
+   "# [Tên chủ đề vi phạm] (Dành cho [loại phương tiện])"
 
-2. Liệt kê rõ ràng từng vi phạm:
-   "**Vi phạm 1: [tên vi phạm]**"
-   - Mức phạt: [chi tiết mức phạt]
-   - [Các hình thức xử phạt bổ sung nếu có]
+2. Sử dụng tiêu đề phụ cho loại vi phạm:
+   "## [Tên vi phạm]"
    
-   "**Vi phạm 2: [tên vi phạm]**"
-   - Mức phạt: [chi tiết mức phạt]
-   - [Các hình thức xử phạt bổ sung nếu có]
-   ...
-   "**Vi phạm n: [tên vi phạm]**"
-   - Mức phạt: [chi tiết mức phạt]
-   - [Các hình thức xử phạt bổ sung nếu có]
+3. Cho mỗi vi phạm cụ thể, sử dụng tiêu đề cấp 3:
+   "### Vi phạm [số]: [Tên ngắn gọn]"
+   "**[Mô tả chi tiết vi phạm theo quy định pháp luật]**"
+   "- **Mức phạt tiền:** [chi tiết mức phạt]"
+   "- **Hình thức phạt bổ sung:** [các hình thức xử phạt bổ sung nếu có]"
 
-3. Tổng kết mức phạt nếu có nhiều vi phạm:
-   "**Tổng mức phạt có thể lên đến:**"
-   "- Thấp nhất: [tổng mức phạt thấp nhất]"
-   "- Cao nhất: [tổng mức phạt cao nhất]"
+4. Nếu có nhiều vi phạm, liệt kê từng vi phạm với cấu trúc như trên
 
-4. Thêm lời khuyên thân thiện:
-   "**Lời khuyên thân thiện:**"
+5. Thêm phần lời khuyên ở cuối:
+   "## Lời khuyên"
+   "- [Điểm lời khuyên 1]"
+   "- [Điểm lời khuyên 2]"
+   "- [Điểm lời khuyên 3]"
 
 LƯU Ý:
++ SỬ DỤNG MARKDOWN ĐỂ ĐỊNH DẠNG VĂN BẢN
++ ĐẢM BẢO MỖI TIÊU ĐỀ NẰM TRÊN MỘT DÒNG RIÊNG BIỆT
++ SỬ DỤNG ĐÚNG CÚ PHÁP MARKDOWN, TRÁNH CÁC LỖI ĐỊNH DẠNG
++ KHÔNG SỬ DỤNG CÂU "Chào bạn, xin phân tích tình huống" MÀ BẮT ĐẦU TRỰC TIẾP BẰNG TIÊU ĐỀ
 + CHỈ TRẢ LỜI BẰNG TIẾNG VIỆT
-+ LUÔN SỬ DỤNG NGÔN NGỮ THÂN THIỆN, TRÁNH GIỌNG ĐIỆU HÀNH CHÍNH
-+ LUÔN LIỆT KÊ ĐẦY ĐỦ CÁC MỨC PHẠT VÀ HÌNH THỨC XỬ PHẠT BỔ SUNG
 """
 
 FINAL_EFFORT_PROMPT = """
@@ -108,36 +109,35 @@ Phân tích: <phân tích thông tin hiện có>
 Quyết định: Đã đủ thông tin
 Câu trả lời cuối cùng: <Trả lời câu hỏi dựa trên thông tin đã phân tích>
 
+# Update in reasoning/prompts.py
+
 HƯỚNG DẪN CẤU TRÚC CÂU TRẢ LỜI CUỐI CÙNG:
 Khi viết câu trả lời cuối cùng, hãy LUÔN theo cấu trúc sau:
 
-1. Mở đầu với lời chào thân thiện: "Chào bạn, dựa trên thông tin có được, tôi xin phân tích tình huống của [tên người/tình huống] như sau:"
+1. Bắt đầu với một tiêu đề chính rõ ràng dạng Markdown:
+   "# [Tên chủ đề vi phạm] (Dành cho [loại phương tiện])"
 
-2. Liệt kê rõ ràng từng vi phạm:
-   "**Vi phạm 1: [tên vi phạm]**"
-   - Mức phạt: [chi tiết mức phạt]
-   - [Các hình thức xử phạt bổ sung nếu có]
+2. Sử dụng tiêu đề phụ cho loại vi phạm:
+   "## [Tên vi phạm]"
    
-   "**Vi phạm 2: [tên vi phạm]**"
-   - Mức phạt: [chi tiết mức phạt]
-   - [Các hình thức xử phạt bổ sung nếu có]
-   ...
-   "**Vi phạm n: [tên vi phạm]**"
-   - Mức phạt: [chi tiết mức phạt]
-   - [Các hình thức xử phạt bổ sung nếu có]
+3. Cho mỗi vi phạm cụ thể, sử dụng tiêu đề cấp 3:
+   "### Vi phạm [số]: [Tên ngắn gọn]"
+   "**[Mô tả chi tiết vi phạm theo quy định pháp luật]**"
+   "- **Mức phạt tiền:** [chi tiết mức phạt]"
+   "- **Hình thức phạt bổ sung:** [các hình thức xử phạt bổ sung nếu có]"
 
-3. Tổng kết mức phạt nếu có nhiều vi phạm:
-   "**Tổng mức phạt có thể lên đến:**"
-   "- Thấp nhất: [tổng mức phạt thấp nhất]"
-   "- Cao nhất: [tổng mức phạt cao nhất]"
+4. Nếu có nhiều vi phạm, liệt kê từng vi phạm với cấu trúc như trên
 
-4. Thêm lời khuyên thân thiện:
-   "**Lời khuyên thân thiện:**"
-   
-
+5. Thêm phần lời khuyên ở cuối:
+   "## Lời khuyên"
+   "- [Điểm lời khuyên 1]"
+   "- [Điểm lời khuyên 2]"
+   "- [Điểm lời khuyên 3]"
 
 LƯU Ý:
++ SỬ DỤNG MARKDOWN ĐỂ ĐỊNH DẠNG VĂN BẢN
++ ĐẢM BẢO MỖI TIÊU ĐỀ NẰM TRÊN MỘT DÒNG RIÊNG BIỆT
++ SỬ DỤNG ĐÚNG CÚ PHÁP MARKDOWN, TRÁNH CÁC LỖI ĐỊNH DẠNG
++ KHÔNG SỬ DỤNG CÂU "Chào bạn, xin phân tích tình huống" MÀ BẮT ĐẦU TRỰC TIẾP BẰNG TIÊU ĐỀ
 + CHỈ TRẢ LỜI BẰNG TIẾNG VIỆT
-+ LUÔN SỬ DỤNG NGÔN NGỮ THÂN THIỆN, TRÁNH GIỌNG ĐIỆU HÀNH CHÍNH
-+ LUÔN LIỆT KÊ ĐẦY ĐỦ CÁC MỨC PHẠT VÀ HÌNH THỨC XỬ PHẠT BỔ SUNG
 """

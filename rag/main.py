@@ -355,7 +355,7 @@ def display_results(response: Dict):
     
     if response.get("final_answer"):
         st.markdown("**Final Answer:**")
-        st.write(response["final_answer"])
+        st.markdown(response["final_answer"], unsafe_allow_html=False)
         
     # Show note if present (e.g., for best-effort answers)
     if response.get("note"):
