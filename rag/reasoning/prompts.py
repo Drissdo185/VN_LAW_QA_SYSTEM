@@ -1,29 +1,30 @@
 QUERY_STANDARDIZATION_PROMPT = """
-Bạn là trợ lý hỗ trợ đơn giản hóa các câu hỏi về luật giao thông Việt Nam. 
-Hãy phân tích câu hỏi của người dùng và đơn giản hóa thành một câu truy vấn chuẩn hóa,
-tập trung vào các yếu tố pháp lý liên quan đến vi phạm giao thông.
+Bạn là trợ lý hỗ trợ phân tích câu hỏi về luật giao thông Việt Nam.
+Hãy phân tích câu hỏi của người dùng và xác định loại câu hỏi.
 
 Câu hỏi đầu vào: {query}
 
 {legal_terms_hint}
 
-QUAN TRỌNG: Câu truy vấn chuẩn hóa PHẢI theo đúng định dạng sau:
-"Đối với [vehicle_type], vi phạm [loại vi phạm] sẽ bị xử phạt [loại hình phạt nếu có đề cập] như thế nào?"
+PHÂN LOẠI CÂU HỎI:
+1. Nếu câu hỏi về VI PHẠM GIAO THÔNG hoặc XỬ PHẠT, hãy chuẩn hóa theo định dạng:
+   "Đối với [vehicle_type], vi phạm [loại vi phạm] sẽ bị xử phạt [loại hình phạt nếu có đề cập] như thế nào?"
 
-Khi nói đến "vượt đèn đỏ", hãy dùng thuật ngữ pháp lý: "không chấp hành hiệu lệnh của đèn tín hiệu giao thông"
+2. Nếu câu hỏi về QUY ĐỊNH CHUNG hoặc THÔNG TIN CƠ BẢN (độ tuổi, điều kiện cấp phép, v.v.), 
+   hãy giữ nguyên câu hỏi gốc không chuẩn hóa.
 
-Quy tắc:
-1. Nếu người dùng không đề cập cụ thể loại hình phạt, bỏ qua phần [loại hình phạt] trong câu truy vấn
-2. Nếu người dùng đề cập cụ thể (như tiền phạt, trừ điểm), đưa vào câu truy vấn
-3. Sử dụng "mô tô và gắn máy" hoặc "ô tô" làm vehicle_type khi có thể. Nếu không rõ, dùng "phương tiện"
-4. Luôn bảo toàn chi tiết cụ thể của vi phạm (ví dụ: tốc độ, nồng độ cồn)
-5. Luôn sử dụng thuật ngữ pháp lý chính thức cho các vi phạm
+Quy tắc chuẩn hóa cho câu hỏi VI PHẠM:
+- Nếu không đề cập loại hình phạt, bỏ qua phần [loại hình phạt]
+- Sử dụng "mô tô và gắn máy" hoặc "ô tô" làm vehicle_type khi có thể
+- Bảo toàn chi tiết cụ thể của vi phạm (tốc độ, nồng độ cồn)
+- Sử dụng thuật ngữ pháp lý chính thức
 
 Hãy trả về kết quả theo định dạng JSON với các trường sau:
-- standardized_query: Câu truy vấn đã được chuẩn hóa theo mẫu trên
-- violations: Danh sách các loại vi phạm được nhắc đến (nồng độ cồn, không mang giấy tờ, v.v)
-- vehicle_type: Loại phương tiện (ô tô, mô tô, gắn máy, v.v)
-- penalty_types: Loại hình phạt đang được hỏi (tiền phạt, trừ điểm, tước giấy phép lái xe, v.v)
+- question_type: "violation" hoặc "regulation" (vi phạm hoặc quy định)
+- standardized_query: Câu truy vấn đã chuẩn hóa (nếu là câu hỏi vi phạm) hoặc câu hỏi gốc (nếu là câu hỏi quy định)
+- vehicle_type: Loại phương tiện liên quan
+- violations: Danh sách vi phạm được nhắc đến (hoặc [] nếu là câu hỏi quy định)
+- penalty_types: Danh sách hình phạt đang được hỏi (hoặc [] nếu là câu hỏi quy định)
 
 Chỉ trả về JSON, không trả lời gì thêm.
 """
@@ -133,6 +134,64 @@ Khi viết câu trả lời cuối cùng, hãy LUÔN theo cấu trúc sau:
    "- [Điểm lời khuyên 1]"
    "- [Điểm lời khuyên 2]"
    "- [Điểm lời khuyên 3]"
+
+LƯU Ý:
++ SỬ DỤNG MARKDOWN ĐỂ ĐỊNH DẠNG VĂN BẢN
++ ĐẢM BẢO MỖI TIÊU ĐỀ NẰM TRÊN MỘT DÒNG RIÊNG BIỆT
++ SỬ DỤNG ĐÚNG CÚ PHÁP MARKDOWN, TRÁNH CÁC LỖI ĐỊNH DẠNG
++ KHÔNG SỬ DỤNG CÂU "Chào bạn, xin phân tích tình huống" MÀ BẮT ĐẦU TRỰC TIẾP BẰNG TIÊU ĐỀ
++ CHỈ TRẢ LỜI BẰNG TIẾNG VIỆT
+"""
+
+
+# Prompt cho câu hỏi về quy định chung
+REGULATION_PROMPT = """
+Dựa trên tài liệu đã trích xuất, hãy phân tích và trả lời câu hỏi về quy định giao thông.
+
+Câu hỏi: {question}
+
+Tài liệu: {context}
+
+Hãy suy nghĩ từng bước:
+1. Phân tích xem thông tin có đủ và liên quan không?
+2. Nếu chưa đủ, hãy đưa ra truy vấn mới để tìm thêm thông tin
+3. Nếu đã đủ, đưa ra câu trả lời cuối cùng
+
+Hãy trả lời theo định dạng sau:
+Phân tích: <phân tích thông tin hiện có, ghi rõ thông tin nào đã đủ, thiếu thông tin gì>
+Quyết định: [Cần thêm thông tin/Đã đủ thông tin]
+Truy vấn tiếp theo: <truy vấn mới> (nếu cần)
+Câu trả lời cuối cùng: <Trả lời câu hỏi dựa trên thông tin đã phân tích, chỉ khi dữ liệu đã đủ.>  (nếu đã đủ thông tin)
+
+HƯỚNG DẪN ĐỊNH DẠNG TRUY VẤN TIẾP THEO:
+Nếu cần thêm thông tin, truy vấn tiếp theo PHẢI theo định dạng:
+"Theo luật giao thông đường bộ, [quy định/điều kiện] đối với [đối tượng] là gì?"
+
+Ví dụ:
+- "Theo luật giao thông đường bộ, điều kiện độ tuổi đối với người lái xe gắn máy là gì?"
+- "Theo luật giao thông đường bộ, điều kiện sức khỏe đối với người lái xe ô tô là gì?"
+
+HƯỚNG DẪN CẤU TRÚC CÂU TRẢ LỜI CUỐI CÙNG:
+Khi viết câu trả lời cuối cùng, hãy LUÔN theo cấu trúc sau:
+
+1. Bắt đầu với một tiêu đề chính rõ ràng dạng Markdown:
+   "# Quy định về [chủ đề] (Dành cho [đối tượng])"
+
+2. Sử dụng tiêu đề phụ cho các khía cạnh khác nhau của quy định:
+   "## [Tên quy định cụ thể]"
+   
+3. Liệt kê chi tiết quy định:
+   "- **[Tên điều kiện]:** [Chi tiết điều kiện]"
+   "- **[Tên yêu cầu]:** [Chi tiết yêu cầu]"
+
+4. Thêm phần căn cứ pháp lý:
+   "## Căn cứ pháp lý"
+   "- [Tên văn bản pháp luật, số hiệu, điều khoản]"
+
+5. Thêm phần lời khuyên ở cuối:
+   "## Lời khuyên"
+   "- [Điểm lời khuyên 1]"
+   "- [Điểm lời khuyên 2]"
 
 LƯU Ý:
 + SỬ DỤNG MARKDOWN ĐỂ ĐỊNH DẠNG VĂN BẢN

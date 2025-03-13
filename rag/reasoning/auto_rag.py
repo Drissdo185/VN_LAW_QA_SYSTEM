@@ -73,12 +73,21 @@ class AutoRAG:
     def _is_traffic_related(self, question: str) -> bool:
         """Check if question is related to traffic"""
         traffic_keywords = [
+            # Từ khóa hiện tại
             'mũ bảo hiểm', 'giao thông', 'đường bộ', 'biển báo', 
             'luật giao thông', 'phạt', 'xe máy', 'ô tô', 'bằng lái',
             'giấy phép', 'nd168', 'nghị định', 'nồng độ cồn', 
             'vượt đèn đỏ', 'tốc độ', 'vạch kẻ đường', 'tai nạn',
             'xe', 'đường', 'đậu xe', 'đỗ xe', 'dừng xe', 'đăng kiểm',
-            'giấy tờ', 'biển số', 'traffic', 'luật', 'quá tải'
+            'giấy tờ', 'biển số', 'traffic', 'luật', 'quá tải',
+            
+            # Từ khóa bổ sung cho quy định chung
+            'độ tuổi', 'tuổi lái xe', 'được phép', 'điều kiện', 
+            'quy định', 'yêu cầu', 'cấp giấy phép', 'cấp bằng', 
+            'hạng bằng', 'loại bằng', 'A', 'A1', 'B1 số tự động', '',
+            'gắn máy', 'được lái', 'người điều khiển', 'hạng tuổi',
+            'sức khỏe', 'học lái xe', 'trường dạy lái xe', 'luật số',
+            'thông tư', 'quy chuẩn', 'tiêu chuẩn'
         ]
         
         question_lower = question.lower()
@@ -95,15 +104,17 @@ class AutoRAG:
     
 
     def _parse_response(self, response: str) -> Dict[str, Any]:
-        """Parse LLM response into structured format with standardized next query"""
+        """Parse LLM response into structured format"""
         lines = response.strip().split("\n")
         parsed = {
             "analysis": "",
             "decision": "",
             "next_query": None,
-            "final_answer": None
+            "final_answer": None,
+            "question_type": "violation"  # Mặc định là câu hỏi về vi phạm
         }
         
+        # Trích xuất các trường từ phản hồi LLM
         current_section = None
         for line in lines:
             if line.startswith("Phân tích:"):
@@ -117,33 +128,24 @@ class AutoRAG:
                 parsed["next_query"] = line.replace("Truy vấn tiếp theo:", "").strip()
             elif line.startswith("Câu trả lời cuối cùng:"):
                 current_section = "final_answer"
-                # Start collecting the final answer, but don't include this line
                 parsed["final_answer"] = ""
             elif current_section == "final_answer" and line is not None:
-                # Append each line of the final answer, preserving line breaks for Markdown
                 if parsed["final_answer"]:
                     parsed["final_answer"] += "\n" + line
                 else:
                     parsed["final_answer"] = line
             elif current_section and current_section != "final_answer" and line:
                 parsed[current_section] += " " + line
-        
-        # Process next query logic (your existing code)
-        if parsed["next_query"] and "Đối với" not in parsed["next_query"]:
-            original_query = parsed["next_query"]
-            vehicle_type = self._extract_vehicle_type(original_query)
-            violation_type = self._extract_violation_type(original_query)
-            penalty_types = self._extract_penalty_types(original_query)
-            
-            penalty_phrase = ""
-            if penalty_types:
-                penalty_phrase = f"bị xử phạt {', '.join(penalty_types)} như thế nào?"
-            else:
-                penalty_phrase = "bị xử phạt như thế nào?"
-            
-            parsed["next_query"] = f"Đối với {vehicle_type}, vi phạm {violation_type} sẽ {penalty_phrase}"
-            logger.info(f"Standardized next query: {parsed['next_query']}")
                 
+                
+        if parsed["next_query"]:
+            if "Theo luật giao thông đường bộ" in parsed["next_query"]:
+                parsed["question_type"] = "regulation"
+            elif "vi phạm" in parsed["next_query"] or "xử phạt" in parsed["next_query"]:
+                parsed["question_type"] = "violation"
+        
+    
+        
         return parsed
 
     def _extract_vehicle_type(self, query: str) -> str:
@@ -183,21 +185,21 @@ class AutoRAG:
     async def get_answer(self, question: str) -> Dict[str, Any]:
         """Get answer for a traffic-related question using Auto RAG with iterations"""
     
-        if not self._is_traffic_related(question):
-            logger.warning(f"Question may not be traffic-related: {question}")
-            return {
-                "error": "Câu hỏi có vẻ không liên quan đến luật giao thông. Vui lòng đặt câu hỏi về luật giao thông.",
-                "token_usage": {
-                    "input_tokens": self._count_tokens(question),
-                    "output_tokens": 0,
-                    "total_tokens": self._count_tokens(question)
-                }
-            }
+        # if not self._is_traffic_related(question):
+        #     logger.warning(f"Question may not be traffic-related: {question}")
+        #     return {
+        #         "error": "Câu hỏi có vẻ không liên quan đến luật giao thông. Vui lòng đặt câu hỏi về luật giao thông.",
+        #         "token_usage": {
+        #             "input_tokens": self._count_tokens(question),
+        #             "output_tokens": 0,
+        #             "total_tokens": self._count_tokens(question)
+        #         }
+        #     }
         
         # Initialize retrieval variables
         iteration = 0
-        accumulated_context = []  # This will store all retrieved documents across iterations
-        accumulated_docs = []     # Keep a copy of all NodeWithScore objects
+        accumulated_context = [] 
+        accumulated_docs = []    
         total_input_tokens = 0
         total_output_tokens = 0
         search_history = []

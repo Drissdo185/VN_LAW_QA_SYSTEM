@@ -27,6 +27,16 @@ class TrafficSynonymExpander:
                 "quên cà vẹt xe"
             ],
             
+            "điều kiện cấp giấy phép lái xe": [
+                "điều kiện lái xe",
+                "được phép lái xe",
+                "yêu cầu để lái xe",
+                "quy định về lái xe",
+                "tuổi lái xe",
+                "độ tuổi lái xe",
+                "bao nhiêu tuổi được lái xe"
+                ],
+            
             "không chứng nhận đăng ký xe": [
                 "không có cà vẹt xe",
                 "chưa có cà vẹt xe",
