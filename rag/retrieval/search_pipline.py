@@ -54,12 +54,14 @@ class SearchPipeline:
         
         initial_results = self.retriever.retrieve(query)
         logger.info(f"Initial retrieval returned {len(initial_results)} documents")
+        
             
             
                 
             
         logger.info("Applying metadata filtering")
         filtered_results = self._perform_metadata_filtering(initial_results, query)
+        
             
             
             
@@ -76,7 +78,7 @@ class SearchPipeline:
 
         top_k = min(self.retrieval_config.similarity_top_k, len(final_results))
         logger.info(f"Returning top {top_k} results")
-        return filtered_results[:10]
+        return initial_results[:15]
             
     
     def _rerank_results(self, query: str, nodes: List[NodeWithScore]) -> List[NodeWithScore]:

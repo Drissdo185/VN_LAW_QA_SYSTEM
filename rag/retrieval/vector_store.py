@@ -118,13 +118,13 @@ class VectorStoreManager:
     
     @lru_cache(maxsize=1)
     def _get_cached_embedding_model(self):
-        """Get cached embedding model to avoid reloading"""
         logger.info(f"Loading embedding model: {self.model_config.embedding_model}")
         return HuggingFaceEmbedding(
             model_name=self.model_config.embedding_model,
             device=self.model_config.device,
             max_length=512,  
-            trust_remote_code=True
+            trust_remote_code=True,
+            cache_folder="/home/drissdo/.cache/huggingface/hub"
         )
     
     def get_index(self) -> Optional[VectorStoreIndex]:
