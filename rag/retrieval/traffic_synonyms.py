@@ -90,6 +90,10 @@ class TrafficSynonymExpander:
                 "lề đường"
             ],
             
+            "đỗ":[
+                "đậu"
+            ],
+            
             # Parking violations
             "đỗ xe không đúng nơi quy định": [
                 "đỗ xe sai quy định",

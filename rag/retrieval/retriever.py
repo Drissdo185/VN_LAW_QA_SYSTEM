@@ -23,7 +23,7 @@ class DocumentRetriever:
         """Setup the retriever with configured parameters"""
         self.retriever = self.index.as_retriever(
                 vector_store_query_mode="hybrid",
-                similarity_top_k=20,
+                similarity_top_k=10,
                 alpha=0.5
             )
     
