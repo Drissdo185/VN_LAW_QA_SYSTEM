@@ -10,7 +10,14 @@ from pyvi import ViTokenizer
 from config.config import ModelConfig, LLMProvider
 from retrieval.retriever import DocumentRetriever
 from retrieval.search_pipline import SearchPipeline
-from reasoning.prompts import SYSTEM_PROMPT_FOR_VIOLATION, FINAL_EFFORT_PROMPT_FOR_VIOLATION, FINAL_EFFORT_PROMPT_FOR_REGULATION
+from reasoning.prompts import (
+    DECISION_PROMPT_FOR_VIOLATION,
+    DECISION_PROMPT_FOR_REGULATION,
+    FORMAT_OUTPUT_PROMPT_FOR_VIOLATION,
+    FORMAT_OUTPUT_PROMPT_FOR_REGULATION,
+    FINAL_EFFORT_PROMPT_FOR_VIOLATION,
+    FINAL_EFFORT_PROMPT_FOR_REGULATION
+)
 from llm.vllm_client import VLLMClient
 from llm.ollama_client import OllamaClient
 
@@ -29,7 +36,7 @@ class AutoRAG:
         self.search_pipeline = search_pipeline
         self.max_iterations = max_iterations
         self.llm = self._setup_llm()
-        self.prompt_template = PromptTemplate(template=SYSTEM_PROMPT_FOR_VIOLATION)
+        # No longer need a default prompt template as we'll use specific prompts for each stage
         self.tokenizer = self._setup_tokenizer()
     
     def _setup_llm(self):
@@ -102,21 +109,67 @@ class AutoRAG:
         """Count tokens in text"""
         return len(self.tokenizer.encode(text))
     
+    def _detect_question_type(self, query: str) -> str:
+        """
+        Detect if the question is about regulations or violations
+        
+        Args:
+            query: The question to analyze
+            
+        Returns:
+            "regulation" or "violation"
+        """
+        query_lower = query.lower()
+        
+        regulation_keywords = [
+            'quy định', 'điều kiện', 'độ tuổi', 'được phép', 'khi nào', 
+            'yêu cầu', 'cấp giấy phép', 'cấp bằng', 'hạng bằng', 
+            'loại bằng', 'được lái', 'cho phép', 'luật định',
+            'khi nào thì', 'làm thế nào để', 'cần những gì'
+        ]
+        
+        violation_keywords = [
+            'vi phạm', 'phạt', 'xử phạt', 'hình phạt', 'tiền phạt',
+            'bị phạt', 'mức phạt', 'tịch thu', 'tước giấy phép',
+            'phạt bao nhiêu', 'trừ điểm', 'phạt như thế nào'
+        ]
+        
+        # Check for regulation keywords
+        for keyword in regulation_keywords:
+            if keyword in query_lower:
+                logger.info(f"Detected as regulation question via keyword: {keyword}")
+                return "regulation"
+        
+        # Check for violation keywords
+        for keyword in violation_keywords:
+            if keyword in query_lower:
+                logger.info(f"Detected as violation question via keyword: {keyword}")
+                return "violation"
+        
+        # Default to violation if can't determine
+        logger.info("Could not determine question type, defaulting to violation")
+        return "violation"
 
-    def _parse_response(self, response: str) -> Dict[str, Any]:
-        """Parse LLM response into structured format"""
+    def _parse_decision_response(self, response: str) -> Dict[str, Any]:
+        """
+        Parse response from decision prompts to extract analysis, decision and next query.
+        
+        Args:
+            response: LLM response text
+            
+        Returns:
+            Dictionary with analysis, decision, and next_query fields
+        """
         lines = response.strip().split("\n")
         parsed = {
             "analysis": "",
             "decision": "",
-            "next_query": None,
-            "final_answer": None,
-            "question_type": "violation"  
+            "next_query": None
         }
         
-        # Trích xuất các trường từ phản hồi LLM
         current_section = None
         for line in lines:
+            line = line.strip()
             if line.startswith("Phân tích:"):
                 current_section = "analysis"
                 parsed["analysis"] = line.replace("Phân tích:", "").strip()
@@ -126,82 +179,45 @@ class AutoRAG:
             elif line.startswith("Truy vấn tiếp theo:"):
                 current_section = "next_query"
                 parsed["next_query"] = line.replace("Truy vấn tiếp theo:", "").strip()
-            elif line.startswith("Câu trả lời cuối cùng:"):
-                current_section = "final_answer"
-                parsed["final_answer"] = ""
-            elif current_section == "final_answer" and line is not None:
-                if parsed["final_answer"]:
-                    parsed["final_answer"] += "\n" + line
-                else:
-                    parsed["final_answer"] = line
-            elif current_section and current_section != "final_answer" and line:
+            elif current_section and line:
+                # Continue adding content to the current section
                 parsed[current_section] += " " + line
-                
-                
-        if parsed["next_query"]:
-            if "Theo luật giao thông đường bộ" in parsed["next_query"]:
-                parsed["question_type"] = "regulation"
-            elif "vi phạm" in parsed["next_query"] or "xử phạt" in parsed["next_query"]:
-                parsed["question_type"] = "violation"
+        
+        # Ensure decision is one of the expected values
+        if parsed["decision"] and parsed["decision"].strip() not in ["Đã đủ thông tin", "Cần thêm thông tin"]:
+            logger.warning(f"Unexpected decision value: '{parsed['decision']}'. Defaulting to 'Cần thêm thông tin'")
+            parsed["decision"] = "Cần thêm thông tin"
+        
+        logger.info(f"Parsed decision: '{parsed['decision']}'")
+        logger.info(f"Next query: {parsed['next_query'] or 'None'}")
         
         return parsed
 
-    def _extract_vehicle_type(self, query: str) -> str:
-        """Extract vehicle type from query"""
-        if "xe máy" in query.lower() or "mô tô" in query.lower():
-            return "xe máy"
-        elif "ô tô" in query.lower() or "xe hơi" in query.lower():
-            return "ô tô"
-        else:
-            return "phương tiện"  
-
-    def _extract_violation_type(self, query: str) -> str:
-        """Extract violation type from query"""
-        
-        violation = query
-        if "thông tin về" in query:
-            violation = query.split("thông tin về")[1].strip()
-        if "cho hành vi" in query:
-            violation = query.split("cho hành vi")[1].strip()
-        if "sẽ bị" in violation:
-            violation = violation.split("sẽ bị")[0].strip()
-        return violation
-
-    def _extract_penalty_types(self, query: str) -> List[str]:
-        """Extract penalty types mentioned in query"""
-        penalty_types = []
-        if "tiền" in query.lower():
-            penalty_types.append("tiền")
-        if "tịch thu" in query.lower() or "thu giữ" in query.lower():
-            penalty_types.append("tịch thu")
-        if "trừ điểm" in query.lower():
-            penalty_types.append("trừ điểm")
-        if "tước giấy phép" in query.lower() or "tước bằng" in query.lower():
-            penalty_types.append("tước giấy phép lái xe")
-        return penalty_types
-    
     async def get_answer(self, question: str) -> Dict[str, Any]:
         """Get answer for a traffic-related question using Auto RAG with iterations"""
-    
-        # if not self._is_traffic_related(question):
-        #     logger.warning(f"Question may not be traffic-related: {question}")
-        #     return {
-        #         "error": "Câu hỏi có vẻ không liên quan đến luật giao thông. Vui lòng đặt câu hỏi về luật giao thông.",
-        #         "token_usage": {
-        #             "input_tokens": self._count_tokens(question),
-        #             "output_tokens": 0,
-        #             "total_tokens": self._count_tokens(question)
-        #         }
-        #     }
+        
+        # Optional traffic-related check if needed
+        if not self._is_traffic_related(question):
+            logger.warning(f"Question may not be traffic-related: {question}")
+            return {
+                "error": "Câu hỏi có vẻ không liên quan đến luật giao thông. Vui lòng đặt câu hỏi về luật giao thông.",
+                "token_usage": {
+                    "input_tokens": self._count_tokens(question),
+                    "output_tokens": 0,
+                    "total_tokens": self._count_tokens(question)
+                }
+            }
+        
+        # Detect question type
+        question_type = self._detect_question_type(question)
+        logger.info(f"Initial question type detection: {question_type}")
         
         # Initialize retrieval variables
         iteration = 0
-        accumulated_context = [] 
         accumulated_docs = []    
         total_input_tokens = 0
         total_output_tokens = 0
         search_history = []
-        question_type = "violation"  # Default question type
         
         current_query = question
         while iteration < self.max_iterations:
@@ -240,14 +256,14 @@ class AutoRAG:
                 
                 # Log retrieved document information
                 logger.info("Retrieved document details:")
-                for i, doc in enumerate(retrieved_docs[:3]):  # Log first 3 docs
+                for i, doc in enumerate(retrieved_docs[:3]):  
                     logger.info(f"Doc {i+1} score: {doc.score}")
                     # Log metadata if available
                     if hasattr(doc.node, 'metadata'):
                         metadata = doc.node.metadata
                         logger.info(f"Doc {i+1} metadata: {metadata}")
                 
-                
+                # Filter out duplicate documents
                 new_docs = []
                 seen_texts = {doc.text for doc in accumulated_docs}
                 
@@ -266,31 +282,34 @@ class AutoRAG:
                 logger.info(f"Context length: {len(context)} characters")
                 logger.info(f"Total accumulated documents: {len(accumulated_docs)}")
                 
-                # Generate prompt and get response
-                prompt = self.prompt_template.format(
-                    question=question,  
-                    context=context
-                )
+                # Step 1: Use the appropriate decision prompt based on question type
+                if question_type == "violation":
+                    decision_prompt = DECISION_PROMPT_FOR_VIOLATION.format(
+                        question=question,
+                        context=context
+                    )
+                    logger.info("Using violation decision prompt")
+                else:
+                    decision_prompt = DECISION_PROMPT_FOR_REGULATION.format(
+                        question=question,
+                        context=context
+                    )
+                    logger.info("Using regulation decision prompt")
                 
-                input_tokens = self._count_tokens(prompt)
-                logger.info(f"Input tokens: {input_tokens}")
+                input_tokens = self._count_tokens(decision_prompt)
+                logger.info(f"Decision prompt tokens: {input_tokens}")
                 
-                response = await self.llm.acomplete(prompt)
-                output_tokens = self._count_tokens(response.text)
-                logger.info(f"Output tokens: {output_tokens}")
+                # Get decision from LLM
+                decision_response = await self.llm.acomplete(decision_prompt)
+                decision_tokens = self._count_tokens(decision_response.text)
+                logger.info(f"Decision response tokens: {decision_tokens}")
+                
+                # Parse decision response with dedicated parser
+                parsed_decision = self._parse_decision_response(decision_response.text)
                 
                 # Update token counts
                 total_input_tokens += input_tokens
-                total_output_tokens += output_tokens
-                
-                # Parse response
-                parsed_response = self._parse_response(response.text)
-                logger.info(f"Decision: {parsed_response['decision']}")
-                
-                # Update question type if detected in parsed response
-                if "question_type" in parsed_response:
-                    question_type = parsed_response["question_type"]
-                    logger.info(f"Detected question type: {question_type}")
+                total_output_tokens += decision_tokens
                 
                 # Track search iteration
                 search_history.append({
@@ -299,26 +318,66 @@ class AutoRAG:
                     "num_docs": len(retrieved_docs),
                     "new_docs": len(new_docs),
                     "total_docs": len(accumulated_docs),
-                    "response": parsed_response
+                    "decision": parsed_decision["decision"],
+                    "analysis": parsed_decision["analysis"]
                 })
                 
-                # Check if we have enough information
-                if parsed_response["decision"].strip().lower() == "đã đủ thông tin":
-                    # We have enough information, return final response
-                    logger.info("Found sufficient information, returning final answer")
-                    parsed_response["search_history"] = search_history
-                    parsed_response["token_usage"] = {
-                        "input_tokens": total_input_tokens,
-                        "output_tokens": total_output_tokens,
-                        "total_tokens": total_input_tokens + total_output_tokens
+                # Check if we have enough information (Step 2)
+                if parsed_decision["decision"].strip().lower() == "đã đủ thông tin":
+                    # We have enough information, generate final answer with format prompt
+                    logger.info("Found sufficient information, generating formatted answer")
+                    
+                    # Use the appropriate format prompt based on question type
+                    if question_type == "violation":
+                        format_prompt = FORMAT_OUTPUT_PROMPT_FOR_VIOLATION.format(
+                            question=question,
+                            context=context
+                        )
+                        logger.info("Using violation format prompt")
+                    else:
+                        format_prompt = FORMAT_OUTPUT_PROMPT_FOR_REGULATION.format(
+                            question=question,
+                            context=context
+                        )
+                        logger.info("Using regulation format prompt")
+                    
+                    format_tokens = self._count_tokens(format_prompt)
+                    format_response = await self.llm.acomplete(format_prompt)
+                    format_response_tokens = self._count_tokens(format_response.text)
+                    
+                    # Update token counts
+                    total_input_tokens += format_tokens
+                    total_output_tokens += format_response_tokens
+                    
+                    # Prepare final response
+                    final_response = {
+                        "analysis": parsed_decision["analysis"],
+                        "decision": parsed_decision["decision"],
+                        "final_answer": format_response.text,
+                        "search_history": search_history,
+                        "token_usage": {
+                            "input_tokens": total_input_tokens,
+                            "output_tokens": total_output_tokens,
+                            "total_tokens": total_input_tokens + total_output_tokens
+                        },
+                        "llm_provider": self.model_config.llm_provider,
+                        "question_type": question_type
                     }
-                    parsed_response["llm_provider"] = self.model_config.llm_provider
-                    parsed_response["question_type"] = question_type
-                    return parsed_response
+                    
+                    return final_response
                 
-                # If we need more information
-                if parsed_response["next_query"]:
-                    current_query = parsed_response["next_query"]
+                # If we need more information (Step 3)
+                if parsed_decision["next_query"]:
+                    current_query = parsed_decision["next_query"]
+                    
+                    # Update question type if the next query indicates a different type
+                    if "Theo luật giao thông đường bộ" in current_query:
+                        question_type = "regulation"
+                        logger.info("Updated question type to regulation based on next query")
+                    elif "vi phạm" in current_query or "xử phạt" in current_query:
+                        question_type = "violation"
+                        logger.info("Updated question type to violation based on next query")
+                    
                     logger.info(f"Need more information, next query: {current_query}")
                     iteration += 1
                 else:
@@ -337,56 +396,55 @@ class AutoRAG:
                 iteration += 1
                 continue
         
-        # After max iterations, if we still need more information, use what we have
+        # After max iterations or if loop was broken, handle incomplete information
         if accumulated_docs:
-            logger.info("Generating final answer using all accumulated documents")
+            logger.info("Generating best-effort final answer using all accumulated documents")
             context = self.retriever.get_formatted_context(accumulated_docs)
             
-            # Use the appropriate prompt template based on question type
+            # Use the appropriate final effort prompt based on question type
             if question_type == "violation":
                 final_prompt = FINAL_EFFORT_PROMPT_FOR_VIOLATION.format(
                     question=question,
                     context=context
                 )
-                logger.info("Using violation prompt template for final effort")
+                logger.info("Using violation final effort prompt")
             else:
                 final_prompt = FINAL_EFFORT_PROMPT_FOR_REGULATION.format(
                     question=question,
                     context=context
                 )
-                logger.info("Using regulation prompt template for final effort")
+                logger.info("Using regulation final effort prompt")
             
             input_tokens = self._count_tokens(final_prompt)
-            logger.info(f"Final input tokens: {input_tokens}")
+            logger.info(f"Final effort input tokens: {input_tokens}")
             
             response = await self.llm.acomplete(final_prompt)
             output_tokens = self._count_tokens(response.text)
-            logger.info(f"Final output tokens: {output_tokens}")
+            logger.info(f"Final effort output tokens: {output_tokens}")
             
             # Update token counts
             total_input_tokens += input_tokens
             total_output_tokens += output_tokens
             
-            # Parse response
-            parsed_response = self._parse_response(response.text)
-            
-            # Force the decision to "Đã đủ thông tin"
-            parsed_response["decision"] = "Đã đủ thông tin"
-            
-            logger.info("Generated best-effort final answer")
-            parsed_response["search_history"] = search_history
-            parsed_response["token_usage"] = {
-                "input_tokens": total_input_tokens,
-                "output_tokens": total_output_tokens,
-                "total_tokens": total_input_tokens + total_output_tokens
+            # No need to parse final effort response, just return the full text as final_answer
+            final_response = {
+                "analysis": "Thông tin có thể chưa đầy đủ, nhưng cố gắng đưa ra câu trả lời tốt nhất có thể.",
+                "decision": "Đã đủ thông tin",
+                "final_answer": response.text,
+                "search_history": search_history,
+                "token_usage": {
+                    "input_tokens": total_input_tokens,
+                    "output_tokens": total_output_tokens,
+                    "total_tokens": total_input_tokens + total_output_tokens
+                },
+                "llm_provider": self.model_config.llm_provider,
+                "question_type": question_type,
+                "note": "Câu trả lời được tạo ra dựa trên thông tin tìm được, có thể chưa hoàn toàn đầy đủ."
             }
-            parsed_response["llm_provider"] = self.model_config.llm_provider
-            parsed_response["question_type"] = question_type
-            parsed_response["note"] = "Câu trả lời được tạo ra dựa trên thông tin tìm được, có thể chưa hoàn toàn đầy đủ."
             
-            return parsed_response
+            return final_response
         
-        # If all else fails
+        # If all else fails (no documents found)
         logger.warning("Exiting loop without sufficient information")
         final_response = {
             "analysis": "Sau nhiều lần tìm kiếm, hệ thống vẫn chưa tìm thấy đủ thông tin về luật giao thông liên quan đến câu hỏi này.",
