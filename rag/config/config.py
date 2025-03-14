@@ -20,18 +20,19 @@ class VLLMConfig:
     api_url: str = "http://192.168.100.125:8000"
     model_name: str = "Qwen/Qwen2.5-14B-Instruct-AWQ"
     temperature: float = 0.2
-    max_tokens: int = 512
-    top_p: float = 0.95
+    max_tokens: int = 516
+    top_p: float = 0.9
     timeout: float = 500
     request_timeout: float = 500
+    stop = ["[KẾT THÚC]", "\n\n\n\n", "# ", "## "]
 
 @dataclass
 class OllamaConfig:
     api_url: str = "http://192.168.100.125:11434"
     model_name: str = "qwen2.5:14b"
-    temperature: float = 0.2
-    max_tokens: int = 512
-    top_p: float = 0.95
+    temperature: float = 0.1
+    max_tokens: int = 800
+    top_p: float = 0.5
     timeout: float = 120.0
     request_timeout: float = 120.0
 
