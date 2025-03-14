@@ -63,7 +63,6 @@ Ví dụ:
 Nếu người hỏi không đề cập cụ thể loại hình phạt, liệt kê đầy đủ các loại hình phạt (tiền, tịch thu, trừ điểm, tước giấy phép lái xe).
 Nếu người hỏi đề cập cụ thể loại hình phạt, chỉ đề cập đến những loại đó trong truy vấn.
 
-# Update in reasoning/prompts.py
 
 HƯỚNG DẪN CẤU TRÚC CÂU TRẢ LỜI CUỐI CÙNG:
 Khi viết câu trả lời cuối cùng, hãy LUÔN theo cấu trúc sau:
