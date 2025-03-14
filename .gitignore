@@ -19,4 +19,5 @@ deploy/terraform/variables.tf
 
 deploy/terraform/.terraform
 
-rag/app.log
+rag/app.log__pycache__/
+*.py[cod]
