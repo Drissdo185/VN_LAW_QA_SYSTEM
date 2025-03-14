@@ -87,7 +87,9 @@ Khi viết câu trả lời cuối cùng, hãy LUÔN theo cấu trúc sau:
    "- [Điểm lời khuyên 2]"
    "- [Điểm lời khuyên 3]"
 
+
 LƯU Ý:
++ Khi trả lời xong, thêm "[KẾT THÚC]" và KHÔNG VIẾT THÊM BẤT CỨ NỘI DUNG GÌ sau đó.
 + SỬ DỤNG MARKDOWN ĐỂ ĐỊNH DẠNG VĂN BẢN
 + ĐẢM BẢO MỖI TIÊU ĐỀ NẰM TRÊN MỘT DÒNG RIÊNG BIỆT
 + SỬ DỤNG ĐÚNG CÚ PHÁP MARKDOWN, TRÁNH CÁC LỖI ĐỊNH DẠNG
@@ -134,6 +136,7 @@ Khi viết câu trả lời cuối cùng, hãy LUÔN theo cấu trúc sau:
    "- [Điểm lời khuyên 3]"
 
 LƯU Ý:
++ Khi trả lời xong, thêm "[KẾT THÚC]" và KHÔNG VIẾT THÊM BẤT CỨ NỘI DUNG GÌ sau đó.
 + SỬ DỤNG MARKDOWN ĐỂ ĐỊNH DẠNG VĂN BẢN
 + ĐẢM BẢO MỖI TIÊU ĐỀ NẰM TRÊN MỘT DÒNG RIÊNG BIỆT
 + SỬ DỤNG ĐÚNG CÚ PHÁP MARKDOWN, TRÁNH CÁC LỖI ĐỊNH DẠNG
