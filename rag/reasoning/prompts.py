@@ -28,9 +28,7 @@ Hãy trả về kết quả theo định dạng JSON với các trường sau:
 
 Chỉ trả về JSON, không trả lời gì thêm.
 """
-
-# System prompt for AutoRAG reasoning
-SYSTEM_PROMPT = """
+SYSTEM_PROMPT_FOR_REGULATION = """
 Dựa trên tài liệu đã trích xuất, hãy phân tích và trả lời câu hỏi.
 
 Câu hỏi: {question}
@@ -47,6 +45,72 @@ QUAN TRỌNG: Nếu câu hỏi có nhiều loại vi phạm cùng lúc (ví dụ
 - Nếu chưa đủ thông tin về một vi phạm cụ thể, chỉ hỏi thêm về vi phạm đó, không lặp lại các vi phạm đã có thông tin đầy đủ.
 - Khi trả lời cuối cùng, hãy tổng hợp thông tin về TẤT CẢ các vi phạm đã tìm thấy.
 
+QUAN TRỌNG: Trường "Quyết định" PHẢI là một trong hai giá trị: "Đã đủ thông tin" hoặc "Cần thêm thông tin". 
+Không bao giờ để trống trường này và không sử dụng các giá trị khác.
+
+Hãy trả lời theo định dạng sau:
+Phân tích: <phân tích thông tin hiện có, ghi rõ thông tin nào đã đủ, thiếu thông tin gì>
+Quyết định: [Cần thêm thông tin/Đã đủ thông tin]
+Truy vấn tiếp theo: <truy vấn mới> (nếu cần)
+Câu trả lời cuối cùng: <Trả lời câu hỏi dựa trên thông tin đã phân tích, chỉ khi dữ liệu đã đủ.>  (nếu đã đủ thông tin)
+
+HƯỚNG DẪN ĐỊNH DẠNG TRUY VẤN TIẾP THEO:
+Khi viết câu trả lời cuối cùng, hãy LUÔN theo cấu trúc gồm 3 phần chính:
+
+1. Bắt đầu với một tiêu đề chính rõ ràng dạng Markdown:
+   "# Quy định về [Tên chủ đề]"
+
+2. Phần 1: Trả lời trực tiếp
+   "## Trả lời"
+   "**[Câu trả lời ngắn gọn, trực tiếp cho câu hỏi]**"
+
+3. Phần 2: Giải thích chi tiết
+   "## Giải thích chi tiết"
+   "### [Điểm giải thích 1]"
+   "[Nội dung giải thích chi tiết]"
+   
+   "### [Điểm giải thích 2]"
+   "[Nội dung giải thích chi tiết]"
+   
+   (thêm các điểm giải thích khác nếu cần)
+
+4. Phần 3: Lời khuyên
+   "## Lời khuyên"
+   "- [Lời khuyên 1]"
+   "- [Lời khuyên 2]"
+   "- [Lời khuyên 3]"
+
+Khi trả lời xong, thêm "[KẾT THÚC]" và KHÔNG VIẾT THÊM BẤT CỨ NỘI DUNG GÌ sau đó, bao gồm cả văn bản tiếng nước ngoài.
+
+LƯU Ý:
++ SỬ DỤNG MARKDOWN ĐỂ ĐỊNH DẠNG VĂN BẢN
++ ĐẢM BẢO MỖI TIÊU ĐỀ NẰM TRÊN MỘT DÒNG RIÊNG BIỆT
++ SỬ DỤNG ĐÚNG CÚ PHÁP MARKDOWN, TRÁNH CÁC LỖI ĐỊNH DẠNG
++ KHÔNG SỬ DỤNG CÂU MỞ ĐẦU KIỂU "Chào bạn" MÀ BẮT ĐẦU TRỰC TIẾP BẰNG TIÊU ĐỀ
++ CHỈ TRẢ LỜI BẰNG TIẾNG VIỆT
+
+"""
+
+SYSTEM_PROMPT_FOR_VIOLATION = """
+Dựa trên tài liệu đã trích xuất, hãy phân tích và trả lời câu hỏi.
+
+Câu hỏi: {question}
+
+Tài liệu: {context}
+
+Hãy suy nghĩ từng bước:
+1. Phân tích xem thông tin có đủ và liên quan không?
+2. Nếu chưa đủ, hãy đưa ra truy vấn mới để tìm thêm thông tin
+3. Nếu đã đủ, đưa ra câu trả lời cuối cùng
+
+QUAN TRỌNG: Nếu câu hỏi có nhiều loại vi phạm cùng lúc (ví dụ: vi phạm tốc độ, nồng độ cồn, và vượt đèn đỏ), hãy kiểm tra xem:
+- Đã có thông tin về TẤT CẢ các loại vi phạm chưa?
+- Nếu chưa đủ thông tin về một vi phạm cụ thể, chỉ hỏi thêm về vi phạm đó, không lặp lại các vi phạm đã có thông tin đầy đủ.
+- Khi trả lời cuối cùng, hãy tổng hợp thông tin về TẤT CẢ các vi phạm đã tìm thấy.
+
+QUAN TRỌNG: Trường "Quyết định" PHẢI là một trong hai giá trị: "Đã đủ thông tin" hoặc "Cần thêm thông tin". 
+Không bao giờ để trống trường này và không sử dụng các giá trị khác.
+
 Hãy trả lời theo định dạng sau:
 Phân tích: <phân tích thông tin hiện có, ghi rõ thông tin nào đã đủ, thiếu thông tin gì>
 Quyết định: [Cần thêm thông tin/Đã đủ thông tin]
@@ -57,14 +121,10 @@ HƯỚNG DẪN ĐỊNH DẠNG TRUY VẤN TIẾP THEO:
 Nếu cần thêm thông tin, truy vấn tiếp theo PHẢI theo định dạng:
 "Đối với [loại phương tiện], vi phạm [loại vi phạm] sẽ bị xử phạt [tiền/tịch thu/trừ điểm] như thế nào?"
 
-Ví dụ:
-- "Đối với mô tô và gắn máy, vi phạm chạy quá tốc độ trên 20km/h và vượt đèn đỏ sẽ bị xử phạt như thế nào?"
-- "Đối với ô tô, vi phạm nồng độ cồn trong máu vượt quá 50mg/100ml sẽ bị xử phạt tiền, trừ điểm và tước giấy phép lái xe như thế nào?"
 
 Nếu người hỏi không đề cập cụ thể loại hình phạt, liệt kê đầy đủ các loại hình phạt (tiền, tịch thu, trừ điểm, tước giấy phép lái xe).
 Nếu người hỏi đề cập cụ thể loại hình phạt, chỉ đề cập đến những loại đó trong truy vấn.
 
-# Update in reasoning/prompts.py
 
 HƯỚNG DẪN CẤU TRÚC CÂU TRẢ LỜI CUỐI CÙNG:
 Khi viết câu trả lời cuối cùng, hãy LUÔN theo cấu trúc sau:
@@ -89,6 +149,8 @@ Khi viết câu trả lời cuối cùng, hãy LUÔN theo cấu trúc sau:
    "- [Điểm lời khuyên 2]"
    "- [Điểm lời khuyên 3]"
 
+Khi trả lời xong, thêm "[KẾT THÚC]" và KHÔNG VIẾT THÊM BẤT CỨ NỘI DUNG GÌ sau đó, bao gồm cả văn bản tiếng nước ngoài.
+
 LƯU Ý:
 + SỬ DỤNG MARKDOWN ĐỂ ĐỊNH DẠNG VĂN BẢN
 + ĐẢM BẢO MỖI TIÊU ĐỀ NẰM TRÊN MỘT DÒNG RIÊNG BIỆT
@@ -97,7 +159,7 @@ LƯU Ý:
 + CHỈ TRẢ LỜI BẰNG TIẾNG VIỆT
 """
 
-FINAL_EFFORT_PROMPT = """
+FINAL_EFFORT_PROMPT_FOR_VIOLATION = """
 Dựa trên tài liệu đã trích xuất, hãy phân tích và trả lời câu hỏi.
 
 Câu hỏi: {question}
@@ -110,7 +172,7 @@ Phân tích: <phân tích thông tin hiện có>
 Quyết định: Đã đủ thông tin
 Câu trả lời cuối cùng: <Trả lời câu hỏi dựa trên thông tin đã phân tích>
 
-# Update in reasoning/prompts.py
+
 
 HƯỚNG DẪN CẤU TRÚC CÂU TRẢ LỜI CUỐI CÙNG:
 Khi viết câu trả lời cuối cùng, hãy LUÔN theo cấu trúc sau:
@@ -135,6 +197,8 @@ Khi viết câu trả lời cuối cùng, hãy LUÔN theo cấu trúc sau:
    "- [Điểm lời khuyên 2]"
    "- [Điểm lời khuyên 3]"
 
+Khi trả lời xong, thêm "[KẾT THÚC]" và KHÔNG VIẾT THÊM BẤT CỨ NỘI DUNG GÌ sau đó, bao gồm cả văn bản tiếng nước ngoài.
+
 LƯU Ý:
 + SỬ DỤNG MARKDOWN ĐỂ ĐỊNH DẠNG VĂN BẢN
 + ĐẢM BẢO MỖI TIÊU ĐỀ NẰM TRÊN MỘT DÒNG RIÊNG BIỆT
@@ -143,60 +207,53 @@ LƯU Ý:
 + CHỈ TRẢ LỜI BẰNG TIẾNG VIỆT
 """
 
-
-# Prompt cho câu hỏi về quy định chung
-REGULATION_PROMPT = """
+FINAL_EFFORT_PROMPT_FOR_REGULATION = """
 Dựa trên tài liệu đã trích xuất, hãy phân tích và trả lời câu hỏi về quy định giao thông.
 
 Câu hỏi: {question}
 
 Tài liệu: {context}
 
-Hãy suy nghĩ từng bước:
-1. Phân tích xem thông tin có đủ và liên quan không?
-2. Nếu chưa đủ, hãy đưa ra truy vấn mới để tìm thêm thông tin
-3. Nếu đã đủ, đưa ra câu trả lời cuối cùng
-
+Mặc dù thông tin có thể chưa đầy đủ, hãy cố gắng đưa ra câu trả lời tốt nhất có thể dựa trên thông tin hiện có.
 Hãy trả lời theo định dạng sau:
-Phân tích: <phân tích thông tin hiện có, ghi rõ thông tin nào đã đủ, thiếu thông tin gì>
-Quyết định: [Cần thêm thông tin/Đã đủ thông tin]
-Truy vấn tiếp theo: <truy vấn mới> (nếu cần)
-Câu trả lời cuối cùng: <Trả lời câu hỏi dựa trên thông tin đã phân tích, chỉ khi dữ liệu đã đủ.>  (nếu đã đủ thông tin)
-
-HƯỚNG DẪN ĐỊNH DẠNG TRUY VẤN TIẾP THEO:
-Nếu cần thêm thông tin, truy vấn tiếp theo PHẢI theo định dạng:
-"Theo luật giao thông đường bộ, [quy định/điều kiện] đối với [đối tượng] là gì?"
-
-Ví dụ:
-- "Theo luật giao thông đường bộ, điều kiện độ tuổi đối với người lái xe gắn máy là gì?"
-- "Theo luật giao thông đường bộ, điều kiện sức khỏe đối với người lái xe ô tô là gì?"
+Phân tích: <phân tích thông tin hiện có>
+Quyết định: Đã đủ thông tin
+Câu trả lời cuối cùng: <Trả lời câu hỏi dựa trên thông tin đã phân tích>
 
 HƯỚNG DẪN CẤU TRÚC CÂU TRẢ LỜI CUỐI CÙNG:
-Khi viết câu trả lời cuối cùng, hãy LUÔN theo cấu trúc sau:
+Khi viết câu trả lời cuối cùng, hãy LUÔN theo cấu trúc gồm 3 phần chính:
 
 1. Bắt đầu với một tiêu đề chính rõ ràng dạng Markdown:
-   "# Quy định về [chủ đề] (Dành cho [đối tượng])"
+   "# Quy định về [Tên chủ đề]"
 
-2. Sử dụng tiêu đề phụ cho các khía cạnh khác nhau của quy định:
-   "## [Tên quy định cụ thể]"
+2. Phần 1: Trả lời trực tiếp
+   "## Trả lời"
+   "**[Câu trả lời ngắn gọn, trực tiếp cho câu hỏi]**"
+
+3. Phần 2: Giải thích chi tiết
+   "## Giải thích chi tiết"
+   "### [Điểm giải thích 1]"
+   "[Nội dung giải thích chi tiết]"
    
-3. Liệt kê chi tiết quy định:
-   "- **[Tên điều kiện]:** [Chi tiết điều kiện]"
-   "- **[Tên yêu cầu]:** [Chi tiết yêu cầu]"
+   "### [Điểm giải thích 2]"
+   "[Nội dung giải thích chi tiết]"
+   
+   (thêm các điểm giải thích khác nếu cần)
 
-4. Thêm phần căn cứ pháp lý:
-   "## Căn cứ pháp lý"
-   "- [Tên văn bản pháp luật, số hiệu, điều khoản]"
-
-5. Thêm phần lời khuyên ở cuối:
+4. Phần 3: Lời khuyên
    "## Lời khuyên"
-   "- [Điểm lời khuyên 1]"
-   "- [Điểm lời khuyên 2]"
+   "- [Lời khuyên 1]"
+   "- [Lời khuyên 2]"
+   "- [Lời khuyên 3]"
+
+Khi trả lời xong, thêm "[KẾT THÚC]" và KHÔNG VIẾT THÊM BẤT CỨ NỘI DUNG GÌ sau đó, bao gồm cả văn bản tiếng nước ngoài.
 
 LƯU Ý:
 + SỬ DỤNG MARKDOWN ĐỂ ĐỊNH DẠNG VĂN BẢN
 + ĐẢM BẢO MỖI TIÊU ĐỀ NẰM TRÊN MỘT DÒNG RIÊNG BIỆT
 + SỬ DỤNG ĐÚNG CÚ PHÁP MARKDOWN, TRÁNH CÁC LỖI ĐỊNH DẠNG
-+ KHÔNG SỬ DỤNG CÂU "Chào bạn, xin phân tích tình huống" MÀ BẮT ĐẦU TRỰC TIẾP BẰNG TIÊU ĐỀ
++ KHÔNG SỬ DỤNG CÂU MỞ ĐẦU KIỂU "Chào bạn" MÀ BẮT ĐẦU TRỰC TIẾP BẰNG TIÊU ĐỀ
 + CHỈ TRẢ LỜI BẰNG TIẾNG VIỆT
 """
+
+

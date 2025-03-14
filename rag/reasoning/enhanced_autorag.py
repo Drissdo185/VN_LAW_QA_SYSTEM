@@ -6,7 +6,7 @@ from retrieval.retriever import DocumentRetriever
 from retrieval.search_pipline import SearchPipeline
 from reasoning.auto_rag import AutoRAG
 from retrieval.traffic_synonyms import TrafficSynonymExpander
-from reasoning.prompts import REGULATION_PROMPT, SYSTEM_PROMPT
+from reasoning.prompts import SYSTEM_PROMPT_FOR_VIOLATION, SYSTEM_PROMPT_FOR_REGULATION
 from llama_index.core import PromptTemplate
 
 logger = logging.getLogger(__name__)
@@ -50,25 +50,25 @@ class EnhancedAutoRAG:
         try:
             logger.info(f"Original query: '{question}'")
             
-            # Vẫn thực hiện mở rộng từ đồng nghĩa
+            
             expanded_query = self.synonym_expander.expand_query(question)
             logger.info(f"Query after synonym expansion: '{expanded_query}'")
             
-            # Phân loại câu hỏi thay vì chuẩn hóa
+            
             question_type = self._classify_question_type(expanded_query)
             logger.info(f"Detected question type: {question_type}")
             
-            # Sử dụng prompt phù hợp với loại câu hỏi
+            
             if question_type == "regulation":
-                # Sử dụng prompt cho câu hỏi quy định
-                self.auto_rag.prompt_template = PromptTemplate(template=REGULATION_PROMPT)
+                
+                self.auto_rag.prompt_template = PromptTemplate(template=SYSTEM_PROMPT_FOR_REGULATION)
                 logger.info("Using regulation prompt template")
             else:
-                # Sử dụng prompt mặc định cho câu hỏi vi phạm
-                self.auto_rag.prompt_template = PromptTemplate(template=SYSTEM_PROMPT)
+                
+                self.auto_rag.prompt_template = PromptTemplate(template=SYSTEM_PROMPT_FOR_VIOLATION)
                 logger.info("Using violation prompt template")
             
-            # Sử dụng trực tiếp expanded_query thay vì standardized_query
+            
             response = await self.auto_rag.get_answer(expanded_query)
             
             response["query_info"] = {

@@ -18,10 +18,11 @@ class VLLMConfig:
     api_url: str = "http://192.168.100.125:8000"
     model_name: str = "Qwen/Qwen2.5-14B-Instruct-AWQ"
     temperature: float = 0.2
-    max_tokens: int = 2048
-    top_p: float = 0.9
+    max_tokens: int = 516
+    top_p: float = 0.95
     timeout: float = 120.0
     request_timeout: float = 120.0
+    stop = ["[KẾT THÚC]", "\n\n\n\n", "# ", "## "]
     
 class VLLMClient(CustomLLM):
     def __init__(
@@ -29,10 +30,11 @@ class VLLMClient(CustomLLM):
         api_url: str = "http://192.168.100.125:8000",
         model_name: str = "Qwen/Qwen2.5-14B-Instruct-AWQ",
         temperature: float = 0.2,
-        max_tokens: int = 2048,
-        top_p: float = 0.9,
+        max_tokens: int = 516,
+        top_p: float = 0.95,
         timeout: float = 120.0,
         request_timeout: float = 120.0,
+        stop = ["[KẾT THÚC]", "\n\n\n\n", "# ", "## "]
     ) -> None:
         super().__init__()
         self._api_url = api_url
@@ -43,6 +45,7 @@ class VLLMClient(CustomLLM):
         self._timeout = timeout
         self._request_timeout = request_timeout
         self._client = httpx.AsyncClient(timeout=request_timeout)
+        self._stop = stop
         
         logger.info(f"Initialized vLLM client for model: {model_name} at {api_url}")
     
@@ -111,6 +114,7 @@ class VLLMClient(CustomLLM):
             "max_tokens": kwargs.get("max_tokens", self._max_tokens),
             "temperature": kwargs.get("temperature", self._temperature),
             "top_p": kwargs.get("top_p", self._top_p),
+            "stop": kwargs.get("stop", getattr(self, "stop", None)),
             "stream": False,
         }
         

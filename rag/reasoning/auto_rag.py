@@ -10,7 +10,7 @@ from pyvi import ViTokenizer
 from config.config import ModelConfig, LLMProvider
 from retrieval.retriever import DocumentRetriever
 from retrieval.search_pipline import SearchPipeline
-from reasoning.prompts import SYSTEM_PROMPT, FINAL_EFFORT_PROMPT
+from reasoning.prompts import SYSTEM_PROMPT_FOR_VIOLATION, FINAL_EFFORT_PROMPT_FOR_VIOLATION, FINAL_EFFORT_PROMPT_FOR_REGULATION
 from llm.vllm_client import VLLMClient
 from llm.ollama_client import OllamaClient
 
@@ -29,7 +29,7 @@ class AutoRAG:
         self.search_pipeline = search_pipeline
         self.max_iterations = max_iterations
         self.llm = self._setup_llm()
-        self.prompt_template = PromptTemplate(template=SYSTEM_PROMPT)
+        self.prompt_template = PromptTemplate(template=SYSTEM_PROMPT_FOR_VIOLATION)
         self.tokenizer = self._setup_tokenizer()
     
     def _setup_llm(self):
@@ -111,7 +111,7 @@ class AutoRAG:
             "decision": "",
             "next_query": None,
             "final_answer": None,
-            "question_type": "violation"  # Mặc định là câu hỏi về vi phạm
+            "question_type": "violation"  
         }
         
         # Trích xuất các trường từ phản hồi LLM
@@ -143,8 +143,6 @@ class AutoRAG:
                 parsed["question_type"] = "regulation"
             elif "vi phạm" in parsed["next_query"] or "xử phạt" in parsed["next_query"]:
                 parsed["question_type"] = "violation"
-        
-    
         
         return parsed
 
@@ -203,6 +201,7 @@ class AutoRAG:
         total_input_tokens = 0
         total_output_tokens = 0
         search_history = []
+        question_type = "violation"  # Default question type
         
         current_query = question
         while iteration < self.max_iterations:
@@ -288,6 +287,11 @@ class AutoRAG:
                 parsed_response = self._parse_response(response.text)
                 logger.info(f"Decision: {parsed_response['decision']}")
                 
+                # Update question type if detected in parsed response
+                if "question_type" in parsed_response:
+                    question_type = parsed_response["question_type"]
+                    logger.info(f"Detected question type: {question_type}")
+                
                 # Track search iteration
                 search_history.append({
                     "iteration": iteration + 1,
@@ -309,6 +313,7 @@ class AutoRAG:
                         "total_tokens": total_input_tokens + total_output_tokens
                     }
                     parsed_response["llm_provider"] = self.model_config.llm_provider
+                    parsed_response["question_type"] = question_type
                     return parsed_response
                 
                 # If we need more information
@@ -334,46 +339,52 @@ class AutoRAG:
         
         # After max iterations, if we still need more information, use what we have
         if accumulated_docs:
+            logger.info("Generating final answer using all accumulated documents")
+            context = self.retriever.get_formatted_context(accumulated_docs)
             
-                logger.info("Generating final answer using all accumulated documents")
-                context = self.retriever.get_formatted_context(accumulated_docs)
-                
-                # Create a special final prompt that instructs the LLM to provide a best effort answer
-                final_prompt = FINAL_EFFORT_PROMPT.format(
+            # Use the appropriate prompt template based on question type
+            if question_type == "violation":
+                final_prompt = FINAL_EFFORT_PROMPT_FOR_VIOLATION.format(
                     question=question,
                     context=context
                 )
-                
-                input_tokens = self._count_tokens(final_prompt)
-                logger.info(f"Final input tokens: {input_tokens}")
-                
-                response = await self.llm.acomplete(final_prompt)
-                output_tokens = self._count_tokens(response.text)
-                logger.info(f"Final output tokens: {output_tokens}")
-                
-                # Update token counts
-                total_input_tokens += input_tokens
-                total_output_tokens += output_tokens
-                
-                # Parse response
-                parsed_response = self._parse_response(response.text)
-                
-                # Force the decision to "Đã đủ thông tin"
-                parsed_response["decision"] = "Đã đủ thông tin"
-                
-                logger.info("Generated best-effort final answer")
-                parsed_response["search_history"] = search_history
-                parsed_response["token_usage"] = {
-                    "input_tokens": total_input_tokens,
-                    "output_tokens": total_output_tokens,
-                    "total_tokens": total_input_tokens + total_output_tokens
-                }
-                parsed_response["llm_provider"] = self.model_config.llm_provider
-                parsed_response["note"] = "Câu trả lời được tạo ra dựa trên thông tin tìm được, có thể chưa hoàn toàn đầy đủ."
-                
-                return parsed_response
-                
-        
+                logger.info("Using violation prompt template for final effort")
+            else:
+                final_prompt = FINAL_EFFORT_PROMPT_FOR_REGULATION.format(
+                    question=question,
+                    context=context
+                )
+                logger.info("Using regulation prompt template for final effort")
+            
+            input_tokens = self._count_tokens(final_prompt)
+            logger.info(f"Final input tokens: {input_tokens}")
+            
+            response = await self.llm.acomplete(final_prompt)
+            output_tokens = self._count_tokens(response.text)
+            logger.info(f"Final output tokens: {output_tokens}")
+            
+            # Update token counts
+            total_input_tokens += input_tokens
+            total_output_tokens += output_tokens
+            
+            # Parse response
+            parsed_response = self._parse_response(response.text)
+            
+            # Force the decision to "Đã đủ thông tin"
+            parsed_response["decision"] = "Đã đủ thông tin"
+            
+            logger.info("Generated best-effort final answer")
+            parsed_response["search_history"] = search_history
+            parsed_response["token_usage"] = {
+                "input_tokens": total_input_tokens,
+                "output_tokens": total_output_tokens,
+                "total_tokens": total_input_tokens + total_output_tokens
+            }
+            parsed_response["llm_provider"] = self.model_config.llm_provider
+            parsed_response["question_type"] = question_type
+            parsed_response["note"] = "Câu trả lời được tạo ra dựa trên thông tin tìm được, có thể chưa hoàn toàn đầy đủ."
+            
+            return parsed_response
         
         # If all else fails
         logger.warning("Exiting loop without sufficient information")
@@ -387,7 +398,8 @@ class AutoRAG:
                 "output_tokens": total_output_tokens,
                 "total_tokens": total_input_tokens + total_output_tokens
             },
-            "llm_provider": self.model_config.llm_provider
+            "llm_provider": self.model_config.llm_provider,
+            "question_type": question_type
         }
         
         return final_response
