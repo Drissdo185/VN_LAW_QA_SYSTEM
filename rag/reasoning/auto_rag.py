@@ -10,7 +10,7 @@ from pyvi import ViTokenizer
 from config.config import ModelConfig, LLMProvider
 from retrieval.retriever import DocumentRetriever
 from retrieval.search_pipline import SearchPipeline
-from reasoning.prompts import SYSTEM_PROMPT, FINAL_EFFORT_PROMPT, DECISION_PROMPT, OUTPUT_FORMAT
+from reasoning.prompts import FULL_PROMPT, DECISION_PROMPT, OUTPUT_FORMAT, FINAL_EFFORT_PROMPT
 from llm.vllm_client import VLLMClient
 from llm.ollama_client import OllamaClient
 
@@ -29,46 +29,34 @@ class AutoRAG:
         self.search_pipeline = search_pipeline
         self.max_iterations = max_iterations
         self.llm = self._setup_llm()
-        
-        # Tạo các PromptTemplate riêng biệt cho từng mục đích
-        self.decision_prompt = PromptTemplate(template=DECISION_PROMPT)
-        self.output_format_prompt = PromptTemplate(template=OUTPUT_FORMAT)
-        self.system_prompt = PromptTemplate(template=SYSTEM_PROMPT)
-        self.final_effort_prompt = PromptTemplate(template=FINAL_EFFORT_PROMPT)
-        
+        self.prompt_template = PromptTemplate(template=FULL_PROMPT)
+        self.decision_prompt_template = PromptTemplate(template=DECISION_PROMPT)
+        self.final_effort_prompt_template = PromptTemplate(template=FINAL_EFFORT_PROMPT)
         self.tokenizer = self._setup_tokenizer()
     
     def _setup_llm(self):
         """Set up the LLM based on the provider configuration"""
         if self.model_config.llm_provider == LLMProvider.OPENAI:
-            logger.info(f"Setting up OpenAI LLM with model: {self.model_config.openai_model}")
-            return OpenAI(
-                model=self.model_config.openai_model,
-                api_key=self.model_config.openai_api_key
-            )
+            logger.info(f"Setting up OpenAI LLM: {self.model_config.openai_model}")
+            return OpenAI(model=self.model_config.openai_model, api_key=self.model_config.openai_api_key)
         elif self.model_config.llm_provider == LLMProvider.VLLM:
-            logger.info(f"Setting up vLLM client with model: {self.model_config.vllm_config.model_name}")
+            logger.info(f"Setting up vLLM: {self.model_config.vllm_config.model_name}")
             try:
-                client = VLLMClient.from_config(self.model_config.vllm_config)
-                logger.info(f"Successfully initialized vLLM client with API URL: {client.api_url}")
-                return client
+                return VLLMClient.from_config(self.model_config.vllm_config)
             except Exception as e:
-                logger.error(f"Error initializing vLLM client: {str(e)}")
+                logger.error(f"vLLM initialization error: {str(e)}")
                 raise
         elif self.model_config.llm_provider == LLMProvider.OLLAMA:
-            logger.info(f"Setting up Ollama client with model: {self.model_config.ollama_config.model_name}")
+            logger.info(f"Setting up Ollama: {self.model_config.ollama_config.model_name}")
             try:
-                client = OllamaClient.from_config(self.model_config.ollama_config)
-                logger.info(f"Successfully initialized Ollama client with API URL: {client.api_url}")
-                return client
+                return OllamaClient.from_config(self.model_config.ollama_config)
             except Exception as e:
-                logger.error(f"Error initializing Ollama client: {str(e)}")
+                logger.error(f"Ollama initialization error: {str(e)}")
                 raise
         else:
             raise ValueError(f"Unsupported LLM provider: {self.model_config.llm_provider}")
 
     def _setup_tokenizer(self):
-        """Set up the tokenizer based on the LLM provider"""
         if self.model_config.llm_provider == LLMProvider.OPENAI:
             return tiktoken.encoding_for_model(self.model_config.openai_model)
         elif self.model_config.llm_provider in [LLMProvider.VLLM, LLMProvider.OLLAMA]:
@@ -77,18 +65,16 @@ class AutoRAG:
             raise ValueError(f"Unsupported LLM provider: {self.model_config.llm_provider}")
     
     def _count_tokens(self, text: str) -> int:
-        """Count tokens in text"""
         return len(self.tokenizer.encode(text))
     
     def _parse_response(self, response: str) -> Dict[str, Any]:
-        """Parse LLM response into structured format with standardized next query"""
         lines = response.strip().split("\n")
         parsed = {
             "analysis": "",
-            "query_type": "",
             "decision": "",
             "next_query": None,
-            "final_answer": None
+            "final_answer": None,
+            "query_type": None  
         }
         
         current_section = None
@@ -96,9 +82,6 @@ class AutoRAG:
             if line.startswith("Phân tích:"):
                 current_section = "analysis"
                 parsed["analysis"] = line.replace("Phân tích:", "").strip()
-            elif line.startswith("Loại câu hỏi:"):
-                current_section = "query_type"
-                parsed["query_type"] = line.replace("Loại câu hỏi:", "").strip()
             elif line.startswith("Quyết định:"):
                 current_section = "decision"
                 parsed["decision"] = line.replace("Quyết định:", "").strip()
@@ -107,10 +90,8 @@ class AutoRAG:
                 parsed["next_query"] = line.replace("Truy vấn tiếp theo:", "").strip()
             elif line.startswith("Câu trả lời cuối cùng:"):
                 current_section = "final_answer"
-                # Start collecting the final answer, but don't include this line
                 parsed["final_answer"] = ""
             elif current_section == "final_answer" and line is not None:
-                # Append each line of the final answer, preserving line breaks for Markdown
                 if parsed["final_answer"]:
                     parsed["final_answer"] += "\n" + line
                 else:
@@ -118,28 +99,79 @@ class AutoRAG:
             elif current_section and current_section != "final_answer" and line:
                 parsed[current_section] += " " + line
         
-        # Xử lý tiêu chuẩn hóa truy vấn tiếp theo
-        if parsed["next_query"] and parsed["query_type"].lower() == "xử phạt" and "Đối với" not in parsed["next_query"]:
-            original_query = parsed["next_query"]
-            # Phương tiện mặc định
-            vehicle_type = "phương tiện"
-            violation_type = self._extract_violation_type(original_query)
-            penalty_types = self._extract_penalty_types(original_query)
+        # Determine query type based on content
+        if parsed["analysis"] and any(keyword in parsed["analysis"].lower() for keyword in 
+                                ["vi phạm", "xử phạt", "phạt tiền", "trừ điểm", "tước giấy phép"]):
+            parsed["query_type"] = "violation_penalty"
+        else:
+            parsed["query_type"] = "general_information"
+        
+        # Format next query if needed
+        if parsed["next_query"]:
+            if parsed["query_type"] == "violation_penalty" and "Đối với" not in parsed["next_query"]:
+                original_query = parsed["next_query"]
+                vehicle_type = self._extract_vehicle_type(original_query)
+                violation_type = self._extract_violation_type(original_query)
+                penalty_types = self._extract_penalty_types(original_query)
+                
+                penalty_phrase = ""
+                if penalty_types:
+                    penalty_phrase = f"bị xử phạt {', '.join(penalty_types)} như thế nào?"
+                else:
+                    penalty_phrase = "bị xử phạt như thế nào?"
+                
+                parsed["next_query"] = f"Đối với {vehicle_type}, vi phạm {violation_type} sẽ {penalty_phrase}"
             
-            penalty_phrase = ""
-            if penalty_types:
-                penalty_phrase = f"bị xử phạt {', '.join(penalty_types)} như thế nào?"
-            else:
-                penalty_phrase = "bị xử phạt như thế nào?"
+            elif parsed["query_type"] == "general_information" and "Quy định về" not in parsed["next_query"]:
+                original_query = parsed["next_query"]
+                topic = self._extract_topic(original_query)
+                vehicle_type = self._extract_vehicle_type(original_query)
+                
+                if vehicle_type and vehicle_type != "phương tiện":
+                    parsed["next_query"] = f"Quy định về {topic} đối với {vehicle_type} là gì?"
+                else:
+                    parsed["next_query"] = f"Quy định về {topic} là gì?"
             
-            parsed["next_query"] = f"Đối với {vehicle_type}, vi phạm {violation_type} sẽ {penalty_phrase}"
-            logger.info(f"Standardized next query: {parsed['next_query']}")
+            logger.info(f"Next query: {parsed['next_query']}")
                 
         return parsed
+    
+    def _extract_vehicle_type(self, query: str) -> str:
+        if "xe máy" in query.lower() or "mô tô" in query.lower():
+            return "xe máy"
+        elif "ô tô" in query.lower() or "xe hơi" in query.lower():
+            return "ô tô"
+        else:
+            return "phương tiện"
+
+    def _extract_topic(self, query: str) -> str:
+        topic_keywords = [
+            "độ tuổi", "tuổi tối thiểu", "điều kiện", "yêu cầu", "thủ tục", 
+            "giấy phép lái xe", "bằng lái", "hạng", "loại bằng", "đổi bằng",
+            "thời hạn", "gia hạn", "cấp lại", "học", "thi", "lệ phí", "chi phí"
+        ]
+        
+        for keyword in topic_keywords:
+            if keyword in query.lower():
+                parts = query.lower().split(keyword)
+                if len(parts) > 1:
+                    before = parts[0].strip().split()[-3:] if parts[0].strip() else []
+                    after = parts[1].strip().split()[:3] if parts[1].strip() else []
+                    context_words = before + [keyword] + after
+                    return " ".join(context_words)
+        
+        if "độ tuổi" in query.lower() or "tuổi" in query.lower():
+            return "độ tuổi lái xe"
+        elif "bằng lái" in query.lower() or "giấy phép" in query.lower():
+            return "giấy phép lái xe"
+        elif "điều kiện" in query.lower() or "yêu cầu" in query.lower():
+            return "điều kiện cấp giấy phép lái xe"
+        elif "thủ tục" in query.lower() or "làm bằng" in query.lower():
+            return "thủ tục cấp giấy phép lái xe"
+        
+        return "quy định giao thông đường bộ"
 
     def _extract_violation_type(self, query: str) -> str:
-        """Extract violation type from query"""
-        
         violation = query
         if "thông tin về" in query:
             violation = query.split("thông tin về")[1].strip()
@@ -150,7 +182,6 @@ class AutoRAG:
         return violation
 
     def _extract_penalty_types(self, query: str) -> List[str]:
-        """Extract penalty types mentioned in query"""
         penalty_types = []
         if "tiền" in query.lower():
             penalty_types.append("tiền")
@@ -162,32 +193,55 @@ class AutoRAG:
             penalty_types.append("tước giấy phép lái xe")
         return penalty_types
     
-    async def get_answer(self, question: str) -> Dict[str, Any]:
-        """Get answer for a traffic-related question using Auto RAG with iterations"""
+    async def get_answer(self, question) -> Dict[str, Any]:
+        """
+        Get answer for a traffic-related question using Auto RAG with iterations
         
-        # Initialize retrieval variables
+        Args:
+            question: Có thể là một chuỗi truy vấn hoặc đối tượng simplification_result
+        """
+        # Xử lý khi đầu vào là dictionary từ query_simplifier
+        if isinstance(question, dict):
+            # Trích xuất thông tin từ dictionary
+            query_info = {
+                "original_query": question.get("original_query", ""),
+                "standardized_query": question.get("standardized_query", ""),
+                "metadata": question.get("metadata", {})
+            }
+            
+            # Sử dụng standardized_query cho việc tìm kiếm
+            current_query = question.get("standardized_query", "")
+            if not current_query:
+                return {
+                    "error": "Không thể trích xuất câu truy vấn chuẩn hóa",
+                    "token_usage": {
+                        "input_tokens": 0, 
+                        "output_tokens": 0,
+                        "total_tokens": 0
+                    }
+                }
+        else:
+            # Nếu đầu vào là chuỗi, sử dụng trực tiếp
+            current_query = question
+            query_info = None
+        
+        # Khởi tạo biến lưu trữ
         iteration = 0
-        accumulated_context = []  # This will store all retrieved documents across iterations
-        accumulated_docs = []     # Keep a copy of all NodeWithScore objects
+        accumulated_docs = []
         total_input_tokens = 0
         total_output_tokens = 0
         search_history = []
         
-        current_query = question
+        # Bắt đầu vòng lặp RAG
         while iteration < self.max_iterations:
             try:
-                # Get documents for current query
-                logger.info(f"Iteration {iteration+1}: Retrieving documents for query: {current_query}")
+                # Retrieve documents
+                logger.info(f"Iteration {iteration+1}: Query: {current_query}")
                 
-                # Always use SearchPipeline for retrieval
                 if self.search_pipeline:
-                    # Use existing SearchPipeline
-                    logger.info("Using SearchPipeline for retrieval")
                     retrieved_docs = self.search_pipeline.search(current_query)
                 else:
-                    # Create a new search pipeline with the retriever
                     from config.config import RetrievalConfig
-                    logger.info("Creating temporary SearchPipeline")
                     temp_pipeline = SearchPipeline(
                         retriever=self.retriever,
                         model_config=self.model_config,
@@ -195,9 +249,7 @@ class AutoRAG:
                     )
                     retrieved_docs = temp_pipeline.search(current_query)
                 
-                logger.info(f"Retrieved {len(retrieved_docs)} documents")
-                
-                # Skip iteration if no documents found
+                # Handle no documents found
                 if not retrieved_docs:
                     search_history.append({
                         "iteration": iteration + 1,
@@ -205,18 +257,9 @@ class AutoRAG:
                         "num_docs": 0,
                         "error": "No documents found"
                     })
-                    logger.warning(f"No documents found for query: {current_query}")
                     break
                 
-                # Log retrieved document information
-                logger.info("Retrieved document details:")
-                for i, doc in enumerate(retrieved_docs[:3]):  # Log first 3 docs
-                    logger.info(f"Doc {i+1} score: {doc.score}")
-                    # Log metadata if available
-                    if hasattr(doc.node, 'metadata'):
-                        metadata = doc.node.metadata
-                        logger.info(f"Doc {i+1} metadata: {metadata}")
-                
+                # Process unique documents
                 new_docs = []
                 seen_texts = {doc.text for doc in accumulated_docs}
                 
@@ -225,39 +268,26 @@ class AutoRAG:
                         new_docs.append(doc)
                         seen_texts.add(doc.text)
                 
-                # Add unique new documents to accumulated collections
                 accumulated_docs.extend(new_docs)
-                
-                # Format context from ALL accumulated documents
                 context = self.retriever.get_formatted_context(accumulated_docs)
                 
-                # Log context length
-                logger.info(f"Context length: {len(context)} characters")
-                logger.info(f"Total accumulated documents: {len(accumulated_docs)}")
-                
-                # Generate prompt and get response - sử dụng system_prompt thay vì nhiều prompt riêng lẻ
-                prompt = self.system_prompt.format(
-                    question=question,  
+                # Generate and process response
+                # Sử dụng current_query thay vì question gốc
+                prompt = self.prompt_template.format(
+                    question=current_query,  
                     context=context
                 )
                 
                 input_tokens = self._count_tokens(prompt)
-                logger.info(f"Input tokens: {input_tokens}")
-                
                 response = await self.llm.acomplete(prompt)
                 output_tokens = self._count_tokens(response.text)
-                logger.info(f"Output tokens: {output_tokens}")
                 
-                # Update token counts
                 total_input_tokens += input_tokens
                 total_output_tokens += output_tokens
                 
-                # Parse response
                 parsed_response = self._parse_response(response.text)
-                logger.info(f"Query type: {parsed_response.get('query_type', 'Unknown')}")
-                logger.info(f"Decision: {parsed_response['decision']}")
                 
-                # Track search iteration
+                # Track iteration
                 search_history.append({
                     "iteration": iteration + 1,
                     "query": current_query,
@@ -269,8 +299,7 @@ class AutoRAG:
                 
                 # Check if we have enough information
                 if parsed_response["decision"].strip().lower() == "đã đủ thông tin":
-                    
-                    logger.info("Found sufficient information, returning final answer")
+                    logger.info("Found sufficient information")
                     parsed_response["search_history"] = search_history
                     parsed_response["token_usage"] = {
                         "input_tokens": total_input_tokens,
@@ -278,16 +307,18 @@ class AutoRAG:
                         "total_tokens": total_input_tokens + total_output_tokens
                     }
                     parsed_response["llm_provider"] = self.model_config.llm_provider
+                    
+                    # Bổ sung query_info nếu có
+                    if query_info:
+                        parsed_response["query_info"] = query_info
+                    
                     return parsed_response
                 
                 # If we need more information
                 if parsed_response["next_query"]:
                     current_query = parsed_response["next_query"]
-                    logger.info(f"Need more information, next query: {current_query}")
                     iteration += 1
                 else:
-                    # No next query provided but needs more info - break loop
-                    logger.warning("Need more information but no next query provided")
                     break
                     
             except Exception as e:
@@ -297,39 +328,28 @@ class AutoRAG:
                     "query": current_query,
                     "error": str(e)
                 })
-                # Continue to next iteration if possible
                 iteration += 1
                 continue
         
         # After max iterations, if we still need more information, use what we have
         if accumulated_docs:
-            logger.info("Generating final answer using all accumulated documents")
             context = self.retriever.get_formatted_context(accumulated_docs)
             
-            # Create a special final prompt that instructs the LLM to provide a best effort answer
-            final_prompt = self.final_effort_prompt.format(
-                question=question,
+            final_prompt = self.final_effort_prompt_template.format(
+                question=current_query,  # Sử dụng current_query thay vì question gốc
                 context=context
             )
             
             input_tokens = self._count_tokens(final_prompt)
-            logger.info(f"Final input tokens: {input_tokens}")
-            
             response = await self.llm.acomplete(final_prompt)
             output_tokens = self._count_tokens(response.text)
-            logger.info(f"Final output tokens: {output_tokens}")
             
-            # Update token counts
             total_input_tokens += input_tokens
             total_output_tokens += output_tokens
             
-            # Parse response
             parsed_response = self._parse_response(response.text)
-            
-            # Force the decision to "Đã đủ thông tin"
             parsed_response["decision"] = "Đã đủ thông tin"
             
-            logger.info("Generated best-effort final answer")
             parsed_response["search_history"] = search_history
             parsed_response["token_usage"] = {
                 "input_tokens": total_input_tokens,
@@ -339,13 +359,16 @@ class AutoRAG:
             parsed_response["llm_provider"] = self.model_config.llm_provider
             parsed_response["note"] = "Câu trả lời được tạo ra dựa trên thông tin tìm được, có thể chưa hoàn toàn đầy đủ."
             
+            # Bổ sung query_info nếu có
+            if query_info:
+                parsed_response["query_info"] = query_info
+                
             return parsed_response
         
         # If all else fails
-        logger.warning("Exiting loop without sufficient information")
         final_response = {
             "analysis": "Sau nhiều lần tìm kiếm, hệ thống vẫn chưa tìm thấy đủ thông tin về luật giao thông liên quan đến câu hỏi này.",
-            "query_type": "Unknown",
+            "query_type": "unknown",
             "decision": "Không tìm thấy đủ thông tin",
             "final_answer": "Xin lỗi, tôi không tìm thấy đủ thông tin trong luật giao thông để trả lời câu hỏi của bạn.",
             "search_history": search_history,
@@ -357,4 +380,8 @@ class AutoRAG:
             "llm_provider": self.model_config.llm_provider
         }
         
+        # Bổ sung query_info nếu có
+        if query_info:
+            final_response["query_info"] = query_info
+            
         return final_response

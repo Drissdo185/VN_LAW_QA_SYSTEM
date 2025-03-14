@@ -42,22 +42,24 @@ class EnhancedAutoRAG:
         try:
             logger.info(f"Original query: '{question}'")
             
-            
+    
             expanded_query = self.synonym_expander.expand_query(question)
             logger.info(f"Query after synonym expansion: '{expanded_query}'")
             
+           
+            logger.info(f"Standardizing expanded query")
+            simplification_result = await self.query_simplifier.simplify_query(expanded_query)
             
-            response = await self.auto_rag.get_answer(expanded_query)
+        
             
            
-            response["query_info"] = {
-                "original_query": question,
-                "expanded_query": expanded_query,
-                "question_type": response.get("question_type", "violation")  
-            }
+            
+            
+            response = await self.auto_rag.get_answer(simplification_result)
+
             
             return response
-            
+                
         except Exception as e:
             logger.error(f"Error in EnhancedAutoRAG: {str(e)}")
             return {
