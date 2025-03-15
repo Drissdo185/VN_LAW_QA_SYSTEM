@@ -44,7 +44,7 @@ class ModelConfig:
 class RetrievalConfig:
     vector_store_query_mode: str = "hybrid"
     similarity_top_k: int = 20
-    alpha: float = 0.5
+    alpha: float = 0.3
 
 @dataclass
 class WebSearchConfig:
