@@ -12,7 +12,7 @@ from retrieval.retriever import DocumentRetriever
 from retrieval.search_pipline import SearchPipeline
 from reasoning.prompts import SYSTEM_PROMPT, FINAL_EFFORT_PROMPT
 from llm.vllm_client import VLLMClient
-from llm.ollama_client import OllamaClient
+
 
 logger = logging.getLogger(__name__)
 

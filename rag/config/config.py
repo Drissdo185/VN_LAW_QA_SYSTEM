@@ -26,16 +26,6 @@ class VLLMConfig:
     request_timeout: float = 500
 
 @dataclass
-class OllamaConfig:
-    api_url: str = "http://192.168.100.125:11434"
-    model_name: str = "qwen2.5:14b"
-    temperature: float = 0.2
-    max_tokens: int = 512
-    top_p: float = 0.95
-    timeout: float = 120.0
-    request_timeout: float = 120.0
-
-@dataclass
 class ModelConfig:
     device: str = "cuda:0" if torch.cuda.is_available() else "cpu"
     embedding_model: str = "dangvantuan/vietnamese-document-embedding"
@@ -48,13 +38,13 @@ class ModelConfig:
     openai_api_key: Optional[str] = os.getenv("OPENAI_API_KEY")
     
     vllm_config: VLLMConfig = field(default_factory=lambda: VLLMConfig())
-    ollama_config: OllamaConfig = field(default_factory=lambda: OllamaConfig())
+    
     
 @dataclass
 class RetrievalConfig:
     vector_store_query_mode: str = "hybrid"
-    similarity_top_k: int = 10
-    alpha: float = 0.3
+    similarity_top_k: int = 20
+    alpha: float = 0.5
 
 @dataclass
 class WebSearchConfig:

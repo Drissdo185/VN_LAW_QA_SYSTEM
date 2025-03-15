@@ -4,7 +4,6 @@ from typing import Dict, Any
 from llama_index.llms.openai import OpenAI
 from config.config import ModelConfig, LLMProvider
 from llm.vllm_client import VLLMClient
-from llm.ollama_client import OllamaClient
 from retrieval.traffic_synonyms import TrafficSynonymExpander
 from reasoning.prompts import QUERY_STANDARDIZATION_PROMPT
 import json
@@ -41,14 +40,6 @@ class QuerySimplifier:
                 return client
             except Exception as e:
                 logger.error(f"Error initializing vLLM client: {str(e)}")
-                raise
-        elif self.model_config.llm_provider == LLMProvider.OLLAMA:
-            try:
-                logger.info(f"Setting up Ollama for query simplification: {self.model_config.ollama_config.model_name}")
-                client = OllamaClient.from_config(self.model_config.ollama_config)
-                return client
-            except Exception as e:
-                logger.error(f"Error initializing Ollama client: {str(e)}")
                 raise
         else:
             raise ValueError(f"Unsupported LLM provider: {self.model_config.llm_provider}")
