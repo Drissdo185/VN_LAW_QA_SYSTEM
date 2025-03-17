@@ -8,7 +8,7 @@ Câu hỏi đầu vào: {query}
 {legal_terms_hint}
 
 QUAN TRỌNG: Câu truy vấn chuẩn hóa PHẢI theo đúng định dạng sau:
-"Đối với [vehicle_type], vi phạm [loại vi phạm] sẽ bị xử phạt [loại hình phạt nếu có đề cập] như thế nào?"
+"Luật giao thông quy định như thế nào về [chủ đề]?"
 
 Khi nói đến "vượt đèn đỏ", hãy dùng thuật ngữ pháp lý: "không chấp hành hiệu lệnh của đèn tín hiệu giao thông"
 
