@@ -1,11 +1,11 @@
 from typing import Dict, Any, Optional, List
 import logging
-from retrieval.query_simplifier import QuerySimplifier
+from rag.question_process.query_simplifier import QuerySimplifier
 from config.config import ModelConfig, RetrievalConfig
 from retrieval.retriever import DocumentRetriever
 from retrieval.search_pipline import SearchPipeline
 from reasoning.auto_rag import AutoRAG
-from retrieval.traffic_synonyms import TrafficSynonymExpander
+from rag.question_process.traffic_synonyms import TrafficSynonymExpander
 
 logger = logging.getLogger(__name__)
 

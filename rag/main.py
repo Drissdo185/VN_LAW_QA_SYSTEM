@@ -22,7 +22,7 @@ logger = logging.getLogger(__name__)
 
 # Import the rest of the dependencies
 try:
-    from retrieval.traffic_synonyms import TrafficSynonymExpander
+    from rag.question_process.traffic_synonyms import TrafficSynonymExpander
     from retrieval.search_pipline import SearchPipeline
     from retrieval.retriever import DocumentRetriever
     from retrieval.vector_store import VectorStoreManager

@@ -5,7 +5,7 @@ from pyvi import ViTokenizer
 import logging
 from config.config import ModelConfig, RetrievalConfig
 from retrieval.retriever import DocumentRetriever
-from retrieval.traffic_synonyms import TrafficSynonymExpander
+from rag.question_process.traffic_synonyms import TrafficSynonymExpander
 
 # Setup logger
 logger = logging.getLogger(__name__)

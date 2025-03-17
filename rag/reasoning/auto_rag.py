@@ -4,9 +4,6 @@ from llama_index.core import PromptTemplate
 from llama_index.core.schema import NodeWithScore
 import tiktoken
 import logging
-import re
-from pyvi import ViTokenizer
-
 from config.config import ModelConfig, LLMProvider
 from retrieval.retriever import DocumentRetriever
 from retrieval.search_pipline import SearchPipeline
@@ -49,15 +46,6 @@ class AutoRAG:
             except Exception as e:
                 logger.error(f"Error initializing vLLM client: {str(e)}")
                 raise
-        elif self.model_config.llm_provider == LLMProvider.OLLAMA:
-            logger.info(f"Setting up Ollama client with model: {self.model_config.ollama_config.model_name}")
-            try:
-                client = OllamaClient.from_config(self.model_config.ollama_config)
-                logger.info(f"Successfully initialized Ollama client with API URL: {client.api_url}")
-                return client
-            except Exception as e:
-                logger.error(f"Error initializing Ollama client: {str(e)}")
-                raise
         else:
             raise ValueError(f"Unsupported LLM provider: {self.model_config.llm_provider}")
 
@@ -70,24 +58,6 @@ class AutoRAG:
         else:
             raise ValueError(f"Unsupported LLM provider: {self.model_config.llm_provider}")
     
-    def _is_traffic_related(self, question: str) -> bool:
-        """Check if question is related to traffic"""
-        traffic_keywords = [
-            'mũ bảo hiểm', 'giao thông', 'đường bộ', 'biển báo', 
-            'luật giao thông', 'phạt', 'xe máy', 'ô tô', 'bằng lái',
-            'giấy phép', 'nd168', 'nghị định', 'nồng độ cồn', 
-            'vượt đèn đỏ', 'tốc độ', 'vạch kẻ đường', 'tai nạn',
-            'xe', 'đường', 'đậu xe', 'đỗ xe', 'dừng xe', 'đăng kiểm',
-            'giấy tờ', 'biển số', 'traffic', 'luật', 'quá tải'
-        ]
-        
-        question_lower = question.lower()
-        for keyword in traffic_keywords:
-            if keyword in question_lower:
-                logger.info(f"Question validated as traffic-related via keyword: {keyword}")
-                return True
-        
-        return False
     
     def _count_tokens(self, text: str) -> int:
         """Count tokens in text"""
@@ -117,10 +87,8 @@ class AutoRAG:
                 parsed["next_query"] = line.replace("Truy vấn tiếp theo:", "").strip()
             elif line.startswith("Câu trả lời cuối cùng:"):
                 current_section = "final_answer"
-                # Start collecting the final answer, but don't include this line
                 parsed["final_answer"] = ""
             elif current_section == "final_answer" and line is not None:
-                # Append each line of the final answer, preserving line breaks for Markdown
                 if parsed["final_answer"]:
                     parsed["final_answer"] += "\n" + line
                 else:
@@ -128,7 +96,6 @@ class AutoRAG:
             elif current_section and current_section != "final_answer" and line:
                 parsed[current_section] += " " + line
         
-        # Process next query logic (your existing code)
         if parsed["next_query"] and "Đối với" not in parsed["next_query"]:
             original_query = parsed["next_query"]
             vehicle_type = self._extract_vehicle_type(original_query)
@@ -181,20 +148,7 @@ class AutoRAG:
         return penalty_types
     
     async def get_answer(self, question: str) -> Dict[str, Any]:
-        """Get answer for a traffic-related question using Auto RAG with iterations"""
-    
-        if not self._is_traffic_related(question):
-            logger.warning(f"Question may not be traffic-related: {question}")
-            return {
-                "error": "Câu hỏi có vẻ không liên quan đến luật giao thông. Vui lòng đặt câu hỏi về luật giao thông.",
-                "token_usage": {
-                    "input_tokens": self._count_tokens(question),
-                    "output_tokens": 0,
-                    "total_tokens": self._count_tokens(question)
-                }
-            }
         
-        # Initialize retrieval variables
         iteration = 0
         accumulated_context = []  # This will store all retrieved documents across iterations
         accumulated_docs = []     # Keep a copy of all NodeWithScore objects
@@ -278,7 +232,7 @@ class AutoRAG:
                 output_tokens = self._count_tokens(response.text)
                 logger.info(f"Output tokens: {output_tokens}")
                 
-                # Update token counts
+        
                 total_input_tokens += input_tokens
                 total_output_tokens += output_tokens
                 
@@ -286,7 +240,7 @@ class AutoRAG:
                 parsed_response = self._parse_response(response.text)
                 logger.info(f"Decision: {parsed_response['decision']}")
                 
-                # Track search iteration
+                
                 search_history.append({
                     "iteration": iteration + 1,
                     "query": current_query,
@@ -296,9 +250,9 @@ class AutoRAG:
                     "response": parsed_response
                 })
                 
-                # Check if we have enough information
+                
                 if parsed_response["decision"].strip().lower() == "đã đủ thông tin":
-                    # We have enough information, return final response
+                
                     logger.info("Found sufficient information, returning final answer")
                     parsed_response["search_history"] = search_history
                     parsed_response["token_usage"] = {
@@ -309,13 +263,13 @@ class AutoRAG:
                     parsed_response["llm_provider"] = self.model_config.llm_provider
                     return parsed_response
                 
-                # If we need more information
+               
                 if parsed_response["next_query"]:
                     current_query = parsed_response["next_query"]
                     logger.info(f"Need more information, next query: {current_query}")
                     iteration += 1
                 else:
-                    # No next query provided but needs more info - break loop
+                   
                     logger.warning("Need more information but no next query provided")
                     break
                     

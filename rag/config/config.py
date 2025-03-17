@@ -7,7 +7,6 @@ from enum import Enum
 class LLMProvider(str, Enum):
     OPENAI = "openai"
     VLLM = "vllm"
-    OLLAMA = "ollama"
 
 @dataclass
 class WeaviateConfig:
@@ -43,7 +42,7 @@ class ModelConfig:
 @dataclass
 class RetrievalConfig:
     vector_store_query_mode: str = "hybrid"
-    similarity_top_k: int = 20
+    similarity_top_k: int = 10
     alpha: float = 0.3
 
 @dataclass

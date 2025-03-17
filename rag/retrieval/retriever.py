@@ -4,7 +4,7 @@ from pyvi import ViTokenizer
 from llama_index.core import VectorStoreIndex
 from llama_index.core.schema import NodeWithScore
 from config.config import RetrievalConfig
-from retrieval.traffic_synonyms import TrafficSynonymExpander
+from rag.question_process.traffic_synonyms import TrafficSynonymExpander
 
 logger = logging.getLogger(__name__)
 
