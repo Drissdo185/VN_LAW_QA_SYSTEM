@@ -80,6 +80,7 @@ Hãy tạo câu trả lời đầy đủ, chính xác, chi tiết và dễ hiể
 6. Sử dụng ngôn ngữ đơn giản nhưng chính xác và chuyên nghiệp
 7. Sắp xếp thông tin theo cấu trúc rõ ràng, dễ đọc, sử dụng các mục và tiêu đề phù hợp
 8. Nếu có các quy định hoặc điều kiện đặc biệt, phải nêu rõ
+9. SỬ DỤNG MARKDOWN ĐỂ ĐỊNH DẠNG VĂN BẢN
 
 Nếu vẫn còn thông tin chưa tìm thấy sau quá trình tìm kiếm, hãy nêu rõ những thông tin còn thiếu. KHÔNG được tự thêm thông tin không có trong dữ liệu đã thu thập.
 
@@ -103,7 +104,8 @@ Hãy phân tích kỹ các dữ liệu tham khảo để cung cấp thông tin c
 5. Phân tích các trường hợp khác nhau nếu có (ví dụ: nồng độ cồn ở các mức khác nhau)
 6. KHÔNG đề cập đến số hiệu nghị định, thông tư hoặc các văn bản pháp luật cụ thể
 7. Tổ chức câu trả lời theo cấu trúc rõ ràng với các mục, tiêu đề và danh sách
-8. Nếu dữ liệu không có thông tin về một khía cạnh nào đó của câu hỏi, hãy nêu rõ thông tin này chưa được cung cấp
+8. SỬ DỤNG MARKDOWN ĐỂ ĐỊNH DẠNG VĂN BẢN
+9. Nếu dữ liệu không có thông tin về một khía cạnh nào đó của câu hỏi, hãy nêu rõ thông tin này chưa được cung cấp
 
 Đảm bảo cung cấp thông tin ĐẦY ĐỦ nhất để người dùng có cái nhìn toàn diện về hậu quả pháp lý của các vi phạm giao thông được đề cập.
 """

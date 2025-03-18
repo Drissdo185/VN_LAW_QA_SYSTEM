@@ -13,6 +13,7 @@ from prompt import (
     DECISION_GENERAL,
     ANSWER
 )
+from VLLM import VLLMClient
 
 class AutoRAG:
     def __init__(
@@ -27,7 +28,11 @@ class AutoRAG:
         temperature=0.2,
         top_k=10,
         alpha=0.5,
-        max_iterations=3
+        max_iterations=3,
+        llm_provider="openai",
+        vllm_api_url="http://localhost:8000/v1/completions",
+        vllm_model_name="Qwen/Qwen2.5-14B-Instruct-AWQ",
+        vllm_max_tokens=1024
     ):
         """
         Initialize the Autonomous RAG system.
@@ -79,10 +84,19 @@ class AutoRAG:
             alpha=alpha
         )
         
-        # Initialize LLM
-        self.llm = OpenAI(model=model_name, temperature=temperature)
+        self.llm_provider == llm_provider
+        if llm_provider == "openai":
+            self.llm = OpenAI(model=model_name, temperature=temperature)
+        elif llm_provider == "vllm":
+            self.llm = VLLMClient(
+                api_url=vllm_api_url,
+                model_name=vllm_model_name,
+                temperature=temperature,
+                max_tokens=vllm_max_tokens
+            )
+        else:
+            raise ValueError(f"Unsupported LLM provider: {llm_provider}")  
         
-        # Set max iterations for the autonomous loop
         self.max_iterations = max_iterations
     
     def process_question(self, question):
@@ -265,33 +279,3 @@ class AutoRAG:
             "answer": final_answer,
             "iterations": iteration + 1
         }
-
-
-# Example usage
-if __name__ == "__main__":
-    # Create AutoRAG instance
-    auto_rag = AutoRAG(
-        weaviate_host="192.168.100.125",
-        weaviate_port=8080,
-        weaviate_grpc_port=50051,
-        index_name="ND168",
-        embed_model_name="dangvantuan/vietnamese-document-embedding",
-        embed_cache_folder="/home/user/.cache/huggingface/hub",
-        model_name="gpt-4o-mini",
-        temperature=0.2,
-        top_k=10,
-        alpha=0.5,
-        max_iterations=3
-    )
-    
-    # Example question
-    question = "Tôi uống 1 thùng bia và quên mang cà vẹt xe"
-    result = auto_rag.process(question)
-    
-    print("\n--- FINAL RESULT ---")
-    print(f"Original Question: {result['original_question']}")
-    print(f"Processed Question: {result['processed_question']}")
-    print(f"Total Iterations: {result['iterations']}")
-    print(f"Query History: {result['query_history']}")
-    print("\nFinal Answer:")
-    print(result['answer'])
