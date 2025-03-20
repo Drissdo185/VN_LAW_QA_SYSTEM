@@ -22,7 +22,7 @@ class AutoRAG:
         weaviate_port=8080,
         weaviate_grpc_port=50051,
         index_name="ND168",
-        embed_model_name="dangvantuan/vietnamese-document-embedding",
+        embed_model_name="bkai-foundation-models/vietnamese-bi-encoder",
         embed_cache_folder="/home/user/.cache/huggingface/hub",
         model_name="gpt-4o-mini",
         temperature=0.2,
@@ -68,7 +68,7 @@ class AutoRAG:
         
         # Initialize embedding model
         self.embed_model = HuggingFaceEmbedding(
-           model_name="dangvantuan/vietnamese-document-embedding", trust_remote_code=True,cache_folder="/home/drissdo/.cache/huggingface/hub"
+           model_name="bkai-foundation-models/vietnamese-bi-encoder", trust_remote_code=True,cache_folder="/home/drissdo/.cache/huggingface/hub"
         )
         
         # Create vector index
@@ -84,7 +84,7 @@ class AutoRAG:
             alpha=alpha
         )
         
-        self.llm_provider == llm_provider
+        self.llm_provider = llm_provider
         if llm_provider == "openai":
             self.llm = OpenAI(model=model_name, temperature=temperature)
         elif llm_provider == "vllm":
@@ -117,22 +117,40 @@ class AutoRAG:
         )
         
         # Get LLM response
-        response = self.llm.complete(prompt)
+        response = self.llm.complete(prompt, max_tokens=128)
         
-        # Extract JSON from the response
-        json_pattern = r'```json\n(.*?)```'
-        match = re.search(json_pattern, response.text, re.DOTALL)
+        # Debug - print raw response
+        print(f"LLM Provider: {self.llm_provider}")
+        print("=== RAW LLM RESPONSE ===")
+        print(response.text)
+        print("========================")
         
-        if match:
-            json_str = match.group(1)
-            return json.loads(json_str)
-        else:
-            # Fallback if JSON extraction fails
-            return {
-                "formatted_query": processed_output["processed_question"],
-                "vehicle_type": "ô tô",
-                "violation_type": processed_output["processed_question"] 
-            }
+        # Try multiple JSON extraction patterns
+        extraction_patterns = [
+            r'```json\n(.*?)```',   # Standard markdown JSON block
+            r'```\n(.*?)\n```',     # Code block without language
+            r'```(.*?)```',         # Any code block
+            r'({.*})',              # Just find JSON object
+            r'"formatted_query":\s*"([^"]*)"'  # Direct extraction of formatted query
+        ]
+        
+        for pattern in extraction_patterns:
+            match = re.search(pattern, response.text, re.DOTALL)
+            if match:
+                try:
+                    json_str = match.group(1)
+                    return json.loads(json_str)
+                except (json.JSONDecodeError, IndexError):
+                    continue
+        
+        # If we reach here, no extraction pattern worked
+        # Fallback if JSON extraction fails
+        print("WARNING: JSON extraction failed, using fallback")
+        return {
+            "formatted_query": processed_output["processed_question"],
+            "vehicle_type": "ô tô" if "ô tô" in processed_output["processed_question"].lower() else "mô tô và gắn máy",
+            "violation_type": processed_output["processed_question"] 
+        }
     
     def retrieve_documents(self, query):
         """Retrieve relevant documents based on query"""
@@ -159,23 +177,42 @@ class AutoRAG:
                 context=context
             )
         
-        response = self.llm.complete(prompt)
+        response = self.llm.complete(prompt, max_tokens=248)
         
-        # Extract JSON decision
-        json_pattern = r'```json\n(.*?)```'
-        match = re.search(json_pattern, response.text, re.DOTALL)
+        # Extract JSON decision directly from the response text
+        extraction_patterns = [
+            r'```json\n(.*?)```',   # Standard markdown JSON block
+            r'```\n(.*?)\n```',     # Code block without language
+            r'```(.*?)```',         # Any code block
+            r'{[\s\S]*?}',          # Find JSON object with flexible whitespace
+            r'"analysis"[\s\S]*?"decision"[\s\S]*?(?:"next_query"|"final_answer")'  # Look for expected fields
+        ]
         
-        if match:
-            json_str = match.group(1)
-            return json.loads(json_str)
-        else:
-            # Fallback if JSON extraction fails
-            return {
-                "analysis": "Failed to parse evaluation",
-                "decision": "Cần thêm thông tin",
-                "next_query": f"Luật giao thông quy định như thế nào về {question}?",
-                "final_answer": ""
-            }
+        for pattern in extraction_patterns:
+            match = re.search(pattern, response.text, re.DOTALL)
+            if match:
+                try:
+                    json_str = match.group(0)  # Use the entire matched string
+                    return json.loads(json_str)
+                except (json.JSONDecodeError, IndexError):
+                    # Try with group(1) if available
+                    try:
+                        if match.groups():
+                            json_str = match.group(1)
+                            return json.loads(json_str)
+                    except (json.JSONDecodeError, IndexError):
+                        continue
+        
+        # If no patterns match, use fallback
+        print("WARNING: JSON extraction failed in evaluate_information, using fallback")
+        print(f"Raw response: {response.text[:100]}...")  # Print beginning of response for debugging
+        
+        return {
+            "analysis": "Failed to parse evaluation",
+            "decision": "Cần thêm thông tin",
+            "next_query": f"Luật giao thông quy định như thế nào về {question}?",
+            "final_answer": ""
+        }
     
     def generate_answer(self, original_question, context):
         """Generate final answer based on all gathered information"""
@@ -184,7 +221,7 @@ class AutoRAG:
             context_text=context
         )
         
-        response = self.llm.complete(prompt)
+        response = self.llm.complete(prompt, max_tokens= 516)
         return response.text
     
     def process(self, question):
@@ -203,8 +240,7 @@ class AutoRAG:
         processed_question = processed_output["processed_question"]
         question_type = processed_output["question_type"]
         
-        print(f"Original question: {original_question}")
-        print(f"Processed question: {processed_question}")
+        
         print(f"Question type: {question_type}")
         
         # Step 2: Format the query
@@ -218,13 +254,20 @@ class AutoRAG:
         all_context = ""
         query_history = [formatted_query]
         
+        # Initialize progress tracking
+        missing_info = set()
+        found_info = set()
+        
         # Start iterative information gathering loop
         while iteration < self.max_iterations:
             print(f"\nIteration {iteration + 1}: Query - {formatted_query}")
             
             # Step 3: Retrieve documents
             retrieved_docs, context = self.retrieve_documents(formatted_query)
-            all_context += context + "\n"
+            
+            # Only add new context if it's not empty
+            if context.strip():
+                all_context += context + "\n\n"
             
             # Log retrieved document count
             print(f"Retrieved {len(retrieved_docs)} documents")
@@ -239,6 +282,18 @@ class AutoRAG:
             )
             
             print(f"Decision: {evaluation['decision']}")
+            print(f"Analysis: {evaluation['analysis']}")
+            
+            # Track found and missing information
+            if 'analysis' in evaluation:
+                # Extract information about what was found and what's missing
+                if "đã đủ thông tin về" in evaluation['analysis'].lower():
+                    for info in re.findall(r"đã đủ thông tin về (.*?)(?:,|\.|$)", evaluation['analysis'].lower()):
+                        found_info.add(info.strip())
+                
+                if "thiếu thông tin về" in evaluation['analysis'].lower():
+                    for info in re.findall(r"thiếu thông tin về (.*?)(?:,|\.|$)", evaluation['analysis'].lower()):
+                        missing_info.add(info.strip())
             
             # If we have enough information, generate the answer
             if evaluation["decision"] == "Đã đủ thông tin":
@@ -254,20 +309,31 @@ class AutoRAG:
                     "query_history": query_history,
                     "context": all_context,
                     "answer": answer,
-                    "iterations": iteration + 1
+                    "iterations": iteration + 1,
+                    "found_info": list(found_info),
+                    "missing_info": list(missing_info)
                 }
             
             # If we need more information and have a follow-up query
             if evaluation["next_query"] and iteration < self.max_iterations - 1:
-                formatted_query = evaluation["next_query"]
-                query_history.append(formatted_query)
-                iteration += 1
+                # Check if the next query is substantively different from previous queries
+                if evaluation["next_query"] not in query_history:
+                    formatted_query = evaluation["next_query"]
+                    query_history.append(formatted_query)
+                    iteration += 1
+                else:
+                    # If we're repeating queries, break the loop to avoid infinite loops
+                    print("Avoiding duplicate query, breaking loop.")
+                    break
             else:
                 # If we've run out of iterations or don't have a follow-up query
                 break
         
         # If we've exhausted iterations, generate best answer with what we have
-        print("\nReached maximum iterations. Generating best possible answer.")
+        print("\nReached maximum iterations or no further relevant information found.")
+        print(f"Found information about: {', '.join(found_info) if found_info else 'None'}")
+        print(f"Missing information about: {', '.join(missing_info) if missing_info else 'None'}")
+        
         final_answer = self.generate_answer(original_question, all_context)
         
         return {
@@ -277,5 +343,7 @@ class AutoRAG:
             "query_history": query_history,
             "context": all_context,
             "answer": final_answer,
-            "iterations": iteration + 1
+            "iterations": iteration + 1,
+            "found_info": list(found_info),
+            "missing_info": list(missing_info)
         }

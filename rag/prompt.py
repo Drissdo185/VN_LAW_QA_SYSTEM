@@ -5,7 +5,7 @@ tập trung vào các yếu tố pháp lý liên quan đến vi phạm giao thô
 
 Câu hỏi đã xử lý: {processed_question}
 
-Định dạng chuẩn:
+Định dạng chuẩn formatted_query:
 "Đối với [vehicle_type], vi phạm [loại vi phạm] sẽ bị xử phạt [loại hình phạt nếu có đề cập] như thế nào?"
 
 QUAN TRỌNG: 
@@ -21,12 +21,10 @@ Quy tắc:
 
 Hãy trả về kết quả theo định dạng JSON với các trường sau:
 {{
-  "formatted_query": "Câu truy vấn đã được định dạng theo mẫu trên",
+  "formatted_query": "Câu truy vấn đã được định dạng chuẩn formatted_query",
   "vehicle_type": "Loại phương tiện được xác định (ô tô, mô tô và gắn máy, phương tiện, v.v)",
   "violation_type": "Loại vi phạm được xác định từ câu hỏi"
 }}
-
-Chỉ trả về JSON, không trả lời gì thêm.
 """
 
 

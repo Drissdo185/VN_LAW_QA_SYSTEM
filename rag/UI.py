@@ -36,23 +36,23 @@ def setup_rag_system():
     weaviate_grpc_port = st.sidebar.number_input("Weaviate gRPC Port", value=50051)
     
     index_name = st.sidebar.text_input("Index Name", value="ND168")
-    embed_model_name = st.sidebar.text_input("Embedding Model", value="dangvantuan/vietnamese-document-embedding")
+    embed_model_name = st.sidebar.text_input("Embedding Model", value="bkai-foundation-models/vietnamese-bi-encoder")
     embed_cache_folder = st.sidebar.text_input("Cache Folder", value="/home/drissdo/.cache/huggingface/hub")
     
     llm_provider = st.sidebar.radio("LLM Provider", ["openai", "vllm"], index=0)
 
     if llm_provider == "openai":
-        model_name = st.sidebar.selectbox("OpenAI Model", ["gpt-4o-mini", "gpt-4o", "gpt-3.5-turbo"], index=0)
+        model_name = st.sidebar.selectbox("OpenAI Model", ["gpt-4o-mini"], index=0)
         vllm_api_url = ""
         vllm_model_name = ""
         vllm_max_tokens = 4096
     
     else:
         model_name = ""
-        vllm_api_url = st.sidebar.text_input("VLLM API URL", value="http://localhost:8000/v1/completions")
-        vllm_model_name = st.sidebar.text_input("VLLM Model Name", value="mistralai/Mistral-7B-Instruct-v0.2")
+        vllm_api_url = st.sidebar.text_input("VLLM API URL", value="http://192.168.100.125:8000/v1/completions")
+        vllm_model_name = st.sidebar.text_input("VLLM Model Name", value="Qwen/Qwen2.5-14B-Instruct-AWQ")
         vllm_max_tokens = st.sidebar.number_input("Max Tokens", value=4096)
-    model_name = st.sidebar.selectbox("LLM Model", ["gpt-4o-mini", "gpt-4o", "gpt-3.5-turbo"], index=0)
+    model_name = st.sidebar.selectbox("LLM Model", ["gpt-4o-mini"], index=0)
     temperature = st.sidebar.slider("Temperature", min_value=0.0, max_value=1.0, value=0.2, step=0.1)
     
     top_k = st.sidebar.slider("Top K Results", min_value=1, max_value=20, value=10)
