@@ -14,6 +14,8 @@ from prompt import (
     ANSWER
 )
 from VLLM import VLLMClient
+from weaviate.classes.init import Auth
+import os
 
 class AutoRAG:
     def __init__(
@@ -53,12 +55,20 @@ class AutoRAG:
         # Initialize question processor
         self.question_processor = QuestionProcess()
         
-        # Connect to Weaviate
-        self.client = weaviate.connect_to_local(
-            host=weaviate_host,
-            port=weaviate_port,
-            grpc_port=weaviate_grpc_port
+        
+        
+        # # Connect to Weaviate cloud
+        # self.client = weaviate.connect_to_local(
+        #     host=weaviate_host,
+        #     port=weaviate_port,
+        #     grpc_port=weaviate_grpc_port
+        # )
+        
+        self.client = weaviate.connect_to_weaviate_cloud(
+            cluster_url=os.getenv("WEAVIATE_URL"),
+            auth_credentials=Auth.api_key(os.getenv("WEAVIATE_API_KEY")), 
         )
+        
         
         # Setup vector store
         self.vector_store = WeaviateVectorStore(
