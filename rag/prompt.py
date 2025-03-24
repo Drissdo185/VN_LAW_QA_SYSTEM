@@ -178,3 +178,20 @@ Nếu cần thêm thông tin, truy vấn tiếp theo PHẢI theo định dạng:
 """
 
 VIOLATION_QUERY = VIOLATION_QUERY_FORMAT
+
+BENCHMARK_PROMPT = """
+Dựa trên thông tin đã thu thập về luật giao thông Việt Nam, hãy chọn đáp án đúng nhất (A, B, C, hoặc D) cho câu hỏi sau:
+
+Câu hỏi: {question}
+
+Các lựa chọn:
+A. {option_a}
+B. {option_b}
+C. {option_c}
+D. {option_d}
+
+Thông tin tham khảo:
+{context}
+
+CHÚ Ý: Chỉ trả lời bằng MỘT chữ cái duy nhất A, B, C hoặc D. Không viết thêm nội dung nào khác.
+"""
