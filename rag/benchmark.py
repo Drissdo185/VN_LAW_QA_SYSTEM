@@ -10,8 +10,6 @@ from prompt import (
     VIOLATION_QUERY_FORMAT,
     GENERAL_INFORMATION_QUERY_FORMAT,
     DECISION_VIOLATION,
-    DECISION_GENERAL,
-    ANSWER,
     BENCHMARK_PROMPT
     
 )
@@ -117,13 +115,8 @@ class BenchMarkRAG:
     
     def format_query(self, processed_output):
         """Format the processed question into a standardized query"""
-        # Select appropriate prompt template based on question type
-        if processed_output["question_type"] == "violation_type":
-            prompt_template = VIOLATION_QUERY_FORMAT
-        else:
-            prompt_template = GENERAL_INFORMATION_QUERY_FORMAT
         
-        # Format the prompt
+        prompt_template = VIOLATION_QUERY_FORMAT
         prompt = prompt_template.format(
             processed_question=processed_output["processed_question"]
         )
@@ -177,17 +170,13 @@ class BenchMarkRAG:
     
     def evaluate_information(self, question, context, question_type, violation_type=None):
         """Evaluate if retrieved information is sufficient to answer the question"""
-        if question_type == "violation_type":
-            prompt = DECISION_VIOLATION.format(
+        
+        prompt = DECISION_VIOLATION.format(
                 question=question,
                 context=context,
                 violation_type=violation_type
             )
-        else:
-            prompt = DECISION_GENERAL.format(
-                question=question,
-                context=context
-            )
+    
         
         response = self.llm.complete(prompt, max_tokens=248)
         
@@ -222,7 +211,7 @@ class BenchMarkRAG:
         return {
             "analysis": "Failed to parse evaluation",
             "decision": "Cần thêm thông tin",
-            "next_query": f"Luật giao thông quy định như thế nào về {question}?",
+            "next_query": f"{question}?",
             "final_answer": ""
         }
     
@@ -433,7 +422,7 @@ if __name__ == "__main__":
     )
     
     # Path to your questions dataset
-    question_data_path = "/home/drissdo/Desktop/VN_LAW_QA_SYSTEM/TEST/benchmark.csv"
+    question_data_path = "/home/drissdo/Desktop/VN_LAW_QA_SYSTEM/TEST/benchmark_2.csv"
     
     try:
         # Load CSV data instead of JSON
