@@ -1,0 +1,508 @@
+{
+  "correct": 20,
+  "total": 50,
+  "accuracy": 0.4,
+  "avg_processing_time": 1.2893274402618409,
+  "detailed_results": [
+    {
+      "question_idx": 0,
+      "question": "Mức phạt tiền cho việc không thắt dây an toàn khi đang điều khiển ô tô là bao nhiêu?",
+      "model_answer": "B",
+      "correct_answer": "A",
+      "is_correct": false,
+      "processing_time": 2.357583999633789,
+      "context_length": 2288,
+      "num_docs_retrieved": 9
+    },
+    {
+      "question_idx": 1,
+      "question": "Vi phạm nào sau đây bị phạt từ 400.000 đến 600.000 đồng khi điều khiển ô tô?",
+      "model_answer": "C",
+      "correct_answer": "A",
+      "is_correct": false,
+      "processing_time": 1.3143672943115234,
+      "context_length": 2470,
+      "num_docs_retrieved": 10
+    },
+    {
+      "question_idx": 2,
+      "question": "Mức phạt cho việc sử dụng điện thoại khi điều khiển ô tô là bao nhiêu?",
+      "model_answer": "B",
+      "correct_answer": "B",
+      "is_correct": true,
+      "processing_time": 1.1345493793487549,
+      "context_length": 2419,
+      "num_docs_retrieved": 10
+    },
+    {
+      "question_idx": 3,
+      "question": "Hành vi không chấp hành hiệu lệnh đèn tín hiệu giao thông bị trừ mấy điểm giấy phép lái xe?",
+      "model_answer": "B",
+      "correct_answer": "B",
+      "is_correct": true,
+      "processing_time": 1.2147526741027832,
+      "context_length": 2071,
+      "num_docs_retrieved": 10
+    },
+    {
+      "question_idx": 4,
+      "question": "Mức phạt cho việc chở quá số người trên ô tô chở hành khách là bao nhiêu?",
+      "model_answer": "B",
+      "correct_answer": "C",
+      "is_correct": false,
+      "processing_time": 1.1837882995605469,
+      "context_length": 2307,
+      "num_docs_retrieved": 10
+    },
+    {
+      "question_idx": 5,
+      "question": "Vi phạm nào bị phạt từ 800.000 đến 1.000.000 đồng khi điều khiển ô tô?",
+      "model_answer": "B",
+      "correct_answer": "B",
+      "is_correct": true,
+      "processing_time": 1.1550016403198242,
+      "context_length": 2341,
+      "num_docs_retrieved": 10
+    },
+    {
+      "question_idx": 6,
+      "question": "Mức phạt cho việc không có phù hiệu xe ô tô chở hàng là bao nhiêu?",
+      "model_answer": "B",
+      "correct_answer": "B",
+      "is_correct": true,
+      "processing_time": 1.1310982704162598,
+      "context_length": 2191,
+      "num_docs_retrieved": 10
+    },
+    {
+      "question_idx": 7,
+      "question": "Hành vi điều khiển xe không có giấy chứng nhận đăng ký bị phạt bao nhiêu?",
+      "model_answer": "A",
+      "correct_answer": "B",
+      "is_correct": false,
+      "processing_time": 1.1752469539642334,
+      "context_length": 3687,
+      "num_docs_retrieved": 10
+    },
+    {
+      "question_idx": 8,
+      "question": "Vi phạm nào bị trừ 10 điểm giấy phép lái xe khi điều khiển ô tô?",
+      "model_answer": "A",
+      "correct_answer": "B",
+      "is_correct": false,
+      "processing_time": 1.1262571811676025,
+      "context_length": 2670,
+      "num_docs_retrieved": 10
+    },
+    {
+      "question_idx": 9,
+      "question": "Mức phạt cho việc điều khiển xe không có đèn chiếu sáng là bao nhiêu?",
+      "model_answer": "B",
+      "correct_answer": "B",
+      "is_correct": true,
+      "processing_time": 1.296612024307251,
+      "context_length": 2514,
+      "num_docs_retrieved": 10
+    },
+    {
+      "question_idx": 10,
+      "question": "Hành vi chở hàng vượt trọng tải từ 50% đến 100% bị phạt bao nhiêu?",
+      "model_answer": "B",
+      "correct_answer": "B",
+      "is_correct": true,
+      "processing_time": 1.4287631511688232,
+      "context_length": 1836,
+      "num_docs_retrieved": 10
+    },
+    {
+      "question_idx": 11,
+      "question": "Vi phạm nào bị trừ 6 điểm giấy phép lái xe khi điều khiển ô tô?",
+      "model_answer": "D",
+      "correct_answer": "A",
+      "is_correct": false,
+      "processing_time": 1.1960208415985107,
+      "context_length": 2174,
+      "num_docs_retrieved": 10
+    },
+    {
+      "question_idx": 12,
+      "question": "Mức phạt cho việc điều khiển xe không có giấy phép lái xe là bao nhiêu?",
+      "model_answer": "B",
+      "correct_answer": "B",
+      "is_correct": true,
+      "processing_time": 1.3648576736450195,
+      "context_length": 3293,
+      "num_docs_retrieved": 9
+    },
+    {
+      "question_idx": 13,
+      "question": "Hành vi chở hàng trên đường cao tốc bị phạt bao nhiêu?",
+      "model_answer": "B",
+      "correct_answer": "B",
+      "is_correct": true,
+      "processing_time": 1.2510132789611816,
+      "context_length": 2039,
+      "num_docs_retrieved": 10
+    },
+    {
+      "question_idx": 14,
+      "question": "Vi phạm nào bị phạt từ 600.000 đến 800.000 đồng khi điều khiển ô tô chở hàng?",
+      "model_answer": "A",
+      "correct_answer": "A",
+      "is_correct": true,
+      "processing_time": 1.3717222213745117,
+      "context_length": 1940,
+      "num_docs_retrieved": 10
+    },
+    {
+      "question_idx": 15,
+      "question": "Mức phạt cho việc dừng xe trên đường cao tốc là bao nhiêu?",
+      "model_answer": "B",
+      "correct_answer": "B",
+      "is_correct": true,
+      "processing_time": 1.0195801258087158,
+      "context_length": 2843,
+      "num_docs_retrieved": 9
+    },
+    {
+      "question_idx": 16,
+      "question": "Hành vi sử dụng điện thoại khi điều khiển ô tô bị trừ mấy điểm?",
+      "model_answer": "A",
+      "correct_answer": "B",
+      "is_correct": false,
+      "processing_time": 1.0751235485076904,
+      "context_length": 2578,
+      "num_docs_retrieved": 10
+    },
+    {
+      "question_idx": 17,
+      "question": "Vi phạm nào bị phạt từ 18.000.000 đến 20.000.000 đồng?",
+      "model_answer": "A",
+      "correct_answer": "A",
+      "is_correct": true,
+      "processing_time": 1.2185802459716797,
+      "context_length": 2245,
+      "num_docs_retrieved": 9
+    },
+    {
+      "question_idx": 18,
+      "question": "Mức phạt cho việc chở người trên mui xe là bao nhiêu?",
+      "model_answer": "B",
+      "correct_answer": "C",
+      "is_correct": false,
+      "processing_time": 1.334439992904663,
+      "context_length": 2343,
+      "num_docs_retrieved": 10
+    },
+    {
+      "question_idx": 19,
+      "question": "Hành vi không lắp thiết bị giám sát hành trình bị trừ mấy điểm?",
+      "model_answer": "A",
+      "correct_answer": "A",
+      "is_correct": true,
+      "processing_time": 1.233429193496704,
+      "context_length": 2868,
+      "num_docs_retrieved": 10
+    },
+    {
+      "question_idx": 20,
+      "question": "Vi phạm nào bị phạt từ 30.000.000 đến 35.000.000 đồng?",
+      "model_answer": "A",
+      "correct_answer": "A",
+      "is_correct": true,
+      "processing_time": 1.3279008865356445,
+      "context_length": 1275,
+      "num_docs_retrieved": 5
+    },
+    {
+      "question_idx": 21,
+      "question": "Mức phạt cho việc chở hàng vượt trọng tải trên 150% là bao nhiêu?",
+      "model_answer": "C",
+      "correct_answer": "C",
+      "is_correct": true,
+      "processing_time": 1.824018955230713,
+      "context_length": 1833,
+      "num_docs_retrieved": 10
+    },
+    {
+      "question_idx": 22,
+      "question": "Hành vi không sử dụng thẻ nhận dạng lái xe bị trừ mấy điểm?",
+      "model_answer": "A",
+      "correct_answer": "A",
+      "is_correct": true,
+      "processing_time": 1.4652059078216553,
+      "context_length": 3090,
+      "num_docs_retrieved": 10
+    },
+    {
+      "question_idx": 23,
+      "question": "Vi phạm nào bị phạt từ 40.000.000 đến 50.000.000 đồng?",
+      "model_answer": "A",
+      "correct_answer": "A",
+      "is_correct": true,
+      "processing_time": 1.7255873680114746,
+      "context_length": 2002,
+      "num_docs_retrieved": 8
+    },
+    {
+      "question_idx": 24,
+      "question": "Mức phạt cho việc điều khiển xe có nồng độ cồn từ 50-80 miligam là bao nhiêu?",
+      "model_answer": "B",
+      "correct_answer": "B",
+      "is_correct": true,
+      "processing_time": 1.2105472087860107,
+      "context_length": 2639,
+      "num_docs_retrieved": 10
+    },
+    {
+      "question_idx": 25,
+      "question": "Hành vi chở hàng không chằng buộc bị phạt bao nhiêu?",
+      "model_answer": "A",
+      "correct_answer": "A",
+      "is_correct": true,
+      "processing_time": 1.0542805194854736,
+      "context_length": 2056,
+      "num_docs_retrieved": 10
+    },
+    {
+      "question_idx": 26,
+      "question": "Vi phạm nào bị trừ 10 điểm giấy phép lái xe?",
+      "model_answer": "A",
+      "correct_answer": "B",
+      "is_correct": false,
+      "processing_time": 1.3160812854766846,
+      "context_length": 2565,
+      "num_docs_retrieved": 10
+    },
+    {
+      "question_idx": 27,
+      "question": "Mức phạt cho việc không có biển số xe là bao nhiêu?",
+      "model_answer": "B",
+      "correct_answer": "B",
+      "is_correct": true,
+      "processing_time": 1.2295386791229248,
+      "context_length": 2444,
+      "num_docs_retrieved": 10
+    },
+    {
+      "question_idx": 28,
+      "question": "Hành vi điều khiển xe không có thiết bị giảm thanh bị phạt bao nhiêu?",
+      "model_answer": "B",
+      "correct_answer": "B",
+      "is_correct": true,
+      "processing_time": 1.473649024963379,
+      "context_length": 2978,
+      "num_docs_retrieved": 9
+    },
+    {
+      "question_idx": 29,
+      "question": "Vi phạm nào bị phạt từ 50.000.000 đến 70.000.000 đồng?",
+      "model_answer": "A",
+      "correct_answer": "A",
+      "is_correct": true,
+      "processing_time": 1.1779799461364746,
+      "context_length": 1810,
+      "num_docs_retrieved": 7
+    },
+    {
+      "question_idx": 30,
+      "question": "Mức phạt cho việc chở người trên xe tải là bao nhiêu?",
+      "model_answer": "B",
+      "correct_answer": "B",
+      "is_correct": true,
+      "processing_time": 0.9321115016937256,
+      "context_length": 2979,
+      "num_docs_retrieved": 10
+    },
+    {
+      "question_idx": 31,
+      "question": "Hành vi điều khiển xe không có đèn chiếu sáng bị trừ mấy điểm?",
+      "model_answer": "B",
+      "correct_answer": "B",
+      "is_correct": true,
+      "processing_time": 1.0890247821807861,
+      "context_length": 2550,
+      "num_docs_retrieved": 10
+    },
+    {
+      "question_idx": 32,
+      "question": "Vi phạm nào bị phạt từ 16.000.000 đến 18.000.000 đồng?",
+      "model_answer": "A",
+      "correct_answer": "A",
+      "is_correct": true,
+      "processing_time": 1.315471887588501,
+      "context_length": 2289,
+      "num_docs_retrieved": 8
+    },
+    {
+      "question_idx": 33,
+      "question": "Mức phạt cho việc chở hàng vượt chiều cao quy định là bao nhiêu?",
+      "model_answer": "B",
+      "correct_answer": "B",
+      "is_correct": true,
+      "processing_time": 1.0336229801177979,
+      "context_length": 2030,
+      "num_docs_retrieved": 10
+    },
+    {
+      "question_idx": 34,
+      "question": "Hành vi không có giấy chứng nhận đăng kiểm bị trừ mấy điểm?",
+      "model_answer": "A",
+      "correct_answer": "A",
+      "is_correct": true,
+      "processing_time": 1.1696085929870605,
+      "context_length": 2984,
+      "num_docs_retrieved": 10
+    },
+    {
+      "question_idx": 35,
+      "question": "Vi phạm nào bị tịch thu phương tiện?",
+      "model_answer": "A",
+      "correct_answer": "A",
+      "is_correct": true,
+      "processing_time": 1.0072135925292969,
+      "context_length": 2074,
+      "num_docs_retrieved": 10
+    },
+    {
+      "question_idx": 36,
+      "question": "Mức phạt cho việc chở hàng nguy hiểm trên xe khách là bao nhiêu?",
+      "model_answer": "B",
+      "correct_answer": "B",
+      "is_correct": true,
+      "processing_time": 1.5780463218688965,
+      "context_length": 2091,
+      "num_docs_retrieved": 10
+    },
+    {
+      "question_idx": 37,
+      "question": "Hành vi điều khiển xe không có bảo hiểm bắt buộc bị phạt bao nhiêu?",
+      "model_answer": "B",
+      "correct_answer": "B",
+      "is_correct": true,
+      "processing_time": 1.188572645187378,
+      "context_length": 2442,
+      "num_docs_retrieved": 10
+    },
+    {
+      "question_idx": 38,
+      "question": "Vi phạm nào bị phạt từ 20.000.000 đến 22.000.000 đồng?",
+      "model_answer": "B",
+      "correct_answer": "B",
+      "is_correct": true,
+      "processing_time": 1.734483242034912,
+      "context_length": 2162,
+      "num_docs_retrieved": 8
+    },
+    {
+      "question_idx": 39,
+      "question": "Mức phạt cho việc chở người trên xe tải vượt quá quy định là bao nhiêu?",
+      "model_answer": "C",
+      "correct_answer": "A",
+      "is_correct": false,
+      "processing_time": 1.449284553527832,
+      "context_length": 2076,
+      "num_docs_retrieved": 10
+    },
+    {
+      "question_idx": 40,
+      "question": "Hành vi không sử dụng đèn chiếu sáng trong điều kiện sương mù bị phạt bao nhiêu?",
+      "model_answer": "C",
+      "correct_answer": "A",
+      "is_correct": false,
+      "processing_time": 1.070833683013916,
+      "context_length": 2744,
+      "num_docs_retrieved": 10
+    },
+    {
+      "question_idx": 41,
+      "question": "Vi phạm nào bị trừ 6 điểm giấy phép lái xe?",
+      "model_answer": "D",
+      "correct_answer": "A",
+      "is_correct": false,
+      "processing_time": 0.9809517860412598,
+      "context_length": 2315,
+      "num_docs_retrieved": 10
+    },
+    {
+      "question_idx": 42,
+      "question": "Mức phạt cho việc chở hàng siêu trường, siêu trọng không đúng quy định là bao nhiêu?",
+      "model_answer": "B",
+      "correct_answer": "B",
+      "is_correct": true,
+      "processing_time": 1.2510108947753906,
+      "context_length": 2515,
+      "num_docs_retrieved": 10
+    },
+    {
+      "question_idx": 43,
+      "question": "Hành vi điều khiển xe không có kính chắn gió bị phạt bao nhiêu?",
+      "model_answer": "A",
+      "correct_answer": "A",
+      "is_correct": true,
+      "processing_time": 1.281076192855835,
+      "context_length": 2439,
+      "num_docs_retrieved": 10
+    },
+    {
+      "question_idx": 44,
+      "question": "Vi phạm nào bị phạt từ 3.000.000 đến 4.000.000 đồng khi điều khiển ô tô?",
+      "model_answer": "C",
+      "correct_answer": "A",
+      "is_correct": false,
+      "processing_time": 1.266829252243042,
+      "context_length": 2814,
+      "num_docs_retrieved": 10
+    },
+    {
+      "question_idx": 45,
+      "question": "Mức phạt cho việc điều khiển xe không đúng làn đường là bao nhiêu?",
+      "model_answer": "B",
+      "correct_answer": "C",
+      "is_correct": false,
+      "processing_time": 1.4367949962615967,
+      "context_length": 2952,
+      "num_docs_retrieved": 10
+    },
+    {
+      "question_idx": 46,
+      "question": "Hành vi chở người dưới 10 tuổi ngồi cùng hàng ghế với người lái bị phạt bao nhiêu?",
+      "model_answer": "B",
+      "correct_answer": "B",
+      "is_correct": true,
+      "processing_time": 1.1424455642700195,
+      "context_length": 2872,
+      "num_docs_retrieved": 10
+    },
+    {
+      "question_idx": 47,
+      "question": "Vi phạm nào bị phạt từ 4.000.000 đến 6.000.000 đồng?",
+      "model_answer": "C",
+      "correct_answer": "D",
+      "is_correct": false,
+      "processing_time": 1.075061321258545,
+      "context_length": 2135,
+      "num_docs_retrieved": 8
+    },
+    {
+      "question_idx": 48,
+      "question": "Mức phạt cho việc không gắn biển số xe là bao nhiêu?",
+      "model_answer": "C",
+      "correct_answer": "B",
+      "is_correct": false,
+      "processing_time": 1.5559229850769043,
+      "context_length": 2396,
+      "num_docs_retrieved": 10
+    },
+    {
+      "question_idx": 49,
+      "question": "Hành vi sử dụng xe ô tô vượt quá niên hạn sử dụng bị xử lý như thế nào?",
+      "model_answer": "C",
+      "correct_answer": "C",
+      "is_correct": true,
+      "processing_time": 1.5204274654388428,
+      "context_length": 2294,
+      "num_docs_retrieved": 10
+    }
+  ]
+}

@@ -19,9 +19,6 @@ tqdm
 # Web app
 streamlit
 
-# Web scraping
-beautifulsoup4
-requests
 
 # LLM
 openai

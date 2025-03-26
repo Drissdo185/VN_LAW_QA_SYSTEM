@@ -1,0 +1,498 @@
+{
+    "correct": 24,
+    "total": 50,
+    "accuracy": 0.48,
+    "avg_processing_time": 1.400384893222731,
+    "detailed_results": [
+      {
+        "question_idx": 0,
+        "question": "Mức phạt nào được áp dụng khi người điều khiển xe mô tô không sử dụng đèn chiếu sáng trong thời gian từ 18 giờ ngày hôm trước đến 06 giờ ngày hôm sau?",
+        "model_answer": "A",
+        "correct_answer": "A",
+        "is_correct": true,
+        "processing_time": 1.4033949375152588,
+        "context_length": 2881,
+        "num_docs_retrieved": 10
+      },
+      {
+        "question_idx": 1,
+        "question": "Người điều khiển xe mô tô và gắn máy chở theo 02 người trên xe sẽ bị phạt tiền ở mức nào?",
+        "model_answer": "B",
+        "correct_answer": "B",
+        "is_correct": true,
+        "processing_time": 1.0246169567108154,
+        "context_length": 2654,
+        "num_docs_retrieved": 9
+      },
+      {
+        "question_idx": 2,
+        "question": "Mức phạt tiền khi điều khiển xe mô tô chạy quá tốc độ quy định từ 10 km/h đến 20 km/h là bao nhiêu?",
+        "model_answer": "C",
+        "correct_answer": "C",
+        "is_correct": true,
+        "processing_time": 1.1590747833251953,
+        "context_length": 1848,
+        "num_docs_retrieved": 10
+      },
+      {
+        "question_idx": 3,
+        "question": "Người điều khiển xe gắn máy không đội mũ bảo hiểm hoặc đội mũ bảo hiểm không cài quai đúng quy cách khi tham gia giao thông trên đường bộ sẽ bị phạt tiền ở mức nào?",
+        "model_answer": "B",
+        "correct_answer": "B",
+        "is_correct": true,
+        "processing_time": 1.087754726409912,
+        "context_length": 2552,
+        "num_docs_retrieved": 8
+      },
+      {
+        "question_idx": 4,
+        "question": "Mức phạt tiền đối với người điều khiển xe mô tô khi dừng xe, đỗ xe trên cầu là bao nhiêu?",
+        "model_answer": "B",
+        "correct_answer": "B",
+        "is_correct": true,
+        "processing_time": 1.1524865627288818,
+        "context_length": 2754,
+        "num_docs_retrieved": 10
+      },
+      {
+        "question_idx": 5,
+        "question": "Người điều khiển xe mô tô không chấp hành hiệu lệnh của đèn tín hiệu giao thông sẽ bị phạt tiền ở mức nào?",
+        "model_answer": "C",
+        "correct_answer": "C",
+        "is_correct": true,
+        "processing_time": 1.1033389568328857,
+        "context_length": 2234,
+        "num_docs_retrieved": 10
+      },
+      {
+        "question_idx": 6,
+        "question": "Mức phạt tiền đối với người điều khiển xe gắn máy khi sử dụng điện thoại di động là bao nhiêu?",
+        "model_answer": "B",
+        "correct_answer": "B",
+        "is_correct": true,
+        "processing_time": 1.3243768215179443,
+        "context_length": 2686,
+        "num_docs_retrieved": 9
+      },
+      {
+        "question_idx": 7,
+        "question": "Người điều khiển xe mô tô chạy quá tốc độ quy định trên 20 km/h sẽ bị phạt tiền ở mức nào?",
+        "model_answer": "B",
+        "correct_answer": "C",
+        "is_correct": false,
+        "processing_time": 1.4530510902404785,
+        "context_length": 1822,
+        "num_docs_retrieved": 10
+      },
+      {
+        "question_idx": 8,
+        "question": "Mức phạt tiền đối với người điều khiển xe mô tô đi ngược chiều của đường một chiều là bao nhiêu?",
+        "model_answer": "B",
+        "correct_answer": "B",
+        "is_correct": true,
+        "processing_time": 1.2093517780303955,
+        "context_length": 2725,
+        "num_docs_retrieved": 10
+      },
+      {
+        "question_idx": 9,
+        "question": "Người điều khiển xe gắn máy điều khiển xe đi trên vỉa hè (trừ trường hợp điều khiển xe đi qua vỉa hè để vào nhà, cơ quan) sẽ bị phạt tiền ở mức nào?",
+        "model_answer": "B",
+        "correct_answer": "B",
+        "is_correct": true,
+        "processing_time": 1.444610834121704,
+        "context_length": 2493,
+        "num_docs_retrieved": 10
+      },
+      {
+        "question_idx": 10,
+        "question": "Mức phạt tiền đối với người điều khiển xe mô tô vượt đèn đỏ là bao nhiêu?",
+        "model_answer": "B",
+        "correct_answer": "B",
+        "is_correct": true,
+        "processing_time": 1.2200920581817627,
+        "context_length": 3117,
+        "num_docs_retrieved": 10
+      },
+      {
+        "question_idx": 11,
+        "question": "Người điều khiển xe mô tô chở người ngồi trên xe sử dụng ô (dù) sẽ bị phạt tiền ở mức nào?",
+        "model_answer": "B",
+        "correct_answer": "A",
+        "is_correct": false,
+        "processing_time": 1.2300472259521484,
+        "context_length": 2727,
+        "num_docs_retrieved": 10
+      },
+      {
+        "question_idx": 12,
+        "question": "Mức phạt tiền đối với người điều khiển xe gắn máy không nhường đường cho xe ưu tiên đang phát tín hiệu ưu tiên đi làm nhiệm vụ là bao nhiêu?",
+        "model_answer": "B",
+        "correct_answer": "B",
+        "is_correct": true,
+        "processing_time": 1.3292343616485596,
+        "context_length": 2347,
+        "num_docs_retrieved": 10
+      },
+      {
+        "question_idx": 13,
+        "question": "Người điều khiển xe mô tô tránh xe không đúng quy định sẽ bị phạt tiền ở mức nào?",
+        "model_answer": "D",
+        "correct_answer": "A",
+        "is_correct": false,
+        "processing_time": 1.251131296157837,
+        "context_length": 2998,
+        "num_docs_retrieved": 10
+      },
+      {
+        "question_idx": 14,
+        "question": "Mức phạt tiền đối với người điều khiển xe gắn máy không tuân thủ các quy định về nhường đường tại nơi đường giao nhau là bao nhiêu?",
+        "model_answer": "A",
+        "correct_answer": "A",
+        "is_correct": true,
+        "processing_time": 1.4117937088012695,
+        "context_length": 2602,
+        "num_docs_retrieved": 10
+      },
+      {
+        "question_idx": 15,
+        "question": "Người điều khiển xe mô tô không giữ khoảng cách an toàn để xảy ra va chạm với xe chạy liền trước sẽ bị phạt tiền ở mức nào?",
+        "model_answer": "B",
+        "correct_answer": "B",
+        "is_correct": true,
+        "processing_time": 1.4092187881469727,
+        "context_length": 2924,
+        "num_docs_retrieved": 10
+      },
+      {
+        "question_idx": 16,
+        "question": "Mức phạt tiền đối với người điều khiển xe gắn máy điều khiển xe chạy dàn hàng ngang từ 03 xe trở lên là bao nhiêu?",
+        "model_answer": "B",
+        "correct_answer": "B",
+        "is_correct": true,
+        "processing_time": 1.0502912998199463,
+        "context_length": 1988,
+        "num_docs_retrieved": 9
+      },
+      {
+        "question_idx": 17,
+        "question": "Người điều khiển xe mô tô vượt bên phải trong trường hợp không được phép sẽ bị phạt tiền ở mức nào?",
+        "model_answer": "B",
+        "correct_answer": "B",
+        "is_correct": true,
+        "processing_time": 1.1233892440795898,
+        "context_length": 3754,
+        "num_docs_retrieved": 10
+      },
+      {
+        "question_idx": 18,
+        "question": "Mức phạt tiền đối với người điều khiển xe gắn máy dừng xe, đỗ xe trong hầm đường bộ không đúng nơi quy định là bao nhiêu?",
+        "model_answer": "B",
+        "correct_answer": "B",
+        "is_correct": true,
+        "processing_time": 1.0847690105438232,
+        "context_length": 2769,
+        "num_docs_retrieved": 10
+      },
+      {
+        "question_idx": 19,
+        "question": "Người điều khiển xe mô tô quay đầu xe trong hầm đường bộ sẽ bị phạt tiền ở mức nào?",
+        "model_answer": "B",
+        "correct_answer": "B",
+        "is_correct": true,
+        "processing_time": 1.147965669631958,
+        "context_length": 2287,
+        "num_docs_retrieved": 10
+      },
+      {
+        "question_idx": 20,
+        "question": "Người điều khiển xe mô tô vừa sử dụng điện thoại di động vừa chạy quá tốc độ quy định 15 km/h sẽ bị phạt tiền ở mức nào và bị trừ bao nhiêu điểm giấy phép lái xe?",
+        "model_answer": "B",
+        "correct_answer": "A",
+        "is_correct": false,
+        "processing_time": 1.2482938766479492,
+        "context_length": 2149,
+        "num_docs_retrieved": 9
+      },
+      {
+        "question_idx": 21,
+        "question": "Người điều khiển xe gắn máy chở 3 người, đi vào đường cấm và không đội mũ bảo hiểm sẽ bị xử phạt như thế nào?",
+        "model_answer": "C",
+        "correct_answer": "B",
+        "is_correct": false,
+        "processing_time": 1.0095834732055664,
+        "context_length": 2904,
+        "num_docs_retrieved": 9
+      },
+      {
+        "question_idx": 22,
+        "question": "Nếu người điều khiển xe mô tô trong máu có nồng độ cồn vượt quá 80 miligam/100 mililít máu và không chấp hành yêu cầu kiểm tra của người thi hành công vụ, mức xử phạt sẽ như thế nào?",
+        "model_answer": "B",
+        "correct_answer": "B",
+        "is_correct": true,
+        "processing_time": 1.2155842781066895,
+        "context_length": 2639,
+        "num_docs_retrieved": 10
+      },
+      {
+        "question_idx": 23,
+        "question": "Người điều khiển xe mô tô vừa sử dụng còi trong khu dân cư từ 22 giờ đến 5 giờ sáng vừa lắp đặt thiết bị phát tín hiệu ưu tiên trái quy định sẽ bị xử phạt như thế nào?",
+        "model_answer": "A",
+        "correct_answer": "A",
+        "is_correct": true,
+        "processing_time": 1.525527000427246,
+        "context_length": 2444,
+        "num_docs_retrieved": 10
+      },
+      {
+        "question_idx": 24,
+        "question": "Người điều khiển xe gắn máy không đội mũ bảo hiểm và chở người ngồi trên xe cũng không đội mũ bảo hiểm sẽ bị xử phạt như thế nào?",
+        "model_answer": "B",
+        "correct_answer": "B",
+        "is_correct": true,
+        "processing_time": 1.3307981491088867,
+        "context_length": 2383,
+        "num_docs_retrieved": 8
+      },
+      {
+        "question_idx": 25,
+        "question": "Người điều khiển xe mô tô chạy quá tốc độ quy định 8 km/h và vượt xe tại đoạn đường có biển báo hiệu cấm vượt sẽ bị xử phạt như thế nào?",
+        "model_answer": "D",
+        "correct_answer": "B",
+        "is_correct": false,
+        "processing_time": 1.1627826690673828,
+        "context_length": 2489,
+        "num_docs_retrieved": 10
+      },
+      {
+        "question_idx": 26,
+        "question": "Người điều khiển xe gắn máy điều khiển xe lạng lách, đánh võng trên đường bộ và sử dụng chân chống quệt xuống đường khi xe đang chạy sẽ bị xử phạt như thế nào?",
+        "model_answer": "B",
+        "correct_answer": "B",
+        "is_correct": true,
+        "processing_time": 1.0656836032867432,
+        "context_length": 1912,
+        "num_docs_retrieved": 8
+      },
+      {
+        "question_idx": 27,
+        "question": "Người điều khiển xe mô tô chạy quá tốc độ quy định 25 km/h và trong máu có nồng độ cồn 30 miligam/100 mililít máu sẽ bị xử phạt như thế nào?",
+        "model_answer": "B",
+        "correct_answer": "A",
+        "is_correct": false,
+        "processing_time": 6.025977373123169,
+        "context_length": 2647,
+        "num_docs_retrieved": 10
+      },
+      {
+        "question_idx": 28,
+        "question": "Người điều khiển xe gắn máy điều khiển xe đi ngược chiều của đường một chiều và không chấp hành hiệu lệnh của người điều khiển giao thông sẽ bị xử phạt như thế nào?",
+        "model_answer": "B",
+        "correct_answer": "B",
+        "is_correct": true,
+        "processing_time": 1.3502180576324463,
+        "context_length": 2790,
+        "num_docs_retrieved": 10
+      },
+      {
+        "question_idx": 29,
+        "question": "Người điều khiển xe mô tô chở 3 người và không giữ khoảng cách an toàn với xe phía trước sẽ bị xử phạt như thế nào?",
+        "model_answer": "A",
+        "correct_answer": "A",
+        "is_correct": true,
+        "processing_time": 1.0811114311218262,
+        "context_length": 3162,
+        "num_docs_retrieved": 10
+      },
+      {
+        "question_idx": 30,
+        "question": "Người điều khiển xe gắn máy vừa đi trên vỉa hè vừa không đội mũ bảo hiểm sẽ bị xử phạt như thế nào?",
+        "model_answer": "B",
+        "correct_answer": "B",
+        "is_correct": true,
+        "processing_time": 1.4386672973632812,
+        "context_length": 2512,
+        "num_docs_retrieved": 9
+      },
+      {
+        "question_idx": 31,
+        "question": "Người điều khiển xe mô tô vừa sử dụng điện thoại di động vừa chạy ngược chiều trên đường có biển 'Cấm đi ngược chiều' sẽ bị xử phạt như thế nào?",
+        "model_answer": "A",
+        "correct_answer": "A",
+        "is_correct": true,
+        "processing_time": 1.124284267425537,
+        "context_length": 2725,
+        "num_docs_retrieved": 10
+      },
+      {
+        "question_idx": 32,
+        "question": "Người điều khiển xe gắn máy vượt đèn đỏ và trong hơi thở có nồng độ cồn 0,3 miligam/1 lít khí thở sẽ bị xử phạt như thế nào?",
+        "model_answer": "B",
+        "correct_answer": "C",
+        "is_correct": false,
+        "processing_time": 1.1247875690460205,
+        "context_length": 2679,
+        "num_docs_retrieved": 10
+      },
+      {
+        "question_idx": 33,
+        "question": "Người điều khiển xe mô tô chở 2 người và điều khiển xe chạy quá tốc độ quy định 12 km/h sẽ bị xử phạt như thế nào?",
+        "model_answer": "C",
+        "correct_answer": "C",
+        "is_correct": true,
+        "processing_time": 1.3292782306671143,
+        "context_length": 2127,
+        "num_docs_retrieved": 9
+      },
+      {
+        "question_idx": 34,
+        "question": "Người điều khiển xe gắn máy buông cả hai tay khi đang điều khiển xe sẽ bị xử phạt như thế nào?",
+        "model_answer": "C",
+        "correct_answer": "D",
+        "is_correct": false,
+        "processing_time": 1.1459832191467285,
+        "context_length": 2221,
+        "num_docs_retrieved": 8
+      },
+      {
+        "question_idx": 35,
+        "question": "Người điều khiển xe mô tô chạy bằng một bánh đối với xe hai bánh sẽ bị xử phạt như thế nào?",
+        "model_answer": "D",
+        "correct_answer": "D",
+        "is_correct": true,
+        "processing_time": 1.2952549457550049,
+        "context_length": 3374,
+        "num_docs_retrieved": 7
+      },
+      {
+        "question_idx": 36,
+        "question": "Người điều khiển xe gắn máy tái phạm hành vi điều khiển xe lạng lách, đánh võng sẽ bị xử phạt như thế nào?",
+        "model_answer": "B",
+        "correct_answer": "D",
+        "is_correct": false,
+        "processing_time": 1.204920768737793,
+        "context_length": 2594,
+        "num_docs_retrieved": 10
+      },
+      {
+        "question_idx": 37,
+        "question": "Người điều khiển xe mô tô dùng chân điều khiển xe sẽ bị xử phạt như thế nào?",
+        "model_answer": "D",
+        "correct_answer": "C",
+        "is_correct": false,
+        "processing_time": 1.0451059341430664,
+        "context_length": 2365,
+        "num_docs_retrieved": 9
+      },
+      {
+        "question_idx": 38,
+        "question": "Người điều khiển xe gắn máy nằm trên yên xe điều khiển xe sẽ bị xử phạt như thế nào?",
+        "model_answer": "C",
+        "correct_answer": "D",
+        "is_correct": false,
+        "processing_time": 1.0636262893676758,
+        "context_length": 2782,
+        "num_docs_retrieved": 10
+      },
+      {
+        "question_idx": 39,
+        "question": "Trường hợp nào dưới đây người điều khiển xe mô tô và gắn máy không bị trừ điểm giấy phép lái xe?",
+        "model_answer": "A",
+        "correct_answer": "A",
+        "is_correct": true,
+        "processing_time": 1.0559515953063965,
+        "context_length": 3084,
+        "num_docs_retrieved": 9
+      },
+      {
+        "question_idx": 40,
+        "question": "Mức xử phạt nào sẽ được áp dụng khi người điều khiển xe mô tô thực hiện hành vi điều khiển phương tiện tham gia giao thông không đúng quy định mà gây ra tai nạn?",
+        "model_answer": "D",
+        "correct_answer": "C",
+        "is_correct": false,
+        "processing_time": 0.994452953338623,
+        "context_length": 2849,
+        "num_docs_retrieved": 9
+      },
+      {
+        "question_idx": 41,
+        "question": "Hành vi nào dưới đây của người điều khiển xe mô tô sẽ bị tước quyền sử dụng giấy phép lái xe từ 22 tháng đến 24 tháng?",
+        "model_answer": "C",
+        "correct_answer": "C",
+        "is_correct": true,
+        "processing_time": 1.4056510925292969,
+        "context_length": 2430,
+        "num_docs_retrieved": 10
+      },
+      {
+        "question_idx": 42,
+        "question": "Hành vi nào dưới đây của người điều khiển xe gắn máy sẽ bị trừ 10 điểm giấy phép lái xe?",
+        "model_answer": "A",
+        "correct_answer": "B",
+        "is_correct": false,
+        "processing_time": 5.225202560424805,
+        "context_length": 2429,
+        "num_docs_retrieved": 10
+      },
+      {
+        "question_idx": 43,
+        "question": "Nếu người điều khiển xe mô tô vi phạm hành vi gì thì sẽ bị phạt tiền từ 10 - 14 triệu đồng?",
+        "model_answer": "A",
+        "correct_answer": "B",
+        "is_correct": false,
+        "processing_time": 1.132025957107544,
+        "context_length": 2760,
+        "num_docs_retrieved": 8
+      },
+      {
+        "question_idx": 44,
+        "question": "Hành vi nào dưới đây của người điều khiển xe gắn máy sẽ bị phạt tiền từ 200.000 - 400.000 đồng?",
+        "model_answer": "A",
+        "correct_answer": "A",
+        "is_correct": true,
+        "processing_time": 1.8107936382293701,
+        "context_length": 2274,
+        "num_docs_retrieved": 10
+      },
+      {
+        "question_idx": 45,
+        "question": "Hành vi nào dưới đây của người điều khiển xe mô tô sẽ bị tịch thu phương tiện?",
+        "model_answer": "D",
+        "correct_answer": "A",
+        "is_correct": false,
+        "processing_time": 1.0498406887054443,
+        "context_length": 2037,
+        "num_docs_retrieved": 10
+      },
+      {
+        "question_idx": 46,
+        "question": "Người điều khiển xe mô tô và gắn máy vi phạm quy định nào dưới đây thì bị trừ 06 điểm giấy phép lái xe?",
+        "model_answer": "A",
+        "correct_answer": "A",
+        "is_correct": true,
+        "processing_time": 1.0259544849395752,
+        "context_length": 2560,
+        "num_docs_retrieved": 10
+      },
+      {
+        "question_idx": 47,
+        "question": "Khi nào người điều khiển xe mô tô không bị phạt tiền khi sử dụng còi?",
+        "model_answer": "D",
+        "correct_answer": "D",
+        "is_correct": true,
+        "processing_time": 0.9811112880706787,
+        "context_length": 2646,
+        "num_docs_retrieved": 9
+      },
+      {
+        "question_idx": 48,
+        "question": "Việc trừ điểm giấy phép lái xe được áp dụng như thế nào đối với người vi phạm nhiều lỗi trong cùng một lần?",
+        "model_answer": "A",
+        "correct_answer": "A",
+        "is_correct": true,
+        "processing_time": 1.5304169654846191,
+        "context_length": 4123,
+        "num_docs_retrieved": 10
+      }
+    ]
+  }
