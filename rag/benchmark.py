@@ -444,7 +444,7 @@ if __name__ == "__main__":
         print(f"Loaded {len(questions)} questions from {question_data_path}")
         
         # Run benchmark on first 5 questions
-        results = benchmark_rag.benchmark(questions, num_questions=50)
+        results = benchmark_rag.benchmark(questions, num_questions=5)
         
         # Print summary results
         print("\n===== BENCHMARK RESULTS =====")

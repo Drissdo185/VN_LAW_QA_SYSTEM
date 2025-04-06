@@ -189,23 +189,23 @@ class AutoRAG:
         
         response = self.llm.complete(prompt, max_tokens=248)
         
-        # Extract JSON decision directly from the response text
+
         extraction_patterns = [
-            r'```json\n(.*?)```',   # Standard markdown JSON block
-            r'```\n(.*?)\n```',     # Code block without language
-            r'```(.*?)```',         # Any code block
-            r'{[\s\S]*?}',          # Find JSON object with flexible whitespace
-            r'"analysis"[\s\S]*?"decision"[\s\S]*?(?:"next_query"|"final_answer")'  # Look for expected fields
+            r'```json\n(.*?)```',   
+            r'```\n(.*?)\n```',    
+            r'```(.*?)```',        
+            r'{[\s\S]*?}',          
+            r'"analysis"[\s\S]*?"decision"[\s\S]*?(?:"next_query"|"final_answer")' 
         ]
         
         for pattern in extraction_patterns:
             match = re.search(pattern, response.text, re.DOTALL)
             if match:
                 try:
-                    json_str = match.group(0)  # Use the entire matched string
+                    json_str = match.group(0)  
                     return json.loads(json_str)
                 except (json.JSONDecodeError, IndexError):
-                    # Try with group(1) if available
+                    
                     try:
                         if match.groups():
                             json_str = match.group(1)
@@ -213,9 +213,9 @@ class AutoRAG:
                     except (json.JSONDecodeError, IndexError):
                         continue
         
-        # If no patterns match, use fallback
+        
         print("WARNING: JSON extraction failed in evaluate_information, using fallback")
-        print(f"Raw response: {response.text[:100]}...")  # Print beginning of response for debugging
+        print(f"Raw response: {response.text[:100]}...")  
         
         return {
             "analysis": "Failed to parse evaluation",
