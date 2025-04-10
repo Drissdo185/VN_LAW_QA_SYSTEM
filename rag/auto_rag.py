@@ -36,23 +36,7 @@ class AutoRAG:
         vllm_model_name="Qwen/Qwen2.5-14B-Instruct-AWQ",
         vllm_max_tokens=1024
     ):
-        """
-        Initialize the Autonomous RAG system.
-        
-        Args:
-            weaviate_host: Host for Weaviate vector database
-            weaviate_port: HTTP port for Weaviate
-            weaviate_grpc_port: gRPC port for Weaviate
-            index_name: Name of the index in Weaviate
-            embed_model_name: HuggingFace embedding model name
-            embed_cache_folder: Cache folder for embeddings
-            model_name: LLM model to use
-            temperature: LLM temperature setting
-            top_k: Number of documents to retrieve
-            alpha: Hybrid search parameter
-            max_iterations: Maximum number of query iterations
-        """
-        # Initialize question processor
+      
         self.question_processor = QuestionProcess()
         
         
@@ -115,33 +99,33 @@ class AutoRAG:
     
     def format_query(self, processed_output):
         """Format the processed question into a standardized query"""
-        # Select appropriate prompt template based on question type
+        
         if processed_output["question_type"] == "violation_type":
             prompt_template = VIOLATION_QUERY_FORMAT
         else:
             prompt_template = GENERAL_INFORMATION_QUERY_FORMAT
         
-        # Format the prompt
+       
         prompt = prompt_template.format(
             processed_question=processed_output["processed_question"]
         )
         
-        # Get LLM response
+        
         response = self.llm.complete(prompt, max_tokens=128)
         
-        # Debug - print raw response
+        
         print(f"LLM Provider: {self.llm_provider}")
         print("=== RAW LLM RESPONSE ===")
         print(response.text)
         print("========================")
         
-        # Try multiple JSON extraction patterns
+        
         extraction_patterns = [
-            r'```json\n(.*?)```',   # Standard markdown JSON block
-            r'```\n(.*?)\n```',     # Code block without language
-            r'```(.*?)```',         # Any code block
-            r'({.*})',              # Just find JSON object
-            r'"formatted_query":\s*"([^"]*)"'  # Direct extraction of formatted query
+            r'```json\n(.*?)```',  
+            r'```\n(.*?)\n```',   
+            r'```(.*?)```',         
+            r'({.*})',             
+            r'"formatted_query":\s*"([^"]*)"' 
         ]
         
         for pattern in extraction_patterns:
@@ -153,8 +137,7 @@ class AutoRAG:
                 except (json.JSONDecodeError, IndexError):
                     continue
         
-        # If we reach here, no extraction pattern worked
-        # Fallback if JSON extraction fails
+        
         print("WARNING: JSON extraction failed, using fallback")
         return {
             "formatted_query": processed_output["processed_question"],
@@ -235,16 +218,7 @@ class AutoRAG:
         return response.text
     
     def process(self, question):
-        """
-        Process a question through the entire RAG pipeline
         
-        Args:
-            question: User's question
-            
-        Returns:
-            Dictionary with process results including answer
-        """
-        # Step 1: Process the question
         processed_output = self.process_question(question)
         original_question = processed_output["original_question"]
         processed_question = processed_output["processed_question"]
@@ -253,36 +227,36 @@ class AutoRAG:
         
         print(f"Question type: {question_type}")
         
-        # Step 2: Format the query
+        
         formatted_output = self.format_query(processed_output)
         formatted_query = formatted_output.get("formatted_query", processed_question)
         
         print(f"Formatted query: {formatted_query}")
         
-        # Initialize tracking variables
+       
         iteration = 0
         all_context = ""
         query_history = [formatted_query]
         
-        # Initialize progress tracking
+       
         missing_info = set()
         found_info = set()
         
-        # Start iterative information gathering loop
+       
         while iteration < self.max_iterations:
             print(f"\nIteration {iteration + 1}: Query - {formatted_query}")
             
-            # Step 3: Retrieve documents
+           
             retrieved_docs, context = self.retrieve_documents(formatted_query)
             
-            # Only add new context if it's not empty
+          
             if context.strip():
                 all_context += context + "\n\n"
             
-            # Log retrieved document count
+            
             print(f"Retrieved {len(retrieved_docs)} documents")
             
-            # Step 4: Evaluate if information is sufficient
+            
             violation_type = formatted_output.get("violation_type", "")
             evaluation = self.evaluate_information(
                 formatted_query,
@@ -294,9 +268,9 @@ class AutoRAG:
             print(f"Decision: {evaluation['decision']}")
             print(f"Analysis: {evaluation['analysis']}")
             
-            # Track found and missing information
+           
             if 'analysis' in evaluation:
-                # Extract information about what was found and what's missing
+               
                 if "đã đủ thông tin về" in evaluation['analysis'].lower():
                     for info in re.findall(r"đã đủ thông tin về (.*?)(?:,|\.|$)", evaluation['analysis'].lower()):
                         found_info.add(info.strip())
@@ -305,7 +279,7 @@ class AutoRAG:
                     for info in re.findall(r"thiếu thông tin về (.*?)(?:,|\.|$)", evaluation['analysis'].lower()):
                         missing_info.add(info.strip())
             
-            # If we have enough information, generate the answer
+            
             if evaluation["decision"] == "Đã đủ thông tin":
                 if evaluation["final_answer"]:
                     answer = evaluation["final_answer"]
@@ -324,9 +298,9 @@ class AutoRAG:
                     "missing_info": list(missing_info)
                 }
             
-            # If we need more information and have a follow-up query
+           
             if evaluation["next_query"] and iteration < self.max_iterations - 1:
-                # Check if the next query is substantively different from previous queries
+               
                 if evaluation["next_query"] not in query_history:
                     formatted_query = evaluation["next_query"]
                     query_history.append(formatted_query)
@@ -336,10 +310,10 @@ class AutoRAG:
                     print("Avoiding duplicate query, breaking loop.")
                     break
             else:
-                # If we've run out of iterations or don't have a follow-up query
+              
                 break
         
-        # If we've exhausted iterations, generate best answer with what we have
+       
         print("\nReached maximum iterations or no further relevant information found.")
         print(f"Found information about: {', '.join(found_info) if found_info else 'None'}")
         print(f"Missing information about: {', '.join(missing_info) if missing_info else 'None'}")
