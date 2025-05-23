@@ -31,13 +31,7 @@ def setup_rag_system():
     """Configure and initialize the RAG system"""
     st.sidebar.title("Cấu Hình Hệ Thống")
     
-    weaviate_host = st.sidebar.text_input("Weaviate Host", value="192.168.100.125")
-    weaviate_port = st.sidebar.text_input("Weaviate Port", value="8080")
-    weaviate_grpc_port = st.sidebar.number_input("Weaviate gRPC Port", value=50051)
     
-    index_name = st.sidebar.text_input("Index Name", value="ND168")
-    embed_model_name = st.sidebar.text_input("Embedding Model", value="bkai-foundation-models/vietnamese-bi-encoder")
-    embed_cache_folder = st.sidebar.text_input("Cache Folder", value="/home/drissdo/.cache/huggingface/hub")
     
     llm_provider = st.sidebar.radio("LLM Provider", ["openai", "vllm"], index=0)
 
@@ -50,32 +44,31 @@ def setup_rag_system():
     else:
         model_name = ""
         vllm_api_url = st.sidebar.text_input("VLLM API URL", value="http://192.168.100.125:8000/v1/completions")
-        vllm_model_name = st.sidebar.text_input("VLLM Model Name", value="Qwen/Qwen2.5-14B-Instruct-AWQ")
+        vllm_model_name = st.sidebar.selectbox(
+        "VLLM Model Name", 
+        ["Qwen/Qwen2.5-14B-Instruct-AWQ", "Qwen/Qwen2.5-3B-Instruct"],
+        index=0
+    )
         vllm_max_tokens = st.sidebar.number_input("Max Tokens", value=4096)
-    model_name = st.sidebar.selectbox("LLM Model", ["gpt-4o-mini"], index=0)
-    temperature = st.sidebar.slider("Temperature", min_value=0.0, max_value=1.0, value=0.2, step=0.1)
+        
     
-    top_k = st.sidebar.slider("Top K Results", min_value=1, max_value=20, value=10)
-    alpha = st.sidebar.slider("Alpha (Hybrid Search)", min_value=0.0, max_value=1.0, value=0.5, step=0.1)
-    
-    max_iterations = st.sidebar.slider("Max Iterations", min_value=1, max_value=5, value=3)
     
     if st.sidebar.button("Khởi Tạo Hệ Thống"):
         with st.spinner("Đang khởi tạo hệ thống RAG..."):
             try:
                 st.session_state.rag = AutoRAG(
-                    weaviate_host=weaviate_host,
-                    weaviate_port=int(weaviate_port),
-                    weaviate_grpc_port=weaviate_grpc_port,
-                    index_name=index_name,
-                    embed_model_name=embed_model_name,
-                    embed_cache_folder=embed_cache_folder,
-                    model_name=model_name,
-                    temperature=temperature,
-                    top_k=top_k,
-                    alpha=alpha,
-                    max_iterations=max_iterations,
-                    llm_provider=llm_provider,
+                    weaviate_host="192.168.100.125",
+                    weaviate_port=8080,
+                    weaviate_grpc_port=50051,
+                    index_name="ND168",
+                    embed_model_name="bkai-foundation-models/vietnamese-bi-encoder",
+                    embed_cache_folder="/home/drissdo/.cache/huggingface/hub",
+                    model_name="gpt-4o-mini",
+                    temperature=0.2,
+                    top_k=10,
+                    alpha=0.5,
+                    max_iterations=3,
+                    llm_provider="openai",
                     vllm_api_url=vllm_api_url,
                     vllm_model_name=vllm_model_name,
                     vllm_max_tokens=vllm_max_tokens
