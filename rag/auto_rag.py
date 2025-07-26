@@ -62,7 +62,7 @@ class AutoRAG:
         
         # Initialize embedding model
         self.embed_model = HuggingFaceEmbedding(
-           model_name="bkai-foundation-models/vietnamese-bi-encoder", trust_remote_code=True,cache_folder="/home/drissdo/.cache/huggingface/hub"
+           model_name="bkai-foundation-models/vietnamese-bi-encoder"
         )
         
         # Create vector index

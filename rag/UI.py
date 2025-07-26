@@ -77,9 +77,6 @@ def setup_rag_system():
             except Exception as e:
                 st.sidebar.error(f"Lỗi khi khởi tạo: {str(e)}")
     
-    st.sidebar.divider()
-    st.sidebar.subheader("Thống kê token")
-    st.sidebar.metric("Tổng token đã sử dụng", st.session_state.total_tokens)
     
     if st.sidebar.button("Xóa lịch sử"):
         st.session_state.history = []
