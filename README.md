@@ -91,7 +91,7 @@ The application will be available at `http://localhost:8501`
 
 #### VLLM Backend
 - **Default Model**: Qwen/Qwen2.5-14B-Instruct-AWQ
-- **Configuration**: Set API URL in the interface (default: http://192.168.100.125:8000/v1/completions)
+- **Configuration**: Set API URL in the interface (default: http://your-ipv4:8000/v1/completions)
 
 ## Project Structure
 
