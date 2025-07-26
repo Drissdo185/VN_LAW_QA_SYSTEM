@@ -20,3 +20,5 @@ deploy/terraform/variables.tf
 deploy/terraform/.terraform
 
 rag/app.log
+
+CLAUDE.md
